@@ -1,0 +1,221 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage{xeCJK}
+\usepackage{fontspec}
+\setCJKmainfont{Noto Serif CJK TC}[Script=CJK]
+\setCJKmonofont{Noto Sans Mono CJK TC}[Script=CJK]
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\setlength{\headheight}{14.5pt}
+\addtolength{\topmargin}{-2.5pt}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{caption}
+\usepackage{indentfirst}
+\setlength{\parindent}{2em}
+\pagestyle{fancy}
+\fancyhf{}
+\cfoot{\thepage}
+\linespread{1.3}
+
+\lstset{
+  basicstyle=\ttfamily\footnotesize,  % 字型與大小
+  keywordstyle=\color{blue},
+  commentstyle=\color{gray},
+  stringstyle=\color{orange},
+  numbers=left,                       % 行號在左側
+  numberstyle=\tiny\color{gray},
+  stepnumber=1,                       % 每行都顯示行號
+  numbersep=5pt,
+  backgroundcolor=\color{white},
+  frame=single,                       % 加上框線
+  breaklines=true,                    % 長行自動換行
+  tabsize=2,
+  language=Python                     % 可以換成 C++, Java, etc.
+}
+
+\title{Arduino教學手冊}
+\author{醫工二 戴偉璿}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\lhead{Arduino教學手冊}
+\rhead{2025/07/05}
+\newpage
+\tableofcontents
+\newpage
+
+\newpage
+\section{Arduino介紹}
+
+平時你在寫程式時，會使用電腦的\texttt{CPU}來執行程式碼，
+而\texttt{Arduino}的核心就是一顆微處理器，這顆微處理器可以執行你寫的程式碼，
+並且控制外部的電子元件，例如LED燈、馬達、感測器等等。
+
+\texttt{Arduino}的開發環境是\texttt{IDE}，這是一個可以讓你寫程式、編譯程式、上傳程式到\texttt{Arduino}開發板的軟體，
+我們已經幫你們安裝好了，但如果你在家裡想要嘗試，可以去\texttt{https://www.arduino.cc/en/software}下載最新版本的\texttt{IDE}。
+
+
+
+\newpage
+\section{Appendix- \texttt{C++}語法介紹}
+
+\subsection{\texttt{Arduino}的輸出}
+平時使用電腦編譯\texttt{C++}程式時，會使用\texttt{cout}來輸出結果，
+但在使用\texttt{Arduino}時，執行程式的核心不是電腦的\texttt{CPU}，而是你手上那一塊\texttt{Arduino}開發板，
+所以我們不能使用\texttt{cout}來輸出結果，因為\texttt{Arduino}開發板並沒有螢幕可以顯示結果。
+而是使用\texttt{Serial}來輸出結果，這樣\texttt{Arduino}開發板就可以透過USB線將結果傳送到電腦上，
+然後電腦就可以使用\texttt{Serial Monitor}來顯示結果。
+
+這樣的作法等同於僅借用點腦的螢幕來顯示結果，電腦本身不參預運算。
+
+\begin{lstlisting}
+使用Serial輸出結果
+Serial.begin(9600); //初始化Serial，9600是傳輸速率
+Serial.println("Hello World!"); //輸出Hello World!並且換行
+Serial.print("Hello World!"); //輸出Hello World!不換行
+Serial.print(123); //輸出123
+Serial.print(a); //輸出變數a的值
+如果要串接變數與字串，可以這樣寫：
+Serial.print("a的值是" + String(a)); //輸出a的值
+\end{lstlisting}
+
+\subsection{變數的種類與介紹}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|c||c|c|c|}
+\hline
+\textbf{類型} & \textbf{大小 (位元組)} & \textbf{範圍} & \textbf{用途} \\ \hline
+\texttt{int} & 4 & -2,147,483,648 to 2,147,483,647 & 整數運算 \\ \hline
+\texttt{double} & 8 & ±2.3E-308 to ±1.7E+308 & 浮點數運算 \\ \hline
+\texttt{char} & 1 & -128 to 127 或 0 to 255 & 儲存單一字元 \\ \hline
+\end{tabular}
+\caption{\texttt{C++}常用的三種變數}
+\label{tab:datatype_comparison}
+\end{table}
+
+雖然C++有以上三種常用變數，但在Arduino中，我們比較常使用的是\texttt{int}與\texttt{double}。要注意的是，由於Arduino的運算速度較慢，
+使用\texttt{double}會影響運算速度。
+
+以下是操縱變數的範例程式碼：
+
+
+\begin{lstlisting}
+宣告變數
+int a=1, b=2;
+double pi=3.14;
+
+變數運算
+int sum=a+b;//計算a+b
+int mod=a%b;//計算a除以b的餘數
+
+更改變數的值
+a=3;//將變數a的值改為3
+b+=a;//將變數b的值加上變數a的值
+
+以下的寫法都是把變數a的值加1
+a=a+1;
+a+=1;
+a++;
+++a;
+\end{lstlisting}
+    
+\subsection{if-else語法}
+我們難免會遇到一些情況，必須根據不同的條件來執行不同的程式碼。這時候就需要用到\texttt{if-else}語法。
+
+
+\begin{lstlisting}
+if-else範例程式碼
+if(a>b){
+    //當a大於b時執行的程式碼
+}else{
+    //當a不大於b時執行的程式碼
+}
+\end{lstlisting}
+
+在判別時，邏輯運算子也會派上用場，以下是常見的邏輯運算子：
+\begin{table}[h!]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{運算子} & \textbf{描述} & \textbf{範例} \\ \hline
+\texttt{\&\&(AND)}  & 當兩個條件都為真時，結果為真 & \texttt{(a > b) \&\& (b > c)} \\ \hline
+\texttt{||(OR)}  & 當至少一個條件為真時，結果為真 & \texttt{(a > b) || (b > c)} \\ \hline
+\end{tabular}
+\caption{\texttt{C++}邏輯運算子}
+\label{tab:logical_bitwise_operators}
+\end{table}
+
+\begin{lstlisting}
+邏輯運算子範例程式碼
+if(a>b && b>c){
+    //當a大於b且b大於c時執行的程式碼
+}else if(a>b || b>c){
+    //當a大於b或b大於c時執行的程式碼
+}else{
+    //當a不大於b且b不大於c時執行的程式碼
+}
+\end{lstlisting}
+
+\subsection{for loop}
+如果要重複很多次執行同樣的程式碼，使用\texttt{for loop}會比重複寫一樣的程式碼來得簡單許多。
+for loop的語法如下：
+\begin{lstlisting}
+for loop語法
+for(初始值; 條件; 更新){
+    //要執行的程式碼
+}
+舉例而言，假設我們要輸出1到10的數字，我們可以這樣寫：
+
+for(int i=1;i<=10;i++){
+    Serial.println(i);
+}
+其中，i是初始值，i<=10是條件，i++是更新的方式。
+\end{lstlisting}
+
+\subsection{while loop}
+在明確知曉執行次數的情況下，使用\texttt{for loop}會比較簡單，
+但在不明確知曉執行次數的情況下，使用\texttt{while loop}會比較直觀。
+while loop的語法如下：
+\begin{lstlisting}
+while loop語法
+while(條件){
+    //要執行的程式碼
+}
+舉例而言，假設我們要輸出1到10的數字，我們可以這樣寫：
+int i=1;
+while(i<=10){
+    Serial.println(i);
+    i++;
+}
+在這個例子中，我們先宣告一個變數i，然後使用while loop來判斷i是否小於等於10，
+如果是，就輸出i的值，然後將i的值加1，直到i大於10為止。
+\end{lstlisting}
+以上這是明確知曉執行次數的情況下，使用while loop的範例程式碼，明顯會比\texttt{for loop}來得繁瑣，
+但在不明確知曉執行次數的情況下，使用while loop會比較直觀。
+\begin{lstlisting}
+String password="arduino123";
+String input="";
+
+while(input!=password) {
+    Serial.println("請輸入密碼：");
+    while(Serial.available()==0){
+        //等待使用者輸入
+    }
+    input=Serial.readStringUntil('\n');
+    input.trim();//去除換行符
+}
+Serial.println("密碼正確，歡迎進入系統！");
+在這個例子中，我們使用while loop來判斷使用者輸入的密碼是否正確，
+如果不正確，就一直要求使用者輸入，直到輸入正確為止。
+\end{lstlisting}
+
+\end{document}

@@ -39,7 +39,7 @@
 }
 
 \title{Arduino教學手冊}
-\author{醫工二 戴偉璿}
+\author{Tai, Wei-Hsuan}
 \date{\today}
 
 \begin{document}
@@ -59,13 +59,56 @@
 而\texttt{Arduino}的核心就是一顆微處理器，這顆微處理器可以執行你寫的程式碼，
 並且控制外部的電子元件，例如LED燈、馬達、感測器等等。
 
-\texttt{Arduino}的開發環境是\texttt{IDE}，這是一個可以讓你寫程式、編譯程式、上傳程式到\texttt{Arduino}開發板的軟體，
-我們已經幫你們安裝好了，但如果你在家裡想要嘗試，可以去\texttt{https://www.arduino.cc/en/software}下載最新版本的\texttt{IDE}。
+\texttt{Arduino}的開發環境是\texttt{Arduino IDE}，這是一個可以讓你寫程式、編譯程式、上傳程式到\texttt{Arduino}開發板的軟體，
+我們已經幫你們安裝好了，但如果你在家裡想要嘗試，可以去\texttt{https://www.arduino.cc/en/software}下載最新版本的\texttt{Arduino IDE}。
 
+\section{電子學的基本概念}
 
+\subsection{電壓(Voltage)}
+電壓是電流的驅動力，單位是伏特(Volt)，簡稱V。電阻相同時，電壓越高，電流越大。
 
-\newpage
-\section{Appendix- \texttt{C++}語法介紹}
+\subsection{電流(Current)}
+電流是電荷的流動，單位是安培(A)，簡稱I。電流越大，代表單位時間內通過的電荷量越多。
+
+\subsection{電阻(Resistance)}
+電阻是對電流流動的阻礙，單位是歐姆($\Omega$)，簡稱R。在相同電壓下電阻越大，電流越小。
+
+\subsection{歐姆定律(Ohm's Law)}
+電壓、電流和電阻之間關係，可以使用歐姆定律來表示，公式為：
+$$
+V = I \cdot R
+$$
+
+這個公式告訴我們，當電壓不變時，電流和電阻成反比；當電阻不變時，電流和電壓成正比。
+
+如果用水管來比喻，電壓就是水壓，電流就是水流的速度，電阻就是水管的阻塞程度，
+水壓越大，水流的速度越快；水管阻塞程度越大，水壓就越大。
+
+\section{如何透過\texttt{Arduino}控制元件}
+
+當 \texttt{Arduino} 的腳位輸出電壓，並透過電路接到元件（例如 LED 或馬達）時，元件會因為電壓差而產生電流。這個電流流經元件內部，讓它發光、發聲或轉動。
+這就是 \texttt{Arduino} 控制元件的基本原理。這一部份的內容會教你如何使用程式控制 \texttt{Arduino} 的腳位輸出電壓，並透過電路接到元件。
+
+\subsection{Arduino IDE的程式結構}
+Arduino IDE的程式結構主要由三個部分組成：設定區、主程式區和函式區。設定區用於初始化變數和設定腳位，主程式區則是執行的主要邏輯，而函式區則是用來定義可重複使用的函式。
+
+以下的程式碼是你一打開Arduino IDE就會看到的範本程式碼：
+\begin{lstlisting}
+void setup() {
+  // put your setup code here, to run once:
+}
+void loop() {
+  // put your main code here, to run repeatedly:
+}
+\end{lstlisting}
+
+其中，\texttt{setup()}函式是用來初始化變數和設定腳位的，這個函式只有在每次重新啟動時會執行一次，
+而\texttt{loop()}函式則是用來執行主要邏輯的，這個函式會不斷重複執行，直到電源關閉或\texttt{Arduino}被重置。
+
+一般而言，我們會在\texttt{setup()}函式中設定腳位的模式，例如輸入或輸出，然後在\texttt{loop()}函式中執行主要邏輯，例如讀取感測器的數據或控制元件的狀態。
+
+你可以觀察到Arduino IDE的程式碼結構一樣是使用無數個函式來組成的，因此全域變數、自訂函式、類別等概念在Arduino IDE中也一樣適用，
+但請記得考量到Arduino開法板的效能，盡量避免使用過多的全域變數與類別，這樣會影響程式的執行速度。
 
 \subsection{\texttt{Arduino}的輸出}
 平時使用電腦編譯\texttt{C++}程式時，會使用\texttt{cout}來輸出結果，
@@ -86,6 +129,41 @@ Serial.print(a); //輸出變數a的值
 如果要串接變數與字串，可以這樣寫：
 Serial.print("a的值是" + String(a)); //輸出a的值
 \end{lstlisting}
+
+\subsection{控制腳位}
+假設你今天要讓一個\texttt{LED}燈亮起來，該怎麼做呢？你需要一個正極和一個負極，負極可以直接連接到開發板上的\texttt{GND}腳位，
+而正極的操作就多了，開發板上有現成的\texttt{5V}腳位可以使用，但這個腳位是持續輸出電壓的，如果你想要控制他閃爍，就必須控制腳位的電壓輸出，
+這時候就需要用到\texttt{digitalWrite()}這個函式了。
+\begin{lstlisting}    
+使用digitalWrite控制腳位
+
+請記得先使用pinMode設定腳位的模式
+void setup() {
+  pinMode(13, OUTPUT); //設定腳位13為輸出模式
+}
+
+在loop()中做你想做的事情，例如以下程式碼會讓腳位13的電壓不斷地閃爍
+void loop() {
+    digitalWrite(13, HIGH); //將腳位13的電壓設為5V
+    delay(1000); //延遲1秒（1000毫秒）
+    digitalWrite(13, LOW); //將腳位13的電壓設為0V 
+    delay(1000); //延遲1秒
+    其中，HIGH也可以用1來表示，LOW也可以用0來表示，
+    所以這兩行程式碼也可以寫成：
+    digitalWrite(13, 1); //將腳位13的電壓設為5V
+    delay(1000); //延遲1秒
+    digitalWrite(13, 0); //將腳位13的電壓設為0V    
+    delay(1000); //延遲1秒
+}
+
+
+
+\end{lstlisting}
+
+
+\newpage
+\section{Appendix- \texttt{C++}語法介紹}
+
 
 \subsection{變數的種類與介紹}
 

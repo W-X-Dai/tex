@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023/Debian) (preloaded format=xelatex 2025.4.21)  6 MAY 2025 01:23
+This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023/Debian) (preloaded format=xelatex 2025.4.21)  6 MAY 2025 23:36
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -600,7 +600,7 @@ Package fontspec Info: Could not resolve font "Noto Sans Mono CJK TC/I" (it
 (fontspec)             probably doesn't exist).
 
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <12> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 2.
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 7.
 
 Package fontspec Info: Font family 'NotoSansMonoCJKTC(0)' created for font
 (fontspec)             'Noto Sans Mono CJK TC' with options
@@ -623,26 +623,27 @@ Package fontspec Info: Font family 'NotoSansMonoCJKTC(0)' created for font
 \tf@toc=\write4
 \openout4 = `arduino.toc'.
 
- [2] [3]
+ [2]
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <17.28> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 68.
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 87.
+ [3]
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <14.4> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 70.
- [4] [5] [6] (./arduino.aux)
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 113.
+ [4] [5] [6] [7] [8] (./arduino.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2022/08/05>
  ***********
 Package rerunfilecheck Info: File `arduino.out' has not changed.
-(rerunfilecheck)             Checksum: 46EEB58CB39647E23732A92A4F12812C;792.
+(rerunfilecheck)             Checksum: 5CC76F896A2B952D7B66CD988A8A2374;1831.
  ) 
 Here is how much of TeX's memory you used:
- 18238 strings out of 474878
- 363183 string characters out of 5762516
- 2131627 words of memory out of 5000000
- 40049 multiletter control sequences out of 15000+600000
- 566671 words of font info for 103 fonts, out of 8000000 for 9000
+ 18361 strings out of 474878
+ 368190 string characters out of 5762516
+ 2081627 words of memory out of 5000000
+ 40173 multiletter control sequences out of 15000+600000
+ 566663 words of font info for 102 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  74i,12n,81p,404b,1811s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on arduino.pdf (6 pages).
+Output written on arduino.pdf (8 pages).

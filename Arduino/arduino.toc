@@ -1,7 +1,15 @@
 \contentsline {section}{\numberline {1}Arduino介紹}{3}{section.1}%
-\contentsline {section}{\numberline {2}Appendix- \texttt {C++}語法介紹}{4}{section.2}%
-\contentsline {subsection}{\numberline {2.1}\texttt {Arduino}的輸出}{4}{subsection.2.1}%
-\contentsline {subsection}{\numberline {2.2}變數的種類與介紹}{4}{subsection.2.2}%
-\contentsline {subsection}{\numberline {2.3}if-else語法}{5}{subsection.2.3}%
-\contentsline {subsection}{\numberline {2.4}for loop}{5}{subsection.2.4}%
-\contentsline {subsection}{\numberline {2.5}while loop}{6}{subsection.2.5}%
+\contentsline {section}{\numberline {2}電子學的基本概念}{3}{section.2}%
+\contentsline {subsection}{\numberline {2.1}電壓(Voltage)}{3}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}電流(Current)}{3}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}電阻(Resistance)}{3}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}歐姆定律(Ohm's Law)}{3}{subsection.2.4}%
+\contentsline {section}{\numberline {3}如何透過\texttt {Arduino}控制元件}{3}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Arduino IDE的程式結構}{4}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}\texttt {Arduino}的輸出}{4}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}控制腳位}{5}{subsection.3.3}%
+\contentsline {section}{\numberline {4}Appendix- \texttt {C++}語法介紹}{6}{section.4}%
+\contentsline {subsection}{\numberline {4.1}變數的種類與介紹}{6}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}if-else語法}{6}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}for loop}{7}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}while loop}{7}{subsection.4.4}%

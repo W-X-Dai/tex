@@ -1,10 +1,10 @@
-This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023/Debian) (preloaded format=xelatex 2025.4.21)  7 MAY 2025 22:59
+This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023/Debian) (preloaded format=xelatex 2025.4.21)  7 MAY 2025 23:33
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**/home/josh/Latex/Arduino/arduino
-(/home/josh/Latex/Arduino/arduino.tex
+**/home/josh/Latex/Arduino/arduino_manual
+(/home/josh/Latex/Arduino/arduino_manual.tex
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
 (/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
@@ -644,8 +644,8 @@ File: lstlang1.sty 2023/02/27 1.9 listings language file
 File: lstlang1.sty 2023/02/27 1.9 listings language file
 ) (/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty
 File: lstmisc.sty 2023/02/27 1.9 (Carsten Heinz)
-) (./arduino.aux)
-\openout1 = `arduino.aux'.
+) (./arduino_manual.aux)
+\openout1 = `arduino_manual.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 47.
 LaTeX Font Info:    ... okay on input line 47.
@@ -763,9 +763,9 @@ LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 (Font)                  OT1/cmtt/m/n --> TU/lmtt/b/n on input line 47.
 Package hyperref Info: Link coloring OFF on input line 47.
-(./arduino.out) (./arduino.out)
+(./arduino_manual.out) (./arduino_manual.out)
 \@outlinefile=\write4
-\openout4 = `arduino.out'.
+\openout4 = `arduino_manual.out'.
 
 \c@lstlisting=\count350
 Package caption Info: Begin \AtBeginDocument code.
@@ -801,33 +801,34 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 50.
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
-] (./arduino.toc
-LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <12> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 1.
-)
+]
+No file arduino_manual.toc.
 \tf@toc=\write5
-\openout5 = `arduino.toc'.
+\openout5 = `arduino_manual.toc'.
 
- [2]
+[2]
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <17.28> not available
 (Font)              Font shape `TU/lmtt/b/n' tried instead on input line 58.
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <14.4> not available
 (Font)              Font shape `TU/lmtt/b/n' tried instead on input line 72.
- [3] [4] [5] [6] [7] [8] [9] [10] (./arduino.aux)
+ [3]
+LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <12> not available
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 100.
+ [4] [5] [6] [7] [8] [9] [10] (./arduino_manual.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2022/08/05>
  ***********
-Package rerunfilecheck Info: File `arduino.out' has not changed.
+Package rerunfilecheck Info: File `arduino_manual.out' has not changed.
 (rerunfilecheck)             Checksum: 125F564992074F814A65B57B0337B3E1;2652.
  ) 
 Here is how much of TeX's memory you used:
- 28576 strings out of 474878
- 593163 string characters out of 5762516
+ 28573 strings out of 474878
+ 593262 string characters out of 5762516
  2107627 words of memory out of 5000000
- 50176 multiletter control sequences out of 15000+600000
+ 50175 multiletter control sequences out of 15000+600000
  566679 words of font info for 104 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 84i,12n,87p,445b,1788s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 84i,12n,87p,452b,1788s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on arduino.pdf (10 pages).
+Output written on arduino_manual.pdf (10 pages).

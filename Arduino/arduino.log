@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023/Debian) (preloaded format=xelatex 2025.3.21)  7 MAY 2025 17:34
+This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023/Debian) (preloaded format=xelatex 2025.4.21)  7 MAY 2025 22:59
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -812,7 +812,7 @@ LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <12> not available
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <17.28> not available
 (Font)              Font shape `TU/lmtt/b/n' tried instead on input line 58.
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <14.4> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 69.
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 72.
  [3] [4] [5] [6] [7] [8] [9] [10] (./arduino.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
@@ -824,7 +824,7 @@ Package rerunfilecheck Info: File `arduino.out' has not changed.
 Here is how much of TeX's memory you used:
  28576 strings out of 474878
  593163 string characters out of 5762516
- 2142627 words of memory out of 5000000
+ 2107627 words of memory out of 5000000
  50176 multiletter control sequences out of 15000+600000
  566679 words of font info for 104 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191

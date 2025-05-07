@@ -58,8 +58,11 @@
 \section{\texttt{Arduino}介紹}
 
 平時你在寫程式時，會使用電腦的中央處理器（\texttt{CPU}）來執行程式碼，
-而\texttt{Arduino}的核心就是一顆微處理器，這顆微處理器可以執行你寫的程式碼，
+而\texttt{Arduino}的核心是一顆微處理器，這顆微處理器可以執行你寫的程式碼，
 並且控制外部的電子元件，例如\texttt{LED}燈、馬達、感測器等等。
+
+簡言之，你可以把\texttt{Arduino}想成是一個小型的電腦，雖然效能比不上真正的電腦，但勝在小巧、便宜、複雜程度低、易於使用。
+開發不了真正的電腦，玩玩\texttt{Arduino}也不錯。
 
 \texttt{Arduino}的開發環境是\texttt{Arduino IDE}，這是一個可以讓你寫程式、編譯程式、上傳程式到\texttt{Arduino}開發板的軟體，
 我們已經幫你們安裝好了，但如果你在家裡想要嘗試，可以去\texttt{https://www.arduino.cc/en/software}下載最新版本的\texttt{Arduino IDE}。
@@ -88,18 +91,18 @@ $$
 
 \section{如何透過\texttt{Arduino}控制元件}
 
-當 \texttt{Arduino} 的腳位輸出電壓，並透過電路接到元件（例如 LED 或馬達）時，元件會因為電壓差而產生電流。這個電流流經元件內部，讓它發光、發聲或轉動。
+當 \texttt{Arduino} 的腳位輸出電壓，並透過電路接到元件（例如 \texttt{LED} 或馬達）時，元件會因為電壓差而產生電流。這個電流流經元件內部，讓它發光、發聲或轉動。
 這就是 \texttt{Arduino} 控制元件的基本原理。這一部份的內容會教你如何使用程式控制 \texttt{Arduino} 的腳位輸出電壓，並透過電路接到元件。
 
 \subsection{元件介紹}
-在這一部份，我們將介紹一些常用的電子元件，這些元件可以用來控制電路的狀態，並且可以與Arduino開發板進行互動。
+在這一部份，我們將介紹一些常用的電子元件，這些元件可以用來控制電路的狀態，並且可以與\texttt{Arduino}開發板進行互動。
 
-\subsubsection{LED}
+\subsubsection{\texttt{LED}}
 
-LED是發光二極體（light-emitting diode）的縮寫，簡言之是個通電之後會發光的元件。
-觀察LED燈泡，你會發現有一長一短的兩隻腳，在連接電路時，長腳是正極，短腳是負極。
+\texttt{LED}是發光二極體（light-emitting diode）的縮寫，簡言之是個通電之後會發光的元件。
+觀察\texttt{LED}燈泡，你會發現有一長一短的兩隻腳，在連接電路時，長腳是正極，短腳是負極。
 
-LED非常容易燒壞，所以在連接電路時，必須加上電阻來保護LED。
+\texttt{LED}非常容易燒壞，所以在連接電路時，必須加上電阻來保護\texttt{LED}。
 電阻的計算尤其複雜，這邊不贅述，直接使用我們給你的就行了
 
 \subsubsection{電阻}
@@ -163,9 +166,9 @@ LED非常容易燒壞，所以在連接電路時，必須加上電阻來保護LE
 蜂鳴器是個很吵的元件，當你給它一個電壓訊號時，它會發出聲音，
 你可以利用電壓的大小來控制音量的大小，利用電壓的頻率來控制音調的高低。
 
-蜂鳴器的使用方式與LED一樣，只要將蜂鳴器的正極連接到開發板的腳位，負極連接到GND腳位，
-然後使用\texttt{digitalWrite()}來控制腳位的電壓輸出，就可以讓蜂鳴器發出聲音。和LED不同的地方是，
-蜂鳴器也有內電阻，所以不需要額外加上電阻來保護它。
+蜂鳴器的使用方式與\texttt{LED}一樣，只要將蜂鳴器的正極連接到開發板的腳位，負極連接到\texttt{GND}腳位，
+然後使用\texttt{digitalWrite()}來控制腳位的電壓輸出，就可以讓蜂鳴器發出聲音。和\texttt{LED}不同的地方是，
+蜂鳴器也有內電阻，所以不需要額外加上電阻來保護它。蜂鳴器上面就有標示正負極，但也可以使用長短腳的規則來判斷。
 
 
 \subsubsection{壓覺感測器}
@@ -173,21 +176,22 @@ LED非常容易燒壞，所以在連接電路時，必須加上電阻來保護LE
 檢查你手中的元件盒，你會發現似乎沒有按鈕這個元件，這是因為我們使用了壓覺感測器來取代按鈕。
 壓覺感測器就是個觸控開關，當你觸碰它時，會產生一個電壓訊號，這個電壓訊號可以用來控制其他元件的狀態。
 
-電路的部份，他需要一組單獨的電源來供電，這組電源的正極連接到壓覺感測器的VCC腳位，負極連接到GND腳位，
-而壓覺感測器的SIG腳位則連接到開發板的腳位，
+電路的部份，他需要一組單獨的電源來供電，這組電源的正極連接到壓覺感測器的\texttt{VCC}腳位，負極連接到\texttt{GND}腳位，
+而壓覺感測器的\texttt{SIG}腳位則連接到開發板的腳位，
 這樣就可以使用\texttt{digitalRead()}來讀取壓覺感測器的電壓訊號。
 壓覺感測器有內電阻，所以不需要額外加上電阻來保護它。
 
-\subsubsection{Arduino Uno開發板}
-就是你手上這一塊開發板，這是Arduino的入門款開發板，連接電腦後可以透過程式控制每個腳位的行為，
+\subsubsection{\texttt{Arduino Uno}開發板}
+就是你手上這一塊開發板，這是\texttt{Arduino}的入門款開發板，連接電腦後可以透過程式控制每個腳位的行為，
 這裡不贅述（因為可以講的太多了）。
 
 
 
-\subsection{Arduino IDE的程式結構}
-Arduino IDE的程式結構主要由三個部分組成：設定區、主程式區和函式區。設定區用於初始化變數和設定腳位，主程式區則是執行的主要邏輯，而函式區則是用來定義可重複使用的函式。
+\subsection{\texttt{Arduino IDE}的程式結構}
+\texttt{Arduino IDE}的程式結構主要由三個部分組成：設定區、主程式區和函式區。
+設定區用於初始化變數和設定腳位，主程式區則是執行的主要邏輯，而函式區則是用來定義可重複使用的函式。
 
-以下的程式碼是你一打開Arduino IDE就會看到的範本程式碼：
+以下的程式碼是你一打開\texttt{Arduino IDE}就會看到的範本程式碼：
 \begin{lstlisting}
 void setup() {
   // put your setup code here, to run once:
@@ -202,8 +206,8 @@ void loop() {
 
 一般而言，我們會在\texttt{setup()}函式中設定腳位的模式，例如輸入或輸出，然後在\texttt{loop()}函式中執行主要邏輯，例如讀取感測器的數據或控制元件的狀態。
 
-你可以觀察到Arduino IDE的程式碼結構一樣是使用無數個函式來組成的，因此全域變數、自訂函式、類別等概念在Arduino IDE中也一樣適用，
-但請記得考量到Arduino開法板的效能，盡量避免使用過多的全域變數與類別，這樣會影響程式的執行速度。
+你可以觀察到\texttt{Arduino IDE}的程式碼結構一樣是使用無數個函式來組成的，因此全域變數、自訂函式、類別等概念在\texttt{Arduino IDE}中也一樣適用，
+但請記得考量到\texttt{Arduino}開發板的效能，盡量避免使用過多的全域變數與類別，這樣會影響程式的執行速度。
 
 \subsection{\texttt{Arduino}的輸出}
 平時使用電腦編譯\texttt{C++}程式時，會使用\texttt{cout}來輸出結果，
@@ -223,8 +227,8 @@ Serial.print(a); //輸出變數a的值
 Serial.print("a的值是" + String(a)); //輸出a的值
 \end{lstlisting}
 
-熟悉C++的同學可能會發現，我們使用了\texttt{String}這個類別來串接字串，但這與標準C++中的\texttt{std::string}有所不同。
-\texttt{String}是Arduino IDE內建的類別，設計上更輕量化，以適應Arduino開發板的資源限制，
+熟悉\texttt{C++}的同學可能會發現，我們使用了\texttt{String}這個類別來串接字串，但這與標準\texttt{C++}中的\texttt{std::string}有所不同。
+\texttt{String}是\texttt{Arduino IDE}內建的類別，設計上更輕量化，以適應Arduino開發板的資源限制，
 因此能夠在硬體性能有限的情況下順利運行。
 
 \subsection{如何控制腳位}
@@ -331,7 +335,7 @@ a++;
 ++a;
 \end{lstlisting}
     
-\subsection{if-else語法}
+\subsection{\texttt{if-else}語法}
 我們難免會遇到一些情況，必須根據不同的條件來執行不同的程式碼。這時候就需要用到\texttt{if-else}語法。
 
 
@@ -368,9 +372,9 @@ if(a>b && b>c){
 }
 \end{lstlisting}
 
-\subsection{for loop}
+\subsection{\texttt{for loop}}
 如果要重複很多次執行同樣的程式碼，使用\texttt{for loop}會比重複寫一樣的程式碼來得簡單許多。
-for loop的語法如下：
+\texttt{for loop}的語法如下：
 \begin{lstlisting}
 for loop語法
 for(初始值; 條件; 更新){
@@ -384,10 +388,10 @@ for(int i=1;i<=10;i++){
 其中，i是初始值，i<=10是條件，i++是更新的方式。
 \end{lstlisting}
 
-\subsection{while loop}
+\subsection{\texttt{while loop}}
 在明確知曉執行次數的情況下，使用\texttt{for loop}會比較簡單，
 但在不明確知曉執行次數的情況下，使用\texttt{while loop}會比較直觀。
-while loop的語法如下：
+\texttt{while loop}的語法如下：
 \begin{lstlisting}
 while loop語法
 while(條件){

@@ -103,7 +103,7 @@ $$
 觀察\texttt{LED}燈泡，你會發現有一長一短的兩隻腳，在連接電路時，長腳是正極，短腳是負極。
 
 \texttt{LED}非常容易燒壞，所以在連接電路時，必須加上電阻來保護\texttt{LED}。
-電阻的計算尤其複雜，這邊不贅述，直接使用我們給你的就行了
+電阻值的計算雖然重要，但這裡先不細講，課堂上會提供你適用的電阻
 
 \subsubsection{電阻}
 電阻是用來限制電流流動的元件，在電路中通常與電子元件串聯使用，以防止電流過大導致電子元件損壞。
@@ -403,9 +403,12 @@ while(i<=10){
     Serial.println(i);
     i++;
 }
-在這個例子中，我們先宣告一個變數i，然後使用while loop來判斷i是否小於等於10，
-如果是，就輸出i的值，然後將i的值加1，直到i大於10為止。
+
 \end{lstlisting}
+在這個例子中，我們先宣告一個變數\texttt{i}，然後使用\texttt{while loop}來判斷\texttt{i}是否小於等於\texttt{10}，
+如果是，就輸出\texttt{i}的值，然後將\texttt{i}的值加\texttt{1}，直到\texttt{i}大於\texttt{10}為止。
+
+
 以上這是明確知曉執行次數的情況下，使用\texttt{while loop}的範例程式碼，明顯會比\texttt{for loop}來得繁瑣，
 但在不明確知曉執行次數的情況下，使用\texttt{while loop}會比較直觀。
 \begin{lstlisting}
@@ -421,8 +424,9 @@ while(input!=password) {
     input.trim();//去除換行符
 }
 Serial.println("密碼正確，歡迎進入系統！");
-在這個例子中，我們使用while loop來判斷使用者輸入的密碼是否正確，
-如果不正確，就一直要求使用者輸入，直到輸入正確為止。
 \end{lstlisting}
+在這個例子中，我們使用\texttt{while loop}來判斷使用者輸入的密碼是否正確，
+如果不正確，就一直要求使用者輸入，直到輸入正確為止，這是 \texttt{while loop}的典型應用範例：重複執行直到條件不再成立為止
+
 
 \end{document}

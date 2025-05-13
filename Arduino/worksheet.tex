@@ -1,0 +1,198 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage{xeCJK}
+\usepackage{fontspec}
+\setCJKmainfont{Noto Serif CJK TC}[Script=CJK]
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\setlength{\headheight}{14.5pt}
+\addtolength{\topmargin}{-2.5pt}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{caption}
+\usepackage{indentfirst}
+\setlength{\parindent}{2em}
+\pagestyle{fancy}
+\fancyhf{}
+\cfoot{\thepage}
+\linespread{1.3}
+
+\usepackage{xcolor}
+\lstset{
+    basicstyle=\ttfamily\footnotesize,  % 字型與大小
+    keywordstyle=\color{blue},
+    commentstyle=\color{gray},
+    stringstyle=\color{orange},
+    numbers=left,                       % 行號在左側
+    numberstyle=\tiny\color{gray},
+    stepnumber=1,                       % 每行都顯示行號
+    numbersep=5pt,
+    backgroundcolor=\color{white},
+    frame=single,                       % 加上框線
+    breaklines=true,                    % 長行自動換行
+    tabsize=2,
+    language=C++                     % 可以換成 \texttt{C++}, \texttt{Java}, etc.
+}
+
+\usepackage{titlesec}
+\titleformat{\section}[block]{\normalfont\Large\bfseries}{}{0pt}{}
+\makeatletter
+\renewcommand{\thesubsection}{\@arabic\c@subsection}
+\makeatother
+
+\begin{document}
+
+\lhead{電子學實驗手冊}
+\rhead{2025/07/05}
+
+
+\section{電子學實驗手冊}
+
+\subsection{\texttt{LED}燈}
+
+\subsubsection{點亮燈泡}
+請使用你手邊的工具將一個燈泡點亮，你可以參考以下的程式碼來完成這個任務。
+\begin{lstlisting}
+void setup() {
+    pinMode(3, OUTPUT);
+    digitalWrite(3, HIGH);
+}
+\end{lstlisting}
+
+\subsubsection{讓燈泡閃爍吧}
+在\texttt{Arduino}中，\texttt{delay(t)}函數可以讓程式暫停\texttt{t}毫秒，
+巧妙利用這個函數以及\texttt{digitalWrite()}函數，可以讓燈泡閃爍起來。
+
+現在，請你利用剛剛實驗一的電路，讓燈泡閃爍吧！
+
+\subsection{蜂鳴器}
+
+\subsubsection{讓蜂鳴器叫一下}
+請修改你在實驗二的作品，讓蜂鳴器在燈泡閃爍的同時發出聲音。
+
+\subsubsection{蜂鳴器的音調}
+蜂鳴器的功能並不只是發出聲音而已，你也可以配合\texttt{tone()}函數來改變音調。
+
+\texttt{Arduino}提供了一個方便的函數\texttt{tone(pin, frequency)}，可以讓你控制蜂鳴器的音調。
+
+舉例來說：
+\begin{lstlisting}
+tone(9, 440); //在第9腳位輸出440Hz（也就是音樂中的「A4」）
+\end{lstlisting}
+
+現在，請你修改之前的作品，讓蜂鳴器在每次閃爍時發出不同的音調（例如交替使用 440Hz 和 880Hz），你甚至可以試著寫出一小段旋律！
+
+以下是不同音調的對照表，你可以參考這個表格來設計你的旋律：
+\begin{table}[h!]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+Note & C4 & D4 & E4 & F4 & G4 & A4 & B4 & C5 & D5 & E5 & F5 \\ \hline
+Freq (Hz) & 261 & 294 & 329 & 349 & 392 & 440 & 493 & 523 & 587 & 659 & 698 \\ \hline
+\end{tabular}
+\caption{音調對照表}
+\label{tab:freq_table}
+\end{table}
+
+\subsection{觸控開關}
+\subsubsection{你真的有按到嘛？}
+請設計一個電路及程式碼，按下開關時讓燈泡亮起，放開時燈泡熄滅。
+
+\subsubsection{求救信號}
+正在讀期末的可悲大學生感覺自己快要不行了，請設計一個電路及程式碼，
+讓他按下開關就可以控制\texttt{LED}燈泡閃爍，並且發出\texttt{SOS}的求救信號，
+發出求救信號之後請控制蜂鳴器發出救護車的音調。
+救救可悲的大學牲吧！
+
+\texttt{SOS}的摩斯密碼是\texttt{... --- ...}，也就是三個點、三個劃、三個；
+救護車的音調為715Hz 和956Hz交替發出。
+
+
+\subsection{挑戰題（Bonus）}
+
+利用手邊的工具製作一個「摩斯密碼打字機」，利用按壓觸控開關時間的長短來決定是點(.)還是劃(-)
+，並且能夠將輸入的摩斯密碼轉換成對應的字母顯示在序列埠監視器（Serial Monitor）上。
+
+假設這個觸控開關的正極、負極已經連接在開發板的\texttt{5V}和\texttt{GND}，
+並且\texttt{SIG}接在開發板的腳位7；腳位8連接了一個\texttt{LED}燈泡，如果開關被按壓，燈泡就會亮。
+請完成以下程式碼的填空：
+
+\begin{lstlisting}
+#define BUTTON_PIN 2
+#define THRESHOLD 200 //定義點的時間，小於此值為點，大於為劃
+
+String morseCode = "",code="";
+unsigned long buttonPressTime = 0;
+bool isPressed = false;
+
+//摩斯密碼對照表
+const char* morseTable[][2] = {
+    {".-", "A"}, {"-...", "B"}, {"-.-.", "C"}, {"-..", "D"}, {".", "E"},
+    {"..-.", "F"}, {"--.", "G"}, {"....", "H"}, {"..", "I"}, {".---", "J"},
+    ...
+};
+
+void setup() {
+    pinMode(___[1]___, INPUT);
+    pinMode(8, OUTPUT);
+    Serial.begin(9600); //初始化通信阜
+}
+
+inline char transCode(String morseCode) {
+    //搜尋整個對照表
+    for (int i = 0; i < 36; ++i) {
+    //輸入的內容和對照表上的某個值相同
+    if (String(morseTable[i][0]) == morseCode) {
+        return morseTable[i][1][0]; //回傳對應的字母
+    }
+    }
+    return '?'; //如果輸入的東西不存在於對照表，回傳問號
+}
+
+void loop() {
+    int buttonState = digitalRead(___[2]___);
+    if(___[3]___)digitalWrite(8,HIGH);
+    else digitalWrite(8,LOW);
+
+    //原本沒壓下去，紀錄壓下去那一刻的時間戳記
+    if(buttonState and !isPressed){
+    buttonPressTime=millis();  //millis()會回傳當前的時間（單位：ms）
+    isPressed=1;
+    }
+    
+    //原本的狀態是壓下去的，此時放開，計算按壓時間持續了多久
+    if(!buttonState and isPressed){
+    unsigned long pressDuration=millis()-buttonPressTime;
+    //持續時間小於THRESHOLD就紀錄為點，否則為劃
+    if(___[4]___<THRESHOLD)Serial.print("."), morseCode+=".";
+    else Serial.print("-"), morseCode+="-";
+    isPressed=0;
+    }
+    
+    //停止輸入一秒後，把曾經輸入的點、劃轉換成字母
+    if(!isPressed and buttonPressTime and millis()-buttonPressTime>1000){
+    char new_letter=transCode(___[5]___);//把得到的點-劃字串轉換成字母
+    code+=new_letter; //把新轉譯出來的字母加到結果
+    buttonPressTime=0; //重製計時器
+    morseCode = ""; //清理暫存
+    Serial.print("目前輸入：");
+    Serial.println(___[6]___); //顯示結果
+    }
+}
+\end{lstlisting}
+
+答題表：
+\begin{table}[h!]
+\centering
+\begin{tabular}{|c|p{7cm}|c|p{7cm}|}
+\hline
+1 &  & 4 & \\ \hline
+2 &  & 5 & \\ \hline
+3 &  & 6 & \\ \hline
+\end{tabular}
+\end{table}
+
+\end{document}

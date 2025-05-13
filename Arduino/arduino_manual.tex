@@ -57,6 +57,7 @@
 \newpage
 \section{\texttt{Arduino}介紹}
 
+\subsection{\texttt{Arduino}是什麼？}
 平時你在寫程式時，會使用電腦的中央處理器（\texttt{CPU}）來執行程式碼，
 而\texttt{Arduino}的核心是一顆微處理器，這顆微處理器可以執行你寫的程式碼，
 並且控制外部的電子元件，例如\texttt{LED}燈、馬達、感測器等等。
@@ -66,6 +67,30 @@
 
 \texttt{Arduino}的開發環境是\texttt{Arduino IDE}，這是一個可以讓你寫程式、編譯程式、上傳程式到\texttt{Arduino}開發板的軟體，
 我們已經幫你們安裝好了，但如果你在家裡想要嘗試，可以去\texttt{https://www.arduino.cc/en/software}下載最新版本的\texttt{Arduino IDE}。
+
+\subsection{環境設定}
+
+當你拿到一塊\texttt{Arduino}開發板時，要如何讓電腦認得這塊開發板呢？
+並不是說你插上去就可以了，還需要一些設定。
+除了驅動程式（通常電腦會自己安裝）以外，你還需要在\texttt{Arduino IDE}中選擇正確的開發板型號和端口。
+我們上課使用的開發板是\texttt{Arduino Uno}，
+所以在\texttt{Arduino IDE}中選擇\texttt{Tools} > \texttt{Board} > \texttt{Arduino Uno}，
+並選擇正確的端口（通常是\texttt{COM3}或\texttt{ttyUSB0}）。
+
+以下是設定的範例：
+
+\begin{figure}[h!]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{src/image1.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{src/image2.png}
+    \end{minipage}
+\end{figure}
 
 \section{電子學的基本概念}
 
@@ -261,6 +286,7 @@ void loop() {
 此時，在\texttt{LED}的正極連接到腳位13，負極連接到開發板的\texttt{GND}腳位，
 LED就會開始閃爍了。請注意，這邊的電位輸出有點高，可能會燒掉\texttt{LED}，所以使用時務必加上電阻來保護\texttt{LED}。
 
+\newpage
 \subsection{如何讀取訊號}
 在\texttt{Arduino}的元件中，有些元件會輸出電壓訊號，例如按鈕、感測器等，
 這些元件的電壓訊號可以用來控制其他元件的狀態，例如按鈕按下時可以讓\texttt{LED}燈亮起來，感測器偵測到物體時可以讓馬達轉動等。

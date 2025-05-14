@@ -72,10 +72,10 @@
 
 當你拿到一塊\texttt{Arduino}開發板時，要如何讓電腦認得這塊開發板呢？
 並不是說你插上去就可以了，還需要一些設定。
-除了驅動程式（通常電腦會自己安裝）以外，你還需要在\texttt{Arduino IDE}中選擇正確的開發板型號和端口。
+除了驅動程式（通常電腦會自己安裝）以外，你還需要在\texttt{Arduino IDE}中選擇正確的開發板型號和埠口。
 我們上課使用的開發板是\texttt{Arduino Uno}，
 所以在\texttt{Arduino IDE}中選擇\texttt{Tools} > \texttt{Board} > \texttt{Arduino Uno}，
-並選擇正確的端口（通常是\texttt{COM3}或\texttt{ttyUSB0}）。
+並選擇正確的埠口（通常是\texttt{COM3}或\texttt{ttyUSB0}）。
 
 以下是設定的範例：
 
@@ -339,7 +339,7 @@ void loop() {
 要注意的是，由於\texttt{Arduino}的運算速度較慢，
 使用\texttt{double}會影響運算速度。
 
-以下是操縱變數的範例程式碼：
+以下是操縱變數的範例程式碼（所有運算符號都可以替換成別的）：
 
 \begin{lstlisting}
 宣告變數
@@ -414,6 +414,7 @@ for(int i=1;i<=10;i++){
 其中，i是初始值，i<=10是條件，i++是更新的方式。
 \end{lstlisting}
 
+\newpage
 \subsection{\texttt{while loop}}
 在明確知曉執行次數的情況下，使用\texttt{for loop}會比較簡單，
 但在不明確知曉執行次數的情況下，使用\texttt{while loop}會比較直觀。

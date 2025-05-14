@@ -66,24 +66,28 @@ void setup() {
 在\texttt{Arduino}中，\texttt{delay(t)}函數可以讓程式暫停\texttt{t}毫秒，
 巧妙利用這個函數以及\texttt{digitalWrite()}函數，可以讓燈泡閃爍起來。
 
-現在，請你利用剛剛實驗一的電路，讓燈泡閃爍吧！
+現在，請你利用剛剛1.1的電路，讓燈泡閃爍吧！
 
 \subsection{蜂鳴器}
 
 \subsubsection{讓蜂鳴器叫一下}
-請修改你在實驗二的作品，讓蜂鳴器在燈泡閃爍的同時發出聲音。
+請修改你在1.2的作品，讓蜂鳴器在燈泡閃爍的同時發出聲音。
 
 \subsubsection{蜂鳴器的音調}
 蜂鳴器的功能並不只是發出聲音而已，你也可以配合\texttt{tone()}函數來改變音調。
 
-\texttt{Arduino}提供了一個方便的函數\texttt{tone(pin, frequency)}，可以讓你控制蜂鳴器的音調。
+\texttt{Arduino}提供了一個函數\texttt{tone(pin, frequency)}，
+利用控制腳位輸出的電壓頻率使蜂鳴器發出不同的音調（你可以用\texttt{LED}燈來試試）。
 
 舉例來說：
 \begin{lstlisting}
 tone(9, 440); //在第9腳位輸出440Hz（也就是音樂中的「A4」）
 \end{lstlisting}
 
-現在，請你修改之前的作品，讓蜂鳴器在每次閃爍時發出不同的音調（例如交替使用 440Hz 和 880Hz），你甚至可以試著寫出一小段旋律！
+此外，你也可以搭配\texttt{delay()}函數來控制音調的持續時間，
+要記得這個函式控制的時間單位是毫秒（ms），也就是千分之一秒。
+
+現在，請使用手邊的蜂鳴器演奏一段旋律吧！
 
 以下是不同音調的對照表，你可以參考這個表格來設計你的旋律：
 \begin{table}[h!]
@@ -117,10 +121,29 @@ Josh想要設計一個超酷炫的手電筒，他的要求有：
 發出求救信號之後請控制蜂鳴器發出救護車的音調。
 救救可悲的大學牲吧！
 
-\texttt{SOS}的摩斯密碼是\texttt{... --- ...}，也就是三個點、三個劃、三個；
+\texttt{SOS}的摩斯密碼是\texttt{... --- ...}，也就是三個點、三個劃、三個點；
 救護車的音調為715Hz 和956Hz交替發出。
 
+下面提供其他摩斯密碼的對照表，你也可以設計你自己的求救信號：
+\begin{table}[h!]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+Letter & A   & B    & C    & D   & E   & F   & G    & H    & I    & J    \\ \hline
+Code  & \texttt{.-}  & \texttt{-...} & \texttt{-.-.} & \texttt{-..} & \texttt{.}   & \texttt{..-.} & \texttt{--.}  & \texttt{....} & \texttt{..}   & \texttt{.---} \\ \hline
+Letter & K   & L    & M    & N   & O   & P   & Q    & R    & S    & T    \\ \hline
+Code  & \texttt{-.-} & \texttt{.-..} & \texttt{--}   & \texttt{-.}  & \texttt{---} & \texttt{.--.} & \texttt{--.-} & \texttt{.-.}  & \texttt{...}  & \texttt{-}    \\ \hline
+Letter & U   & V    & W    & X   & Y   & Z   & 0    & 1    & 2    & 3    \\ \hline
+Code  & \texttt{..-} & \texttt{...-} & \texttt{.--}  & \texttt{-..-} & \texttt{-.--} & \texttt{--..} & \texttt{-----} & \texttt{.----} & \texttt{..---} & \texttt{...--} \\ \hline
+Letter & 4   & 5    & 6    & 7   & 8   & 9   &      &      &      &      \\ \hline
+Code  & \texttt{....-} & \texttt{.....} & \texttt{-....} & \texttt{--...} & \texttt{---..} & \texttt{----.} &      &      &      &      \\ \hline
+\end{tabular}
+\caption{摩斯密碼對照表}
+\label{tab:morse_table}
+\end{table}
 
+
+\newpage
 \subsection{挑戰題（Bonus）}
 
 利用手邊的工具製作一個「摩斯密碼打字機」，利用按壓觸控開關時間的長短來決定是點(.)還是劃(-)
@@ -142,22 +165,22 @@ bool isPressed = false;
 const char* morseTable[][2] = {
     {".-", "A"}, {"-...", "B"}, {"-.-.", "C"}, {"-..", "D"}, {".", "E"},
     {"..-.", "F"}, {"--.", "G"}, {"....", "H"}, {"..", "I"}, {".---", "J"},
-    ...
+    ...（以下略）
 };
 
 void setup() {
     pinMode(___[1]___, INPUT);
     pinMode(8, OUTPUT);
-    Serial.begin(9600); //初始化通信阜
+    Serial.begin(9600); //初始化通信埠
 }
 
 inline char transCode(String morseCode) {
     //搜尋整個對照表
     for (int i = 0; i < 36; ++i) {
-    //輸入的內容和對照表上的某個值相同
-    if (String(morseTable[i][0]) == morseCode) {
-        return morseTable[i][1][0]; //回傳對應的字母
-    }
+        //輸入的內容和對照表上的某個值相同
+        if (String(morseTable[i][0]) == morseCode) {
+            return morseTable[i][1][0]; //回傳對應的字母
+        }
     }
     return '?'; //如果輸入的東西不存在於對照表，回傳問號
 }
@@ -169,27 +192,27 @@ void loop() {
 
     //原本沒壓下去，紀錄壓下去那一刻的時間戳記
     if(buttonState and !isPressed){
-    buttonPressTime=millis();  //millis()會回傳當前的時間（單位：ms）
-    isPressed=1;
+        buttonPressTime=millis();  //millis()會回傳當前的時間（單位：ms）
+        isPressed=1;
     }
     
     //原本的狀態是壓下去的，此時放開，計算按壓時間持續了多久
     if(!buttonState and isPressed){
-    unsigned long pressDuration=millis()-buttonPressTime;
-    //持續時間小於THRESHOLD就紀錄為點，否則為劃
-    if(___[4]___<THRESHOLD)Serial.print("."), morseCode+=".";
-    else Serial.print("-"), morseCode+="-";
-    isPressed=0;
+        unsigned long pressDuration=millis()-buttonPressTime;
+        //持續時間小於THRESHOLD就紀錄為點，否則為劃
+        if(___[4]___<THRESHOLD)Serial.print("."), morseCode+=".";
+        else Serial.print("-"), morseCode+="-";
+        isPressed=0;
     }
     
     //停止輸入一秒後，把曾經輸入的點、劃轉換成字母
     if(!isPressed and buttonPressTime and millis()-buttonPressTime>1000){
-    char new_letter=transCode(___[5]___);//把得到的點-劃字串轉換成字母
-    code+=new_letter; //把新轉譯出來的字母加到結果
-    buttonPressTime=0; //重製計時器
-    morseCode = ""; //清理暫存
-    Serial.print("目前輸入：");
-    Serial.println(___[6]___); //顯示結果
+        char new_letter=transCode(___[5]___);//把得到的點-劃字串轉換成字母
+        code+=new_letter; //把新轉譯出來的字母加到結果
+        buttonPressTime=0; //重製計時器
+        morseCode = ""; //清理暫存
+        Serial.print("目前輸入：");
+        Serial.println(___[6]___); //顯示結果
     }
 }
 \end{lstlisting}

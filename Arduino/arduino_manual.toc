@@ -22,4 +22,4 @@
 \contentsline {subsection}{\numberline {4.1}變數的種類與介紹}{9}{subsection.4.1}%
 \contentsline {subsection}{\numberline {4.2}\texttt {if-else}語法}{9}{subsection.4.2}%
 \contentsline {subsection}{\numberline {4.3}\texttt {for loop}}{10}{subsection.4.3}%
-\contentsline {subsection}{\numberline {4.4}\texttt {while loop}}{10}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.4}\texttt {while loop}}{11}{subsection.4.4}%

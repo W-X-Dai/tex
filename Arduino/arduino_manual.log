@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023/Debian) (preloaded format=xelatex 2025.4.21)  13 MAY 2025 23:32
+This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023/Debian) (preloaded format=xelatex 2025.3.21)  14 MAY 2025 15:16
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -826,12 +826,12 @@ Package rerunfilecheck Info: File `arduino_manual.out' has not changed.
 (rerunfilecheck)             Checksum: 8F707969C6829614F9CA764AAD08FED7;2867.
  ) 
 Here is how much of TeX's memory you used:
- 28564 strings out of 474878
- 594376 string characters out of 5762516
- 2082627 words of memory out of 5000000
- 50160 multiletter control sequences out of 15000+600000
+ 28573 strings out of 474878
+ 595011 string characters out of 5762516
+ 2069627 words of memory out of 5000000
+ 50169 multiletter control sequences out of 15000+600000
  566679 words of font info for 104 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 84i,12n,87p,452b,1788s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 84i,12n,87p,452b,1158s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
 Output written on arduino_manual.pdf (11 pages).

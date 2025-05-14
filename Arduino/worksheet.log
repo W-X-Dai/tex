@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023/Debian) (preloaded format=xelatex 2025.3.21)  13 MAY 2025 16:45
+This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023/Debian) (preloaded format=xelatex 2025.4.21)  13 MAY 2025 23:39
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -607,21 +607,21 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 91.
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
-] [2] [3] (./worksheet.aux)
+] [2] [3] [4] (./worksheet.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2022/08/05>
  ***********
 Package rerunfilecheck Info: File `worksheet.out' has not changed.
-(rerunfilecheck)             Checksum: 284D7E861A6C157D300266844F3BACC8;1155.
+(rerunfilecheck)             Checksum: 076B1A606C4CF0D3841654855142F68A;1279.
  ) 
 Here is how much of TeX's memory you used:
- 18251 strings out of 474878
- 372274 string characters out of 5762516
- 2195627 words of memory out of 5000000
- 40079 multiletter control sequences out of 15000+600000
+ 18254 strings out of 474878
+ 372355 string characters out of 5762516
+ 2224627 words of memory out of 5000000
+ 40082 multiletter control sequences out of 15000+600000
  563808 words of font info for 79 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  74i,12n,87p,406b,1778s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on worksheet.pdf (3 pages).
+Output written on worksheet.pdf (4 pages).

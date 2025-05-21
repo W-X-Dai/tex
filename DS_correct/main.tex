@@ -1,0 +1,152 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage{xeCJK}
+\usepackage{fontspec}
+\setCJKmainfont{Noto Serif CJK TC}[Script=CJK]
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\setlength{\headheight}{14.5pt}
+\addtolength{\topmargin}{-2.5pt}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{caption}
+\usepackage{indentfirst}
+\setlength{\parindent}{2em}
+\pagestyle{fancy}
+\usepackage{array}
+\fancyhf{}
+\cfoot{\thepage}
+\linespread{1.3}
+
+\usepackage{xcolor}
+\lstset{
+    basicstyle=\ttfamily\footnotesize,  % 字型與大小
+    keywordstyle=\color{blue},
+    commentstyle=\color{gray},
+    stringstyle=\color{orange},
+    numbers=left,                       % 行號在左側
+    numberstyle=\tiny\color{gray},
+    stepnumber=1,                       % 每行都顯示行號
+    numbersep=5pt,
+    backgroundcolor=\color{white},
+    frame=single,                       % 加上框線
+    breaklines=true,                    % 長行自動換行
+    tabsize=2,
+    language=C++                     % 可以換成 \texttt{C++}, \texttt{Java}, etc.
+}
+
+\title{資料結構其中考訂正}
+\author{B12508026戴偉璿}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\lhead{資料結構期中考訂正}
+\rhead{B12508026戴偉璿}
+\newpage
+
+\section*{Problem A}
+
+\subsection*{A1.解釋Shunting-yard演算法}
+\begin{enumerate}
+    \item 前置處理：準備一個輸出的隊列以及一個暫存用的\texttt{stack}
+    \item 讀入下個\texttt{token}
+    \item 
+    \begin{enumerate}
+        \item 如果這個\texttt{token} 是個運算符號，判斷他是「左結合」還是「右結合」（當運算子優先順序相同應該先處理哪邊的）
+        \item 根據結合性與優先順序決定是否要把\texttt{stack}中的運算子丟到出隊列：
+        \begin{enumerate}
+            \item 左結合：如果\texttt{stack}頂端的運算子優先順序大於等於當前\texttt{token}的優先順序，不斷從\texttt{stack}中\texttt{pop}出來
+            並丟到輸出隊列
+            \item 右結合：如果\texttt{stack}頂端的運算子優先順序大於當前\texttt{token}的優先順序時，不斷從\texttt{stack}彈出並送入輸出隊列
+        \end{enumerate}
+        \item 處理完後，將目前\texttt{token}丟到\texttt{stack}中，如果是括號則掠過
+    \end{enumerate}
+    \item 如此往復直到所有\texttt{token}都讀入，最後把\texttt{stack}中剩下的元素全部取出，丟到輸出隊列中，如果是括號則略過
+\end{enumerate}
+\newpage
+\subsection*{A2:處理$(a+b)\times(c-d/e)+f\times(g-h)$}
+
+觀察這個方程式，裡面每個運算子都是「左結合」（沒有出現次方符號），以下是逐步操作的表格
+\vspace{0.2cm}
+
+\newcommand{\tok}[1]{\texttt{#1}}
+
+\begin{tabular}{|c|>{\raggedright}p{5cm}|>{\raggedright\arraybackslash}p{6cm}|}
+\hline
+\texttt{token} & \texttt{stack}的狀態 & 輸出隊列 \\
+\hline
+\tok{(}   & (                         &                              \\
+\tok{a}   & (                         & $a$                          \\
+\tok{+}   & ( +                       & $a$                          \\
+\tok{b}   & ( +                       & $a b$                   \\
+\tok{)}   &                           & $a b +$            \\
+\tok{*}   & *                         & $a b +$            \\
+\tok{(}   & * (                       & $a b +$            \\
+\tok{c}   & * (                       & $a b + c$     \\
+\tok{-}   & * ( -                     & $a b + c$     \\
+\tok{d}   & * ( -                     & $a b + c d$ \\
+\tok{/}   & * ( - /                   & $a b + c d$ \\
+\tok{e}   & * ( - /                   & $a b + c d e$ \\
+\tok{)}   & *                         & $a b + c d e / -$ \\
+\tok{+}   & +                         & $a b + c d e / - *$ \\
+\tok{f}   & +                         & $a b + c d e / - * f$ \\
+\tok{*}   & + *                       & $a b + c d e / - * f$ \\
+\tok{(}   & + * (                     & $a b + c d e / - * f$ \\
+\tok{g}   & + * (                     & $a b + c d e / - * f g$ \\
+\tok{/}   & + * ( /                   & $a b + c d e / - * f g$ \\
+\tok{h}   & + * ( /                   & $a b + c d e / - * f g h$ \\
+\tok{)}   & + *                       & $a b + c d e / - * f g h / $ \\
+結束 &                        & $a b + c d e / - * f g h / * +$ \\
+\hline
+\end{tabular}
+
+在結束時是將\texttt{stack}中的元素一個一個取出再丟到輸出隊列中，因此最後丟到輸出隊列的順序是先$*$之後才是$+$
+
+
+最終答案：
+$
+a b + c d e / - * f g h / * +
+$
+
+\newpage
+\subsection*{A3.計算A2.的結果}
+
+運算規則：準備一個紀錄答案的\texttt{stack}，從頭開始讀取前序式。
+如果當前讀取的\texttt{token}是數字就先存起來，如果當前讀取到的\texttt{token}是運算符號
+則從\texttt{stack}中取出最上面的兩個元素進行該運算，結束後再放回\texttt{stack}中。如此往復，直到最後整個\texttt{stack}中
+會存在唯一的數字，就是答案。
+
+\begin{center}
+\begin{tabular}{|c| p{10cm}|}
+\hline
+\texttt{token} & \texttt{stack}的內容 \\
+\hline
+\texttt{a} & $[a]$ \\
+\texttt{b} & $[a,\ b]$ \\
+\texttt{+} & $[a + b]$（取出$a, b$，進行運算後把$a+b$放回去） \\
+\texttt{c} & $[a + b,\ c]$ \\
+\texttt{d} & $[a + b,\ c,\ d]$ \\
+\texttt{e} & $[a + b,\ c,\ d,\ e]$ \\
+\texttt{/} & $[a + b,\ c,\ d / e]$ \\
+\texttt{-} & $[a + b,\ c - d / e]$ \\
+\texttt{*} & $[(a + b) * (c - d / e)]$ \\
+\texttt{f} & $[(a + b)(c - d / e),\ f]$ \\
+\texttt{g} & $[(a + b)(c - d / e),\ f,\ g]$ \\
+\texttt{h} & $[(a + b)(c - d / e),\ f,\ g,\ h]$ \\
+\texttt{/} & $[(a + b)(c - d / e),\ f,\ g / h]$ \\
+\texttt{*} & $[(a + b)(c - d / e),\ f * (g / h)]$ \\
+\texttt{+} & $[(a + b)(c - d / e) + f (g / h)]$ \\
+\hline
+\end{tabular}    
+\end{center}
+
+
+
+
+\end{document}

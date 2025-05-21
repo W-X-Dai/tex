@@ -1,0 +1,6 @@
+BUTTON_PIN
+BUTTON_PIN
+buttonState
+pressDuration
+morseCode
+code	

@@ -1,0 +1,32 @@
+# 但保留 TeX 原始檔與編譯輸出 PDF
+!*.tex
+!*.pdf
+
+# 額外允許 README 或 LICENSE（視情況）
+!README.md
+!LICENSE
+
+# 下面是常見 LaTeX 中間檔案副檔名（防止意外保留）
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.bbl
+*.blg
+*.nav
+*.snm
+*.vrb
+*.xdv
+*.bcf
+*.run.xml
+*.acn
+*.acr
+*.alg
+*.glg
+*.glo
+*.gls

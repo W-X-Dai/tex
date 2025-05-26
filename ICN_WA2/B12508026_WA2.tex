@@ -1,0 +1,202 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage{xeCJK}
+\usepackage{fontspec}
+\setCJKmainfont{Noto Serif CJK TC}[Script=CJK]
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\setlength{\headheight}{14.5pt}
+\addtolength{\topmargin}{-2.5pt}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{caption}
+\usepackage{indentfirst}
+\setlength{\parindent}{2em}
+\usepackage{float}
+\pagestyle{fancy}
+\fancyhf{}
+\cfoot{\thepage}
+\linespread{1.3}
+
+\title{ICN2025 - Written Assignment 2}
+\author{B12508026戴偉璿}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\lhead{ICN2025 - Written Assignment 2}
+\rhead{B12508026戴偉璿}
+\newpage
+
+\begin{enumerate}
+    \item \begin{enumerate}
+        \item interface 0很明顯就是\texttt{224.0.0.0/10}，interface 1也很明顯是\texttt{224.64.0.0/16}
+        interface 2就比較麻煩，需要拆成兩部份。考量到只能使用五條路由，還須留一段給interface 3，因此interface 2會有一部份和interface 1重疊，
+        但由於interface 1的長度較長，所以重疊部份會優先走interface 1。
+        \begin{table}[H]
+        \centering
+        \begin{tabular}{|c|c|c|}
+            \hline
+                        \textbf{Destination Address Range} & \textbf{Binary Format} & \textbf{Link Interface} \\ \hline
+                        \texttt{224.0.0.0/10} & \texttt{11100000 00000000 00000000 00000000/10} & \texttt{0} \\ \hline 
+                        \texttt{224.64.0.0/16} & \texttt{11100000 01000000 00000000 00000000/16} & \texttt{1} \\ \hline
+                        \texttt{224.64.0.0/10} & \texttt{11100000 01000000 00000000 00000000/10} & \texttt{2} \\ \hline
+                        \texttt{225.0.0.0/9} & \texttt{11100001 00000000 00000000 00000000/9} & \texttt{2} \\ \hline
+                        \texttt{0.0.0.0/0} & \texttt{00000000 00000000 00000000 00000000/0} & \texttt{3} \\ \hline
+        \end{tabular}
+        \end{table}
+        \item 第一條\texttt{11010000 10010001 01010001 01010101}和任何一個都不匹配，因此走interface 3。
+        第二條\texttt{11100001 01000000 11000011 00111100}的前9位是\texttt{11100001 0}，
+        這個和interface 2匹配，因此走interface 2。
+        第三條\texttt{11100001 10000000 00010001 01111011}一樣無法匹配，因此走interface 3。
+    \end{enumerate}
+    \item \begin{enumerate}
+        \item 答案如表格所示
+        \begin{table}[H]
+        \centering
+        \begin{tabular}{|c|c|}
+            \hline
+                \textbf{Subnet} & \textbf{CIDR} \\ \hline
+                \texttt{A} & \texttt{214.97.254.0/24} \\ \hline 
+                \texttt{B} & \texttt{214.97.255.0/25} \\ \hline
+                \texttt{C} & \texttt{214.97.255.128/25} \\ \hline
+                \texttt{D} & \texttt{214.97.255.192/31} \\ \hline
+                \texttt{E} & \texttt{214.97.255.194/31} \\ \hline
+                \texttt{F} & \texttt{214.97.255.196/31} \\ \hline
+        \end{tabular}
+        \end{table}
+        \item 對於subnet A, D, E：
+        \begin{table}[H]
+        \centering
+        \begin{tabular}{|c|c|}
+        \hline
+        \textbf{Destination Address Range} & \textbf{Interface} \\ \hline
+        \texttt{214.97.254.0/24}     & A \\ \hline
+        \texttt{214.97.255.0/25}     & D \\ \hline
+        \texttt{214.97.255.128/25}   & F \\ \hline
+        \texttt{214.97.255.252/31}   & D \\ \hline
+        \texttt{214.97.255.248/31}   & F \\ \hline
+        \texttt{214.97.255.244/31}   & F \\ \hline
+        \end{tabular}
+        \end{table}
+        對於subnet C, E, F
+        \begin{table}[H]
+        \centering
+        \begin{tabular}{|c|c|}
+        \hline
+        \textbf{Destination Address Range} & \textbf{Interface} \\ \hline
+        \texttt{214.97.254.0/24}     & F \\ \hline
+        \texttt{214.97.255.0/25}     & E \\ \hline
+        \texttt{214.97.255.128/25}   & C \\ \hline
+        \texttt{214.97.255.252/31}   & E \\ \hline
+        \texttt{214.97.255.248/31}   & E \\ \hline
+        \texttt{214.97.255.244/31}   & F \\ \hline
+        \end{tabular}
+        \end{table}
+        對於subnet B, D, E
+        \begin{table}[H]
+        \centering
+        \begin{tabular}{|c|c|}
+        \hline
+        \textbf{Destination Address Range} & \textbf{Interface} \\ \hline
+        \texttt{214.97.254.0/24}     & D \\ \hline
+        \texttt{214.97.255.0/25}     & B \\ \hline
+        \texttt{214.97.255.128/25}   & E \\ \hline
+        \texttt{214.97.255.252/31}   & D \\ \hline
+        \texttt{214.97.255.248/31}   & E \\ \hline
+        \texttt{214.97.255.244/31}   & E \\ \hline
+        \end{tabular}
+        \end{table}
+
+    \end{enumerate}
+
+    \item \begin{enumerate}
+        \item 總共有2400bytes，MTU=700bytes，每個packet的header是20bytes，因此實際上每個packet的payload是680bytes。
+        原始的資料-20=2380bytes，因此需要\(\lceil \frac{2380}{680} \rceil = 4\)個packet。
+        \item 答案如表格所示
+        \begin{table}[H]
+        \centering
+        \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        \textbf{fragment} & \textbf{length} & \textbf{ID} & \textbf{fragflag} & \textbf{offset} \\ \hline
+        1 & 700 & 422 & 1 & 0 \\ \hline
+        2 & 700 & 422 & 1 & 85 \\ \hline
+        3 & 700 & 422 & 1 & 170 \\ \hline
+        4 & 360 & 422 & 0 & 255 \\ \hline
+        \end{tabular}
+        \end{table}
+
+    \end{enumerate}
+    \item \begin{enumerate}
+        \item 可以，只要觀察有幾段連續的id就可以知道有幾台主機在發送資料。
+        \item 無法，就算同一台主機發送的封包id也不是遞增的，因此無法判斷有幾台主機在發送資料。
+        \end{enumerate}
+        
+    \newpage
+    \item 答案如表格所示
+    \begin{table}[H]
+    \centering
+    \begin{tabular}{|l|l|l|}
+    \hline
+    \textbf{輸入的port} & \textbf{目標ip} & \textbf{輸出} \\ \hline
+    1 & 10.1.0.1 (h1) & 2 \\ \hline
+    1 & 10.1.0.2 (h2) & 2 \\ \hline
+    2 & 10.3.0.5 (h5) & 1 \\ \hline
+    2 & 10.3.0.6 (h6) & 1 \\ \hline
+    1 & 10.2.0.3 (h3) & 3 \\ \hline
+    1 & 10.2.0.4 (h4) & 4 \\ \hline
+    2 & 10.2.0.3 (h3) & 3 \\ \hline
+    2 & 10.2.0.4 (h4) & 4 \\ \hline
+    3 & 10.2.0.4 (h4) & 4 \\ \hline
+    4 & 10.2.0.3 (h3) & 3 \\ \hline
+    \end{tabular}
+    \end{table}
+    \item 答案如表格所示
+    \begin{table}[H]
+    \centering
+    \begin{tabular}{|c|l|c|c|c|c|c|c|}
+    \hline
+    Steep & N' & $D(y),p(y)$   & $D(z),p(z)$   & $D(t),p(t)$   & $D(v),p(v)$   & $D(w),p(w)$   & $D(u),p(u)$   \\ \hline
+    0 & $x$              & $6,x$         & $\infty,-$    & $\infty,-$    & $3,x$         & $6,x$         & $\infty,-$    \\ \hline
+    1 & $xv$             & $6,x$         & $\infty,-$    & $7,v$         & $3,x$         & $6,x$         & $5,v$         \\ \hline
+    2 & $xvu$            & $6,x$         & $\infty,-$    & $7,v$         & $3,x$         & $6,x$         & $5,v$         \\ \hline
+    3 & $xvuw$           & $6,x$         & $\infty,-$    & $7,v$         & $3,x$         & $6,x$         & $5,v$         \\ \hline
+    4 & $xvuwt$          & $6,x$         & $19,t$        & $7,v$         & $3,x$         & $6,x$         & $5,v$         \\ \hline
+    5 & $xvuwty$         & $6,x$         & $14,y$        & $7,v$         & $3,x$         & $6,x$         & $5,v$         \\ \hline
+    6 & $xvuwtyz$        & $6,x$         & $14,y$        & $7,v$         & $3,x$         & $6,x$         & $5,v$         \\ \hline
+    \end{tabular}
+    \end{table}
+    \item \begin{enumerate}
+        \item 很明顯$x$到$y$的距離是5，到$w$的距離是2。剩下$u$的距離套用公式：
+    $D_x(u) = \min\{c(x,w) + D_w(u),\ c(x,y) + D_y(u)\} = \min\{2+5,\ 5+6\} = 7$
+    \item 假設將 $c(x, w)$ 從 2 改為 7，修改公式的內容：
+    
+    $
+    D_x(u) = \min\{7 + 5,\ 5 + 6\} = \min\{12, 11\} = 11
+    $
+
+    原 $D_x(u) = 7$，新的變成 $D_x(u) = 11$，路徑成本改變，更新 $D_x(u)$ 並通知鄰居。
+    \item 假設將 $c(x, y)$ 由 5 改為 10，修改公式：
+
+    $
+    D_x(u) = \min\{2 + 5,\ 10 + 6\} = \min\{7, 16\} = 7
+    $
+
+    最短路徑成本沒有改變，$x$ 不會更新距離向量，也不會通知鄰居。
+    \end{enumerate}
+    \item \begin{enumerate}
+        \item iBGP
+        \item eBGP
+        \item RIP
+        \item RIP
+    \end{enumerate}
+
+
+\end{enumerate}
+
+\end{document}

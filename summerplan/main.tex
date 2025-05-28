@@ -36,10 +36,6 @@ PD-L1（Programmed Death Ligand 1）表現量是免疫治療中一個重要的�
 常用以評估非小細胞肺癌（NSCLC）患者是否適合接受 PD-1/PD-L1 抑制劑。然而，
 現有檢測方法依賴組織切片與免疫染色，具有侵入性、區域異質性與判讀主觀性等缺點。
 
-因此，本研究旨在建構一套基於肺部電腦斷層掃描（CT）影像的 PD-L1 表現預測模型，
-期望能以非侵入方式輔助臨床決策。本計畫以結合多任務自監督學習（MTMAE）與生成對抗網路（GAN）為主軸，
-進一步探索三項潛在延伸方向以提升模型性能。
-
 參照了周姵妤學姐的碩士論文：「肺部電腦斷層掃描之非小細胞癌 PD-L1 表現預測 :
 結合遮蓋圖像模型與生成對抗網路」，其中提出了一種基於MAE模型改良後的多模態模型MTMAE，
 結合了自監督重建、腫瘤分割與分類任務，並利用 GAN 強化訓練資料的多樣性，
@@ -47,16 +43,16 @@ PD-L1（Programmed Death Ligand 1）表現量是免疫治療中一個重要的�
 我想嘗試看看這個方法能否有進一步改進的空間。
 
 \section{研究目標}
-\begin{itemize}
+\begin{enumerate}
   \item 建立以 MTMAE 為基礎之 PD-L1 表現預測模型
   \item 探討加入對比學習對自監督表徵學習的增強效果。
   \item 在ViT encoder 中嵌入 GNN，建構 patch 間關聯性以提升特徵整合能力。
   \item 評估多模型集成（ensemble）策略對預測穩定性與泛化能力的影響。
-\end{itemize}
+\end{enumerate}
 
 \section{研究方法}
 本研究將基於周姵妤學姐的碩士論文所提出的 MTMAE 模型進行改良，
-模型核心為 Multi-task Masked Autoencoder（MTMAE），包含，由於
+模型核心為 Multi-task Masked Autoencoder（MTMAE） 。由於
 影像資料的缺乏，我們先使用 GAΝ 生成批量的影像，對模型進行預訓練，接下來再使用
 真正的醫學影像進行微調。
 
@@ -68,8 +64,9 @@ PD-L1（Programmed Death Ligand 1）表現量是免疫治療中一個重要的�
     \item GNN 結合：將 ViT encoder 輸出的 patch token 建構為圖結構，節點間依位置或注意力建邊，
     透過 GNN 進行訊息傳遞，強化區域語意整合。
     \item 模型集成：利用隨機初始化、遮蔽方式或 GAN 輸入生成多個 MTMAE 模型，最後透過投票的方式
-    整合各模型的預測結果，提升整體穩定性與泛化能力。
+    整合各模型的預測結果，提升整體穩定性與泛化能力。除了原生的 MTMAE 模型外，前面提到的對比學習與 GNN 模型也可以進行集成。
 \end{enumerate}
+\newpage
 
 \section{實驗設計}
 
@@ -90,7 +87,7 @@ PD-L1（Programmed Death Ligand 1）表現量是免疫治療中一個重要的�
     \hline\hline
     1 & 6/16$\sim$6/22 & 閱讀論文、整理背景知識、建立 MTMAE 架構 \\
     \hline
-    2$\sim$3 & 6/23$\sim$7/6 & 嘗試導入對比學習模組進行初步實驗 \\
+    2$\sim$3 & 6/23$\sim$7/6 & 嘗試導入對比學習模組進行實驗 \\
     \hline
     4$\sim$5 & 7/7$\sim$7/20 & 嘗試加入 GNN 模組進行實驗 \\
     \hline
@@ -98,7 +95,7 @@ PD-L1（Programmed Death Ligand 1）表現量是免疫治療中一個重要的�
     \hline
     8 & 8/4$\sim$8/14 & 整理研究內容，撰寫書面報告 \\
     \hline
-    9 & 8/15$\sim$8/21 & 完成最終簡報與展示準備 \\
+    9 & 8/15$\sim$8/21 & 完成最終簡報與口頭報告準備 \\
     \hline
 \end{tabular}
 

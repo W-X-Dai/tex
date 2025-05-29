@@ -13,6 +13,7 @@
 \usepackage{enumitem}
 \usepackage{titlesec}
 \usepackage{caption}
+\usepackage{float}
 \usepackage{indentfirst}
 \setlength{\parindent}{2em}
 \pagestyle{fancy}
@@ -31,10 +32,21 @@
 
 \newpage
 
-\section{研究背景與動機}
+\section{研究背景}
 PD-L1（Programmed Death Ligand 1）表現量是免疫治療中一個重要的生物標記，
 常用以評估非小細胞肺癌（NSCLC）患者是否適合接受 PD-1/PD-L1 抑制劑。然而，
 現有檢測方法依賴組織切片與免疫染色，具有侵入性、區域異質性與判讀主觀性等缺點。
+
+以下是 PD-L1 表現的兩個例子，
+50\% 是 NSCLC 中 PD-L1 表現的高低分界，>50\% 表示高表現，適合單藥免疫治療，預後較好；
+<50\% 表示低表現，需聯合治療或非免疫療法，預後較差
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.8\textwidth]{src/image1.png}
+  \centering
+  \caption{左：PD-L1 表現>50\%；右：PD-L1 表現<50\%。圖片來源：周姵妤學姐碩士論文。}
+  \label{fig:pdl1-examples}
+\end{figure}
 
 然而，隨著醫學影像技術的進步，肺部電腦斷層掃描（CT）已成為非小細胞肺癌診斷的重要工具。
 但遇到了新的挑戰：樣本數量不足。相較於其他領域，醫學影像的取得尤為困難，
@@ -47,7 +59,7 @@ PD-L1（Programmed Death Ligand 1）表現量是免疫治療中一個重要的�
 顯著提升模型性能。特別是多任務自監督學習（Multi-task Self-supervised Learning）方法，
 通過同時學習多個相關任務，能夠進一步增強模型的表徵學習能力。
 
-而周姵妤學姐的碩士論文：「肺部電腦斷層掃描之非小細胞癌 PD-L1 表現預測 :
+周姵妤學姐的碩士論文：「肺部電腦斷層掃描之非小細胞癌 PD-L1 表現預測 :
 結合遮蓋圖像模型與生成對抗網路」中提出了一種基於 Masked autoencoder (MAE)
 模型改良後的多模態模型 MTMAE ， MAE 模型是一種自監督學習方法，
 通過遮蔽部分輸入影像來學習有效的特徵表示。
@@ -57,6 +69,15 @@ PD-L1（Programmed Death Ligand 1）表現量是免疫治療中一個重要的�
 在低資料條件下有效提升了 PD-L1 表現的預測準確率。基於該模型的潛力，
 我想嘗試看看這個方法能否有進一步改進的空間。
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{src/image2.png}
+  \centering
+  \caption{MTMAE 模型架構。圖片來源：周姵妤學姐碩士論文。}
+  \label{fig:MTMAE-model}
+\end{figure}
+
+
 \section{研究目標}
 \begin{enumerate}
   \item 建立以 MTMAE 為基礎之 PD-L1 表現預測模型
@@ -64,6 +85,8 @@ PD-L1（Programmed Death Ligand 1）表現量是免疫治療中一個重要的�
   \item 在ViT encoder 中嵌入 GNN，建構 patch 間關聯性以提升特徵整合能力。
   \item 評估多模型集成（ensemble）策略對預測穩定性與泛化能力的影響。
 \end{enumerate}
+
+\newpage
 
 \section{研究方法}
 本研究將基於周姵妤學姐的碩士論文所提出的 MTMAE 模型進行改良，
@@ -96,6 +119,7 @@ PD-L1（Programmed Death Ligand 1）表現量是免疫治療中一個重要的�
 這種方法能夠減少單一模型的偏差與過擬合風險，從而提高 PD-L1 表現預測的穩定性。
 除了原生的模型以外，我也會嘗試將對比學習、GNN 模組與集成模型結合，
 以進一步提升預測效能。
+\newpage
 
 \section{實驗設計}
 
@@ -173,6 +197,15 @@ AUC 值介於 0 與 1 之間，值越大表示模型的預測能力越好。
 \text{AUC} = \int_{0}^{1} \text{TPR}(FPR) \, d(FPR)
 \end{equation}
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{src/image3.png}
+  \centering
+  \caption{ROC 曲線及其 AUC 值。}
+  \label{fig:roc-curve}
+\end{figure}
+圖片來源：https://www.blog.trainindata.com/auc-roc-analysis/
+
 \subsection{實驗方法}
 本專題將使用 TensorFlow 框架實現 MTMAE 模型，並在此基礎上進行改良。
 首先，我將建立一個基於 MTMAE 的 PD-L1 表現預測模型，並使用實驗室先前開發的 Gabor-GAN 生成 CT 影像進行預訓練。
@@ -190,7 +223,7 @@ AUC 值介於 0 與 1 之間，值越大表示模型的預測能力越好。
 同時也驗證對比學習、GNN 以及模型集成等方法對於預測效能的提升效果。
 期望透過這些改進能顯著提升模型的準確度與泛化能力。
 
-\section{進度規劃（預估）}
+\section{進度規劃}
 \begin{tabular}{|c|c |l|  }
     \hline
     週次 & 日期 & 工作內容 \\
@@ -208,6 +241,7 @@ AUC 值介於 0 與 1 之間，值越大表示模型的預測能力越好。
     9 & 8/15$\sim$8/21 & 完成最終簡報與口頭報告準備 \\
     \hline
 \end{tabular}
+
 
 \section{參考文獻}
 \begin{enumerate}

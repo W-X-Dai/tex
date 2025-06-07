@@ -5,22 +5,89 @@
 \usepackage{amsmath, amssymb, amsthm}
 \usepackage{geometry}
 \usepackage{tcolorbox}
+\usepackage{fancyhdr}
 \geometry{a4paper, margin=2.5cm}
-\title{\textbf{數列與級數的極限}}
-\author{數學講義模板}
-\date{}
+
+\lhead{數列與級數的極限}
+\rhead{數列}
 
 \begin{document}
 
+
 \begin{tcolorbox}[colframe=black!60!blue, colback=blue!5!white, arc=4pt, boxrule=1pt]
 \section{數列}
+\begin{enumerate}
+    \item \textbf{數列的定義}：數列是由一系列數字按照一定的順序排列而成的集合。每個數字稱為數列的項，通常用符號 $a_n$ 表示第 $n$ 項。
+    \item \textbf{數列的表示法}：數列可以用括號表示，如 $(a_1, a_2, a_3, \ldots)$，
+    或用尖括號表示，如 $<a_n>_{n=1}^{\infty}$。
+    \item \textbf{數列的類型}：\textbf{有限數列}和\textbf{無窮數列}。有限數列是指包含有限個數字的數列，而無限數列則包含無窮多個數字。
+    \item \textbf{數列的第$n$項}：表示數列的第 $n$ 項，
+    除了可以直接寫出$a_n$的公式（如：$a_n = n^2$），
+    還可以用遞迴公式來定義，如：$a_1 = 1, a_{n+1} = a_n + 2$。
 
-
-數列是數學中一個重要的概念，它是由一系列數字按照一定的順序排列而成的。數列可以是有限的或無限的，並且可以用來描述許多現象。
-
-數列分為兩種類型：\textbf{有限數列}和\textbf{無窮數列}。有限數列是指包含有限個數字的數列，而無限數列則包含無窮多個數字。
+\end{enumerate}
 
 \end{tcolorbox}
+
+例題：
+\begin{enumerate}
+    \item 數列A：$1, \frac{1}{2}, \frac{1}{3}, \ldots$，請寫出這個數列的第 $n$ 項公式。\vspace{2cm}
+    \item 已知一個數列 $a_n$ 的遞迴公式為 $a_1 = 2, a_{n+1} = 3a_n + 1$，請求出他的一般式。\vspace{2cm}
+    \item 假設有一個數列$<a_n>$的前$n$項和為$S_n = 2n^2 + 3n$，請求出$a_n$的公式。\vspace{2cm}
+\end{enumerate}
+\newpage
+
+\begin{tcolorbox}[colframe=black!60!blue, colback=blue!5!white, arc=4pt, boxrule=1pt]
+\section{極限}
+\begin{enumerate}
+    \item \textbf{數列的極限}：如果說$n$在趨近於無限大的時候，數列 $a_n$ 
+    的值趨近於某個固定的數 $L$，則稱 $L$ 為數列 $a_n$ 的極限，
+    記作 $\displaystyle\lim_{n \to \infty} a_n = L$，或是 $a_n \to L$。
+    \item \textbf{發散與收斂}：如果數列的極限存在，則稱該數列為\textbf{收斂數列}；
+    如果極限不存在，則稱為\textbf{發散數列}。
+    如果計算結果為$\frac{0}{0}$，則需要進一步化簡整理。
+    \item \textbf{極限的四則運算}：
+    
+    假設數列 $a_n \to A$ 和 $b_n \to B$，則：
+    \begin{itemize}
+        \item $\lim_{n \to \infty} (a_n + b_n) = A + B$
+        \item $\lim_{n \to \infty} (a_n - b_n) = A - B$
+        \item $\lim_{n \to \infty} (a_n b_n) = AB$
+        \item 如果 $B \neq 0$，則 $\lim_{n \to \infty} \left(\frac{a_n}{b_n}\right) = \frac{A}{B}$
+    \end{itemize}
+
+\end{enumerate}
+
+\end{tcolorbox}
+
+例題：
+\begin{enumerate}
+    \item 判斷以下數列是否收斂，如果是則求出極限：
+    \begin{enumerate}
+        \item $a_n = \frac{1}{n}$\vspace{0.7cm}
+        \item $b_n = \frac{n^2 + 1}{n^2 - 1}$\vspace{0.7cm}
+        \item $c_n = 1, -1, 1, -1, \ldots$\vspace{0.7cm}
+        \item $d_n = \left(\frac{-1}{2}\right)^n$\vspace{0.7cm}
+        \item $e_n = \frac{n^2 + 2n + 1}{3n + 2}$\vspace{0.7cm}
+        \item $f_n = \frac{3n+2}{n^2 + 2n + 1}$\vspace{0.7cm}
+        \item $g_n = \left(2-\frac{1}{n}\right)\left(3+\frac{3}{n^2}\right)$\vspace{0.7cm}
+        \item $h_n = \frac{n^2}{2n-1}-\frac{n^2}{2n+1}$\vspace{0.7cm}
+    \end{enumerate}
+    \item 數列$<a_n>$中，$a_1=0, a_{n+1}=a_n+2n-1, n> 1$，求$a_{100}$\vspace{2cm}
+    \item 若數列$<a_n>$的前$k$項和為$S_k = 2^{k+1}(k^2-2k)$，請求出$a_{10}$。\vspace{2cm}
+    \item 已知$A, B$皆為無窮數列，請選出正確的選項：
+    \begin{enumerate}
+        \item 若$\displaystyle\lim_{n\to \inf}a_n=A$，則$\displaystyle\lim_{n\to \inf}a_{n+1}=A$
+        \item 若$\displaystyle\lim_{n\to \inf}a_n=A$，則$\displaystyle\lim_{n\to \inf}a_{2n}=A$
+        \item 若$\displaystyle\lim_{n\to \inf}a_{2n}=A$，則$\displaystyle\lim_{n\to \inf}a_{n}=A$
+        \item 若$\displaystyle\lim_{n\to \inf}a_{2n}=\displaystyle\lim_{n\to \inf}a_{2n+1}=A$，則$\displaystyle\lim_{n\to \inf}a_{n+1}=A$
+        \item 若$\displaystyle\lim_{n\to \inf}a_n=A$，則$\displaystyle\lim_{n\to \inf}\sqrt a_{n}=\sqrt A$
+    \end{enumerate}
+    \item 請計算$\displaystyle\lim_{n\to\inf}\frac{2^{n-1}+5\cdot 3^{n+1}-6\cdot 4^{n-1}}{3\cdot 2^{n+1}-4\cdot 3^{n-1}+7\cdot 4^{n+1}}$。\vspace{2cm}
+
+    \item 設$<a_n>$收斂，且$\displaystyle\lim_{n\to \inf}\frac{2^n+(-3)^n\cdot a_n}{2^n-{-3}^n}=\frac{2}{3}$，請計算$\displaystyle\lim_{n\to\inf}a_n$
+
+\end{enumerate}
 
 
 \end{document}

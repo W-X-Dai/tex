@@ -1,0 +1,105 @@
+\documentclass[12pt]{article}
+\usepackage{xeCJK}
+\usepackage{fontspec}
+\setCJKmainfont{Noto Serif CJK TC}[Script=CJK]
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\usepackage{tcolorbox}
+\usepackage{fancyhdr}
+\geometry{a4paper, margin=2.5cm}
+
+\lhead{函數的極限與微分}
+\rhead{極限、微分}
+
+\begin{document}
+\begin{tcolorbox}[colframe=black!60!blue, colback=blue!5!white, arc=4pt, boxrule=1pt]
+\section{函數的極限}
+\begin{enumerate}
+    \item 函數的極限有分成\textbf{左極限}和\textbf{右極限}：
+    \begin{itemize}
+        \item 左極限：$\displaystyle\lim_{x \to a^-} f(x) = L$，表示當 $x$ 趨近於 $a$ 時，$f(x)$ 從左邊接近 $L$。
+        \item 右極限：$\displaystyle\lim_{x \to a^+} f(x) = L$，表示當 $x$ 趨近於 $a$ 時，$f(x)$ 從右邊接近 $L$。
+    \end{itemize}
+    \item 如果左極限和右極限都存在且相等，則稱 $\displaystyle\lim_{x \to a} f(x) = L$。
+    \item 如果 $\displaystyle\lim_{x \to a} f(x)$ 存在，且$\displaystyle f(a) = L$，則稱 $f(x)$ 在 $x=a$ 處\textbf{連續}。
+    \item \textbf{勘根定理}：假設$f(x)$在$[a, b]$連續，且$f(a)f(b) < 0$，則存在$c \in (a, b)$使得$f(c) = 0$。
+\end{enumerate}
+
+\end{tcolorbox}
+
+例題：
+\begin{enumerate}
+    \item 已知$f(x)$是三次實係數多項式且$k$為一個常數。若$\displaystyle\lim_{x\to 2}\frac{f(x)}{x-2}=-5$，
+    $\displaystyle\lim_{x\to 3}\frac{f(x)}{x-3}=7$，且$\displaystyle\lim_{x\to 1}\frac{f(x)+k}{x-1}$存在，求
+    $\displaystyle\lim_{x\to 1}\frac{f(x)+k}{x-1}$的值。\vspace{3cm}
+    \item 設$P$點在拋物線$y=x^2$上且在第一象限，$O$為原點。在$x$軸正向上取一點$Q$，使的$\overline{OP}=\overline{OQ}$，
+    接直線$\overline{QP}$交$y$軸於$R$點。當$P$點沿著拋物線趨近於原點時，$R$點的座標趨近於何值？\vspace{3cm}\newpage
+    \item 設$f(x)=(x-16)^2(x-17)^2+3x$，請證明至少有一個時數$c$使得$f(c)=50$。\vspace{3cm}
+    \item 承上題，已知其中一個$c$介於$16$與$17$之間，請求出$c$的值。\vspace{3cm}
+    \item 請求出以下函數的極限：
+    \begin{enumerate}
+        \item $\displaystyle\lim_{x \to 6} (\frac{2x-17}{x^2-7x+6}+\frac{x-5}{x-6})$\vspace{2cm}
+        \item $\displaystyle\lim_{x \to 1} \frac{1}{x-1}(\frac{1-x^{20}}{1-x}-20)$\vspace{2cm}
+        \item $\displaystyle\lim_{x \to -1} \frac{|x^2-2x-3|}{x+1}$\vspace{2cm}
+        \item $\displaystyle\lim_{x \to 0} \frac{|2+3x-x^2|-2}{x}$\vspace{2cm}
+        \item $\displaystyle\lim_{x \to 0} x^2[\frac{1}{x}]$\vspace{2cm}
+    \end{enumerate}
+\end{enumerate}
+
+\begin{tcolorbox}[colframe=black!60!blue, colback=blue!5!white, arc=4pt, boxrule=1pt]
+\section{微分}
+\begin{enumerate}
+    \item 微分的概念是描述函數在某點的變化率。簡言之，我們討論當$x$在某點有極小的變化時，$f(x)$的變化量。微分也可以稱作為\textbf{導數}。
+    \item 因此，導數的公式可以寫成：$$f'(a)=\displaystyle\lim_{x\to a}\cfrac{f(x)-f(a)}{x-a}$$，
+    同時也能表現成$$f'(a) = \lim_{h \to 0} \frac{f(a+h) - f(a)}{h}$$，其中$h$是$x-a$的變化量。
+    \item 如果說$f(x)$在某一點可微，則代表$f(x)$在該點\textbf{連續且極限存在}。
+    \item \textbf{萊布尼茲符號}：導數也可以用萊布尼茲符號表示為$\frac{dy}{dx}$，其中$y=f(x)$。
+    \item 導數的幾何意義是函數圖形在某點的切線斜率。
+    \item 微分的計算規則：
+    \begin{enumerate}
+        \item 常數函數的導數為零：$f(x) = c \Rightarrow f'(x) = 0$。
+        \item 幂函數的導數：$f(x) = x^n \Rightarrow f'(x) = nx^{n-1}$。
+        \item 和差法則：$f(x) = g(x) + h(x) \Rightarrow f'(x) = g'(x) + h'(x)$。
+        \item 乘法法則：$f(x) = g(x)h(x) \Rightarrow f'(x) = g'(x)h(x) + g(x)h'(x)$。
+        \item 除法法則：$f(x) = \frac{g(x)}{h(x)} \Rightarrow f'(x) = \frac{g'(x)h(x) - g(x)h'(x)}{(h(x))^2}$。
+        \item 鏈式法則：如果$y = g(u)$且$u = f(x)$，則$y' = g'(u)f'(x)$。
+        \item 指數函數的導數：$f(x) = a^x \Rightarrow f'(x) = a^x \ln(a)$。
+        \item 對數函數的導數：$f(x) = \log_a(x) \Rightarrow f'(x) = \frac{1}{x \ln(a)}$。
+    \end{enumerate}
+\end{enumerate}
+
+\end{tcolorbox}
+
+例題：
+\begin{enumerate}
+    \item 下列哪些函數在$x=0$處可微？
+    \begin{enumerate}
+        \item $f(x)=x+|x|$
+        \item $f(x)=x|x|$
+        \item $f(x)=x-[x]$
+        \item $f(x)=\sqrt|x|$
+        \item $f(x)=x^2\sin\frac{1}{x}, x\neq 0;0, x=0$
+    \end{enumerate}
+    \item 請計算下列函數的導函數：
+    \begin{enumerate}
+        \item $f(x) = 3x^2 - 5x + 2$\vspace{1.5cm}
+        \item $f(x) = \sqrt{x^2+1}$\vspace{1.1cm}
+        \item $f(x) = \frac{x^2 + 1}{x - 1}$\vspace{1.1cm}
+        \item $f(x)=(2x+1)^{200}$\vspace{1.1cm}
+        \item $f(x)=(2x+1)^{100}(2-3x)^{200}$\vspace{1.1cm}
+    \end{enumerate}
+    \item 已知兩個曲線$y=x^3+ax$和$y=x^2+bx+c$都通過點$P(1, 2)$，且他們在點$P$處的切線斜率相等。求$a, b, c$的值。\vspace{2.1cm}
+    \item 設$f(x)=(x-a)(x-b)(x-c)$，其中$a, b, c$為實數，且$a>b>c$，$a+c>2b$。請排序$f'(a), f'(b), f'(c)$的大小。\vspace{2.1cm}
+    \item 設$f(x)=(x^2-3)^3(2x-1)^2$，$g(x)=\frac{x(x+1)(x+2)(x+3)}{(x-1)(x-2)(x-3)}$，求$f'(1)+g'(0)$\vspace{2.1cm}
+    \item 已知直線$x+y=2$和曲線$y=ax^3$相切，求$a$的值。\vspace{2cm}
+    \item 設函數$f(x)=|(x-1)^3(x+1)|$，選出正確的選項：
+    \begin{enumerate}
+        \item $f(x)$在$x=1$處導數存在
+        \item $f(x)$在$x=-1$可微分
+        \item $f'(0)=-2$
+        \item $\displaystyle\lim_{x\to 1}f(x)=f(1)$
+        \item $f(x)$在$x=-1$處連續
+    \end{enumerate}
+\end{enumerate}
+
+\end{document}

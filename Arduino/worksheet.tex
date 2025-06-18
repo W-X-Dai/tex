@@ -14,6 +14,7 @@
 \usepackage{titlesec}
 \usepackage{caption}
 \usepackage{indentfirst}
+\usepackage{array}
 \setlength{\parindent}{2em}
 \pagestyle{fancy}
 \fancyhf{}
@@ -225,6 +226,23 @@ void loop() {
 1 &  & 4 & \\ \hline
 2 &  & 5 & \\ \hline
 3 &  & 6 & \\ \hline
+\end{tabular}
+\end{table}
+
+\section{分數計算表}
+
+分數計算：
+每完成一個實驗可以得10分，總分70分；挑戰題每答對一個得5分，如果全部答對則額外獲得10分，總分40分。
+因此，在這個實驗你最多可以得到110分，除了挑戰題以外，其他的實驗必須要在課程中完成。
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|c|c|>{\centering\arraybackslash}p{3cm}|}
+\hline
+項目 & 完成了什麼 & 總分 \\ \hline
+LED燈 & 1-1，1-2  &  \\ \hline
+蜂鳴器 &  2-1，2-2 &  \\ \hline
+觸控開關 & 3-1，3-2，3-3 &  \\ \hline
 \end{tabular}
 \end{table}
 

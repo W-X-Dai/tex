@@ -1,0 +1,136 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{indentfirst}
+\usepackage{amssymb}
+\usepackage{subcaption}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{fancyhdr}
+\usepackage{xeCJK}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{ulem}
+\usepackage{xcolor}
+\usepackage{fancyvrb}
+\usepackage{listings}
+\usepackage{soul}
+\usepackage{hyperref}
+	\lstdefinestyle{C}{
+   		language=C, 
+   		basicstyle=\ttfamily\bfseries,
+    	numbers=left, 
+    	numbersep=5pt,
+    	tabsize=4,
+    	frame=single,
+   	 	commentstyle=\itshape\color{brown},
+    	keywordstyle=\bfseries\color{blue},
+   	 	deletekeywords={define},
+    	morekeywords={NULL,bool}
+	}	
+
+\setCJKmainfont{Noto Serif CJK TC}[Script=CJK]
+\setCJKmonofont{Noto Sans Mono CJK TC}[Script=CJK]
+ 
+\voffset -20pt
+\textwidth 410pt
+\textheight 650pt
+\oddsidemargin 20pt
+\newcommand{\XOR}{\otimes}
+\linespread{1.2}\selectfont
+
+\pagestyle{fancy}
+\lhead{114APCS進階班期中比賽}
+
+\begin{document}
+
+\begin{center}
+\section*{B. Eval Ceremony}
+\end{center}
+
+\section*{Description}
+
+
+萬惡的\textbf{蘿糕}!總是想著要取代\textbf{疑中}成為\textbf{歌瑪蘭共和國}內唯一的頂級中學，可是在資訊競賽方面卻屢屢受挫。
+\textbf{蘿糕}每次派出去的選手都被優秀的\textbf{黃瓜}學長擊敗，好不容易捱到\textbf{黃瓜}畢業了，
+沒想到\textbf{黃瓜}的傳人-\textbf{李岳岳}-竟然也能夠扛起大旗，將\textbf{蘿糕}的選手們踩在腳下。
+為此，\textbf{蘿糕}決定要不擇手段召喚卓越大邪神AKA黑暗大髮絲....(以下省略)報復\textbf{疑中}!
+
+但是卓越大邪神AKA黑暗大髮絲....(以下省略)要求很多，例如要獻祭睿璿學長的貼身馬克杯，或是稀有神獸日京元某處的毛髮。
+而且他對獻祭日期也十分要求，閏年不能舉行、日期要不等於月份、月份也要不是日期的倍數、日期要非偶數且不等於13。
+請幫蘿糕學生判斷那些日期能夠成功召喚卓越大邪神AKA黑暗大髮絲....(以下省略)擊潰疑中代表黃瓜的傳人-李岳岳，並贏得資訊競賽!
+
+\section*{Input}
+
+輸入第一行為一個整數$T(T\le 10^5)$，接下來有$T$筆詢問
+
+接下來$T$行每行三個整數$Y,M,D$分別代表年(西元年)，月，日
+
+\section*{Output}
+
+如果輸入日期不存在輸出\texttt{error}
+
+若日期存在但不能舉行邪教儀式則輸出\texttt{No}(大寫須注意)
+
+若日期存在且能舉行儀式則輸出\texttt{Yes}(大寫須注意)
+
+\begin{itemize}
+\item 根據維基百科，閏年規則如下：
+    \begin{enumerate}
+    \item 公元年分非4的倍數，為平年。
+    \item 公元年分為4的倍數但非100的倍數，為閏年。
+    \item 公元年分為100的倍數但非400的倍數，為平年。
+    \item 公元年分為400的倍數為閏年。
+    \end{enumerate}
+\item 西元年從"一"開始記年
+\item 保證所有的輸入皆是整數
+\end{itemize}
+
+\newpage
+
+\section*{Sample 1}
+\begin{longtable}[!h]{|p{0.5\textwidth}|p{0.5\textwidth}|}
+\hline
+\textbf {Input}	& \textbf {Output} \\
+\hline
+\parbox[t]{0.5\textwidth} % sample 1
+{ \tt
+3 \\
+2000 2 29 \\
+2003 7 11 \\
+2021 4 32 \\
+} &
+\parbox[t]{0.5\textwidth}
+{ \tt
+%output
+No\\
+Yes\\
+error\\
+
+} \\
+\hline
+\end{longtable}
+
+
+\section*{Subtasks}
+
+在一個子任務的「測試資料範圍」的敘述中，如果存在沒有提到範圍的變數，則此變數的範圍為 Input 所描述的範圍。
+
+\begin{center}
+ \begin{tabular}{||c c c||} 
+ \hline
+ 子任務編號 & 子任務配分 & 測試資料範圍 \\  
+ \hline
+ \hline
+ 1 & 20\% & 年份不為閏年且不會出現\texttt{error}的狀況 \\ 
+ \hline
+ 2 & 30\% & 年份不為閏年\\
+ \hline 
+ 3 & 50\% & 無限制 \\
+ \hline
+
+\end{tabular}
+\end{center}
+
+
+
+\end{document}

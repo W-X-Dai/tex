@@ -1,0 +1,112 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{indentfirst}
+\usepackage{amssymb}
+\usepackage{subcaption}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{fancyhdr}
+\usepackage{xeCJK}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{ulem}
+\usepackage{xcolor}
+\usepackage{fancyvrb}
+\usepackage{listings}
+\usepackage{soul}
+\usepackage{hyperref}
+	\lstdefinestyle{C}{
+   		language=C, 
+   		basicstyle=\ttfamily\bfseries,
+    	numbers=left, 
+    	numbersep=5pt,
+    	tabsize=4,
+    	frame=single,
+   	 	commentstyle=\itshape\color{brown},
+    	keywordstyle=\bfseries\color{blue},
+   	 	deletekeywords={define},
+    	morekeywords={NULL,bool}
+	}	
+
+\setCJKmainfont{Noto Serif CJK TC}[Script=CJK]
+\setCJKmonofont{Noto Sans Mono CJK TC}[Script=CJK]
+ 
+\voffset -20pt
+\textwidth 410pt
+\textheight 650pt
+\oddsidemargin 20pt
+\newcommand{\XOR}{\otimes}
+\linespread{1.2}\selectfont
+
+\pagestyle{fancy}
+\lhead{114APCS進階班期中比賽}
+
+\begin{document}
+
+\begin{center}
+\section*{A. Sum}
+\end{center}
+
+\section*{Description}
+
+相信優秀的各位一定都聽過費波納契數列（義大利語：Successione di Fibonacci），這是一個很神奇的東西，有超級多的奇怪性質，比如說連續兩項前項與後項的比值會趨近於黃金比例1.61832...。
+
+有一天呢，某個瘋狂的蘿糕同學想要製作一種可以毀滅疑中的武器，於是他在疑中放了許多定時炸彈，只要沒有在時間內解出密碼，炸彈就會爆炸!碰巧那個人非常喜歡費波納契數列，於是他將密碼設定為費波納契數列的前$N$項和。
+
+怎麼辦，時間所剩不多，趕快寫一個程式來挽救疑中吧！
+
+假設$f(n)$代表費波納契數列第n項，則$f(n)=f(n-1)+f(n-2),n>2$
+
+本題中定義$f(1)=1,f(2)=1,f(3)=2$
+
+\section*{Input}
+
+輸入共一正整數$N$
+
+
+\section*{Output}
+
+請輸出費波納契數列的前$N$項和，亦即$\displaystyle\sum^N_{k=1}f(k)$
+
+\section*{Sample 1}
+\begin{longtable}[!h]{|p{0.5\textwidth}|p{0.5\textwidth}|}
+\hline
+\textbf {Input}	& \textbf {Output} \\
+\hline
+\parbox[t]{0.5\textwidth} % sample 1
+{ \tt
+5
+} &
+\parbox[t]{0.5\textwidth}
+{ \tt
+%output
+12
+
+} \\
+\hline
+\end{longtable}
+
+
+\section*{Subtasks}
+
+在一個子任務的「測試資料範圍」的敘述中，如果存在沒有提到範圍的變數，則此變數的範圍為 Input 所描述的範圍。
+
+\begin{center}
+ \begin{tabular}{||c c c||} 
+ \hline
+ 子任務編號 & 子任務配分 & 測試資料範圍 \\  
+ \hline
+ \hline
+ 1 & 20\% & $N<11$ \\ 
+ \hline
+ %O(n^4)
+ 2 & 30\% & $N<40$\\
+ \hline 
+ % O(n^3)
+ 3 & 50\% & $N<90$ \\
+ \hline
+
+\end{tabular}
+\end{center}
+
+\end{document}

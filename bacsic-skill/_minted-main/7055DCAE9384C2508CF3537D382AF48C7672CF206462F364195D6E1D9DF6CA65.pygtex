@@ -1,0 +1,12 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{+w}{        }\PYG{k+kt}{bool}\PYG{+w}{ }\PYG{n+nf}{cmp}\PYG{p}{(}\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{a}\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{b}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{            }\PYG{k}{return}\PYG{+w}{ }\PYG{n}{a}\PYG{o}{\PYGZgt{}}\PYG{n}{b}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// Return true if a is greater than b}
+\PYG{+w}{        }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{        }\PYG{n}{sort}\PYG{p}{(}\PYG{n}{arr}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{arr}\PYG{o}{+}\PYG{n}{n}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{cmp}\PYG{p}{);}\PYG{+w}{ }\PYG{c+c1}{// Sort the array in descending order}
+
+\PYG{+w}{        }\PYG{c+c1}{// Or you can use a lambda function}
+\PYG{+w}{        }\PYG{n}{sort}\PYG{p}{(}\PYG{n}{arr}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{arr}\PYG{o}{+}\PYG{n}{n}\PYG{p}{,}\PYG{+w}{ }\PYG{p}{[](}\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{a}\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{b}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{            }\PYG{k}{return}\PYG{+w}{ }\PYG{n}{a}\PYG{+w}{ }\PYG{o}{\PYGZgt{}}\PYG{+w}{ }\PYG{n}{b}\PYG{p}{;}
+\PYG{+w}{        }\PYG{p}{\PYGZcb{});}
+\end{Verbatim}

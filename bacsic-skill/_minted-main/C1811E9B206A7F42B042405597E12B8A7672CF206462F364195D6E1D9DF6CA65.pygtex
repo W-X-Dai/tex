@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{+w}{            }\PYG{c+cp}{\PYGZsh{}include}\PYG{c+cpf}{\PYGZlt{}algorithm\PYGZgt{}}
+\PYG{+w}{            }\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{o}{\PYGZgt{}}\PYG{+w}{ }\PYG{n}{arr}\PYG{p}{;}
+\PYG{+w}{            }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{target}\PYG{p}{;}
+\PYG{+w}{            }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{idnex}\PYG{o}{=}\PYG{n}{lowe}
+\end{Verbatim}

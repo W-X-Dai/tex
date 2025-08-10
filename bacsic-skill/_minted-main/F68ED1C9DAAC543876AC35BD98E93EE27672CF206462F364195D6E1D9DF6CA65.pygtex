@@ -1,0 +1,12 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{+w}{        }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{mp}\PYG{p}{[}\PYG{l+m+mi}{1005}\PYG{p}{][}\PYG{l+m+mi}{1005}\PYG{p}{][}\PYG{l+m+mi}{1005}\PYG{p}{];}
+\PYG{+w}{        }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{n}\PYG{p}{,}\PYG{n}{m}\PYG{p}{;}
+
+\PYG{+w}{        }\PYG{k+kr}{inline}\PYG{+w}{ }\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n+nf}{warshall}\PYG{p}{()\PYGZob{}}
+\PYG{+w}{            }\PYG{k}{for}\PYG{p}{(}\PYG{+w}{       }\PYG{n}{considering}\PYG{+w}{ }\PYG{n}{each}\PYG{+w}{ }\PYG{n}{node}\PYG{+w}{ }\PYG{n}{as}\PYG{+w}{ }\PYG{n}{an}\PYG{+w}{ }\PYG{n}{intermediate}\PYG{+w}{ }\PYG{n}{node}\PYG{p}{.}
+\PYG{+w}{            }\PYG{err}{\PYGZbs{}}\PYG{n}{item}\PYG{+w}{ }\PYG{n}{If}\PYG{+w}{ }\PYG{n}{the}\PYG{+w}{ }\PYG{n}{distance}\PYG{+w}{ }\PYG{n}{from}\PYG{+w}{ }\PYG{n}{node}\PYG{+w}{ }\PYG{err}{\PYGZbs{}}\PYG{n}{texttt}\PYG{p}{\PYGZob{}}\PYG{n}{u}\PYG{p}{\PYGZcb{}}\PYG{+w}{ }\PYG{n}{to}\PYG{+w}{ }\PYG{n}{node}\PYG{+w}{ }\PYG{err}{\PYGZbs{}}\PYG{n}{texttt}\PYG{p}{\PYGZob{}}\PYG{n}{v}\PYG{p}{\PYGZcb{}}\PYG{+w}{ }\PYG{n}{through}\PYG{+w}{ }\PYG{n}{node}
+\PYG{+w}{            }\PYG{err}{\PYGZbs{}}\PYG{n}{texttt}\PYG{p}{\PYGZob{}}\PYG{n}{k}\PYG{p}{\PYGZcb{}}\PYG{+w}{ }\PYG{n}{is}\PYG{+w}{ }\PYG{n}{shorter}\PYG{+w}{ }\PYG{n}{than}\PYG{+w}{ }\PYG{n}{the}\PYG{+w}{ }\PYG{n}{current}\PYG{+w}{ }\PYG{n}{distance}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{update}\PYG{+w}{ }\PYG{n}{the}\PYG{+w}{ }\PYG{n}{distance}\PYG{p}{.}
+\PYG{+w}{            }\PYG{err}{\PYGZbs{}}\PYG{n}{item}\PYG{+w}{ }\PYG{n}{Repeat}\PYG{+w}{ }\PYG{n}{until}\PYG{+w}{ }\PYG{n}{all}\PYG{+w}{ }\PYG{n}{pairs}\PYG{+w}{ }\PYG{n}{of}\PYG{+w}{ }\PYG{n}{nodes}\PYG{+w}{ }\PYG{n}{have}\PYG{+w}{ }\PYG{n}{been}\PYG{+w}{ }\PYG{n}{considered}\PYG{p}{.}
+\PYG{+w}{        }\PYG{err}{\PYGZbs{}}\PYG{n}{end}\PYG{p}{\PYGZob{}}\PYG{n}{enumerate}\PYG{p}{\PYGZcb{}}
+\PYG{+w}{        }\PYG{err}{\PYGZbs{}}\PYG{n}{vspace}\PYG{p}{\PYGZob{}}\PYG{l+m+mf}{0.5}\PYG{n}{cm}\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

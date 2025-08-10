@@ -44,65 +44,106 @@
 \begin{document}
 
 \begin{center}
-\section*{C. Safe Pro}
+\section*{F. Bicycle NTU}
 \end{center}
 
 \section*{Description}
 
 
-東北一中銀行儲存了全東北一中的黃金，在銀行內部有一排編號為$1\sim 5000$的保險櫃，有許多客戶會將金條儲存在內，有時候也會提領金條，為避免有人盜領，每個保險庫都設有密碼。
-YL是東北一中銀行的經理，由於銀行老闆實在是太摳了，為了減少薪水的支出，他壓榨員工致力於激發員工的個人工作能力，讓YL負責銀行所有的事務，但是保險櫃實在是太多了，用手記帳一定會記到死去，所以YL決定引進電腦來幫助他，可是他是一個電腦白癡，所以想請你幫他做一個可以記帳的程式。
-喔對了，老闆每次都會隨機抽查保險庫裡面有多少金條，這讓YL壓力頗大，他需要你的幫助!!!
+台大有大量的腳踏車，但停車空間有限，因此學生常常把其他人的車推擠進狹小空間，導致停車場擁擠。
+這樣不僅會讓學生找不到自己的車，也會增加失竊的風險。為了更了解這個問題，總務處決定分析學生的停車行為。
 
+為簡化分析，每個停車格視為一個節點，所有停車格以小徑相連構成一棵樹狀結構。
+兩格之間的路徑是唯一的，設 $w(x, y)$ 表示連接 $x$ 與 $y$ 的路徑所需時間，
+從 $x$ 到 $z$ 的總花費時間為路徑中所有邊的總和。
 
+每個停車格 $x$ 設有座標範圍 $[1, c_x]$，容量為 $c_x$，可停放一輛或多輛腳踏車。
+學生可以自由選擇停放或移動腳踏車，但學校會定期進行整理與清除，有些車會被拖吊到水源校區，學生需搭校車前往領回。
+
+有以下幾種操作：
+
+\begin{enumerate}
+\item \textbf{Park} $s, x, p$：學生 $s$ 嘗試將腳踏車停在格子 $x$ 的位置 $p$，規則如下：
+\begin{itemize}
+\item 若 $p$ 為空，直接停在 $p$。
+\item 若 $p$ 被佔用，找出距離 $p$ 最近的空位（優先靠左）。
+\item 若整數位置皆已滿，則：
+\begin{itemize}
+\item 若最左邊的車不在 $p$，插入 $p$ 左側兩車中間（例如 $1, 2, 3$ 被佔，用戶想停 $3$，實際會停在 $5/2$）。
+\item 否則插入 $p$ 右側兩車中間（例如停在 $1$ 時，實際會停在 $5/4$）。
+\end{itemize}
+\end{itemize}
+
+\item \textbf{Move} $s, y, p$：學生 $s$ 將車從原格 $x$ 移至新格 $y$ 的位置 $p$，並計算 $x$ 到 $y$ 的移動時間。若 $x = y$，不移動，耗時為 0。
+
+\item \textbf{Clear} $x, t$：在時間 $t$ 清空格 $x$，將所有車移至水源校區。學生 $s$ 將於 $t + \ell_s$ 被通知來領車。
+
+\item \textbf{Rearrange} $x, t$：在時間 $t$ 清除所有非法停車（非整數座標）之車輛並移至水源校區，學生 $s$ 將於 $t + \ell_s$ 被通知。
+
+\item \textbf{Fetch} $t$：時間 $t$ 校車發車至水源，所有已被通知可領車的學生一同前往，領回後不會立即停車，會等之後再用 Park 操作。
+
+\item \textbf{Rebuild} $x, y, d$（額外）：將連接 $x$ 與 $y$ 的邊權重 $w(x, y)$ 改為 $d$，保證 $x, y$ 原本有邊。
+\end{enumerate}
+
+\newpage
 \section*{Input}
 
-第一行為兩個正整數$M$和$N$，代表總共有$N$個客戶，並且他們只會存取編號$1\sim M$的保險庫
+第一行為三整數 $n, q$：停車格數、操作數
 
-第二行為$M$個四位數，第$i$個字串$M_i$代表編號$i$保險庫的密碼
+第二行有 $n$ 個整數：各停車格容量 $c_x$
 
-第三行為$M$個整數，第$i$個整數代表編號$i$保險庫一開始有多少金條
+接下來 $n-1$ 行，每行三整數 $x, y, w$：表示停車格 $x, y$ 之間有一條距離為 $w$ 的小徑
 
-第四行為$N$個整數，第$i$個整數$a_i$代表第$i$個客戶想要開啟編號$a_i$的保險庫
+接下來 $q$ 行操作：格式如下（前綴為操作類型代碼）：
+\begin{itemize}
+\item \textbf{Park}: 0 s x p
+\item \textbf{Move}: 1 s y p
+\item \textbf{Clear}: 2 x t
+\item \textbf{Rearrange}: 3 x t
+\item \textbf{Fetch}: 4 t
+\item \textbf{Rebuild}: 5 x y d
+\end{itemize}
 
-第五行為$N$個數，第$i$個數$b_i$代表第i個客戶想要將$b_i$條金條存入編號$a_i$的保險庫
-
-第六行為$N$個數，第$i$個數$b_i$代表第$i$個客戶想要從編號$a_i$的保險庫提領$b_i$條金條
-
-第七行為$N$個四位數，第$i$個字串代表第$i$個客戶輸入的密碼
-
-第八行為一個數字$K$，接下一行$K$個整數，每行一個整數$X$代表老闆抽查的保險庫編號，請輸出該保險庫有多少金條
-
-請注意，如果密碼不正確是無法提領/存入金條的，另外，每個金庫的金條最少只能被提領至$0$條，如果提領後結果$<0$ YL最多只會讓該客戶提領到金條數量$=0$。你可以假設每一次操作都是先存入再提出。
-
-
+其中 $s$ 為學生編號，$x, y$ 為停車格編號，$p$ 為位置，$t$ 為時間，$d$ 為新距離
 \section*{Output}
 
-輸出共一行，$K$個整數，第$K$個整數$K_i$代表編號$K_i$保險庫中的金條數量
+對於每個操作，輸出格式如下：
+
+\begin{itemize}
+\item \textbf{Park}: 輸出 \\
+	\texttt{[s] parked at ([x], [fp]).} \\
+	，其中 \texttt{fp} 為最簡分數或整數
+\item \textbf{Move}: 輸出 \\
+	\texttt{[s] moved to [y] in [t] seconds.}
+\item \textbf{Clear}: 無輸出
+\item \textbf{Rearrange}: 輸出 \\
+	\texttt{Rearranged [n] bikes in [x].} \\
+	，其中 \texttt{n} 為被移除的腳踏車數量
+\item \textbf{Fetch}: 輸出 \\ 
+	\texttt{At [t], [n] bikes was fetched.} \\
+	，其中 \texttt{n} 為被領回的腳踏車數量
+\item \textbf{Rebuild}: 無輸出
+\end{itemize}
 
 \newpage
 \section*{Sample 1}
 \begin{longtable}[!h]{|p{0.5\textwidth}|p{0.5\textwidth}|}
 \hline
-\textbf {Input}	& \textbf {Output} \\
+\textbf{Input} & \textbf{Output} \\
 \hline
-\parbox[t]{0.5\textwidth} % sample 1
-{ \tt
-3 4\\
-1234 4321 9999\\
-11 22 33 \\
-1 2 3 2\\
-3 3 3 3\\
-2 4 2 4\\
-1234 4321 7777 1324\\
-5\\
-1 2 3 2 1\\
-
-} &
-\parbox[t]{0.5\textwidth}
-{ \tt
-%output
-12 21 33 21 12
+\parbox[t]{0.5\textwidth}{\ttfamily
+1 5 3\\
+3\\
+0 0 0 0 0\\
+0 0 0 2\\
+0 1 0 2\\
+0 2 0 2\\
+}
+&
+\parbox[t]{0.5\textwidth}{\ttfamily
+0 parked at (0, 2).\\
+1 parked at (0, 1).\\
+2 parked at (0, 3).
 } \\
 \hline
 \end{longtable}
@@ -110,25 +151,129 @@ YL是東北一中銀行的經理，由於銀行老闆實在是太摳了，為了
 \section*{Sample 2}
 \begin{longtable}[!h]{|p{0.5\textwidth}|p{0.5\textwidth}|}
 \hline
-\textbf {Input}	& \textbf {Output} \\
+\textbf{Input} & \textbf{Output} \\
 \hline
-\parbox[t]{0.5\textwidth} % sample 1
-{ \tt
-3 0\\
-1234 4321 9999\\
-11 22 33 \\
-5\\
-1 2 3 2 1\\
-
-
-} &
-\parbox[t]{0.5\textwidth}
-{ \tt
-%output
-11 22 33 22 11
+\parbox[t]{0.5\textwidth}{\ttfamily
+1 5 6\\
+3\\
+0 0 0 0 0\\
+0 0 0 1\\
+0 1 0 2\\
+0 2 0 3\\
+0 3 0 3\\
+3 0 1\\
+0 4 0 3\\
+}
+&
+\parbox[t]{0.5\textwidth}{\ttfamily
+0 parked at (0, 1).\\
+1 parked at (0, 2).\\
+2 parked at (0, 3).\\
+3 parked at (0, 5/2).\\
+Rearranged 1 bikes in 0.\\
+4 parked at (0, 5/2).
 } \\
 \hline
 \end{longtable}
+
+\section*{Sample 3}
+\begin{longtable}[!h]{|p{0.5\textwidth}|p{0.5\textwidth}|}
+\hline
+\textbf{Input} & \textbf{Output} \\
+\hline
+\parbox[t]{0.5\textwidth}{\ttfamily
+1 5 6\\
+3\\
+3 4 5 6 7\\
+0 0 0 1\\
+0 1 0 1\\
+0 2 0 1\\
+0 3 0 1\\
+2 0 1\\
+4 6\\
+}
+&
+\parbox[t]{0.5\textwidth}{\ttfamily
+0 parked at (0, 1).\\
+1 parked at (0, 2).\\
+2 parked at (0, 3).\\
+3 parked at (0, 3/2).\\
+At 6, 3 bikes was fetched.
+} \\
+\hline
+\end{longtable}
+
+\section*{Sample 4}
+\begin{longtable}[!h]{|p{0.5\textwidth}|p{0.5\textwidth}|}
+\hline
+\textbf{Input} & \textbf{Output} \\
+\hline
+\parbox[t]{0.5\textwidth}{\ttfamily
+6 5 6\\
+3 3 3 4 4 4\\
+3 4 5 6 7\\
+0 2 1\\
+0 5 4\\
+1 5 7\\
+2 3 2\\
+4 5 3\\
+0 0 0 1\\
+1 0 1 1\\
+1 0 4 1\\
+1 0 2 1\\
+1 0 3 1\\
+1 0 2 1\\
+}
+&
+\parbox[t]{0.5\textwidth}{\ttfamily
+0 parked at (0, 1).\\
+0 moved to 1 in 11 seconds.\\
+0 moved to 4 in 10 seconds.\\
+0 moved to 2 in 8 seconds.\\
+0 moved to 3 in 2 seconds.\\
+0 moved to 2 in 2 seconds.
+} \\
+\hline
+\end{longtable}
+\newpage
+\section*{Sample 5}
+\begin{longtable}[!h]{|p{0.5\textwidth}|p{0.5\textwidth}|}
+\hline
+\textbf{Input} & \textbf{Output} \\
+\hline
+\parbox[t]{0.5\textwidth}{\ttfamily
+5 10 10\\
+5 10 6 11 2\\
+0 0 0 0 0 0 0 0 0 0\\
+3 0 49410\\
+3 2 54898\\
+2 1 76874\\
+4 1 14829\\
+0 6 4 1\\
+5 3 0 315398\\
+0 0 4 1\\
+0 3 4 2\\
+0 2 4 1\\
+2 4 18337236\\
+0 7 2 4\\
+1 7 2 5\\
+0 4 0 3\\
+2 2 37134602\\
+}
+&
+\parbox[t]{0.5\textwidth}{\ttfamily
+6 parked at (4, 1).\\
+0 parked at (4, 2).\\
+3 parked at (4, 3/2).\\
+2 parked at (4, 5/4).\\
+7 parked at (2, 4).\\
+7 moved to 2 in 0 seconds.\\
+4 parked at (0, 3).
+} \\
+\hline
+\end{longtable}
+
+
 
 \section*{Subtasks}
 
@@ -140,17 +285,19 @@ YL是東北一中銀行的經理，由於銀行老闆實在是太摳了，為了
  子任務編號 & 子任務配分 & 測試資料範圍 \\  
  \hline
  \hline
- 1 & 20\% & $M<500, N=0$ \\ 
+ 1 & 10\% & $n \le 300, q \le 300$，僅 Park、Move \\ 
  \hline
- 2 & 30\% & $M<500, N<20, K<50$，不會出現錯誤的密碼\\
+ 2 & 20\% & $n \le 300, q \le 300$，含 Fetch \\
  \hline 
- 3 & 50\% & $M<5000, N<200, K<500$ \\
+ 3 & 20\% & $n \le 300$，含 Fetch \\
  \hline
-
+ 4 & 50\% & 不含 Rebuild \\
+ \hline
+ 5 & Bonus & 包含所有操作，完成可獲飲料獎勵 \\
+ \hline
 \end{tabular}
 \end{center}
 
-配分說明:
-- 保證密碼為四位數
+
 
 \end{document}

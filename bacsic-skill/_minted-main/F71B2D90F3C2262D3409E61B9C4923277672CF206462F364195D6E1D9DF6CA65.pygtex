@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{+w}{        }\PYG{k}{struct}\PYG{+w}{ }\PYG{n+nc}{Student}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{            }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{id}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// Student ID}
+\PYG{+w}{            }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{score}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// Student score}
+\PYG{+w}{        }\PYG{p}{\PYGZcb{};}
+
+\end{Verbatim}

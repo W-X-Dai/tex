@@ -1,0 +1,16 @@
+= 我的報告標題
+
+# Hello Typst!
+
+This is a paragraph with *italic*, **bold**, and `monospace`.
+
+== 數學公式
+
+Let $f(x) = x^2$. Then $f'(x) = 2x$.
+
+== 表格
+
+| Name  | Age |
+|-------|-----|
+| Alice |  20 |
+| Bob   |  21 |

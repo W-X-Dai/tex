@@ -1,0 +1,11 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{+w}{        }\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{o}{\PYGZgt{}}\PYG{+w}{ }\PYG{n}{arr}\PYG{p}{;}
+\PYG{+w}{        }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{target}\PYG{p}{;}
+\PYG{+w}{        }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n+nf}{binary\PYGZus{}search}\PYG{p}{(}\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{l}\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{r}\PYG{p}{)\PYGZob{}}
+\PYG{+w}{            }\PYG{k}{if}\PYG{p}{(}\PYG{n}{l}\PYG{o}{\PYGZgt{}}\PYG{n}{r}\PYG{p}{)}\PYG{k}{return}\PYG{+w}{ }\PYG{l+m+mi}{\PYGZhy{}1}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// Not found}
+\PYG{+w}{            }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{mid}\PYG{o}{=}\PYG{n}{l}\PYG{o}{+}\PYG{n}{r}\PYG{o}{\PYGZgt{}\PYGZgt{}}\PYG{l+m+mi}{1}\PYG{p}{;}
+\PYG{+w}{            }\PYG{k}{if}\PYG{p}{(}\PYG{n}{mid}\PYG{o}{==}\PYG{n}{target}\PYG{p}{)}\PYG{k}{return}\PYG{+w}{ }\PYG{n}{mid}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// Found the target}
+\PYG{+w}{            }\PYG{k}{if}\PYG{p}{(}\PYG{n}{arr}\PYG{p}{[}\PYG{n}{mid}\PYG{p}{]}\PYG{o}{\PYGZgt{}}\PYG{n}{target}\PYG{p}{)}\PYG{k}{return}\PYG{+w}{ }\PYG{n}{binary\PYGZus{}search}\PYG{p}{(}\PYG{n}{l}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{mid}\PYG{l+m+mi}{\PYGZhy{}1}\PYG{p}{);}\PYG{+w}{ }\PYG{c+c1}{// Search in the left half}
+\PYG{+w}{            }\PYG{k}{return}\PYG{+w}{ }\PYG{n}{binary\PYGZus{}search}\PYG{p}{(}\PYG{n}{mid}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{r}\PYG{p}{);}\PYG{+w}{ }\PYG{c+c1}{// Search in the right half}
+\PYG{+w}{        }\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

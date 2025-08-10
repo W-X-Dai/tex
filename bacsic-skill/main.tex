@@ -1,0 +1,483 @@
+\documentclass[xcolor=dvipsnames]{beamer}
+
+% ==== Beamer 主題與配色 ====
+\usetheme{CambridgeUS}
+% \useoutertheme{miniframes}
+% \useinnertheme{circles}
+
+% \definecolor{UBCblue}{rgb}{0.04706, 0.13725, 0.26667}
+% \definecolor{UBCgrey}{rgb}{0.3686, 0.5255, 0.6235}
+
+% \setbeamercolor{palette primary}{bg=UBCblue,fg=white}
+% \setbeamercolor{palette secondary}{bg=UBCblue,fg=white}
+% \setbeamercolor{palette tertiary}{bg=UBCblue,fg=white}
+% \setbeamercolor{palette quaternary}{bg=UBCblue,fg=white}
+% \setbeamercolor{structure}{fg=UBCblue}
+% \setbeamercolor{section in toc}{fg=UBCblue}
+% \setbeamercolor{subsection in head/foot}{bg=UBCgrey,fg=white}
+
+% ==== 語言與字型設定 ====
+\usepackage{fontspec}
+\usepackage{xeCJK}
+
+% 英文與中文字型
+
+\setCJKmainfont{Noto Serif CJK TC}[Script=CJK]
+\setCJKmonofont{Noto Sans Mono CJK TC}[Script=CJK]
+
+% ==== 套件 ====
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{minted}
+\usepackage{hyperref}
+\usepackage{fvextra}
+
+% ==== C 語言樣式 ====
+\lstdefinestyle{C}{
+    language=C,
+    basicstyle=\ttfamily\bfseries\small,
+    numbers=left,
+    numbersep=5pt,
+    tabsize=4,
+    frame=single,
+    commentstyle=\itshape\color{brown},
+    keywordstyle=\bfseries\color{blue},
+    deletekeywords={define},
+    morekeywords={NULL, bool}
+}
+
+\title{Basic Skills 1}
+\author{TAI, WEI HSUAN}
+\date{\today}
+
+\begin{document}
+	
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{Outline}
+        \begin{itemize}
+            \item Sorting Algorithms
+            \item Binary Search
+            \item Fast Exponentiation
+            \item Prefix Sum
+        \end{itemize}
+	\end{frame}
+	
+    \begin{frame}
+        \frametitle{Sorting Algorithms}
+        Given a series of numbers, can you sort them in ascending order?
+
+        This is a very common problem in programming,
+        and there are many algorithms to solve this problem.
+
+        There are many sorting algorithms, such as:
+        \begin{itemize}
+            \item Bubble Sort
+            \item Selection Sort
+            \item Insertion Sort
+            \item Merge Sort
+            \item Quick Sort
+            \item Heap Sort
+            \item Counting Sort
+            \item Radix Sort
+            \item Bucket Sort
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}[fragile]
+        \frametitle{Sorting Algorithms}
+        In this class, we won't go into details about each sorting algorithm,
+        instead, we will use the built-in sorting function in C++.
+    
+        If you want to learn more about sorting algorithms,
+        you can check out this link: \url{https://oi-wiki.org/basic/sort-intro/}
+
+        The built-in sorting function is based on the \texttt{std::sort} function
+    \end{frame}
+
+	\begin{frame}[fragile]
+        \frametitle{Code for Sorting Algorithms}
+        \begin{minted}[
+            linenos,                      % 開啟行號
+            frame=lines,                  % 上下框線
+            framesep=5pt,                 % 程式碼與邊框距離
+            numbersep=8pt,                % 行號與程式碼距離
+            fontsize=\scriptsize,        % 可視需求調整字體大小
+            breaklines,                  % 長行自動換行（建議）
+            tabsize=4,                   % tab 寬度
+            rulecolor=\color{black},     % 框線顏色
+            xleftmargin=1.5em            % 讓行號有空間顯示 
+        ]{cpp}
+        #include<algorithm>
+        int arr[10005], n;
+
+        sort(arr, arr+n); // Sort the array in ascending order
+
+        \end{minted}
+        Using this function, we can sort an array in ascending order with the time complexity of $O(n \log n)$,
+        where $n$ is the number of elements in the array.
+	\end{frame}
+
+    \begin{frame}[fragile]
+        \frametitle{Another way to sort}
+        If you want to sort an array in your own way,
+        you can define a custom comparator function.
+
+        For example, if you want to sort an array in descending order,
+        you can define a function like this:
+        \begin{minted}[
+            linenos,                      % 開啟行號
+            frame=lines,                  % 上下框線
+            framesep=5pt,                 % 程式碼與邊框距離
+            numbersep=8pt,                % 行號與程式碼距離
+            fontsize=\scriptsize,        % 可視需求調整字體大小
+            breaklines,                  % 長行自動換行（建議）
+            tabsize=4,                   % tab 寬度
+            rulecolor=\color{black},     % 框線顏色
+            xleftmargin=1.5em            % 讓行號有空間顯示 
+        ]{cpp}
+        bool cmp(int a, int b) {
+            return a>b; // Return true if a is greater than b
+        }
+
+        sort(arr, arr+n, cmp); // Sort the array in descending order
+
+        // Or you can use a lambda function
+        sort(arr, arr+n, [](int a, int b) {
+            return a > b;
+        });
+        \end{minted}
+
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Principle of Comparison function}
+        The comparison function should return true if the first argument 
+        should come before the second in the final sorted order; 
+        otherwise, it should return false.
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{More about sorting}
+        
+        Give you a series of student scores, sort them by scores.
+        If scores are the same, the sort by student ID in ascending order.
+
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{More about sorting}
+        \begin{minted}[
+            linenos,                      % 開啟行號
+            frame=lines,                  % 上下框線
+            framesep=5pt,                 % 程式碼與邊框距離
+            numbersep=8pt,                % 行號與程式碼距離
+            fontsize=\scriptsize,        % 可視需求調整字體大小
+            breaklines,                  % 長行自動換行（建議）
+            tabsize=4,                   % tab 寬度
+            rulecolor=\color{black},     % 框線顏色
+            xleftmargin=1.5em            % 讓行號有空間顯示 
+        ]{cpp}
+        struct Student{
+            int id; // Student ID
+            int score; // Student score
+        };
+        bool cmp(Student a, Student b) {
+            if(a.score==b.score)return a.id<b.id; // If scores are the same, sort by ID
+            return a.score>b.score; // Sort by score in descending order
+        }
+        vector<Student> students;
+        sort(students.begin(), students.end(), cmp); // Sort the students by score and ID
+        \end{minted}
+
+    \end{frame}
+
+	\begin{frame}[fragile]
+        \frametitle{Binary Search}
+        Given a sorted array, can you find the position of a target value in the array?
+
+        Ofcourse, we can use a linear search to do that.
+        \begin{minted}[
+            linenos,                      % 開啟行號
+            frame=lines,                  % 上下框線
+            framesep=5pt,                 % 程式碼與邊框距離
+            numbersep=8pt,                % 行號與程式碼距離
+            fontsize=\scriptsize,        % 可視需求調整字體大小
+            breaklines,                  % 長行自動換行（建議）
+            tabsize=4,                   % tab 寬度
+            rulecolor=\color{black},     % 框線顏色
+            xleftmargin=1.5em            % 讓行號有空間顯示 
+        ]{cpp}
+        int linear_search(vector<int> arr, int target) {
+            for(int i=0;i<arr.size();i++) {
+                if(arr[i]==target) {
+                    return i; // Found the target at index i
+                }
+            }
+            return -1; // Target not found
+        }
+        \end{minted}
+        Time complexity?
+	\end{frame}
+
+	\begin{frame}[fragile]
+        \frametitle{Binary Search}
+        We can use a concept of "cut in half"
+
+        For example, if you want to gurss a number between 1 and 100,
+        you can start by guessing 50, if the answer is smaller than 50, you can cut the range to 1-49,
+        if the answer is larger than 50, you can cut the range to 51-100.
+	\end{frame}
+
+	\begin{frame}[fragile]
+        \frametitle{Code for Binary Search}
+
+        \begin{minted}[
+            linenos,                      % 開啟行號
+            frame=lines,                  % 上下框線
+            framesep=5pt,                 % 程式碼與邊框距離
+            numbersep=8pt,                % 行號與程式碼距離
+            fontsize=\scriptsize,        % 可視需求調整字體大小
+            breaklines,                  % 長行自動換行（建議）
+            tabsize=4,                   % tab 寬度
+            rulecolor=\color{black},     % 框線顏色
+            xleftmargin=1.5em            % 讓行號有空間顯示 
+        ]{cpp}
+        vector<int> arr;
+        int target;
+        int binary_search(int l, int r){
+            if(l>r)return -1; // Not found
+            int mid=l+r>>1;
+            if(mid==target)return mid; // Found the target
+            if(arr[mid]>target)return binary_search(l, mid-1); // Search in the left half
+            return binary_search(mid+1, r); // Search in the right half
+        }
+        \end{minted}
+        Time complexity?
+	\end{frame}
+
+    \begin{frame}
+        \frametitle{Practice}
+        \begin{itemize}
+            \item \href{https://www.spoj.com/problems/BSEARCH1/en/}{SPOJ - Binary Search}
+        \end{itemize}
+    \end{frame}
+        
+
+    \scriptsize
+    \begin{frame}[fragile]
+        \frametitle{C++ have a built-in function for binary search}
+        \begin{minted}[
+            linenos,                      % 開啟行號
+            frame=lines,                  % 上下框線
+            framesep=5pt,                 % 程式碼與邊框距離
+            numbersep=8pt,                % 行號與程式碼距離
+            fontsize=\scriptsize,        % 可視需求調整字體大小
+            breaklines,                  % 長行自動換行（建議）
+            tabsize=4,                   % tab 寬度
+            rulecolor=\color{black},     % 框線顏色
+            xleftmargin=1.5em            % 讓行號有空間顯示 
+        ]{cpp}
+            #include<algorithm>
+            vector<int> arr;
+            int target;
+            int idnex=lower_bound(arr.begin(), arr.end(), target)-arr.begin();
+
+        \end{minted}
+    \end{frame}
+
+
+    \begin{frame}
+        \frametitle{Summary}
+        \begin{itemize}
+            \item We can use binary search to find the position of a target value in a sorted array 
+                with the time complexity of $O(\log n)$, 
+                where $n$ is the number of elements in the array.
+            \item C++ have a built-in function for binary search,
+                which is \texttt{lower\_bound} and \texttt{upper\_bound}.
+        \end{itemize}
+
+        
+    \end{frame}
+
+    % fast exponentiation
+    \begin{frame}[fragile]
+        \frametitle{Fast Exponentiation}
+        Given a number $a$ and an exponent $b$,
+        can you calculate $a^b$ ?
+
+        Ofcourse we can use a linear search to do that.
+        \begin{minted}[
+            linenos,                      % 開啟行號
+            frame=lines,                  % 上下框線
+            framesep=5pt,                 % 程式碼與邊框距離
+            numbersep=8pt,                % 行號與程式碼距離
+            fontsize=\scriptsize,        % 可視需求調整字體大小
+            breaklines,                  % 長行自動換行（建議）
+            tabsize=4,                   % tab 寬度
+            rulecolor=\color{black},     % 框線顏色
+            xleftmargin=1.5em            % 讓行號有空間顯示 
+        ]{cpp}
+            int a, b, ans=1, mod=1e9+7;
+            for(int i=0;i<b;i++){
+                ans=ans*a%mod; // Multiply a to ans, and take mod
+            }
+            cout<<ans; // Output the result
+        \end{minted}
+        Time complexity?
+    \end{frame}
+    
+    \begin{frame}
+        \frametitle{Fast Exponentiation}
+        Fast exponentiation is a technique to compute large powers of a number efficiently.
+        The idea is to use the property:
+        \[
+            a^b = \begin{cases}
+                1 & \text{if } b = 0 \\
+                a \cdot a^{b-1} & \text{if } b \text{ is odd} \\
+                (a^{b/2})^2 & \text{if } b \text{ is even}
+            \end{cases}
+        \]
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Example}
+        If you want to calculate $2^{15}$, you can do it like this:
+        \begin{itemize}
+            \item $2^{15} = 2^{14} \cdot 2$
+            \item $2^{14} = (2^7)^2$
+            \item $2^7 = 2^6 \cdot 2$
+            \item $2^6 = (2^3)^2$
+            \item $2^3 = 2^2 \cdot 2$
+            \item $2^2 = (2^1)^2$
+            \item $2^1 = 2$
+        \end{itemize}
+        This way, we can reduce the number of multiplications needed to calculate $2^{15}$.
+
+        To calculate $a^b$, we can reduce the time complexity to $O(\log b)$
+        by using the fast exponentiation technique.
+   \end{frame}
+
+    \begin{frame}[fragile]
+        \frametitle{Code for fast exponentiation}
+        \begin{minted}[
+            linenos,                      % 開啟行號
+            frame=lines,                  % 上下框線
+            framesep=5pt,                 % 程式碼與邊框距離
+            numbersep=8pt,                % 行號與程式碼距離
+            fontsize=\scriptsize,        % 可視需求調整字體大小
+            breaklines,                  % 長行自動換行（建議）
+            tabsize=4,                   % tab 寬度
+            rulecolor=\color{black},     % 框線顏色
+            xleftmargin=1.5em            % 讓行號有空間顯示 
+        ]{cpp}
+        int fpow(int a, int b){
+            int ans=1;
+            while(b>0){
+                if(b & 1)ans=ans*a%mod; // If b is odd, multiply a to ans
+                a=a*a%mod; // Square a
+                b>>=1; // Divide b by 2
+            }
+            return ans;
+        }
+        \end{minted}
+        
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Practice}
+        \begin{itemize}
+            \item \href{https://cses.fi/problemset/task/1095}{CSES 1095 - Pure Exponentiation}
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}[fragile]
+        \frametitle{Prefix Sum}
+        Given an array with $n$ elements adn $q$ queries,
+        can you calculate the sum of elements in a range $[l, r]$?
+
+        One simple way is to use a loop to calculate the sum.
+        \begin{minted}[
+            linenos,                      % 開啟行號
+            frame=lines,                  % 上下框線
+            framesep=5pt,                 % 程式碼與邊框距離
+            numbersep=8pt,                % 行號與程式碼距離
+            fontsize=\scriptsize,        % 可視需求調整字體大小
+            breaklines,                  % 長行自動換行（建議）
+            tabsize=4,                   % tab 寬度
+            rulecolor=\color{black},     % 框線顏色
+            xleftmargin=1.5em            % 讓行號有空間顯示 
+        ]{cpp}
+        vector<int> arr;
+        int q, l, r;
+        for(int i=0;i<q;i++){
+            cin>>l>>r;
+            int sum=0;
+            for(int j=l;j<=r;j++){
+                sum+=arr[j];
+            }
+            cout<<sum<<"\n";
+        }
+        \end{minted}        
+        Time complexity?
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Prefix Sum}
+        We can use a technique called prefix sum to solve this problem.
+
+        Set $$p_i=\displaystyle\sum_{k=1}^{i}a_k$$
+
+        If we want to calculate the sum of elements in a range $[l, r]$,
+        we can use the formula:
+        $$\displaystyle\sum_{k=l}^{r}a_k = \displaystyle\sum_{k=1}^{r}a_k - \displaystyle\sum_{k=1}^{l-1}a_k$$
+
+        Though we need $O(n)$ to preprocess the prefix sum array, we can reduce the time complexity to $O(1)$ for each query.
+    \end{frame}
+
+    \begin{frame}[fragile]
+        \frametitle{Code for Prefix Sum}
+        \begin{minted}[
+            linenos,                      % 開啟行號
+            frame=lines,                  % 上下框線
+            framesep=5pt,                 % 程式碼與邊框距離
+            numbersep=8pt,                % 行號與程式碼距離
+            fontsize=\scriptsize,        % 可視需求調整字體大小
+            breaklines,                  % 長行自動換行（建議）
+            tabsize=4,                   % tab 寬度
+            rulecolor=\color{black},     % 框線顏色
+            xleftmargin=1.5em            % 讓行號有空間顯示 
+        ]{cpp}
+        vector<int> arr;
+        int pre[N], q, l, r;
+        for(int i=1;i<=n;i++){
+            pre[i]=pre[i-1]+arr[i]; // Calculate the prefix sum
+        }
+        for(int i=0;i<q;i++){
+            cin>>l>>r;
+            cout<<pre[r]-pre[l-1]<<"\n"; // Output the sum of elements in the range [l, r]
+        }
+        \end{minted}        
+        
+    \end{frame}    
+
+    \begin{frame}
+        \frametitle{Challenge}
+        Given an array with $n$ elements and $q$ queries, each query has one number.
+        Can you output a pair of indices $(l, r)$ such that the sum of elements in the range 
+        $[l, r]$ is equal to the number in the query?
+
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Practice}
+        \begin{itemize}
+            \item \href{https://cses.fi/problemset/task/1646}{CSES 1646 - Pure Prefix Sum}
+        \end{itemize}
+    \end{frame}
+\end{document}

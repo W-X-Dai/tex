@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{+w}{        }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n+nf}{linear\PYGZus{}search}\PYG{p}{(}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{o}{\PYGZgt{}}\PYG{+w}{ }\PYG{n}{arr}\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{target}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{            }\PYG{k}{for}\PYG{p}{(}\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{i}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{;}\PYG{n}{i}\PYG{o}{\PYGZlt{}}\PYG{n}{arr}\PYG{p}{.}\PYG{n}{size}\PYG{p}{();}\PYG{n}{i}\PYG{o}{++}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{arr}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{o}{==}\PYG{n}{target}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                    }\PYG{k}{return}\PYG{+w}{ }\PYG{n}{i}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// Found the target}
+\PYG{+w}{                }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{            }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{            }\PYG{k}{return}\PYG{+w}{ }\PYG{l+m+mi}{\PYGZhy{}1}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// Target not found}
+\PYG{+w}{        }\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

@@ -1,0 +1,11 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{+w}{        }\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{o}{\PYGZgt{}}\PYG{+w}{ }\PYG{n}{arr}\PYG{p}{;}
+\PYG{+w}{        }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{pre}\PYG{p}{[}\PYG{n}{N}\PYG{p}{],}\PYG{+w}{ }\PYG{n}{q}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{l}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{r}\PYG{p}{;}
+\PYG{+w}{        }\PYG{k}{for}\PYG{p}{(}\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{i}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{;}\PYG{n}{i}\PYG{o}{\PYGZlt{}=}\PYG{n}{n}\PYG{p}{;}\PYG{n}{i}\PYG{o}{++}\PYG{p}{)\PYGZob{}}
+\PYG{+w}{            }\PYG{n}{pre}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{o}{=}\PYG{n}{pre}\PYG{p}{[}\PYG{n}{i}\PYG{l+m+mi}{\PYGZhy{}1}\PYG{p}{]}\PYG{o}{+}\PYG{n}{arr}\PYG{p}{[}\PYG{n}{i}\PYG{p}{];}\PYG{+w}{ }\PYG{c+c1}{// Calculate the prefix sum}
+\PYG{+w}{        }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{        }\PYG{k}{for}\PYG{p}{(}\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{i}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{;}\PYG{n}{i}\PYG{o}{\PYGZlt{}}\PYG{n}{q}\PYG{p}{;}\PYG{n}{i}\PYG{o}{++}\PYG{p}{)\PYGZob{}}
+\PYG{+w}{            }\PYG{n}{cin}\PYG{o}{\PYGZgt{}\PYGZgt{}}\PYG{n}{l}\PYG{o}{\PYGZgt{}\PYGZgt{}}\PYG{n}{r}\PYG{p}{;}
+\PYG{+w}{            }\PYG{n}{cout}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{n}{pre}\PYG{p}{[}\PYG{n}{r}\PYG{p}{]}\PYG{o}{\PYGZhy{}}\PYG{n}{pre}\PYG{p}{[}\PYG{n}{l}\PYG{l+m+mi}{\PYGZhy{}1}\PYG{p}{]}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+s}{\PYGZdq{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s}{\PYGZdq{}}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// Output the sum of elements in the range [l, r]}
+\PYG{+w}{        }\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

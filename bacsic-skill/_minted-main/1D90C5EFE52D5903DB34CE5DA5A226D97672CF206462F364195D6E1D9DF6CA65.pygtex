@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{+w}{            }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{a}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{b}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{ans}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{mod}\PYG{o}{=}\PYG{l+m+mf}{1e9}\PYG{o}{+}\PYG{l+m+mi}{7}\PYG{p}{;}
+\PYG{+w}{            }\PYG{k}{for}\PYG{p}{(}\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{i}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{;}\PYG{n}{i}\PYG{o}{\PYGZlt{}}\PYG{n}{b}\PYG{p}{;}\PYG{n}{i}\PYG{o}{++}\PYG{p}{)\PYGZob{}}
+\PYG{+w}{                }\PYG{n}{ans}\PYG{o}{=}\PYG{n}{ans}\PYG{o}{*}\PYG{n}{a}\PYG{o}{\PYGZpc{}}\PYG{n}{mod}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// Multiply a to ans, and take mod}
+\PYG{+w}{            }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{            }\PYG{n}{cout}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{n}{ans}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// Output the result}
+\end{Verbatim}

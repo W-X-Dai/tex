@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{+w}{        }\PYG{c+cp}{\PYGZsh{}include}\PYG{c+cpf}{\PYGZlt{}algorithm\PYGZgt{}}
+\PYG{+w}{        }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{arr}\PYG{p}{[}\PYG{l+m+mi}{10005}\PYG{p}{],}\PYG{+w}{ }\PYG{n}{n}\PYG{p}{;}
+
+\PYG{+w}{        }\PYG{n}{sort}\PYG{p}{(}\PYG{n}{arr}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{arr}\PYG{o}{+}\PYG{n}{n}\PYG{p}{)}\PYG{o}{+}\PYG{n}{n}\PYG{p}{);}\PYG{+w}{ }\PYG{c+c1}{// Sort the array in ascending order}
+
+\end{Verbatim}

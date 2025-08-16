@@ -1,0 +1,342 @@
+\documentclass[xcolor=dvipsnames]{beamer}
+
+% ==== 主題 ====
+\usetheme{CambridgeUS}
+\usefonttheme{professionalfonts}          % 不覆蓋你自訂的字型
+
+% ==== 字型 ====
+\usepackage{fontspec}
+\usepackage{xeCJK}
+\renewcommand{\familydefault}{\rmdefault} % 使用 serif 字體（重點）
+
+% 西文字型：Times New Roman 的開源替代品
+\setmainfont{TeX Gyre Termes}[
+  Ligatures=TeX,
+  BoldFont={* Bold},
+  ItalicFont={* Italic}
+]
+
+% 中文字型（可改為思源宋體、標楷體等）
+\setCJKmainfont{Noto Serif CJK TC}
+\setCJKsansfont{Noto Sans CJK TC} % 有需要再用
+\setCJKmonofont{Noto Sans Mono CJK TC}
+
+% ==== 數學字型（與正文字體一致）====
+\usepackage{unicode-math}
+\setmathfont{TeX Gyre Termes Math}
+
+% ==== 套件 ====
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{minted}
+\usepackage{fvextra}
+\usepackage{xcolor}
+
+% ==== 顏色設定（可選）====
+\definecolor{MyBlue}{RGB}{3, 55, 105}
+\setbeamercolor{structure}{fg=MyBlue}
+\setbeamercolor{block title}{bg=MyBlue,fg=white}
+\setbeamercolor{block body}{bg=blue!5}
+
+\setminted{
+    linenos,                % 行號
+    frame=lines,            % 上下框線
+    framesep=5pt,           % 程式碼與邊框距離
+    numbersep=8pt,          % 行號與程式碼距離
+    fontsize=\scriptsize,   % 字體大小
+    breaklines,             % 自動換行
+    tabsize=4,              % tab 寬度
+    rulecolor=\color{black},% 框線顏色
+    xleftmargin=1.5em       % 左側縮排
+}
+
+\title{Math}
+\author{TAI, WEI HSUAN}
+\date{\today}
+
+\begin{document}
+	
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{Outline}
+        \begin{itemize}
+            \item Prime Numbers
+            \item Euclidean algorithm
+            \item Modular
+            \item Combinations
+            
+        \end{itemize}
+	\end{frame}
+
+    \begin{frame}[fragile]
+        \frametitle{Prime Numbers}
+        Given a positive integer $N$, can you check if it is prime?
+
+        Following is a simple algorithm:
+        \begin{minted}{cpp}
+        bool is_prime(int n){
+            if(n==1)return false;
+            if(n==2)return true;
+            for(int i=2;i<n;++i){
+                if(n%i==0)return false;
+            }
+            return true;
+        }            
+        \end{minted}
+        Time complexity ?
+    \end{frame}
+
+    \begin{frame}[fragile]
+        If $N$ isn't a prime number, we can show $N$ as $a\times b(a\le b)$, where $a$ and $b$ are positive integers. Moreover, $a$ and $b$ are not equal to $1$ and $N$.
+
+        If we can find $a$ or $b$, we can conclude that $N$ is not a prime number. Observe that if $a$ and $b$ are both greater than $\sqrt{N}$, then $a \times b > N$. The same, if $a$ and $b$ are both less than $\sqrt{N}$, then $a \times b < N$. 
+        
+        Thus, we get a conclusion: $a\le \sqrt{N}\le b$. Therefore, we only need to check if $N$ is divisible by any integer from $2$ to $\sqrt{N}$.
+    \end{frame}
+
+    \begin{frame}[fragile]
+        \frametitle{Code}
+        
+        \begin{minted}{cpp}
+        bool is_prime(int n){
+            if(n==1)return false;
+            if(n==2)return true;
+            for(int i=2;i*i<=n;++i){
+                if(n%i==0)return false;
+            }
+            return true;
+        }            
+        \end{minted}
+    \end{frame}
+    
+    \begin{frame}
+        \frametitle{Sieve of Eratosthenes}
+        The slide above shows how to check if a number is prime. But what if we want to find all prime numbers in a range $[1, N]$?
+        The Sieve of Eratosthenes is a classic algorithm to find all prime numbers up to a given limit $N$ efficiently.
+
+        The main idea is: If $p$ is a prime number, then all multiples of $p$ (i.e., $2p, 3p, \ldots$) are not prime. We can use this property to mark non-prime numbers in a list.
+    \end{frame}
+
+    \begin{frame}[fragile]
+        \frametitle{Code for Sieve of Eratosthenes}
+        \begin{minted}{cpp}
+        void eratosthenes() {
+            for(int i=2;i<=N;i++)isprime[i]=true;
+            isprime[0]=isprime[1]=false;
+            
+            for(int i=2;i<=N;i++)
+                if(isprime[i])
+                    for(int j=i*i;j<=N;j+=i)
+                        isprime[j]=false;
+        }
+        \end{minted}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Time Complexity of Sieve of Eratosthenes}
+        The Sieve of Eratosthenes works by iterating through each number up to $N$ and marking its multiples as non-prime. 
+
+        We can obtain this formula:
+        $$
+        T(N) = \displaystyle\sum_{p \leq N} \frac{N}{p} = N\times \displaystyle\sum_{p \leq N} \frac{1}{p}
+        $$
+        Where $T$ is the total times of marking non-prime numbers, $p$ is the prime number, and $N$ is the limit.
+    \end{frame}
+   
+    \begin{frame}
+        \frametitle{Time Complexity of Sieve of Eratosthenes}
+        With PNT(Prime Number Theorem), the number of primes up to $N$ is approximately $\frac{N}{\ln N}$. To conduct the Sieve of Eratosthenes, we iterate through each number up to $N$ and mark its multiples.
+
+        We can't directly get all the primes, but we can use \textbf{density} to estimate the number of primes. The density of primes around $N$ is approximately $\frac{1}{\ln N}$, which means that the average gap between consecutive primes is about $\ln N$.
+        $$
+        T(N) = \displaystyle\sum_{p \leq N} \frac{N}{p} = N\times \displaystyle\sum_{p \leq N} \frac{1}{p} = N\times \displaystyle\sum_{m=2}^{N}\cfrac{1_{m\_is\_prime}}{m}\approx N \displaystyle\sum_{m=2}^{N} \frac{1}{m}\cdot\frac{1}{\ln m}
+        $$
+        Where $T$ is the total times of marking non-prime numbers, $p$ is the prime number, and $N$ is the limit.
+    \end{frame}
+    
+    \begin{frame}
+        \frametitle{Time Complexity of Sieve of Eratosthenes}
+        We can use integer to estimate the number of primes up to $N$:
+        $$
+        T(N) = N \displaystyle\sum_{m=2}^{N} \frac{1}{m}\cdot\frac{1}{\ln m}\approx N \cdot \int_{2}^{N} \frac{1}{x} \cdot \frac{1}{\ln x} \, dx = N \cdot \left(\ln(\ln(N)) - \ln(\ln(2))\right)
+        $$
+        Therefore, the time complexity of the Sieve of Eratosthenes is approximately $O(N \cdot \ln(\ln(N)))$.
+    \end{frame}
+
+    \begin{frame}[fragile]
+        \frametitle{Euclidean algorithm}
+        Given two integers $a$, $b$, can you find their greatest common divisor (GCD) efficiently?
+
+        Following is a simple algorithm:
+        \begin{minted}{cpp}
+        bool GCD(int a, int b){
+            if(a>b)swap(a, b);
+            for(int i=a;i>=1;--i)
+                if(a%i==0 and b%i==0)return i;
+        }
+        \end{minted}
+        Time complexity ?
+    \end{frame}
+
+    \begin{frame}[fragile]
+        \frametitle{Euclidean algorithm}
+        Given two integers $a$, $b$, can you find their greatest common divisor (GCD) efficiently?
+
+        Following is a simple algorithm:
+        \begin{minted}{cpp}
+        int gcd(int a, int b){
+            return a==0 ? b : gcd(b, a%b);
+        }
+        \end{minted}
+        Time complexity ?
+    \end{frame}
+
+    \begin{frame}[fragile]
+        \frametitle{How does it work?}
+        The greatest common factor of two integers is equal to the greatest common factor of the smaller number and the remainder when the two numbers are divided.
+
+        For examples, we have $gcd(252, 105)$. $252\div 105=2\ldots 42$, so gcd(252, 105) must be equal to gcd(105, 42).
+
+        Iterating this process, we can find the GCD of two integers.
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{C++ built-in GCD}
+        C++ provides a built-in function to calculate the GCD of two integers. 
+        \begin{minted}{cpp}
+        int a, b;
+        cout<<__gcd(a, b)<<'\n';
+        \end{minted}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Modular}
+        Basic modular arithmetics:
+        \begin{itemize}
+            \item $a\equiv b \pmod{m}$ represent $a\%m=b\%m$ 
+            \item $(a+b)\% m = ((a\% m) + (b\% m))\% m$
+            \item $(a-b)\% m = ((a\% m) - (b\% m))\% m$
+            \item $(a\times b)\% m = ((a\% m) \times (b\% m))\% m$
+        \end{itemize}
+
+    \end{frame}
+    \begin{frame}
+        \frametitle{Modular Inverse}
+        In the slide above, we can see that modular arithmetic is similar to normal arithmetic. However, there is one thing that is different: division.
+        In modular arithmetic, we cannot simply divide by a number. Instead, we need to find the modular inverse of that number.
+
+        $$
+        (a\div b)\mod m\Rightarrow (a\times b^{-1})\mod m
+        $$
+
+        In other words, 
+        $$
+        a\times a^{-1} \equiv 1 \pmod{m}
+        $$
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Fermat's Little Theorem}
+        Fermat's Little Theorem states that if $p$ is a prime number and $a$ is an integer not divisible by $p$, then:
+        $$
+        a^{p-1} \equiv 1 \pmod{p}
+        $$
+        This theorem can be used to find modular inverses efficiently.
+
+        In the previous slide, we mentioned that the definition of modular inverse is:
+        $$
+        a\times a^{-1} \equiv 1 \pmod{m}
+        $$
+
+        With Fermat's Little Theorem, we can find the modular inverse of $a$ modulo $p$ as:
+        $$
+        a^{-1} \equiv a^{p-2} \pmod{p}
+        $$
+        This means that to find the modular inverse of $a$ modulo a prime $p$, we can simply compute $a^{p-2} \mod p$.
+    \end{frame}
+
+    \begin{frame}[fragile]
+        \frametitle{Fermat Prime Test}
+        We utilize Fermat's Little Theorem to check if a number is prime. The basic idea is to randomly select a base $a$ and check if $a^{n-1} \equiv 1 \pmod{n}$ holds true. If it doesn't, then $n$ is composite. Therefore, if we test enough bases, we can conclude that $n$ is prime with high probability. However, this method is not solid enough, as there are some composite numbers that can pass a lot of tests with a high probability.
+
+        The time complexity of this test is $O(1)$, depending on how many bases we test. The more bases we test, the higher the probability that we can conclude that $n$ is prime.
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Miller-Rabin Primality Test}
+        There's a kind of special composite number that can pass the Fermat's Little Theorem test with a high probability. But they are not prime. These numbers are called Carmichael numbers. To avoid this problem, we can use the Miller-Rabin Primality Test, which is a more robust primality test.
+
+    \end{frame}
+
+    \begin{frame}[fragile]
+        \frametitle{Code for Miller-Rabin Primality Test}
+
+        \begin{minted}{cpp}
+        bool millerRabin(ll n, ll a) {
+            if (n < 2) return 0;
+            if ((a = a%n) == 0) return 1;
+            if (n & 1 ^ 1) return n == 2;
+            
+            ll tmp = (n - 1) / ((n - 1) & (1 - n));
+            ll t = log2((n - 1) & (1 - n)), x = 1;
+            for (; tmp; tmp >>= 1, a = a*a%n)
+                if (tmp & 1) x = x * a % n;
+            if (x == 1 || x == n - 1) return 1;
+            while (--t)
+                if ((x = x*x%n) == n - 1) return 1;
+            return 0;
+        }
+        \end{minted}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Combinations}
+        Combinations are a way to select items from a larger set where the order does not matter.
+
+        Given $n$ items, the number of ways to choose $k$ items from $n$ is denoted as $C(n, k)$ or $\binom{n}{k}$, and it is calculated using the formula:
+        $$
+        C(n, k) = \frac{n!}{k!(n-k)!}
+        $$
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{How to calculate combinations?}
+        If you directly calculate the factorials, it may lead to overflow or inefficiency for large $n$. Instead, we can use an idea of dynamic programming. It is known that:
+        $$
+        C(n, k) = C(n-1, k-1) + C(n-1, k)
+        $$
+        With this formula, we can build a table to store the values of combinations.
+    \end{frame}
+
+    \begin{frame}[fragile]
+        \frametitle{Code for Combinations}
+        \begin{minted}{cpp}
+        int C(int n, int k){
+            if(k>n)return 0;
+            if(k==0 or k==n)return 1;
+            return C(n-1, k-1) + C(n-1, k);
+        }
+        \end{minted}
+        However, this code has exponential time complexity. We can use dynamic programming to optimize it.
+    \end{frame}
+    \begin{frame}
+        \frametitle{Calculate with Modular Inverse}
+        If you insist on calculating combinations with large numbers, you can use modular arithmetic to avoid overflow.
+
+        We know that the divide operation in modular arithmetic is \textbf{Modular Inverse}. Therefore, we can rewrite the combination formula as:
+        $$
+        C(n, k) \equiv n! \times (k!)^{-1} \times ((n-k)!)^{-1} \mod m
+        $$
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Reference}
+        \begin{itemize}
+            \item \url{https://hackmd.io/@Ccucumber12/Hy8nj-fxt\#/}
+            \item \url{https://oi-wiki.org/math/}
+        \end{itemize}
+    \end{frame}
+\end{document}

@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+
+\PYG{x}{        int fib(int n)\PYGZob{}}
+\PYG{x}{            if (n\PYGZlt{}=1) return n;}
+\PYG{x}{            return fib(n\PYGZhy{}1)+fib(n\PYGZhy{}2);}
+\PYG{x}{        \PYGZcb{}}
+\end{Verbatim}

@@ -33,6 +33,7 @@
 \usepackage{fvextra}
 \usepackage{xcolor}
 \usepackage{tikz}
+\usepackage{booktabs}
 \usetikzlibrary{arrows.meta}
 
 
@@ -95,16 +96,15 @@
 	\begin{frame}
 		\frametitle{Outline}
         \begin{itemize}
-            \item 研究動機
-            \item 研究背景
-            \item 模型介紹
+            \item 緒論
+            \item 研究目標
             \item 研究方法
-            \item 結果與討論
-            \item 結論與展望
+            \item 研究結果與討論
+            \item 結論與未來展望
         \end{itemize}
 	\end{frame}
 
-    \section{研究動機}
+    \section{緒論}
     \begin{frame}
         \sectionpage
     \end{frame}
@@ -112,50 +112,42 @@
     \begin{frame}
         \frametitle{研究動機}
         \begin{itemize}
-            \item 癌症是全球主要的死亡原因之一，肺癌是其中最
+            \item 癌症是全球主要的死亡原因之一，肺癌是最常見的癌症之一。
             \item 肺癌是台灣癌症死亡率最高的癌症類型。
-            \item 台灣每年有超過 1 萬人死於肺癌
         \end{itemize}
     \end{frame}
 
     % 113台灣癌症統計資料
     \begin{frame}
-        \frametitle{研究動機}
+        \frametitle{113 台灣癌症統計資料}
         \begin{figure}
             \centering
             \includegraphics[width=0.6\textwidth]{src/TW_113cancer_stat.png}
             \caption{113 年台灣癌症統計資料}
             \label{fig:113tw_cancer_stat}
         \end{figure}
+        \footnotesize
+        資料來源：衛福部官網
+        
     \end{frame}
 
-    \section{研究背景}
     \begin{frame}
-        \sectionpage
-    \end{frame}
-    % 研究背景
-    \begin{frame}
-        \frametitle{研究背景}
-        \begin{itemize}
-            \item 癌症的早期診斷和預後評估對於提高治療效果至關重要。
-            \item 免疫檢查點抑制劑（Immune checkpoint inhibitors, ICIs）已成為治療肺癌的重要手段。
-            \item PD-L1 表達水平是評估 ICIs 治療效果的關鍵生物標誌物。
-            \item 傳統的 PD-L1 評估方法依賴於組織切片，存在侵入性和時間延       
-        \end{itemize}
-    \end{frame}
+        \frametitle{2025 美國癌症統計資料}
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.8\textwidth]{src/cancer_stat.png}
+            \caption{2025 年美國癌症統計資料}
+            \label{fig:2025_us_cancer_stat}
+        \end{figure}
+        \footnotesize
+        Siegel, Rebecca L et al. "Cancer Statistics, 2025." CA : a cancer journal for clinicians. 75.1 (2025): 10–45. Web.
 
+    \end{frame}
 
     % 癌症的分類
     \begin{frame}
         \frametitle{癌症的分類}
         \begin{itemize}
-            \item 非小細胞肺癌（Non-small-cell lung carcinoma, NSCLC）：
-                \begin{itemize}
-                    \item 佔肺癌的約85 \%。
-                    \item 包括腺癌、鱗狀細胞癌和大細胞癌等類型。
-                    \item 生長較慢，預後較好。
-                \end{itemize}
-
             \item 小細胞肺癌（Small-cell lung carcinoma, SCLC）：
                 \begin{itemize}
                     \item 佔肺癌的約15 \%。
@@ -163,12 +155,89 @@
                     \item 生長迅速，易於轉移。
                 \end{itemize}
 
+            \item 非小細胞肺癌（Non-small-cell lung carcinoma, NSCLC）：
+                \begin{itemize}
+                    \item 佔肺癌的約85 \%。
+                    \item 包括腺癌、鱗狀細胞癌和大細胞癌等類型。
+                    \item 生長較慢，預後較好。
+                \end{itemize}
+
         \end{itemize}
     \end{frame}
 
-    \section{模型介紹}
+    % 癌症的治療方法
+    \begin{frame}
+        \frametitle{癌症的治療方法}
+        \begin{itemize}
+            \item 手術：切除腫瘤組織。
+            \item 放射治療：使用高能輻射殺死癌細胞。
+            \item 化學治療：使用藥物殺死癌細胞。
+            \item 免疫治療：利用免疫系統對抗癌症。
+            \item 靶向治療：針對特定分子或基因突變進行治療。
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{免疫療法的限制}
+        免疫治療的原理是隔斷 PD-1 與 PD-L1 的結合，解除免疫抑制，使 T 細胞重新啟動並攻擊腫瘤細胞，因此細胞表面的 PD-L1 會直接影響治療的結果，判斷 PD-L1 表現的準確性對於免疫療法的成功至關重要。小細胞肺癌患者的 PD-L1 表現通常較低，且對免疫治療的反應較差，因此在臨床上，非小細胞肺癌患者的 PD-L1 表現預測更為重要。
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.6\textwidth]{src/image1.png}
+            \caption{左：PD-L1 表現>50\%；右：PD-L1 表現<50\%}
+            \label{fig:pd-l1expression}
+        \end{figure}
+        圖片來源：周姵妤學姐碩士論文
+    \end{frame}
+
+    \section{研究目標}
     \begin{frame}
         \sectionpage
+    \end{frame}
+
+    % 研究目標
+    \begin{frame}
+        \frametitle{研究目標}
+        \begin{enumerate}
+        \item 建立以 MTMAE 為基礎之 PD-L1 表現預測模型
+        \item 探討加入對比學習對自監督表徵學習的增強效果。
+        \item 在ViT encoder 中嵌入 GNN，建構 patch 間關聯性以提升特徵整合能力。
+        \item 評估多模型集成（ensemble）策略對預測穩定性與泛化能力的影響。
+        \end{enumerate}
+    \end{frame}
+
+    \section{研究方法}
+    \begin{frame}
+        \sectionpage
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{研究方法}
+        \begin{itemize}
+            \item 實驗材料
+            \item 模型介紹
+            \item 性能指標
+        \end{itemize}
+    \end{frame}
+
+    % 實驗材料
+    \begin{frame}
+        \frametitle{實驗材料}
+        \begin{itemize}
+            \item 資料來源：台大醫院、台大醫院新竹分院、台大醫院雲林分院
+            \item 資料類型：非小細胞肺癌患者 CT 與 PD-L1 標記資料
+            \item 總樣本數：188 例病患
+            \item PD-L1 表現分布：
+                \begin{itemize}
+                    \item PD-L1 expression ≥ 50\% (+)：49 例
+                    \item PD-L1 expression < 50\% (−)：139 例
+                \end{itemize}
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{GAN 生成的影像}
+        為了解決資料稀缺問題，本專案使用實驗室先前所開發之 Gabor-GAN 模型，使用公開資料庫 LIDC-IDRT（Lung Image Database Consortium and Image Database Resource Initiative） 生成 518,064 張2D的樣本以進行預訓練。
+
     \end{frame}
 
     % 模型介紹
@@ -324,7 +393,7 @@
         \frametitle{Contrastive Masked Autoencoder (CMAE)}
         \begin{itemize}
             \item 一樣結合 MAE 與對比學習
-            \item 利用孿生網路結構，將 MAE 的 encoder 與對比學習的 encoder 結合
+            \item 利用孿生網路結構，結合 MAE 與 CL
         \end{itemize}
     \end{frame}
 
@@ -339,21 +408,50 @@
         圖片來源：\url{https://arxiv.org/abs/2207.13532}
     \end{frame}
 
-    \section{研究方法}
+    % 性能指標
+    \begin{frame}
+        \frametitle{性能指標}
+        \begin{itemize}
+            \item 正確率（Accuracy）：預測正確的樣本數與總樣本數之比。
+            \item 靈敏度（Sensitivity）：預測為正樣本的實際正樣本數與總實際正樣本數之比。
+            \item 特異度（Specificity）：預測為負樣本的實際負樣本數與總實際負樣本數之比。
+            \item AUC（Area Under the Curve）：ROC 曲線下的面積，用於評估模型在不同閾值下的分類性能。
+        \end{itemize}
+    \end{frame}
+
+    % AUC
+    \begin{frame}
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.6\textwidth]{src/auc.png}
+            \caption{ROC 曲線及其 AUC 值}
+            \label{fig:roc_curve_example}
+        \end{figure}
+        圖片來源：https://www.blog.trainindata.com/auc-roc-analysis/
+    \end{frame}
+
+    \section{研究結果與討論}
     \begin{frame}
         \sectionpage
     \end{frame}
 
-    % 研究方法
+    % 重現
     \begin{frame}
-        \frametitle{預訓練階段}
-        \begin{enumerate}
-            \item 使用 SimCLR 繼續訓練 MTMAE 的 encoder
-            \item 純粹使用 SimCLR 訓練 encoder
-            \item 將 encoder 替換成 CMAE 的 encoder
-        \end{enumerate}
+        \frametitle{對照組-還原論文的結果}
+        \begin{itemize}
+            \item 參考周姵妤學姐的碩士論文，重現 MTMAE 模型的架構與訓練流程：
+            \begin{enumerate}
+                \item 利用 PyTorch 框架實現模型，並使用學姐留下來的 CT 影像與 PD-L1 標記資料進行訓練
+                \item 進行 200 個 epoch 的預訓練之後得到 MTMAE 模型的權重
+                \item 使用真實的醫學影像進行微調，並評估模型在 PD-L1 表現預測任務上的準確率
+            \end{enumerate}
+
+            \item 最終多次實驗得到的 AUC 平均值為 0.6168
+            \item 結果與學姐論文中所報告相差甚遠，推測是因為資料量太少，不同的排列順序會導致模型預測結果有很大差異
+        \end{itemize}
     \end{frame}
 
+    % 微調的方法
     \begin{frame}
         \frametitle{微調的方法}
         \begin{figure}
@@ -364,15 +462,104 @@
         \end{figure}
     \end{frame}
 
+    % SimCLR 的訓練
     \begin{frame}
-        \frametitle{Reference}
+        \frametitle{SimCLR 的訓練}
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.9\textwidth]{src/SimCLR_framework.jpg}
+            \caption{SimCLR 的訓練方式}
+            \label{fig:simclr_training_process}
+        \end{figure}
+    \end{frame}
+
+    % SimCLR 的訓練結果
+    \begin{frame}
+        \frametitle{SimCLR 的訓練結果}
+        \begin{table}[h]
+        \centering
+        \begin{tabular}{lcc}
+        \toprule
+        & \textbf{純粹使用simCLR} & \textbf{MTMAE + SimCLR 微調} \\
+        \midrule
+        AUC          & 0.4395 & 0.5000 \\
+        ACC          & 0.4839 & 0.4355 \\
+        \bottomrule
+        \end{tabular}
+        \caption{SimCLR 方法實驗結果比較}
+        \label{tab:simclr-results}
+        \end{table}
+        由結果可知，純粹使用 SimCLR 訓練的模型表現較差，可能是破壞了原有的特徵學習結構。查閱資料後，我找到了 CMAE 的方法，這個方法結合了 MAE 與 SimCLR 的優點，能夠更好地學習影像特徵。
+    \end{frame}
+
+    % CMAE 的訓練
+    \begin{frame}
+        \frametitle{CMAE 的訓練}
+        由於完整使用 CMAE 預訓練的時間太長，因此我使用了 CMAE 的預訓練權重，和 MAE 的權重進行對比。這兩個權重都是在 ImageNet 上預訓練的。
+        \begin{table}[h]
+        \centering
+        \begin{tabular}{lcc}
+        \toprule
+        & \textbf{CMAE} & \textbf{MAE} \\
+        \midrule
+        AUC          & 0.5625 & 0.5584 \\
+        ACC          & 0.7419 & 0.6452 \\
+        \bottomrule
+        \end{tabular}
+        \caption{CMAE 方法實驗結果比較}
+        \label{tab:CMAE-results}
+        \end{table}       
+        雖然效果不彰，但仍可看出 CMAE 在某些指標上優於 MAE，或許代表了 CMAE 的潛力。
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{類似模型集成的方法}
+        \begin{table}[h]
+        \centering
+        \begin{tabular}{lccc}
+        \toprule
+        & \textbf{5-fold（輪流遮住資料）} & \textbf{5-fold（訓練資料固定} & \textbf{150 個 epoch} \\
+        \midrule
+        AUC          & 0.6984 & 0.5645 & 0.6644\\
+        ACC         & 00.7419 & 0.5421 & 0.7419\\
+        \bottomrule
+        \end{tabular}
+        \caption{5-fold 方法實驗結果比較}
+        \label{tab:5-fold-results}
+        \end{table}       
+    \end{frame}
+
+
+    \section{結論與展望}
+    \begin{frame}
+        \sectionpage
+    \end{frame}
+    \begin{frame}
+        \frametitle{結論與展望}
         \begin{itemize}
-            \item \url{https://github.com/tianyicui/pack/blob/master/V2.pdf}
-            \item \url{https://oi-wiki.org/dp/}
-            \item \url{https://atcoder.jp/contests/dp/tasks}
-            \item \url{https://leetcode.com/problem-list/dynamic-programming/}
-            
-            
+            \item 結合 SimCLR 與 MAE 的方式有些問題，或許可以參考 CMAE 或是 GCMAE 的方法。
+            \item CMAE 的方法有一定的潛力
+            \item 未來預計嘗試：
+            \begin{enumerate}
+                \item 使用完整的 CMAE 模型進行預訓練
+                \item 使用孿生網路的概念結合 MT-MAE 與 CMAE
+                \item 讓模型不再僅判斷正負，而是將 PD-L1 的表現分成不同層級
+                \item 嘗試將正確的 k-fold 模型集成策略應用於微調階段，將多個不同的模型進行集成
+            \end{enumerate}
         \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{參考資料}
+            \begin{enumerate}
+                \footnotesize
+                \item 周姵妤，肺部電腦斷層掃描之非小細胞癌 PD-L1 表現預測 :結合遮蓋圖像模型與生成對抗網路，碩士論文，國立臺灣大學，2024。
+                \item Devlin, Jacob, et al. "Bert: Pre-training of deep bidirectional transformers for language understanding." Proceedings of the 2019 conference of the North American chapter of the association for computational linguistics: human language technologies, volume 1 (long and short papers). 2019.
+                \item Bao, Hangbo, et al. "Beit: Bert pre-training of image transformers." arXiv preprint arXiv:2106.08254 (2021).
+                \item He, Kaiming, et al. "Masked autoencoders are scalable vision learners." Proceedings of the IEEE/CVF conference on computer vision and pattern recognition. 2022.
+                \item Chen, Ting, et al. "A simple framework for contrastive learning of visual representations." International conference on machine learning. PmLR, 2020.
+                \item Quan, Hao, et al. "Global contrast-masked autoencoders are powerful pathological representation learners." Pattern Recognition 156 (2024): 110745.
+                \item Huang, Zhicheng, et al. "Contrastive masked autoencoders are stronger vision learners." IEEE Transactions on Pattern Analysis and Machine Intelligence 46.4 (2023): 2506-2517.
+            \end{enumerate}
     \end{frame}
 \end{document}

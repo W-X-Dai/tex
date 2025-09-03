@@ -1,0 +1,246 @@
+\documentclass[10pt]{beamer}
+\geometry{paperwidth=16cm, paperheight=12cm} % 设置页面宽度为16厘米，高度为12厘米
+%\setlength{\parindent}{1em} % 设置首行缩进为1个字符的宽度
+
+\setbeamertemplate{caption}[numbered]  % 设置图表编号
+\setbeamertemplate{bibliography item}[text]  % 设置参考文献项目样式
+\useinnertheme{circles}
+\usepackage{tikz}
+
+\usepackage[UTF8]{ctex}
+\usepackage{fontspec}
+
+% 设置中文字体
+\setCJKmainfont{SimSun}[AutoFakeBold,AutoFakeSlant]
+
+
+\mode<presentation> {
+	\usetheme{Frankfurt}  % 使用Frankfurt主题
+	\usefonttheme{serif}
+	% 自定义柔和的颜色主题
+	\definecolor{SoftBlue}{RGB}{70,130,180} % 柔和的蓝色
+	\definecolor{SoftGray}{RGB}{240,240,240} % 柔和的灰色
+	
+	% 设置主要元素的颜色
+	\setbeamercolor{palette primary}{bg=SoftBlue, fg=white}
+	\setbeamercolor{palette secondary}{bg=SoftBlue!70, fg=white}
+	\setbeamercolor{palette tertiary}{bg=SoftBlue!60, fg=white}
+	\setbeamercolor{palette quaternary}{bg=SoftBlue!50, fg=white}
+	
+	% 设置顶部导航栏和页脚的颜色
+	\setbeamercolor{section in head/foot}{bg=SoftGray, fg=black}
+	\setbeamercolor{footline}{bg=SoftBlue, fg=white}
+	
+	% 设置标题和帧标题的颜色
+	\setbeamercolor{title}{bg=SoftBlue, fg=white}
+	\setbeamercolor{frametitle}{bg=SoftBlue, fg=white}
+	
+	% 设置目录和列表项的颜色
+	\setbeamercolor{section in toc}{fg=SoftBlue}
+	\setbeamercolor{itemize item}{fg=SoftBlue}
+	\setbeamercolor{itemize subitem}{fg=SoftBlue}
+	\setbeamercolor{itemize subsubitem}{fg=SoftBlue}
+	\setbeamercolor{enumerate item}{fg=SoftBlue}
+	
+	% 设置块标题的颜色
+	\setbeamercolor{block title}{bg=SoftBlue, fg=white}
+	\setbeamercolor*{block title example}{bg=white, fg=SoftBlue}
+	% 幻灯片的标题字体大小 大号并加粗
+	\setbeamerfont{frametitle}{size={\Large }, series=\bfseries}
+	
+	% 设置幻灯片编号样式
+	\setbeamertemplate{footline}[frame number]
+	% 使用圆形项目符号
+%	\useinnertheme{circles}
+	% 设置边栏颜色
+	\setbeamercolor{sidebar}{bg=SoftBlue}
+	% 设置其他元素的颜色
+	\setbeamercolor{structure}{fg=SoftBlue}
+	% 取消注释此行以在所有幻灯片中移除脚部线
+	\setbeamertemplate{footline} 
+	% 取消注释此行以用简单的幻灯片计数替换所有幻灯片中的脚部线
+	%\setbeamertemplate{footline}[page number] 
+	 % 取消注释此行以从所有幻灯片底部移除导航符号
+	%\setbeamertemplate{navigation symbols}{}
+}
+
+
+
+%\usepackage[UTF8]{ctex}
+%\setCJKmainfont{Microsoft YaHei} % 全局设置正文字体为微软雅黑
+
+\usepackage{
+	hyperref,   % 可点击的链接
+	graphicx,   % 包含图像
+	listings,   % 代码和格式化
+%	caption,    % 图表和表格的标题自定义
+	stackengine,% 自定义布局
+	amsmath,    % 数学环境
+	xcolor,     % 扩展颜色支持
+	multicol,   % 多列布局
+	booktabs,   % 表格
+	bookman,    % 使用的字体
+	graphicx,   % 允许包含图像
+	booktabs,   % 允许使用表格中的 \toprule, \midrule 和 \bottomrule
+	ctex,       % 支持中文
+	lipsum, 		% remove it
+}
+\usepackage{changepage}
+\usepackage{listings}
+
+\definecolor{codered}{rgb}{0.6,0,0}
+\definecolor{codeblue}{rgb}{0,0,0.8}
+\definecolor{codegreen}{rgb}{0,0.5,0}
+\definecolor{almostwhite}{gray}{0.55}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstset{
+	language=Python,                 % 设置语言
+	basicstyle=\ttfamily\small,      % 设置代码字体和大小:等宽字体、小号字体
+	keywordstyle=\bfseries\color{codeblue},       % 设置关键字颜色:加粗、蓝色
+	emphstyle=\ttfamily\color{codered},    % 自定义高亮样式：等宽字体、红色
+	stringstyle=\color{codepurple},        % 设置字符串的样式：紫色
+	numbers=none,                          % 在左侧显示行号
+	breaklines=true,                 % 自动换行
+	showstringspaces=false,          % 不显示字符串中的空格
+	showtabs=false ,                  % 来隐藏Tab键的表示
+	numberstyle=\small\color{almostwhite}, % 设置行号的样式：小号字体、接近白色
+	rulesepcolor=\color{red!20!green!20!blue!20}, % 设置代码框分隔线的颜色：混合红绿蓝
+	frame=shadowbox,                       % 设置代码框的样式：阴影框
+	commentstyle=\color{codegreen},        % 设置注释的样式：绿色
+	captionpos=b                       % 设置标题位置：底部（'b' stands for 'bottom'）
+}
+
+
+%	标题页
+\title[]{ {\Large MSGNet: Learning Multi-Scale Inter-Series Correlations for Multivariate Time Series Forecasting}}
+%\subtitle{一个简短的故事}
+%作者
+\author[Arthur, Doe]{}
+%作者详情
+\institute[VFU] {}
+
+\date{\today} % 自动插入当前日期
+
+
+%----------------------------------------------------------------------------------------
+%	当前章节的标题高亮
+%----------------------------------------------------------------------------------------
+\AtBeginSection[]
+{
+	\begin{frame}
+		\frametitle{目录}
+		\tableofcontents[currentsection]
+	\end{frame}
+}
+
+% 插入代码 \lstinputlisting{code.py}
+
+%	\begin{frame}
+%	\frametitle{样本帧标题}
+%	\alert{高亮} 
+%	\begin{block}{备注}
+%		样本文本
+%	\end{block}
+%	
+%	\begin{alertblock}{重要定理}
+%		红色框中的样本文本
+%	\end{alertblock}
+%	
+%	\begin{examples}
+%		绿色框中的样本文本。块的标题是``例子"。
+%	\end{examples}
+%\end{frame}
+
+% 两栏
+%\begin{columns}
+%% 插入一个带有两列的样本帧 --------------------------------
+%
+%\column{0.5\textwidth}
+%这是第一列中的文本。
+%$$E=mc^2$$
+%\begin{itemize}
+%	\item 第一项
+%	\item 第二项
+%\end{itemize}
+%
+%\column{0.5\textwidth}
+%这段文本将出现在第二列中
+%并且在某些情况下，这是一个不错的布局。
+%\end{columns}
+
+
+
+
+\begin{document}
+	{
+		% Remove headline and footline from first slide
+		\setbeamertemplate{footline}{} 
+		\setbeamertemplate{headline}{} 
+			% 插入标题页---------------------------
+		\frame{\titlepage}
+	}
+
+	
+	%插入目录------------------------------
+
+	
+
+\begin{frame}
+	\frametitle{MSGNet：学习多变量时间序列预测中的多尺度间序列相关性}
+
+
+\begin{description}
+	\item[论文标题:]  MSGNet: Learning Multi-Scale Inter-Series Correlations for Multivariate Time Series Forecasting
+	\item[论文链接:]   \url{https://doi.org/10.48550/arXiv.2401.00423}
+	\item[代码链接:]   \url{https://github.com/YoZhibo/MSGNet}
+	\item[发表年份:]   2024
+	\item[发表平台:]  AAAI
+	\item[平台等级:]  CCF A
+	\item[作者信息:]  Wanlin Cai$^1$, Yuxuan Liang$^2$, Xianggen Liu$^1$, Jianshuai Feng$^3$, Yuankai Wu$^1$
+	
+	\begin{enumerate}
+		\item  Sichuan University
+		\item 	 The Hong Kong University of Science and Technology (Guangzhou)
+		\item 	 Beijing Institute of Technology
+	\end{enumerate}
+\end{description}
+
+\end{frame}
+
+\section{概括}
+\begin{frame}
+\frametitle{MSGNet整体概括}
+
+\end{frame}
+
+\section{方法}
+\begin{frame}
+    \frametitle{分栏布局示例}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{theorem}
+            这是左栏的内容。
+        \end{theorem}
+
+        \column{0.5\textwidth}
+        \begin{proof}
+            这是右栏的内容。
+        \end{proof}
+    \end{columns}
+\end{frame}
+
+\section{code}
+\begin{frame}
+\frametitle{代码示例}
+	\begin{lstlisting}[language=Python]
+    import torch
+    import torch.nn as nn   
+	\end{lstlisting}
+\end{frame}
+
+
+
+\end{document}
+

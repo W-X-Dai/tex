@@ -1,0 +1,8 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+        \PYG{k+kn}{import} \PYG{n+nn}{pandas} \PYG{k}{as} \PYG{n+nn}{pd}
+
+        \PYG{n}{data} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{read\PYGZus{}csv}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Bike.csv\PYGZsq{}}\PYG{p}{)}
+
+        \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}std of 2011 : \PYGZdq{}}\PYG{p}{,} \PYG{n}{data}\PYG{o}{.}\PYG{n}{loc}\PYG{p}{[}\PYG{n}{data}\PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}year\PYGZdq{}}\PYG{p}{]}\PYG{o}{==}\PYG{l+m+mi}{2011}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}cnt\PYGZdq{}}\PYG{p}{]}\PYG{o}{.}\PYG{n}{std}\PYG{p}{())}
+        \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}std of 2012 : \PYGZdq{}}\PYG{p}{,} \PYG{n}{data}\PYG{o}{.}\PYG{n}{loc}\PYG{p}{[}\PYG{n}{data}\PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}year\PYGZdq{}}\PYG{p}{]}\PYG{o}{==}\PYG{l+m+mi}{2012}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}cnt\PYGZdq{}}\PYG{p}{]}\PYG{o}{.}\PYG{n}{std}\PYG{p}{())}
+\end{Verbatim}

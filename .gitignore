@@ -30,3 +30,6 @@
 *.glg
 *.glo
 *.gls
+
+# Minted
+_minted-*/

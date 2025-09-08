@@ -1,0 +1,124 @@
+\documentclass[xcolor=dvipsnames]{beamer}
+
+% ==== 主題 ====
+\usetheme{metropolis}           % 主題
+\usefonttheme{professionalfonts}          % 不覆蓋你自訂的字型
+
+% ==== 字型 ====
+\usepackage{fontspec}
+\usepackage{xeCJK}
+\renewcommand{\familydefault}{\rmdefault} % 使用 serif 字體（重點）
+
+% 西文字型：Times New Roman 的開源替代品
+\setmainfont{TeX Gyre Termes}[
+  Ligatures=TeX,
+  BoldFont={* Bold},
+  ItalicFont={* Italic}
+]
+
+% 中文字型（可改為思源宋體、標楷體等）
+\setCJKmainfont{Source Han Serif TC}
+\setCJKsansfont{Source Han Sans TC}
+\setCJKmonofont{Source Han Sans HW TC}
+\XeTeXlinebreaklocale "zh" % 中文斷行
+
+% ==== 數學字型（與正文字體一致）====
+\usepackage{unicode-math}
+\setmathfont{TeX Gyre Termes Math}
+
+% ==== 套件 ====
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{minted}
+\usepackage{fvextra}
+\usepackage{xcolor}
+\usepackage{ctex}        % 中文支援
+\usepackage{booktabs}    % 專業表格線
+\usepackage{array}       % 進階欄位控制
+\usepackage{geometry}    % 頁面邊界
+
+% ==== 顏色設定（可選）====
+\definecolor{MyBlue}{RGB}{3, 55, 105}
+\setbeamercolor{structure}{fg=MyBlue}
+\setbeamercolor{block title}{bg=MyBlue,fg=white}
+\setbeamercolor{block body}{bg=blue!5}
+
+\setminted{
+    linenos,                % 行號
+    frame=lines,            % 上下框線
+    framesep=5pt,           % 程式碼與邊框距離
+    numbersep=8pt,          % 行號與程式碼距離
+    fontsize=\scriptsize,   % 字體大小
+    breaklines,             % 自動換行
+    tabsize=4,              % tab 寬度
+    rulecolor=\color{black},% 框線顏色
+    xleftmargin=1em       % 左側縮排
+}
+
+\title{Introduction to C++}
+\author{TAI, WEI HSUAN}
+\date{week 1}
+
+\begin{document}
+	\begin{frame}
+		\titlepage
+	\end{frame}
+
+    \section{課程介紹}
+    \begin{frame}
+        \frametitle{進度安排}
+        \begin{table}[h]
+        \centering
+        \caption{課程進度表}
+        \begin{tabular}{cl  cl}
+        \toprule
+        日期 & 主題 & 日期 & 主題 \\
+        \midrule
+        9/12  & 課程簡介、基礎輸入輸出   & 11/28 & 函式 \\
+        9/19  & 變數與四則運算           & 12/5  & 遞迴 \\
+        10/17 & 選擇結構與邏輯運算子     & 12/12 & \texttt{struct} \\
+        10/31 & 重複結構                 & 12/19 & \texttt{vector} \\
+        11/7  & 字串處理                 & 12/26 & Stack, Queue \\
+        11/21 & 期中考                   & 1/2   & Set, Map, Priority\_Queue \\
+            &                          & 1/9   & 期末考 \\
+        \bottomrule
+        \end{tabular}
+        \end{table}
+    \end{frame}
+
+    \section{Why C++?}
+    
+    % C++ vs Python
+    \begin{frame}
+        \frametitle{C++ vs Python}
+        \begin{itemize}
+            \item C++:
+            \begin{itemize}
+                \item 編譯型語言（Compiled Language）
+                \item 靜態型別（Static Typing）
+                \item 高效能
+            \end{itemize}
+            \item Python:
+            \begin{itemize}
+                \item 直譯型語言（Interpreted Language）
+                \item 動態型別（Dynamic Typing）
+                \item 易學易用
+            \end{itemize}
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{C++ 就藏在生活中！}
+        \begin{itemize}
+            \item 作業系統（Windows、macOS、Linux）
+            \item 網頁瀏覽器（Chrome、Firefox、Edge）
+            \item 遊戲引擎（Unreal Engine、Unity）
+            \item 平行運算（CUDA、OpenCL）
+        \end{itemize}
+    \end{frame}
+\end{document}
+
+1. Why C++?
+2. C++ 的基礎輸入輸出
+3. 練習題

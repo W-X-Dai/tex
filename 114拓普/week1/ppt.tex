@@ -1,7 +1,7 @@
 \documentclass[xcolor=dvipsnames]{beamer}
 
 % ==== 主題 ====
-\usetheme{metropolis}           % 主題
+\usetheme{metropolis}
 \usefonttheme{professionalfonts}          % 不覆蓋你自訂的字型
 
 % ==== 字型 ====
@@ -17,10 +17,9 @@
 ]
 
 % 中文字型（可改為思源宋體、標楷體等）
-\setCJKmainfont{Source Han Serif TC}
-\setCJKsansfont{Source Han Sans TC}
-\setCJKmonofont{Source Han Sans HW TC}
-\XeTeXlinebreaklocale "zh" % 中文斷行
+\setCJKmainfont{Noto Serif CJK TC}
+\setCJKsansfont{Noto Sans CJK TC} % 有需要再用
+\setCJKmonofont{Noto Sans Mono CJK TC}
 
 % ==== 數學字型（與正文字體一致）====
 \usepackage{unicode-math}
@@ -33,10 +32,7 @@
 \usepackage{minted}
 \usepackage{fvextra}
 \usepackage{xcolor}
-\usepackage{ctex}        % 中文支援
-\usepackage{booktabs}    % 專業表格線
-\usepackage{array}       % 進階欄位控制
-\usepackage{geometry}    % 頁面邊界
+\usepackage{booktabs}
 
 % ==== 顏色設定（可選）====
 \definecolor{MyBlue}{RGB}{3, 55, 105}
@@ -53,11 +49,11 @@
     breaklines,             % 自動換行
     tabsize=4,              % tab 寬度
     rulecolor=\color{black},% 框線顏色
-    xleftmargin=1em       % 左側縮排
+    xleftmargin=1.5em       % 左側縮排
 }
 
 \title{Introduction to C++}
-\author{TAI, WEI HSUAN}
+\author{Tai, Wei Hsuan}
 \date{week 1}
 
 \begin{document}
@@ -67,24 +63,52 @@
 
     \section{課程介紹}
     \begin{frame}
+        \frametitle{關於我...}
+        \begin{itemize}
+            \item 戴偉璿（Tai, Wei Hsuan）
+            \item 台大醫工大三
+            \item 擅長：C++、資料結構與演算法、網際網路概論、網站前後端架設、Linux、機器學習...
+            \item 興趣：寫程式、看棒球、打電動
+            \item 張學友的粉絲
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
         \frametitle{進度安排}
         \begin{table}[h]
-        \centering
-        \caption{課程進度表}
         \begin{tabular}{cl  cl}
         \toprule
         日期 & 主題 & 日期 & 主題 \\
         \midrule
         9/12  & 課程簡介、基礎輸入輸出   & 11/28 & 函式 \\
         9/19  & 變數與四則運算           & 12/5  & 遞迴 \\
-        10/17 & 選擇結構與邏輯運算子     & 12/12 & \texttt{struct} \\
-        10/31 & 重複結構                 & 12/19 & \texttt{vector} \\
+        10/17 & 選擇結構與邏輯運算子     & 12/12 & Struct \\
+        10/31 & 重複結構                 & 12/19 & Vector \\
         11/7  & 字串處理                 & 12/26 & Stack, Queue \\
-        11/21 & 期中考                   & 1/2   & Set, Map, Priority\_Queue \\
+        11/21 & 期中考                   & 1/2   & Set, Map, Priority Queue \\
             &                          & 1/9   & 期末考 \\
         \bottomrule
         \end{tabular}
         \end{table}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{上課方式}
+        \begin{itemize}
+            \item 觀念講解、範例示範
+            \item 大量的練習題
+            \item 大量的數學證明（如果有必要）
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{關於LLM}
+        \begin{itemize}
+            \item Large Language Model
+            \item ChatGPT、Grok、Claude、Gemini
+            \item 以討論取代抄答案
+            \item \textbf{請不要叫我檢查你用LLM寫的程式碼！}
+        \end{itemize}
     \end{frame}
 
     \section{Why C++?}
@@ -108,6 +132,7 @@
         \end{itemize}
     \end{frame}
 
+    % C++ 就藏在生活中
     \begin{frame}
         \frametitle{C++ 就藏在生活中！}
         \begin{itemize}
@@ -117,6 +142,7 @@
             \item 平行運算（CUDA、OpenCL）
         \end{itemize}
     \end{frame}
+    
 \end{document}
 
 1. Why C++?

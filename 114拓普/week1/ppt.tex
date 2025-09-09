@@ -184,7 +184,7 @@
         \end{itemize}
     \end{frame}
 
-    \section{Standard I/O in C++}
+    \section{Basic Structure of C++ Program}
 
     \begin{frame}[fragile]
         \frametitle{\href{https://zh.wikipedia.org/zh-tw/Hello_Worldtext}{Hello World!}}
@@ -200,7 +200,7 @@
     \end{frame}
 
     \begin{frame}
-        \frametitle{Basic Structure of C++ Program}
+        \frametitle{Three Main Parts}
         \begin{itemize}
             \item Header Files
             \item Namespaces
@@ -216,10 +216,94 @@
 
     \end{frame}
 
-    \begin{frame}
+    \begin{frame}[fragile]
         \frametitle{Namespaces}
+        Header file may contain many functions, classes, and variables. To avoid name conflicts, C++ uses namespaces to group related code together.\\
+        Here's an example:
+        There's a function called \texttt{sort} in the standard library, and you may also define your own function called \texttt{sort}.
+        \begin{minted}{cpp}
+        #include <bits/stdc++.h>
+        using namespace std;
+
+        void sort(int arr[], int n) {/*sort function here*/}
+
+        int main() {
+            int a[] = {3, 1, 2};
+            sort(a, 3);
+        }            
+        \end{minted}
+        The code above may cause "ambiguous call" error.
     \end{frame}
 
+    \begin{frame}[fragile]
+        Therefore, we need to use an another namespace to wrap our own code.
+        \begin{minted}{cpp}
+        namespace my_sort {
+            void sort(int arr[], int n) {/*sort function here*/}
+        }
+        \end{minted}
+        Or a much easier way, do not use the same name as standard library.
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Main Function}
+        In your code, you may define lots of functions, global variables, and classes. To tell the compiler where to start executing your program, you need to define a \texttt{main} function.\\
+        The \texttt{main} function is the entry point of your program. You can call other functions and use global variables inside the \texttt{main} function.\\
+        The concept of main function is similar to\\ \texttt{if \_\_name\_\_ == "\_\_main\_\_":} in Python.
+    \end{frame}
+
+    \begin{frame}[fragile]
+        \frametitle{Look back to Hello World!}
+        \begin{minted}{cpp}
+        #include <iostream>
+        using namespace std;
+
+        int main() {
+            cout << "Hello World!" << endl;
+            return 0;
+        }
+        \end{minted}
+    \end{frame}
+
+    \section{Standard Input and Output in C++}
+    \begin{frame}
+        \frametitle{cout}
+        After the explanation of main function, we can now understand much part of it. However, what is \texttt{cout} and \texttt{endl}?\\
+        \texttt{cout} is the standard output stream in C++. It is used to print output to the console.\\Its function is similar to \texttt{print()} in Python.\\
+        You can output string, integer, float, and other data types using \texttt{cout}.\\
+        If you want to print multiple items, you can use the insertion operator \texttt{<<} to chain them together(To memory the direction of \texttt{<<}, think about the flow of data).
+    \end{frame}
+
+    \begin{frame}[fragile]
+        \frametitle{Example of cout}
+        Here's an example of using \texttt{cout}:
+        \begin{minted}{cpp}
+        int main(){
+            string name = "World";
+            cout<<"Hello"<<name<<"!"<<endl;
+        }
+        \end{minted}
+        In this case, name is a variable that stores the string "World". What do you think the output will be?
+    \end{frame}
+
+    \begin{frame}[fragile]
+        \frametitle{Example of cout}
+        It will be \texttt{HelloWorld!}. Because there's no space between \texttt{Hello} and \texttt{World!}.\\
+        If you want to add a space, you can do it like these:
+        \begin{minted}{cpp}
+        cout<<"Hello "<<name<<"!"<<endl;
+        cout<<"Hello"<<' '<<name<<"!"<<endl;
+        \end{minted}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Escape Characters}
+        In the previous codes, you may find \texttt{endl} appears frequently.\\
+        In fact, \texttt{endl} is an escape character that represents a new line.\\
+        Other common escape characters include:
+        
+    \end{frame}
+    
 
 \end{document}
 

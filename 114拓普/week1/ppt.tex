@@ -113,21 +113,30 @@
 
     \section{Why C++?}
     
+    \begin{frame}
+        \begin{figure}
+            \centering
+            \includegraphics[width=1\textwidth]{src/why_not_App.png}
+        \end{figure}
+    \end{frame}
+
     % C++ vs Python
     \begin{frame}
         \frametitle{C++ vs Python}
         \begin{itemize}
             \item C++:
             \begin{itemize}
-                \item 編譯型語言（Compiled Language）
-                \item 靜態型別（Static Typing）
-                \item 高效能
+                \item Compiled Language
+                \item Static Typing
+                \item High Performance
+                \item Working Close to Hardware
             \end{itemize}
             \item Python:
             \begin{itemize}
-                \item 直譯型語言（Interpreted Language）
-                \item 動態型別（Dynamic Typing）
-                \item 易學易用
+                \item Interpreted Language
+                \item Dynamic Typing
+                \item Easy to Learn and Use
+                \item Rich Libraries and Frameworks
             \end{itemize}
         \end{itemize}
     \end{frame}
@@ -136,13 +145,82 @@
     \begin{frame}
         \frametitle{C++ 就藏在生活中！}
         \begin{itemize}
-            \item 作業系統（Windows、macOS、Linux）
-            \item 網頁瀏覽器（Chrome、Firefox、Edge）
-            \item 遊戲引擎（Unreal Engine、Unity）
-            \item 平行運算（CUDA、OpenCL）
+            \item Operating Systems（Windows、macOS、Linux）
+            \item Web Browsers（Chrome、Firefox、Edge）
+            \item Game Engines（Unreal Engine、Unity）
+            \item Parallel Computing（CUDA、OpenCL）
         \end{itemize}
     \end{frame}
+
+    \section{What is C++?}
     
+    %Intro to C++
+    \begin{frame}
+        \frametitle{Introduction to C++}
+        \begin{itemize}
+            \item First released in Nokia Bell Labs by Bjarne Stroustrup
+            \item C with Classes
+            \item 1983s, C with Classes $\rightarrow$ C++
+            \item Object-Oriented Programming
+            \item Directly manipulate hardware resources(memory, CPU)
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{"Father" of Programming Languages}
+        \begin{itemize}
+            \item CPython, Numpy, Pandas, Matplotlib, Scikit-learn, TensorFlow, PyTorch
+            \item JavaScript V8 Engine, Node.js, Deno
+            \item MySQL, PostgreSQL, MongoDB
+            \item Even C++ compiler itself!
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Simple C++ IDE}
+        \begin{itemize}
+            \item Windows: \href{https://sourceforge.net/projects/orwelldevcpp/}{Dev-C++}
+            \item macOS: \href{https://developer.apple.com/xcode/}{Xcode}
+        \end{itemize}
+    \end{frame}
+
+    \section{Standard I/O in C++}
+
+    \begin{frame}[fragile]
+        \frametitle{\href{https://zh.wikipedia.org/zh-tw/Hello_Worldtext}{Hello World!}}
+        \begin{minted}{cpp}
+        #include <iostream>
+        using namespace std;
+
+        int main() {
+            cout << "Hello World!" << endl;
+            return 0;
+        }
+        \end{minted}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Basic Structure of C++ Program}
+        \begin{itemize}
+            \item Header Files
+            \item Namespaces
+            \item Main Function
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Header Files}
+        In python, we use \texttt{import} to include libraries.\\
+        In C++, we use \texttt{\#include} to include header files.\\
+        The most common header file is \texttt{<iostream>}, which is used for input and output operations(io refers to input/output). But if you want to use other advanced features, you may need to include other header files(i.e. \texttt{<vector>}, \texttt{<algorithm>}). Therefore, we often use \texttt{\#include <bits/stdc++.h>} to include most standard libraries in contests(Do not do this in production code!).
+
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Namespaces}
+    \end{frame}
+
+
 \end{document}
 
 1. Why C++?

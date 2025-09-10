@@ -31,5 +31,8 @@
 *.glo
 *.gls
 
+
 # Minted
 _minted-*/
+
+*.vscode

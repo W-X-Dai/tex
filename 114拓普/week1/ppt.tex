@@ -62,6 +62,15 @@
 	\end{frame}
 
     \section{課程介紹}
+
+    \begin{frame}
+        \frametitle{\href{https://drive.google.com/drive/folders/14Tkn-rddw0k1obeOxkWi00S43M0e9wlW?usp=sharing}{課程簡報}}
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.7\textwidth]{src/qrcode.png}
+        \end{figure}
+    \end{frame}
+
     \begin{frame}
         \frametitle{關於我...}
         \begin{itemize}
@@ -80,8 +89,8 @@
         \toprule
         日期 & 主題 & 日期 & 主題 \\
         \midrule
-        9/12  & 課程簡介、基礎輸入輸出   & 11/28 & 函式 \\
-        9/19  & 變數與四則運算           & 12/5  & 遞迴 \\
+        9/12  & 課程簡介、基礎輸入輸出、變數   & 11/28 & 函式 \\
+        9/19  & 變數的四則運算           & 12/5  & 遞迴 \\
         10/17 & 選擇結構與邏輯運算子     & 12/12 & Struct \\
         10/31 & 重複結構                 & 12/19 & Vector \\
         11/7  & 字串處理                 & 12/26 & Stack, Queue \\
@@ -98,6 +107,8 @@
             \item 觀念講解、範例示範
             \item 大量的練習題
             \item 大量的數學證明（如果有必要）
+            \item 期中考與期末考
+            \item Zerojudge Code: \texttt{DXg60o}
         \end{itemize}
     \end{frame}
 
@@ -141,9 +152,9 @@
         \end{itemize}
     \end{frame}
 
-    % C++ 就藏在生活中
+    % C++ is everywhere!
     \begin{frame}
-        \frametitle{C++ 就藏在生活中！}
+        \frametitle{C++ is everywhere!}
         \begin{itemize}
             \item Operating Systems（Windows、macOS、Linux）
             \item Web Browsers（Chrome、Firefox、Edge）
@@ -193,7 +204,7 @@
         using namespace std;
 
         int main() {
-            cout << "Hello World!" << endl;
+            cout << "Hello World!" << '\n';
             return 0;
         }
         \end{minted}
@@ -259,19 +270,21 @@
         using namespace std;
 
         int main() {
-            cout << "Hello World!" << endl;
+            cout << "Hello World!" << '\n';
             return 0;
         }
         \end{minted}
+        Practice 1: Zerojudge d483.
     \end{frame}
 
-    \section{Standard Input and Output in C++}
+    \section{Standard Input and Output \& Variables in C++}
     \begin{frame}
         \frametitle{cout}
-        After the explanation of main function, we can now understand much part of it. However, what is \texttt{cout} and \texttt{endl}?\\
+        After the explanation of main function, we can now understand much part of it. However, what is \texttt{cout}.
         \texttt{cout} is the standard output stream in C++. It is used to print output to the console.\\Its function is similar to \texttt{print()} in Python.\\
         You can output string, integer, float, and other data types using \texttt{cout}.\\
-        If you want to print multiple items, you can use the insertion operator \texttt{<<} to chain them together(To memory the direction of \texttt{<<}, think about the flow of data).
+        If you want to print multiple items, you can use the insertion operator \texttt{<<} to chain them together(To memory the direction of \texttt{<<}, think about the flow of data).\\
+        If you want to output a pure variable or number, you can just use \texttt{cout<<variable;}, but if you want to output a string, you need to put it in double quotes(\texttt{" "}). More, if you want to output a single character, you need to put it in single quotes(\texttt{' '}).
     \end{frame}
 
     \begin{frame}[fragile]
@@ -280,7 +293,7 @@
         \begin{minted}{cpp}
         int main(){
             string name = "World";
-            cout<<"Hello"<<name<<"!"<<endl;
+            cout<<"Hello"<<name<<"!"<<'\n';
         }
         \end{minted}
         In this case, name is a variable that stores the string "World". What do you think the output will be?
@@ -291,22 +304,95 @@
         It will be \texttt{HelloWorld!}. Because there's no space between \texttt{Hello} and \texttt{World!}.\\
         If you want to add a space, you can do it like these:
         \begin{minted}{cpp}
-        cout<<"Hello "<<name<<"!"<<endl;
-        cout<<"Hello"<<' '<<name<<"!"<<endl;
+        cout<<"Hello "<<name<<"!"<<'\n';
+        cout<<"Hello"<<' '<<name<<"!"<<'\n';
         \end{minted}
     \end{frame}
 
     \begin{frame}
         \frametitle{Escape Characters}
-        In the previous codes, you may find \texttt{endl} appears frequently.\\
-        In fact, \texttt{endl} is an escape character that represents a new line.\\
-        Other common escape characters include:
-        
+        Sometimes if you want to print a new line, tab, or other special characters (i.e. \texttt{\textbackslash}), you can use escape characters.\\
+
+        \begin{table}[H]
+        \begin{tabular}{cc}
+        \toprule
+        code & Character \\
+        \midrule
+        \texttt{\textbackslash n} & new line \\
+        \texttt{\textbackslash t} & Tab \\
+        \texttt{\textbackslash v} & vertical Tab \\
+        \texttt{\textbackslash "} & " \\
+        \bottomrule
+        \end{tabular}
+        \end{table}
+        TL;DR: If you can't print a special character directly, just add a \texttt{\textbackslash} before it.
     \end{frame}
-    
 
+    \begin{frame}[fragile]
+        \frametitle{Variables in C++}
+        Variables are used to store data in your program.\\
+        In Python, you may define a variable like this:
+        \begin{minted}{python}
+        name = "World"
+        age = 18
+        \end{minted}
+        This is why python is called "weakly typed language".\\
+        In C++, you need to specify the data type of the variable when you define it.
+        \begin{minted}{cpp}
+        string name = "World";
+        int age = 18;
+        \end{minted}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Data Types in C++}
+        Here are some common data types in C++:
+        \begin{table}[h]
+        \centering
+        \caption{Common C++ Fundamental Types}
+        \begin{tabular}{cll}
+        \toprule
+        \textbf{Type} & \textbf{Typical Range} & \textbf{Size (bytes)} \\
+        \midrule
+        \texttt{int}        & $-2^{31}\sim 2^{31}-1$ & 4 \\
+        \texttt{long long}  & $-2^{63}\sim 2^{63}-1$ & 8 \\
+        \texttt{float}      & $\pm 1.2 \times 10^{-38}\sim 3.4 \times 10^{38}$ & 4 \\
+        \texttt{double}     & $\pm 2.3 \times 10^{-308}\sim 1.7 \times 10^{308}$ & 8 \\
+        \texttt{char}       & $-2^7\sim 2^7-1$ & 1 \\
+        \texttt{bool}     & 0 or 1 & 1 \\
+        \bottomrule
+        \end{tabular}
+        \end{table}        
+    \end{frame}
+
+    \begin{frame}[fragile]
+        \frametitle{Input to a Variable}
+        You can use \texttt{cin} to get input from the user. For example:
+        \begin{minted}{cpp}
+        int age;
+        cin >>age;
+        cout<<"You are "<<age<<" years old."<<'\n';
+        \end{minted}
+        You can also get multiple inputs in one line:
+        \begin{minted}{cpp}
+        int dd, mm, yyyy;
+        cin >>dd>>mm>>yyyy;
+        cout<<"Your birthday is "<<dd<<"/"<<mm<<"/"<<yyyy<<'\n';
+        \end{minted}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{ASCII}
+        In the previous table, you may notice that \texttt{char} stores a number instead of a character.\\
+        This is because characters are represented by numbers in the computer. The most common character encoding is ASCII.\\
+        For example, the character 'A' is represented by the number 65 in ASCII.\\
+        You can use \texttt{int('A')} to get the ASCII value of 'A' in C++.
+    \end{frame}
+
+    \begin{frame}
+        \begin{figure}
+            \centering
+            \includegraphics[width=1\textwidth]{src/ASCII.png}
+        \end{figure}
+    \end{frame}
 \end{document}
-
-1. Why C++?
-2. C++ 的基礎輸入輸出
-3. 練習題

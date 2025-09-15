@@ -39,6 +39,9 @@
 \setbeamercolor{structure}{fg=MyBlue}
 \setbeamercolor{block title}{bg=MyBlue,fg=white}
 \setbeamercolor{block body}{bg=blue!5}
+\setbeamertemplate{section in toc}{%
+  \inserttocsectionnumber.~\inserttocsection\par
+}
 
 \setminted{
     linenos,                % 行號
@@ -60,6 +63,11 @@
 	\begin{frame}
 		\titlepage
 	\end{frame}
+
+    \begin{frame}
+        \frametitle{Outline}
+        \tableofcontents
+    \end{frame}
 
     \section{課程介紹}
 
@@ -84,21 +92,21 @@
 
     \begin{frame}
         \frametitle{進度安排}
-        \begin{table}[h]
-        \begin{tabular}{cl  cl}
-        \toprule
-        日期 & 主題 & 日期 & 主題 \\
-        \midrule
-        9/12  & 課程簡介、基礎輸入輸出、變數   & 11/28 & 函式 \\
-        9/19  & 變數的四則運算           & 12/5  & 遞迴 \\
-        10/17 & 選擇結構與邏輯運算子     & 12/12 & Struct \\
-        10/31 & 重複結構                 & 12/19 & Vector \\
-        11/7  & 字串處理                 & 12/26 & Stack, Queue \\
-        11/21 & 期中考                   & 1/2   & Set, Map, Priority Queue \\
-            &                          & 1/9   & 期末考 \\
-        \bottomrule
-        \end{tabular}
-        \end{table}
+        \makebox[\linewidth][c]{%
+            \begin{tabular}{cl cl}
+            \toprule
+            日期 & 主題 & 日期 & 主題 \\
+            \midrule
+            9/12  & 課程簡介、基礎輸入輸出、變數   & 11/28 & 函式 \\
+            9/19  & 變數的運算           & 12/5  & 遞迴 \\
+            10/17 & 選擇結構與邏輯運算子     & 12/12 & Struct \\
+            10/31 & 重複結構                 & 12/19 & Vector \\
+            11/7  & 字串處理                 & 12/26 & Stack, Queue \\
+            11/21 & 期中考                   & 1/2   & Set, Map, Priority Queue \\
+                &                          & 1/9   & 期末考 \\
+            \bottomrule
+            \end{tabular}
+        }
     \end{frame}
 
     \begin{frame}
@@ -277,7 +285,7 @@
         Practice 1: Zerojudge d483.
     \end{frame}
 
-    \section{Standard Input and Output \& Variables in C++}
+    \section{Standard Output in C++}
     \begin{frame}
         \frametitle{cout}
         After the explanation of main function, we can now understand much part of it. However, what is \texttt{cout}.
@@ -330,6 +338,8 @@
         Practice 3: Zerojudge e926.
     \end{frame}
 
+
+    \section{Standard Input \& Variables in C++}
     \begin{frame}[fragile]
         \frametitle{Variables in C++}
         Variables are used to store data in your program.\\

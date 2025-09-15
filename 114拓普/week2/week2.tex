@@ -1,0 +1,125 @@
+\documentclass[xcolor=dvipsnames]{beamer}
+
+% ==== 主題 ====
+\usetheme{metropolis}
+\usefonttheme{professionalfonts}          % 不覆蓋你自訂的字型
+
+% ==== 字型 ====
+\usepackage{fontspec}
+\usepackage{xeCJK}
+\renewcommand{\familydefault}{\rmdefault} % 使用 serif 字體（重點）
+
+% 西文字型：Times New Roman 的開源替代品
+\setmainfont{TeX Gyre Termes}[
+  Ligatures=TeX,
+  BoldFont={* Bold},
+  ItalicFont={* Italic}
+]
+
+% 中文字型（可改為思源宋體、標楷體等）
+\setCJKmainfont{Noto Serif CJK TC}
+\setCJKsansfont{Noto Sans CJK TC} % 有需要再用
+\setCJKmonofont{Noto Sans Mono CJK TC}
+
+% ==== 數學字型（與正文字體一致）====
+\usepackage{unicode-math}
+\setmathfont{TeX Gyre Termes Math}
+
+% ==== 套件 ====
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{minted}
+\usepackage{fvextra}
+\usepackage{xcolor}
+\usepackage{booktabs}
+
+% ==== 顏色設定（可選）====
+\definecolor{MyBlue}{RGB}{3, 55, 105}
+\setbeamercolor{structure}{fg=MyBlue}
+\setbeamercolor{block title}{bg=MyBlue,fg=white}
+\setbeamercolor{block body}{bg=blue!5}
+\setbeamertemplate{section in toc}{%
+  \inserttocsectionnumber.~\inserttocsection\par
+}
+
+\setminted{
+    linenos,                % 行號
+    frame=lines,            % 上下框線
+    framesep=5pt,           % 程式碼與邊框距離
+    numbersep=8pt,          % 行號與程式碼距離
+    fontsize=\scriptsize,   % 字體大小
+    breaklines,             % 自動換行
+    tabsize=4,              % tab 寬度
+    rulecolor=\color{black},% 框線顏色
+    xleftmargin=1.5em       % 左側縮排
+}
+
+\title{Variable Operations}
+\author{Tai, Wei Hsuan}
+\date{week 2}
+
+\begin{document}
+	\begin{frame}
+		\titlepage
+	\end{frame}
+
+
+    % course material qrcode
+    \begin{frame}
+        \frametitle{\href{https://drive.google.com/drive/folders/14Tkn-rddw0k1obeOxkWi00S43M0e9wlW?usp=sharing}{課程簡報}}
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.7\textwidth]{src/qrcode.png}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Outline}
+        \tableofcontents
+    \end{frame}
+
+    \section{Recap}
+
+    \begin{frame}[fragile]
+        \frametitle{Basic Structure of C++ Program}
+        \begin{itemize}
+            \item Header file.
+            \item Namespace.
+            \item Main function.
+        \end{itemize}
+        \begin{minted}{cpp}
+            #include <iostream>
+            using namespace std;
+
+            int main() {
+                cout << "Hello, World!" << endl;
+                return 0;
+            }
+        \end{minted}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Remember!}
+        \begin{itemize}
+            \item Every statement ends with a semicolon \textbf{(;)}.
+            \item Programs always start from the \alert{main()} function.
+            \item All functional code needs to be inside a function.
+            \item All functions must be enclosed in curly braces \textbf{\{\}}.
+        \end{itemize}
+    \end{frame}
+
+    \section{Variable Introduction}
+    \begin{frame}
+        \frametitle{What is Variable?}
+        Variables can be thought of as \alert{containers} that hold data which can be changed during program execution.\\
+        Data is actually stored in the computer's memory, and variables provide a way to access and manipulate that data.\\
+        You can consider variables as \alert{labels} for specific memory locations where data is stored.
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Common Data Types}
+    \end{frame}
+
+
+\end{document}

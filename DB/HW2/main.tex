@@ -1,0 +1,66 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage{xeCJK}
+\usepackage{fontspec}
+\setCJKmainfont{Noto Serif CJK TC}[Script=CJK]
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\setlength{\headheight}{14.5pt}
+\addtolength{\topmargin}{-2.5pt}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{caption}
+\usepackage{indentfirst}
+\usepackage{float}
+\usepackage{forest}
+\setlength{\parindent}{2em}
+\pagestyle{fancy}
+\fancyhf{}
+\cfoot{\thepage}
+\linespread{1.3}
+
+\usepackage{multirow}
+\usepackage{booktabs}   % 放在 preamble
+
+\usepackage{minted}
+\setminted{
+    linenos,                % 行號
+    frame=lines,            % 上下框線
+    framesep=5pt,           % 程式碼與邊框距離
+    numbersep=8pt,          % 行號與程式碼距離
+    fontsize=\scriptsize,   % 字體大小
+    breaklines,             % 自動換行
+    tabsize=4,              % tab 寬度
+    rulecolor=\color{black},% 框線顏色
+    xleftmargin=1.5em       % 左側縮排
+}
+
+
+\title{資料庫管理 HW02}
+\author{B12508026戴偉璿}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\lhead{資料庫管理 HW02}
+\rhead{B12508026戴偉璿}
+
+\begin{enumerate}
+    \item
+    \begin{enumerate}
+        \item
+        \begin{enumerate}
+            \item \textbf{YES}, because \texttt{DEAN} is a \textbf{relation} between \texttt{COLLEGE} and \texttt{INSTRUCTOR}; and \texttt{CHAIR} is a \textbf{relation} between \texttt{DEPT} and \texttt{INSTRUCTOR}.
+            \item \textbf{NO}, there's no further restriction on \texttt{DEAN} and \texttt{CHAIR}, so one \texttt{INSTRUCTOR} can be a \texttt{CHAIR} and a \texttt{DEAN} at the same time.
+            \item \textbf{YES}, the relation between \texttt{STUDENT} and \texttt{HAS} is a \textbf{(0, 1)} relation, so one \texttt{STUDENT} can \texttt{HAS} zero or one \texttt{DEPT}.
+        \end{enumerate}
+    \end{enumerate}
+ 
+\end{enumerate}
+
+\end{document}

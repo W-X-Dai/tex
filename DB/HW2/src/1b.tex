@@ -3,12 +3,14 @@
 
 % RELATIONS
 
-\node (countrytitle) {\textbf{COUNTRY}};
+\node (instructortitle) {\textbf{INSTRUCTOR}};
 
-\node [relation=3, rectangle split horizontal, rectangle split part fill={lightgray!50}, anchor=north west, below=0.6cm of countrytitle.west, anchor=west] (INSTRUCTOR)
-{\underline{ISO\_code}%
-\nodepart{two}   Name
-\nodepart{three} Description};
+\node [relation=5, rectangle split horizontal, rectangle split part fill={lightgray!50}, anchor=north west, below=0.6cm of instructortitle.west, anchor=west] (INSTRUCTOR)
+{\underline{Id}
+\nodepart{two}   IName
+\nodepart{three} Rank
+\nodepart{four}  IOffice
+\nodepart{five}  IPhone};
 
 
 % FOREIGN KEYS

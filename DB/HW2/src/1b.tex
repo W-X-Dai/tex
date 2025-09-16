@@ -1,0 +1,18 @@
+
+\begin{tikzpicture}[relation/.style={rectangle split, rectangle split parts=#1, rectangle split part align=base, draw, anchor=center, align=center, text height=3mm, text centered}]\hspace*{-0.3cm}
+
+% RELATIONS
+
+\node (countrytitle) {\textbf{COUNTRY}};
+
+\node [relation=3, rectangle split horizontal, rectangle split part fill={lightgray!50}, anchor=north west, below=0.6cm of countrytitle.west, anchor=west] (INSTRUCTOR)
+{\underline{ISO\_code}%
+\nodepart{two}   Name
+\nodepart{three} Description};
+
+
+% FOREIGN KEYS
+
+
+
+\end{tikzpicture}

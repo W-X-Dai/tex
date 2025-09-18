@@ -12,8 +12,23 @@
 \nodepart{four}  IOffice
 \nodepart{five}  IPhone};
 
+\node [below=1.3cm of instructortitle.west, anchor=west](collegetitle) {\textbf{COLLEGE}};
 
-% FOREIGN KEYS
+\node [relation=3, rectangle split horizontal, rectangle split part fill={lightgray!50}, anchor=north west, below=0.6cm of collegetitle.west, anchor=west] (COLLEGE)
+{\underline{CName}
+\nodepart{two}  CPhone
+\nodepart{three}  COffice};
+
+\node [below=1.3cm of collegetitle.west, anchor=west](depttitle) {\textbf{DEPT}};
+
+\node [relation=4, rectangle split horizontal, rectangle split part fill={lightgray!50}, anchor=north west, below=0.6cm of depttitle.west, anchor=west] (DEPT)
+{\underline{DName}
+\nodepart{two}  DCode
+\nodepart{three}  DOffice
+\nodepart{four}  DPhone};
+
+\node [below=1.3cm of depttitle.west, anchor=west](studenttitle) {\textbf{STUDENT}};
+
 
 
 

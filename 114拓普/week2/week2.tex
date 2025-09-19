@@ -137,6 +137,17 @@
         \end{table}        
     \end{frame}
 
+    \begin{frame}[fragile]
+        \frametitle{Usage of Variables}
+        Different from Python, you need to \alert{declare} the type of variable before using it. Before you declare it, you should consider what type of data you want to store in it.\\
+        For example, if you want to store an integer, you should declare it as an \texttt{int} type. But if you know the number will be very large (larger than $10^9$), you should declare it as a \texttt{long long} type.\\
+        Here is an example of declaring and using variables:
+        \begin{minted}{cpp}
+            int a;
+            double b, c;
+        \end{minted}
+    \end{frame}
+
     \section{Variable Operations}
     \begin{frame}
         \frametitle{Operation Types}
@@ -151,6 +162,7 @@
 
     \begin{frame}
         \frametitle{Assignment Operators}
+        You can use assignment operators to assign values to variables. The most basic assignment operator is \texttt{=}, which assigns the value on the right to the variable on the left.\\
         \begin{table}[h]
         \centering
         \caption{Assignment Operators}
@@ -170,15 +182,18 @@
     \end{frame}
     \begin{frame}[fragile]
         \frametitle{Assignment Operators(Cont.)}
+        You can assign values to variables when declaring them or later. Remember you can assign new value to a variable at any time. The compiler would execute your code from top to bottom, so the previous value will be overwritten.
         \begin{minted}{cpp}
-            int a=5, b=2;
+            int a=5, b;
+            b=2;
             a+=b;
-            a*=b;
+            a=7;
         \end{minted}
     \end{frame}
 
     \begin{frame}
         \frametitle{Arithmetic Operators}
+        You can do some mathematical operations on variables using arithmetic operators. Here are some common arithmetic operators:
         \begin{table}[h]
         \centering
         \caption{Arithmetic Operators}
@@ -216,10 +231,10 @@
     \end{frame}
     \begin{frame}
         \frametitle{Comparison Operators}
+        These operators always return a boolean value (true or false) depending on the comparison result.
         \begin{table}[h]
         \centering
         \caption{Comparison Operators}
-        This operators always return a boolean value (true or false).
         \begin{tabular}{cll}
         \toprule
         \textbf{Operator} & \textbf{Description} & \textbf{Example} \\
@@ -247,10 +262,10 @@
 
     \begin{frame}
         \frametitle{Logical Operators}
+        These operators also return a boolean value (true or false) depending on the logical operation result.
         \begin{table}[h]
         \centering
         \caption{Logical Operators}
-        This operators always return a boolean value (true or false).
         \begin{tabular}{cll}
         \toprule
         \textbf{Operator} & \textbf{Description} & \textbf{Example} \\

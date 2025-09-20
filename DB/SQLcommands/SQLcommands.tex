@@ -1,0 +1,195 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage{xeCJK}
+\usepackage{fontspec}
+\setCJKmainfont{Noto Serif CJK TC}[Script=CJK]
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\setlength{\headheight}{14.5pt}
+\addtolength{\topmargin}{-2.5pt}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{caption}
+\usepackage{indentfirst}
+\usepackage{float}
+\usepackage{forest}
+\setlength{\parindent}{2em}
+\pagestyle{fancy}
+\fancyhf{}
+\cfoot{\thepage}
+\linespread{1.3}
+
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usetikzlibrary{shapes,positioning,calc}
+\colorlet{lightgray}{gray!20}
+
+\usepackage{minted}
+\setminted{
+    linenos,
+    frame=lines,
+    framesep=5pt,
+    numbersep=8pt,
+    fontsize=\scriptsize,
+    breaklines,
+    tabsize=4,
+    rulecolor=\color{black},
+    xleftmargin=1.5em
+}
+
+\begin{document}
+
+\section*{常見 SQL 指令總表}
+
+以下整理自簡報內容:contentReference[oaicite:0]{index=0}，分為資料定義、資料操作與進階查詢三大類。
+
+\subsection*{1. 資料定義 (DDL)}
+\begin{itemize}
+  \item \textbf{CREATE}：建立資料庫物件
+  \begin{minted}{sql}
+CREATE TABLE EMPLOYEE (
+  id VARCHAR(15) PRIMARY KEY,
+  name VARCHAR(50) NOT NULL,
+  birthday DATE NOT NULL
+);
+  \end{minted}
+
+  \item \textbf{ALTER}：修改資料表
+  \begin{minted}{sql}
+ALTER TABLE EMPLOYEE ADD job VARCHAR(20);
+ALTER TABLE EMPLOYEE DROP COLUMN birthday CASCADE;
+  \end{minted}
+
+  \item \textbf{DROP}：刪除資料表或 schema
+  \begin{minted}{sql}
+DROP TABLE EMPLOYEE CASCADE;
+DROP SCHEMA RETAIL CASCADE;
+  \end{minted}
+\end{itemize}
+
+\subsection*{2. 基本查詢 (SELECT)}
+\begin{itemize}
+  \item \textbf{基本語法}
+  \begin{minted}{sql}
+SELECT <屬性清單>
+FROM <資料表>
+WHERE <條件>;
+  \end{minted}
+
+  \item \textbf{條件與運算子}
+  \begin{minted}{sql}
+-- 等於 / 不等於
+SELECT * FROM EMPLOYEE WHERE gender = 'M';
+SELECT * FROM EMPLOYEE WHERE id <> 'A123';
+
+-- LIKE 與萬用字元
+SELECT name FROM EMPLOYEE WHERE name LIKE 'Chi%';
+
+-- NULL 判斷
+SELECT name FROM EMPLOYEE WHERE supervisor_id IS NULL;
+  \end{minted}
+
+  \item \textbf{集合運算}
+  \begin{minted}{sql}
+SELECT salary FROM EMPLOYEE WHERE store_id = 1
+UNION
+SELECT salary FROM EMPLOYEE WHERE store_id = 2;
+  \end{minted}
+
+  \item \textbf{JOIN}
+  \begin{minted}{sql}
+-- 內部連接
+SELECT e.name, s.postal_code
+FROM EMPLOYEE e
+JOIN STORE s ON e.store_id = s.id;
+
+-- 左外連接
+SELECT e.name, s.mgr_id
+FROM EMPLOYEE e
+LEFT JOIN STORE s ON e.id = s.mgr_id;
+  \end{minted}
+
+  \item \textbf{排序與聚合}
+  \begin{minted}{sql}
+SELECT store_id, COUNT(*), AVG(monthly_salary)
+FROM EMPLOYEE
+GROUP BY store_id
+HAVING COUNT(*) > 2
+ORDER BY AVG(monthly_salary) DESC;
+  \end{minted}
+\end{itemize}
+
+\subsection*{3. 資料操作 (DML)}
+\begin{itemize}
+  \item \textbf{INSERT}
+  \begin{minted}{sql}
+INSERT INTO EMPLOYEE(id, name, gender, birthday, monthly_salary)
+VALUES('A123456789', 'Xiao-Ming Wang', 'M', '1999-01-01', 120000);
+  \end{minted}
+
+  \item \textbf{DELETE}
+  \begin{minted}{sql}
+DELETE FROM EMPLOYEE WHERE name = 'Chih-Yuan Lee';
+  \end{minted}
+
+  \item \textbf{UPDATE}
+  \begin{minted}{sql}
+UPDATE EMPLOYEE
+SET monthly_salary = monthly_salary * 1.1
+WHERE store_id = 1;
+  \end{minted}
+\end{itemize}
+
+\subsection*{4. 進階查詢}
+\begin{itemize}
+  \item \textbf{子查詢與集合比較}
+  \begin{minted}{sql}
+SELECT name
+FROM EMPLOYEE
+WHERE monthly_salary > ALL (
+  SELECT monthly_salary FROM EMPLOYEE WHERE store_id = 1
+);
+  \end{minted}
+
+  \item \textbf{LIMIT \& OFFSET}
+  \begin{minted}{sql}
+SELECT name FROM EMPLOYEE
+ORDER BY birthday ASC
+LIMIT 3 OFFSET 1;
+  \end{minted}
+
+  \item \textbf{CASE 條件判斷}
+  \begin{minted}{sql}
+SELECT id, name,
+CASE SUBSTRING(id,1,1)
+  WHEN 'A' THEN 'Taipei'
+  WHEN 'S' THEN 'Kaohsiung'
+  ELSE 'Others'
+END AS region
+FROM EMPLOYEE;
+  \end{minted}
+
+  \item \textbf{CTE (Common Table Expression)}
+  \begin{minted}{sql}
+WITH MaxSalary AS (
+  SELECT MAX(monthly_salary) AS max_sal
+  FROM EMPLOYEE WHERE store_id = 2
+)
+SELECT name FROM EMPLOYEE
+WHERE monthly_salary > (SELECT max_sal FROM MaxSalary);
+  \end{minted}
+
+  \item \textbf{VIEW}
+  \begin{minted}{sql}
+CREATE VIEW STORE_SALES_VIEW AS
+SELECT s.store_id, sd.product_id, sd.qty
+FROM STORE s
+JOIN SALES_DETAIL sd ON s.id = sd.store_id;
+  \end{minted}
+\end{itemize}
+
+\end{document}

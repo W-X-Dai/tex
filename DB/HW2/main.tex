@@ -69,9 +69,101 @@
         \end{enumerate}
         \item As the following diagram:
         
-        \input{./src/1b.tex}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.6\textwidth]{src/1B.png}
+            \caption{Relational Schema Diagram}
+            \label{fig:ER_diagram}
+        \end{figure}
+
     \end{enumerate}
- 
+    \item \begin{enumerate}
+        \item To record the full history of students' take or drop sections, we can just add more attributes to the \texttt{TAKES} relation. But it may cause some problems while querying the final result and grade (user must find the last record of the log to reach). So I decide to create a new weak entity to record the operation log.\\
+        If the operation is add, the \texttt{drop\_data} would be record as NULL; vice versa.\\
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.6\textwidth]{src/2A.png}
+            \caption{ER Diagram with Operation Log}
+            \label{fig:ER_diagram_with_log}
+        \end{figure}
+        \item As the following diagram:
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.6\textwidth]{src/2B.png}
+            \caption{Relational Schema Diagram with Advisor}
+            \label{fig:ER_diagram_with_advisor}
+        \end{figure}
+    \end{enumerate}
+    \item 
+    \begin{enumerate}
+        \item
+        \begin{minted}{sql}
+        SELECT br.Card_no, br.Name, COUNT(*) AS LoanRec
+        FROM BOOK_LOANS bl
+        JOIN BORROWER br ON bl.Card_no = br.Card_no
+        WHERE bl.Branch_id = '[ASSIGNED_BRANCH_ID]'
+        GROUP BY br.Card_no, br.Name
+        ORDER BY LoanRec DESC;
+        \end{minted}
+        \item
+        \begin{minted}{sql}
+        SELECT lib.Branch_id, lib.Branch_name, COUNT(*) AS LoanRec
+        FROM BOOK_LOANS bl
+        JOIN LIBRARY_BRANCH lib ON lib.Branch_id = bl.Branch_id
+        WHERE bl.Date_out BETWEEN '2024-01-01' AND '2024-12-31'
+        GROUP BY lib.Branch_id, lib.Branch_name
+        ORDER BY LoanRec DESC;
+        \end{minted}
+        \item
+        \begin{minted}{sql}
+        SELECT bk.Book_id, bk.Title, COUNT(DISTINCT ba.Author_id) AS AuthorNum, bc.No_of_copies, COUNT(DISTINCT bl.Loan_id) AS LoanRec
+        FROM BOOK_LOANS bl
+        JOIN BOOK bk ON bl.Book_id = bk.Book_id
+        JOIN BOOK_AUTHORS ba ON bl.Book_id = ba.Book_id
+        JOIN BOOK_COPIES bc ON bl.BOOK_id = bc.BOOK_id AND bl.Branch_id = bc.Branch_id
+        WHERE bl.Branch_id = (
+            SELECT bl2.Branch_id
+            FROM BOOK_LOANS bl2
+            JOIN LIBRARY_BRANCH lib ON lib.Branch_id = bl2.Branch_id
+            WHERE bl2.Date_out BETWEEN '2024-01-01' AND '2024-12-31'
+            GROUP BY bl2.Branch_id
+            ORDER BY COUNT(*) DESC
+            LIMIT 1
+        )
+        AND bl.Date_out BETWEEN '2024-01-01' AND '2024-12-31'
+        GROUP BY bk.Book_id, bk.Title, bc.No_of_copies
+        ORDER BY LoanRec DESC;
+        \end{minted}
+
+        \item
+        \begin{minted}{sql}
+        SELECT bk.Book_id, bk.Title, lib.Branch_name, bc.No_of_copies
+        FROM BOOK bk
+        JOIN BOOK_COPIES bc ON bk.Book_id = bc.Book_id
+        JOIN LIBRARY_BRANCH lib ON bc.Branch_id = lib.Branch_id
+        WHERE bk.Book_id IN (
+            SELECT ba.Book_id
+            FROM BOOK_AUTHOR ba
+            GROUP BY ba.Book_id
+            HAVING COUNT(DISTINCT ba.Author_id) = 1
+        );
+        \end{minted}
+        \item
+        \begin{minted}{sql}
+        --Add new column to the DB
+        ALTER TABLE BOOK_LOANS
+        ADD COLUMN Date_return DATE;
+
+        --Execute Query
+        SELECT bk.Title, lib.Branch_name, bc.No_of_copies - COUNT(bl.Loan_id) AS AvaiCopies
+        FROM BOOK bk
+        JOIN BOOK_COPIES bc ON bk.Book_id = bc.Book_id
+        JOIN LIBRARY_BRANCH lib ON bc.Branch_id = lib.Branch_id
+        LEFT JOIN BOOK_LOANS bl ON bk.Book_id = bl.Book_id AND bc.Branch_id = bl.Branch_id AND bl.Date_return IS NULL
+        GROUP BY bk.Title, lib.Branch_name, bc.No_of_copies
+        \end{minted}
+    \end{enumerate}
+    
 \end{enumerate}
 
 

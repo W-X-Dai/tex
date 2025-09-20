@@ -118,7 +118,7 @@
         \end{minted}
         \item
         \begin{minted}{sql}
-        SELECT bk.Book_id, bk.Title, COUNT(DISTINCT ba.Author_id) AS AuthorNum, bc.No_of_copies, COUNT(DISTINCT bl.Loan_id) AS LoanRec
+        SELECT bk.Book_id, bk.Title, COUNT(DISTINCT ba.Author_name) AS AuthorNum, bc.No_of_copies, COUNT(DISTINCT bl.Loan_id) AS LoanRec
         FROM BOOK_LOANS bl
         JOIN BOOK bk ON bl.Book_id = bk.Book_id
         JOIN BOOK_AUTHORS ba ON bl.Book_id = ba.Book_id
@@ -145,9 +145,9 @@
         JOIN LIBRARY_BRANCH lib ON bc.Branch_id = lib.Branch_id
         WHERE bk.Book_id IN (
             SELECT ba.Book_id
-            FROM BOOK_AUTHOR ba
+            FROM BOOK_AUTHORS ba
             GROUP BY ba.Book_id
-            HAVING COUNT(DISTINCT ba.Author_id) = 1
+            HAVING COUNT(DISTINCT ba.Author_name) = 1
         );
         \end{minted}
         \item
@@ -168,13 +168,10 @@
     \item
     \begin{enumerate}
         \item As the Table~\ref{tab:data_dictionary} shows:
-        
         \begin{table}[H]
-        \caption{Data Dictionary for Library Management System}
-        \label{tab:data_dictionary}
         \centering
-        \resizebox{\textwidth}{!}{%
-        \begin{tabular}{|p{3cm}|p{2.5cm}|p{3.5cm}|p{4cm}|p{2cm}|}
+        \resizebox{0.9\textwidth}{!}{%
+        \begin{tabular}{|p{3cm}|p{2.5cm}|p{4.5cm}|p{4.5cm}|p{2cm}|}
         \hline
         Name & Data Type & Key & Constraint & Domain \\
         \hline
@@ -187,7 +184,7 @@
         \multicolumn{5}{|c|}{BOOK\_AUTHORS} \\
         \hline
         Book\_id & varchar(15) & PK, FK $\rightarrow$ BOOK(Book\_id) & Not Null &  \\
-        Author\_name & varchar(50) &  & Not Null &  \\
+        Author\_name & varchar(50) & PK & Not Null &  \\
         \hline
         \multicolumn{5}{|c|}{PUBLISHER} \\
         \hline
@@ -198,13 +195,13 @@
         \multicolumn{5}{|c|}{BOOK\_COPIES} \\
         \hline
         Book\_id & varchar(15) & PK, FK $\rightarrow$ BOOK(Book\_id) & Not Null &  \\
-        Branch\_id & varchar(10) & PK, FK $\rightarrow$ LIBRARY\_BRANCH(Branch\_id) & Not Null &  \\
-        No\_of\_copies & int &  & Not Null, CHECK $\geq 0$ & $\{0,1,2,\dots\}$ \\
+        Branch\_id & varchar(10) & PK, FK $\rightarrow$ LIBRARY\_BRANCH (Branch\_id) & Not Null &  \\
+        No\_of\_copies & int &  & Not Null, CHECK $> 0$ & $\{1,2,\dots\}$ \\
         \hline
         \multicolumn{5}{|c|}{BOOK\_LOANS} \\
         \hline
         Book\_id & varchar(15) & PK, FK $\rightarrow$ BOOK(Book\_id) & Not Null &  \\
-        Branch\_id & varchar(10) & PK, FK $\rightarrow$ LIBRARY\_BRANCH(Branch\_id) & Not Null &  \\
+        Branch\_id & varchar(10) & PK, FK $\rightarrow$ LIBRARY\_BRANCH (Branch\_id) & Not Null &  \\
         Card\_no & varchar(10) & PK, FK $\rightarrow$ BORROWER(Card\_no) & Not Null &  \\
         Date\_out & date & PK & Not Null &  \\
         Due\_date & date &  & Not Null &  \\
@@ -225,8 +222,68 @@
         \hline
         \end{tabular}
         }
+        \\
+        \caption{Data Dictionary for Library Management System}
+        \label{tab:data_dictionary}
         \end{table}
+        \newpage
+        \item 
+        \begin{minted}{sql}
+        CREATE TABLE PUBLISHER (
+            Name VARCHAR(50) PRIMARY KEY,
+            Address VARCHAR(100),
+            Phone VARCHAR(15)
+        );
 
+        CREATE TABLE LIBRARY_BRANCH (
+            Branch_id VARCHAR(10) PRIMARY KEY,
+            Branch_name VARCHAR(50) NOT NULL,
+            Address VARCHAR(100) NOT NULL UNIQUE
+        );
+
+        CREATE TABLE BORROWER (
+            Card_no VARCHAR(10) PRIMARY KEY,
+            Name VARCHAR(50) NOT NULL,
+            Address VARCHAR(100),
+            Phone VARCHAR(15) 
+        );
+
+        CREATE TABLE BOOK (
+            Book_id VARCHAR(15) PRIMARY KEY,
+            Title VARCHAR(100) NOT NULL,
+            Publisher_name VARCHAR(50) NOT NULL,
+            FOREIGN KEY (Publisher_name) REFERENCES PUBLISHER(Name)
+        );
+
+        CREATE TABLE BOOK_AUTHORS (
+            Book_id VARCHAR(15) NOT NULL,
+            Author_name VARCHAR(50) NOT NULL,
+            PRIMARY KEY (Book_id, Author_name),
+            FOREIGN KEY (Book_id) REFERENCES BOOK(Book_id)
+        );
+
+        CREATE TABLE BOOK_COPIES (
+            Book_id VARCHAR(15) NOT NULL,
+            Branch_id VARCHAR(10) NOT NULL,
+            No_of_copies INT NOT NULL CHECK (No_of_copies > 0),
+            PRIMARY KEY (Book_id, Branch_id),
+            FOREIGN KEY (Book_id) REFERENCES BOOK(Book_id),
+            FOREIGN KEY (Branch_id) REFERENCES LIBRARY_BRANCH(Branch_id)
+        );
+
+        CREATE TABLE BOOK_LOANS (
+            Book_id VARCHAR(15) NOT NULL,
+            Branch_id VARCHAR(10) NOT NULL,
+            Card_no VARCHAR(10) NOT NULL,
+            Date_out DATE NOT NULL,
+            Due_date DATE NOT NULL,
+            Date_return DATE,   -- 可為 NULL
+            PRIMARY KEY (Book_id, Branch_id, Card_no, Date_out),
+            FOREIGN KEY (Book_id) REFERENCES BOOK(Book_id),
+            FOREIGN KEY (Branch_id) REFERENCES LIBRARY_BRANCH(Branch_id),
+            FOREIGN KEY (Card_no) REFERENCES BORROWER(Card_no)
+        );
+        \end{minted}
     \end{enumerate}
 \end{enumerate}
 

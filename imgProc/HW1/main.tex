@@ -1,0 +1,99 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage{xeCJK}
+\usepackage{fontspec}
+\setCJKmainfont{Noto Serif CJK TC}[Script=CJK]
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\setlength{\headheight}{14.5pt}
+\addtolength{\topmargin}{-2.5pt}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{caption}
+\usepackage{indentfirst}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{float}
+\usepackage{minted}
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta}
+
+\setlength{\parindent}{2em}
+\pagestyle{fancy}
+\fancyhf{}
+\cfoot{\thepage}
+\linespread{1.3}
+\setminted{
+    linenos,                % 行號
+    frame=lines,            % 上下框線
+    framesep=5pt,           % 程式碼與邊框距離
+    numbersep=8pt,          % 行號與程式碼距離
+    fontsize=\scriptsize,   % 字體大小
+    breaklines,             % 自動換行
+    tabsize=4,              % tab 寬度
+    rulecolor=\color{black},% 框線顏色
+    xleftmargin=1.5em       % 左側縮排
+}
+
+\title{Fundamentals of Biomedical Image Processing HW 1}
+\author{B12508026戴偉璿}
+\date{\today}
+
+
+\begin{document}
+
+\maketitle
+\lhead{Fundamentals of Biomedical Image Processing Homework 1}
+\rhead{B12508026戴偉璿}
+
+\section{Theorem questions}
+\begin{enumerate}
+    \item
+    \begin{enumerate}
+        \item The picture size is $1024\times 1024$ pixels, and each pixel contains 256 intensity levels(8 bits,i.e., 1 byte). Therefore, the total data size is $1024\times 1024 \times 1 = 1,048,576$ bytes. Since each packet requires 10 bits to transmit 1 byte of data, the total number of bits to be transmitted is 10,485,760 bits. With the baud rate of 56k, the transmission time is $10,485,760\div 56000 \approx 187.25(sec)\approx 3.12$ minutes.
+        \item With the baud rate of 3000k, the transmission time is\\ $10,485,760\div 3,000,000 \approx 3.495(sec)\approx 0.058$ minutes.
+    \end{enumerate}
+    \item $V=\{1 ,2\}$, so the graph would be Fig \ref{fig:2a}:
+    \begin{figure}[H]
+        \centering
+        \input{src/2a}
+        \caption{The grid graph with $V=\{1,2\}$ (gray cells are passable)}
+        \label{fig:2a}
+    \end{figure}
+    \newpage
+    \begin{enumerate}
+        \item \fbox{shortest-4}: Only up, down, left, right movements are allowed. So the path would be:
+        \begin{figure}[H]
+            \centering
+            \input{src/2a_s4}
+            \caption{No 4-connected path (q is 4-blocked)}
+            \label{fig:2a_s4}
+        \end{figure}
+        As the Fig\ref{fig:2a_s4} shows, there's no path from last step $(3, 3)$ to node $q(4, 4)$, so the length is \textbf{infinity}.
+        \item \fbox{shortest-8}: Up, down, left, right, and diagonal movements are allowed. So the path would be:
+        \begin{figure}[H]
+            \centering
+            \input{src/2a_s8}
+            \caption{shortest-8 path (length = 4)}
+            \label{fig:2a_s8}
+        \end{figure}
+        As the Fig\ref{fig:2a_s8} shows, it takes 4 steps to reach from $p(1, 1)$ to $q(4, 4)$,\\ so the length is \textbf{4}.
+        \newpage
+        \item \fbox{shortest-m}: The path can only move to the 8-neighbors with the minimum value. So the path would be:
+        \begin{figure}[H]
+            \centering
+            \input{src/2a_sm}
+            \caption{shortest-m path (length = 5)}
+            \label{fig:2a_sm}
+        \end{figure}
+        As the Fig\ref{fig:2a_sm} shows, it takes 5 steps to reach from $p(1, 1)$ to $q(4, 4)$,\\ so the length is \textbf{5}.
+    \end{enumerate}
+\end{enumerate}
+
+\end{document}

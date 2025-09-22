@@ -162,7 +162,7 @@
         JOIN BOOK_COPIES bc ON bk.Book_id = bc.Book_id
         JOIN LIBRARY_BRANCH lib ON bc.Branch_id = lib.Branch_id
         LEFT JOIN BOOK_LOANS bl ON bk.Book_id = bl.Book_id AND bc.Branch_id = bl.Branch_id AND bl.Date_return IS NULL
-        GROUP BY bk.Title, lib.Branch_name, bc.No_of_copies
+        GROUP BY bk.Title, lib.Branch_name, bc.No_of_copies;
         \end{minted}
     \end{enumerate}
     \item
@@ -277,7 +277,7 @@
             Card_no VARCHAR(10) NOT NULL,
             Date_out DATE NOT NULL,
             Due_date DATE NOT NULL,
-            Date_return DATE,   -- 可為 NULL
+            Date_return DATE,   -- can be NULL
             PRIMARY KEY (Book_id, Branch_id, Card_no, Date_out),
             FOREIGN KEY (Book_id) REFERENCES BOOK(Book_id),
             FOREIGN KEY (Branch_id) REFERENCES LIBRARY_BRANCH(Branch_id),

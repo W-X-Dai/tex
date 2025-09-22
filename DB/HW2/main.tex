@@ -100,30 +100,28 @@
     \begin{enumerate}
         \item
         \begin{minted}{sql}
-        SELECT br.Card_no, br.Name, COUNT(*) AS LoanRec
-        FROM BOOK_LOANS bl
-        JOIN BORROWER br ON bl.Card_no = br.Card_no
-        WHERE bl.Branch_id = '[ASSIGNED_BRANCH_ID]'
+        SELECT br.Card_no, br.Name, COUNT(bl.Loan_id) AS LoanRec
+        FROM BORROWER br
+        LEFT JOIN BOOK_LOANS bl ON bl.Card_no = br.Card_no AND bl.Branch_id = '[ASSIGNED_BRANCH_ID]'
         GROUP BY br.Card_no, br.Name
         ORDER BY LoanRec DESC;
         \end{minted}
         \item
         \begin{minted}{sql}
-        SELECT lib.Branch_id, lib.Branch_name, COUNT(*) AS LoanRec
-        FROM BOOK_LOANS bl
-        JOIN LIBRARY_BRANCH lib ON lib.Branch_id = bl.Branch_id
-        WHERE bl.Date_out BETWEEN '2024-01-01' AND '2024-12-31'
+        SELECT lib.Branch_id, lib.Branch_name, COUNT(bl.Loan_id) AS LoanRec
+        FROM LIBRARY_BRANCH lib
+        LEFT JOIN BOOK_LOANS bl ON lib.Branch_id = bl.Branch_id AND bl.Date_out BETWEEN '2024-01-01' AND '2024-12-31'
         GROUP BY lib.Branch_id, lib.Branch_name
         ORDER BY LoanRec DESC;
         \end{minted}
         \item
         \begin{minted}{sql}
         SELECT bk.Book_id, bk.Title, COUNT(DISTINCT ba.Author_name) AS AuthorNum, bc.No_of_copies, COUNT(DISTINCT bl.Loan_id) AS LoanRec
-        FROM BOOK_LOANS bl
-        JOIN BOOK bk ON bl.Book_id = bk.Book_id
-        JOIN BOOK_AUTHORS ba ON bl.Book_id = ba.Book_id
-        JOIN BOOK_COPIES bc ON bl.BOOK_id = bc.BOOK_id AND bl.Branch_id = bc.Branch_id
-        WHERE bl.Branch_id = (
+        FROM BOOK_COPIES bc
+        JOIN BOOK bk ON bc.Book_id = bk.Book_id
+        JOIN BOOK_AUTHORS ba ON bc.Book_id = ba.Book_id
+        LEFT JOIN BOOK_LOANS bl ON bc.Book_id = bl.Book_id AND bc.Branch_id = bl.Branch_id AND bl.Date_out BETWEEN '2024-01-01' AND '2024-12-31'
+        WHERE bc.Branch_id = (
             SELECT bl2.Branch_id
             FROM BOOK_LOANS bl2
             JOIN LIBRARY_BRANCH lib ON lib.Branch_id = bl2.Branch_id
@@ -132,7 +130,6 @@
             ORDER BY COUNT(*) DESC
             LIMIT 1
         )
-        AND bl.Date_out BETWEEN '2024-01-01' AND '2024-12-31'
         GROUP BY bk.Book_id, bk.Title, bc.No_of_copies
         ORDER BY LoanRec DESC;
         \end{minted}

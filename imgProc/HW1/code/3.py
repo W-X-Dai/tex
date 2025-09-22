@@ -4,7 +4,7 @@ import numpy as np
 import math
 import matplotlib.pyplot as plt
 
-
+"""This is used to be a bilinear interpolation function I've finished in the past, but I changed to nearest neighbor interpolation for simplicity."""
 def bi_affine(img, A):
     img_out = np.zeros_like(img)
     inv = np.linalg.inv(A)

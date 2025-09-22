@@ -9,6 +9,7 @@ if img is None:
 	print("Error: Unable to load image.")
 	exit()
 
+"""To calculate the corner coordinates of an equilateral triangle."""
 top = (150, 150)
 h = int((3**0.5 / 2) * 200) 
 left = (150 - 100, 150 + h)

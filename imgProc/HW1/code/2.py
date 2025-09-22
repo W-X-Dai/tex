@@ -1,5 +1,8 @@
+import os
 import cv2
 import numpy as np
+
+os.makedirs("result/p2", exist_ok=True)
 
 def reduce_gray_levels(img, nLevels=2):
     if nLevels < 2 or nLevels > 256 or (nLevels & (nLevels - 1)):
@@ -17,7 +20,8 @@ nLevels = int(input("Enter the number of gray levels (should be a power of 2 and
 
 out = reduce_gray_levels(img, nLevels)
 
-cv2.imwrite(f"result/gray{nLevels}.bmp", out)
+cv2.imwrite(f"result/p2/gray_{nLevels}.bmp", out)
+print(f"Result image saved to result/p2/gray_{nLevels}.bmp")
 
 cv2.imshow(f"{nLevels} levels", out)
 cv2.waitKey(0)

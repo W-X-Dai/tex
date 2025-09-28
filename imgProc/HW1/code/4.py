@@ -1,12 +1,12 @@
 import cv2
 import os
+import numpy as np
 
 os.makedirs("result/p4", exist_ok=True)
 
 img = cv2.imread("src/Fig3.GIF", cv2.IMREAD_GRAYSCALE)
 if img is None:
     raise FileNotFoundError("Cannot open Fig3.GIF")
-
 
 clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
 img_eq = clahe.apply(img)

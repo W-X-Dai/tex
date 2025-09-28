@@ -334,6 +334,19 @@ print("Saved result to result/p4/text_recovered.bmp")
         \caption{The final result after using Denoisy UNet}
         \label{fig:p4_final}
     \end{figure}
-    
+    \newpage
+    But as the figure shows, the result is still not very good. Some of the text structures are distorted. The structure broken of adaptive thresholding is still too severe. I suddenly thought that the result of CLAHE is already quite good for this model (because the background color is uniform). Then I created another set of training data and trained the new model. Fig.~\ref{fig:p4_train2} shows the result after 100 epochs of training. Left is the input (only CLAHE, no adaptive thresholding), middle is the output of the Denoisy UNet, right is the ground truth. And then I applied this new model to the target image(after CLAHE only), and got a much better result shown in Fig.~\ref{fig:p4_final2}:
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.9\textwidth]{src/img/train_nobi.png}
+        \caption{New training data without adaptive thresholding}
+        \label{fig:p4_train2}
+    \end{figure}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.5\textwidth]{src/img/p4_final2.png}
+        \caption{The final result after using the new Denoisy UNet}
+        \label{fig:p4_final2}
+    \end{figure}
     \end{enumerate}
 \end{document}

@@ -35,4 +35,6 @@
 # Minted
 _minted-*/
 
+__pycache__/
+
 *.vscode

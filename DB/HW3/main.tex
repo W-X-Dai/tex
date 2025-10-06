@@ -1,0 +1,93 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage{xeCJK}
+\usepackage{fontspec}
+\setCJKmainfont{Noto Serif CJK TC}[Script=CJK]
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\setlength{\headheight}{14.5pt}
+\addtolength{\topmargin}{-2.5pt}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{caption}
+\usepackage{indentfirst}
+\usepackage{float}
+\usepackage{forest}
+\setlength{\parindent}{2em}
+\pagestyle{fancy}
+\fancyhf{}
+\cfoot{\thepage}
+\linespread{1.3}
+
+\usepackage{multirow}
+\usepackage{booktabs}   % 放在 preamble
+\usepackage{graphicx}
+\usepackage{afterpage}
+
+% tikz tools for ER diagram
+\usepackage{tikz}
+\usetikzlibrary{shapes,positioning,calc}
+\colorlet{lightgray}{gray!20}
+
+
+\usepackage{minted}
+\setminted{
+    linenos,                % 行號
+    frame=lines,            % 上下框線
+    framesep=5pt,           % 程式碼與邊框距離
+    numbersep=8pt,          % 行號與程式碼距離
+    fontsize=\scriptsize,   % 字體大小
+    breaklines,             % 自動換行
+    tabsize=4,              % tab 寬度
+    rulecolor=\color{black},% 框線顏色
+    xleftmargin=1.5em       % 左側縮排
+}
+
+
+\title{資料庫管理 HW03}
+\author{B12508026戴偉璿}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\lhead{資料庫管理 HW03}
+\rhead{B12508026戴偉璿}
+
+\begin{enumerate}
+    \item 
+    \begin{enumerate}
+        \item Left join all advisors(e) and their advisees(s), if someone has no advisee, then s would be NULL.
+        \begin{minted}{sql}
+select e.id, e.name from employee as e
+left join employee s on e.id=s.supervisor_id
+where s.supervisor_id is null;
+        \end{minted}
+        \item Find the latest store id of each employee before 2025-01-05 and left join to the employee table.
+        \begin{minted}{sql}
+select e.id as employee_id, h.store_id
+from employee e
+left join employee_store_history h
+on e.id = h.employee_id
+and h.start_date_time=(
+    select max(h2.start_date_time)
+    from employee_store_history h2
+    where h2.employee_id = e.id
+        and h2.start_date_time <= '2025-01-05'
+    );           
+        \end{minted}
+        \item Using \texttt{limit 1} to obtain the first store id and \texttt{limit 1 offset 1} to obtain the second store id (after skipping the first one), then join them to produce the final result.
+        \begin{minted}{sql}
+select e.id as employee_id,
+    (select h1.store_id from employee_store_history h1 where h1.employee_id=e.id order by h1.start_date_time limit 1) as first_store_id,
+    (select h2.store_id from employee_store_history h2 where h2.employee_id=e.id order by h2.start_date_time limit 1 offset 1) as second_store_id
+from employee e;
+        \end{minted}
+    \end{enumerate}
+\end{enumerate}
+
+\end{document}

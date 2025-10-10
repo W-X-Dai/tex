@@ -108,6 +108,37 @@ join purchase pu on pd.purchase_no = pu.purchase_no
 group by p.id, p.name, pu.store_id
 order by p.id, pu.store_id;
         \end{minted}
+        \item First choose the target product ids by ranking the total purchased quantity, then cross join with store table to get all combinations of target products and stores. Finally, left join with purchase and purchase\_detail tables to get the required information.
+        \begin{minted}{sql}
+with total_qty as(
+    select pd.product_id as product_id, row_number() over(order by sum(pd.qty) desc, pd.product_id asc) as rnk
+    from purchase_detail pd
+    group by pd.product_id
+),
+target as(
+    select product_id
+    from total_qty 
+    where rnk >= 4 and rnk <= 5
+)
+select t.product_id as id, p.name as name, s.id as store_id, coalesce(sum(pd.qty), 0) as amount, coalesce(count(distinct pu.purchase_no), 0) as cnt
+from target t --target store id
+cross join store s
+left join purchase pu on pu.store_id = s.id
+left join purchase_detail pd on pu.purchase_no = pd.purchase_no and t.product_id = pd.product_id
+join product p on p.id = t.product_id 
+group by s.id, t.product_id, p.name
+order by t.product_id, s.id;          
+        \end{minted}
+        \item Calculate the total spending of each member in each store, then rank them within each store based on the total spending. Using \texttt{rank()} instead of \texttt{row\_number()} to handle ties in spending amounts. While ranking, using \texttt{partition by} to separate rankings for each store. 
+        \begin{minted}{sql}
+select sa.store_id as store_id, sa.member_id as member_id, sum(sd.unit_price*sd.qty) as amount, rank() over(partition by sa.store_id order by sum(sd.unit_price*sd.qty) desc) as rnk
+
+from sales sa
+join sales_detail sd on sd.receipt_no = sa.receipt_no
+where member_id is not null
+group by sa.store_id, sa.member_id
+order by sa.store_id, rnk;
+        \end{minted}
     \end{enumerate}
 \end{enumerate}
 

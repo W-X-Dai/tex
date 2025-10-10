@@ -140,6 +140,126 @@ group by sa.store_id, sa.member_id
 order by sa.store_id, rnk;
         \end{minted}
     \end{enumerate}
+    \item
+    \begin{enumerate}
+        \item First, I identified the hard questions based on the number of total answers and correct answers. Then, for each hard question, I found each user’s first correct submission and ranked the users by cost time and submission timestamp. Finally, I counted the number of hard questions where each user ranked in the top 3 and kept only those who appeared in at least two questions.\\
+        Fig.~\ref{fig:2a} shows the leaderboard of top users appearing in at least two hard questions.
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.8\textwidth]{code/2a_leaderboard.png}
+            \caption{Leaderboard of Top Users Appearing in at Least Two Hard Questions}
+            \label{fig:2a}
+        \end{figure}
+        Following is my source code, I used DuckDB to execute the SQL query and Matplotlib to visualize the results.
+        \begin{minted}{python}
+import duckdb
+import matplotlib.pyplot as plt
+
+con = duckdb.connect('my_database.db')
+
+df = con.sql("""
+-- list the hard questions
+with hard_questions as(
+    select question_id as id, count(*) as total_ans, sum(is_correct) as total_ac
+    from answers
+    group by question_id
+    having total_ans >= 1000 and total_ac <= 500
+),-- list the rank for all users
+first_correct_pre as(
+    select question_id, user_id, cost_time, created_at, rank() over(partition by question_id, user_id order by created_at asc) as rnk
+    from answers
+    where is_correct = 1
+),-- first correct for each user
+first_correct as(
+    select question_id, user_id, cost_time, created_at
+    from first_correct_pre
+    where rnk = 1
+),--rank users for hard questions
+usr_rnk as(
+    select question_id, user_id, rank() over(partition by question_id order by cost_time asc, created_at asc) as rnk
+    from first_correct fc
+    join hard_questions hq on hq.id = fc.question_id
+)
+select user_id, count(distinct question_id) as appr_cnt
+from usr_rnk
+where rnk <= 3
+group by user_id
+having appr_cnt >= 2
+order by appr_cnt desc, user_id asc;
+""").df()
+print(df)
+
+plt.figure(figsize=(12,6))
+plt.bar(df["user_id"].astype(str), df["appr_cnt"])
+plt.xlabel("User ID")
+plt.ylabel("Number of Ranked Hard Questions")
+plt.title("Leaderboard Top Users (Appearing in >= 2 Hard Questions)")
+plt.tight_layout()
+plt.savefig("2a_leaderboard.png")
+plt.show()            
+        \end{minted}
+        \item Using the same CTEs as in 2a to find the users who ranked in the top 3 for hard questions. Then I calculated their scores based on the given scoring system. Finally, I kept only those users with a total score of at least 5.\\
+        Fig.~\ref{fig:2b} shows the leaderboard of top users with a score of at least 5.
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.8\textwidth]{code/2b_leaderboard.png}
+            \caption{Leaderboard of Top Users with a Score of at Least 5}
+            \label{fig:2b}
+        \end{figure}
+        Following is my source code:
+        \begin{minted}{python}
+import duckdb
+import matplotlib.pyplot as plt
+
+con = duckdb.connect('my_database.db')
+
+df = con.sql("""
+-- list the hard questions
+with hard_questions as(
+    select question_id as id, count(*) as total_ans, sum(is_correct) as total_ac
+    from answers
+    group by question_id
+    having total_ans >= 1000 and total_ac <= 500
+),-- list the rank for all users
+first_correct_pre as(
+    select question_id, user_id, cost_time, created_at, rank() over(partition by question_id, user_id order by created_at asc) as rnk
+    from answers
+    where is_correct = 1
+),-- first correct for each user
+first_correct as(
+    select question_id, user_id, cost_time, created_at
+    from first_correct_pre
+    where rnk = 1
+),--rank users for hard questions
+usr_rnk as(
+    select question_id, user_id, rank() over(partition by question_id order by cost_time asc, created_at asc) as rnk
+    from first_correct fc
+    join hard_questions hq on hq.id = fc.question_id
+)
+select user_id, 
+       sum(
+           cast(rnk = 1 as int) * 5 +
+           cast(rnk = 2 as int) * 2 +
+           cast(rnk = 3 as int) * 1
+       ) as score
+from usr_rnk
+where rnk <= 3
+group by user_id
+having score >= 5
+order by score desc, user_id asc;
+""").df()
+print(df)
+
+plt.figure(figsize=(12,6))
+plt.bar(df["user_id"].astype(str), df["score"])
+plt.xlabel("User ID")
+plt.ylabel("Score")
+plt.title("Leaderboard Top Users (Score >= 5)")
+plt.tight_layout()
+plt.savefig("2b_leaderboard.png")
+plt.show()            
+        \end{minted}
+    \end{enumerate}
 \end{enumerate}
 
 \end{document}

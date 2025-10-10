@@ -22,6 +22,7 @@
 \cfoot{\thepage}
 \linespread{1.3}
 
+\usepackage{array}
 \usepackage{multirow}
 \usepackage{booktabs}
 \usepackage{tikz}
@@ -41,155 +42,187 @@
     xleftmargin=1.5em
 }
 
+\usepackage{longtable} % Added for the large tables
+
+\title{SQL Syntax Summary from Documents}
+\author{Systematic Organization}
+\date{\today}
+
 \begin{document}
+\maketitle
 
-\section*{常見 SQL 指令總表}
+\section*{SQL Syntax Summary}
 
-以下整理自簡報內容:contentReference[oaicite:0]{index=0}，分為資料定義、資料操作與進階查詢三大類。
+\subsection*{I. Data Definition Language (DDL)}
+DDL commands are used for defining, modifying, and dropping database objects like schemas and tables[cite: 265, 267, 452, 463].
 
-\subsection*{1. 資料定義 (DDL)}
-\begin{itemize}
-  \item \textbf{CREATE}：建立資料庫物件
-  \begin{minted}{sql}
-CREATE TABLE EMPLOYEE (
-  id VARCHAR(15) PRIMARY KEY,
-  name VARCHAR(50) NOT NULL,
-  birthday DATE NOT NULL
-);
-  \end{minted}
+\begin{longtable}{>{\bfseries}p{0.18\textwidth} p{0.2\textwidth} p{0.5\textwidth} p{0.05\textwidth}}
+\toprule
+\textbf{Command} & \textbf{Purpose} & \textbf{Basic Structure/Keywords} & \textbf{Ref.} \\
+\midrule
+\endhead
+\textbf{CREATE SCHEMA} & Creates a new schema[cite: 272]. & \texttt{CREATE SCHEMA \textless schema\_name\textgreater} [cite: 272] & p. 4 \\
+\textbf{CREATE TABLE} & Creates a new table[cite: 327]. & \texttt{CREATE TABLE \textless table\_name\textgreater (\textless column\_name\textgreater \textless data\_type\textgreater [constraints], ...)} [cite: 328] & p. 9-13 \\
+\textbf{DROP SCHEMA} & Removes a schema and all objects in it (with \texttt{CASCADE})[cite: 456]. & \texttt{DROP SCHEMA \textless schema\_name\textgreater [CASCADE | RESTRICT]} [cite: 455, 458] & p. 19 \\
+\textbf{DROP TABLE} & Removes a table and all objects referring to it (with \texttt{CASCADE})[cite: 457]. & \texttt{DROP TABLE \textless table\_name\textgreater [CASCADE | RESTRICT]} [cite: 455, 459] & p. 19 \\
+\textbf{ALTER TABLE} & Modifies the attributes or constraints of a table[cite: 463, 466]. & \texttt{ALTER TABLE \textless table\_name\textgreater \textless action\textgreater} (e.g., \texttt{ADD}, \texttt{DROP}, \texttt{ALTER}, \texttt{DROP CONSTRAINTS}, \texttt{ADD FOREIGN KEY}) [cite: 467, 468, 479] & p. 20-21 \\
+\bottomrule
+\end{longtable}
 
-  \item \textbf{ALTER}：修改資料表
-  \begin{minted}{sql}
-ALTER TABLE EMPLOYEE ADD job VARCHAR(20);
-ALTER TABLE EMPLOYEE DROP COLUMN birthday CASCADE;
-  \end{minted}
+\vspace{0.5cm}
 
-  \item \textbf{DROP}：刪除資料表或 schema
-  \begin{minted}{sql}
-DROP TABLE EMPLOYEE CASCADE;
-DROP SCHEMA RETAIL CASCADE;
-  \end{minted}
-\end{itemize}
+\subsection*{II. Data Types and Constraints}
 
-\subsection*{2. 基本查詢 (SELECT)}
-\begin{itemize}
-  \item \textbf{基本語法}
-  \begin{minted}{sql}
-SELECT <屬性清單>
-FROM <資料表>
-WHERE <條件>;
-  \end{minted}
+\begin{longtable}{>{\bfseries}p{0.2\textwidth} p{0.25\textwidth} p{0.45\textwidth} p{0.05\textwidth}}
+\toprule
+\textbf{Concept} & \textbf{Purpose} & \textbf{Keywords/Examples} & \textbf{Ref.} \\
+\midrule
+\endhead
+\textbf{Data Types} & Specifies the type of data a column can hold[cite: 314]. & \textbf{Numeric}: \texttt{INT}, \texttt{DECIMAL(n, m)}. \textbf{Character-string}: \texttt{CHAR(n)}, \texttt{VARCHAR(n)}. \textbf{Date/Time}: \texttt{DATE}, \texttt{TIME}, \texttt{TIMESTAMP}[cite: 316, 318, 320]. & p. 8 \\
+\textbf{NOT NULL} & Ensures a column cannot have a \texttt{NULL} value[cite: 329]. & \texttt{monthly\_salary INT NOT NULL} [cite: 328] & p. 9 \\
+\textbf{PRIMARY KEY} & Specifies the column(s) that uniquely identify each row[cite: 329]. & \texttt{PRIMARY KEY(id)} or \texttt{PRIMARY KEY (col1, col2)} [cite: 328, 355] & p. 9, 11 \\
+\textbf{UNIQUE} & Ensures all values in a column are distinct[cite: 336]. & \texttt{UNIQUE (addr\_str)} [cite: 335] & p. 10 \\
+\textbf{DEFAULT} & Specifies a default value for a column[cite: 405]. & \texttt{store\_id INT NOT NULL DEFAULT 1} [cite: 406] & p. 14 \\
+\textbf{FOREIGN KEY} & Defines a column(s) that references the primary key of another table[cite: 337]. & \texttt{FOREIGN KEY(mgr\_id) REFERENCES EMPLOYEE(id)} [cite: 335] & p. 10 \\
+\textbf{Referential Triggers} & Defines actions when a referred entity is deleted or updated[cite: 404]. & \texttt{ON DELETE SET NULL}, \texttt{ON DELETE SET DEFAULT}, \texttt{ON DELETE CASCADE}, \texttt{ON UPDATE CASCADE}[cite: 411, 430, 438, 445]. & p. 15-18 \\
+\bottomrule
+\end{longtable}
 
-  \item \textbf{條件與運算子}
-  \begin{minted}{sql}
--- 等於 / 不等於
-SELECT * FROM EMPLOYEE WHERE gender = 'M';
-SELECT * FROM EMPLOYEE WHERE id <> 'A123';
+\vspace{0.5cm}
 
--- LIKE 與萬用字元
-SELECT name FROM EMPLOYEE WHERE name LIKE 'Chi%';
+\subsection*{III. Data Manipulation Language (DML) - Retrieval Queries}
 
--- NULL 判斷
-SELECT name FROM EMPLOYEE WHERE supervisor_id IS NULL;
-  \end{minted}
+\subsubsection*{Basic Select Statement Components}
+\begin{longtable}{>{\bfseries}p{0.18\textwidth} p{0.25\textwidth} p{0.46\textwidth} p{0.05\textwidth}}
+\toprule
+\textbf{Component} & \textbf{Purpose} & \textbf{Keywords/Syntax} & \textbf{Ref.} \\
+\midrule
+\endhead
+\textbf{SELECT} & Specifies the columns to be retrieved[cite: 504]. & \texttt{SELECT id, birthday}, \texttt{SELECT \textasteriskcentered} (all attributes) [cite: 517, 536] & p. 23, 24, 26 \\
+\textbf{FROM} & Specifies the tables involved in the query[cite: 505]. & \texttt{FROM EMPLOYEE} [cite: 518] & p. 23 \\
+\textbf{WHERE} & Filters the rows based on a condition[cite: 506]. & \texttt{WHERE name = 'Po-Lin Chen'} [cite: 519] & p. 23, 24 \\
+\textbf{AS} & Provides an alias for a table or column[cite: 687]. & \texttt{SELECT s.id AS store\_num}, \texttt{FROM EMPLOYEE AS e} [cite: 688, 689] & p. 38 \\
+\textbf{DISTINCT} & Eliminates duplicate tuples in the query outcome[cite: 608]. & \texttt{SELECT DISTINCT monthly\_salary FROM EMPLOYEE} [cite: 611] & p. 32 \\
+\textbf{DISTINCT ON} & Drops duplicates based on chosen columns[cite: 1214]. & \texttt{SELECT DISTINCT ON (store\_id) store\_id, name, monthly\_salary...} [cite: 1225, 1226] & p. 81, 82 \\
+\textbf{ORDER BY} & Sorts the final result[cite: 787]. & \texttt{ORDER BY \textless attribute\textgreater [ASC | DESC]} [cite: 788] & p. 48 \\
+\textbf{LIMIT} & Restricts the number of rows returned[cite: 1175]. & \texttt{LIMIT 3} [cite: 1183] & p. 78 \\
+\textbf{OFFSET} & Indicates how many rows to ignore from the beginning[cite: 1176]. & \texttt{OFFSET 1} [cite: 1184] & p. 78 \\
+\bottomrule
+\end{longtable}
 
-  \item \textbf{集合運算}
-  \begin{minted}{sql}
-SELECT salary FROM EMPLOYEE WHERE store_id = 1
-UNION
-SELECT salary FROM EMPLOYEE WHERE store_id = 2;
-  \end{minted}
+\vspace{0.5cm}
 
-  \item \textbf{JOIN}
-  \begin{minted}{sql}
--- 內部連接
-SELECT e.name, s.postal_code
-FROM EMPLOYEE e
-JOIN STORE s ON e.store_id = s.id;
+\subsubsection*{Filtering Conditions}
+\begin{longtable}{>{\bfseries}p{0.2\textwidth} p{0.25\textwidth} p{0.45\textwidth} p{0.05\textwidth}}
+\toprule
+\textbf{Condition Type} & \textbf{Operators/Keywords} & \textbf{Examples} & \textbf{Ref.} \\
+\midrule
+\endhead
+\textbf{Comparison} & $=$, $>$, $<$, $<>$, $!=$. & \texttt{WHERE monthly\_salary > 80000} [cite: 976, 977] & p. 24 \\
+\textbf{NULL check} & \texttt{IS NULL}, \texttt{IS NOT NULL}[cite: 553, 559]. & \texttt{WHERE supervisor\_id IS NULL} [cite: 557] & p. 27 \\
+\textbf{String Matching} & \texttt{LIKE} with wildcards (\texttt{\%}: any string, \texttt{\_}: any single character)[cite: 565, 566, 567]. & \texttt{WHERE name LIKE 'Chi\%'} [cite: 571], \texttt{WHERE id LIKE 'A\_\_\_\_\_\_\_\_\_'} [cite: 580] & p. 28, 29 \\
+\textbf{Range} & \texttt{BETWEEN \textless value1\textgreater\ AND \textless value2\textgreater} (inclusive)[cite: 935]. & \texttt{WHERE birthday BETWEEN '1995-01-01' AND '1999-12-31'} [cite: 935] & p. 61 \\
+\textbf{Set Membership} & \texttt{IN}, \texttt{NOT IN}[cite: 653]. & \texttt{WHERE store\_id IN (1, 2)} [cite: 658] & p. 35 \\
+\bottomrule
+\end{longtable}
 
--- 左外連接
-SELECT e.name, s.mgr_id
-FROM EMPLOYEE e
-LEFT JOIN STORE s ON e.id = s.mgr_id;
-  \end{minted}
+\vspace{0.5cm}
 
-  \item \textbf{排序與聚合}
-  \begin{minted}{sql}
-SELECT store_id, COUNT(*), AVG(monthly_salary)
-FROM EMPLOYEE
-GROUP BY store_id
-HAVING COUNT(*) > 2
-ORDER BY AVG(monthly_salary) DESC;
-  \end{minted}
-\end{itemize}
+\subsubsection*{Joins}
+\begin{longtable}{>{\bfseries}p{0.18\textwidth} p{0.25\textwidth} p{0.46\textwidth} p{0.05\textwidth}}
+\toprule
+\textbf{Join Type} & \textbf{Purpose} & \textbf{Keywords/Syntax} & \textbf{Ref.} \\
+\midrule
+\endhead
+\textbf{Traditional Join} & Implicitly joins tables in \texttt{FROM}, filtered by \texttt{WHERE} for joining criterion[cite: 667, 676]. & \texttt{FROM EMPLOYEE, STORE WHERE EMPLOYEE.store\_id = STORE.id} [cite: 680, 681] & p. 36, 37 \\
+\textbf{Inner Join} & Returns only rows that satisfy the join condition[cite: 738]. & \texttt{JOIN \textless table2\textgreater\ ON \textless condition\textgreater} [cite: 705] & p. 40 \\
+\textbf{Cross Join} & Computes the Cartesian product of the tables[cite: 728]. & \texttt{CROSS JOIN \textless table2\textgreater} [cite: 731] & p. 42 \\
+\textbf{Left Outer Join} & Returns all rows from the left table[cite: 741]. & \texttt{LEFT OUTER JOIN \textless table2\textgreater\ ON \textless condition\textgreater} [cite: 741] & p. 43 \\
+\textbf{Right Outer Join} & Returns all rows from the right table[cite: 743]. & \texttt{RIGHT JOIN \textless table2\textgreater\ ON \textless condition\textgreater} [cite: 743, 762] & p. 43, 45 \\
+\textbf{Full Outer Join} & Returns rows matched in either table (applies rule to both sides)[cite: 745]. & \texttt{FULL OUTER JOIN \textless table2\textgreater\ ON \textless condition\textgreater} [cite: 745] & p. 43 \\
+\textbf{USING} & Used when join attribute names are the same[cite: 718]. & \texttt{JOIN STORE\_PHONE AS sp USING (store\_id)} [cite: 722] & p. 41 \\
+\bottomrule
+\end{longtable}
 
-\subsection*{3. 資料操作 (DML)}
-\begin{itemize}
-  \item \textbf{INSERT}
-  \begin{minted}{sql}
-INSERT INTO EMPLOYEE(id, name, gender, birthday, monthly_salary)
-VALUES('A123456789', 'Xiao-Ming Wang', 'M', '1999-01-01', 120000);
-  \end{minted}
+\vspace{0.5cm}
 
-  \item \textbf{DELETE}
-  \begin{minted}{sql}
-DELETE FROM EMPLOYEE WHERE name = 'Chih-Yuan Lee';
-  \end{minted}
+\subsubsection*{Aggregation and Grouping}
+\begin{longtable}{>{\bfseries}p{0.2\textwidth} p{0.3\textwidth} p{0.4\textwidth} p{0.05\textwidth}}
+\toprule
+\textbf{Concept} & \textbf{Purpose} & \textbf{Keywords/Functions} & \textbf{Ref.} \\
+\midrule
+\endhead
+\textbf{Aggregate Functions} & Calculates a single value over a set of rows[cite: 798]. & \texttt{COUNT}, \texttt{SUM}, \texttt{MAX}, \texttt{MIN}, \texttt{AVG} [cite: 798] & p. 49 \\
+\textbf{GROUP BY} & Groups rows by a common value for aggregation[cite: 807]. & \texttt{GROUP BY store\_id} [cite: 810] & p. 50 \\
+\textbf{HAVING} & Filters the results of a \texttt{GROUP BY} clause based on an aggregate condition[cite: 816]. & \texttt{HAVING COUNT(e.\textasteriskcentered) > 2} [cite: 821] & p. 51 \\
+\textbf{FILTER} & Applies an aggregate function only to the rows within a group that satisfy a condition[cite: 11]. & \texttt{SUM(monthly\_salary) FILTER (WHERE gender = 'W')} [cite: 72] & p. 6 \\
+\bottomrule
+\end{longtable}
 
-  \item \textbf{UPDATE}
-  \begin{minted}{sql}
-UPDATE EMPLOYEE
-SET monthly_salary = monthly_salary * 1.1
-WHERE store_id = 1;
-  \end{minted}
-\end{itemize}
+\vspace{0.5cm}
 
-\subsection*{4. 進階查詢}
-\begin{itemize}
-  \item \textbf{子查詢與集合比較}
-  \begin{minted}{sql}
-SELECT name
-FROM EMPLOYEE
-WHERE monthly_salary > ALL (
-  SELECT monthly_salary FROM EMPLOYEE WHERE store_id = 1
-);
-  \end{minted}
+\subsubsection*{Nested Queries (Subqueries)}
+\begin{longtable}{>{\bfseries}p{0.2\textwidth} p{0.3\textwidth} p{0.4\textwidth} p{0.05\textwidth}}
+\toprule
+\textbf{Concept} & \textbf{Purpose} & \textbf{Keywords/Operators} & \textbf{Ref.} \\
+\midrule
+\endhead
+\textbf{Subqueries} & A query nested inside another query[cite: 958]. & Parentheses \texttt{()} for the inner query [cite: 978] & p. 64 \\
+\textbf{Comparison} & Used with single-value results from subqueries (e.g., \texttt{MAX})[cite: 972]. & \texttt{WHERE monthly\_salary > (\textless subquery\textgreater)} [cite: 977, 978] & p. 65 \\
+\textbf{Set Comparison} & Compares a value to a set of values returned by a subquery[cite: 959]. & \texttt{ALL}, \texttt{ANY} (or \texttt{SOME}) [cite: 960, 993, 1006] & p. 66, 67 \\
+\textbf{Membership} & Checks if a value is present in the set returned by a subquery[cite: 959]. & \texttt{IN}, \texttt{NOT IN} [cite: 959, 1025] & p. 64, 68 \\
+\textbf{Existence} & Checks for the existence of any rows returned by the subquery[cite: 959]. & \texttt{EXISTS}, \texttt{NOT EXISTS} [cite: 959, 1098, 1152] & p. 64, 73, 76 \\
+\bottomrule
+\end{longtable}
 
-  \item \textbf{LIMIT \& OFFSET}
-  \begin{minted}{sql}
-SELECT name FROM EMPLOYEE
-ORDER BY birthday ASC
-LIMIT 3 OFFSET 1;
-  \end{minted}
+\vspace{0.5cm}
 
-  \item \textbf{CASE 條件判斷}
-  \begin{minted}{sql}
-SELECT id, name,
-CASE SUBSTRING(id,1,1)
-  WHEN 'A' THEN 'Taipei'
-  WHEN 'S' THEN 'Kaohsiung'
-  ELSE 'Others'
-END AS region
-FROM EMPLOYEE;
-  \end{minted}
+\subsubsection*{Functions}
+\begin{longtable}{>{\bfseries}p{0.2\textwidth} p{0.3\textwidth} p{0.4\textwidth} p{0.05\textwidth}}
+\toprule
+\textbf{Function Type} & \textbf{Functions} & \textbf{Purpose/Example} & \textbf{Ref.} \\
+\midrule
+\endhead
+\textbf{String Processing} & \texttt{LEFT(\textless string\textgreater, n)}, \texttt{RIGHT(\textless string\textgreater, n)}, \texttt{SUBSTRING(\textless string\textgreater, m, n)}[cite: 588, 589, 590]. & Selects a specified part of a string[cite: 588, 589, 590]. & p. 30 \\
+\textbf{Conditional Logic} & \texttt{CASE WHEN \textless condition\textgreater\ THEN \textless value\textgreater\ [ELSE \textless value\textgreater] END}[cite: 1290]. & Creates if-else selection for column values or updates[cite: 1289, 1292, 1293]. & p. 83, 84 \\
+\textbf{NULL Handling} & \texttt{COALESCE(v1, v2, ...)}, \texttt{NULLIF(v1, v2)}[cite: 1191, 1206]. & \texttt{COALESCE} returns the first non-NULL value[cite: 1189]. \texttt{NULLIF} returns NULL if $v1=v2$[cite: 1205]. & p. 79, 80 \\
+\textbf{Window Functions} & \texttt{RANK() OVER}, \texttt{ROW\_NUMBER() OVER}, \texttt{AVG() OVER}[cite: 82, 95, 96]. & Calculates values across a group of rows (a "window") retaining all rows[cite: 78, 80]. & p. 7-15 \\
+\textbf{Custom Function} & \texttt{CREATE [OR REPLACE] FUNCTION...}[cite: 185]. & Creates a user-defined function (UDF) to wrap transformation logic[cite: 181, 182]. & p. 16, 18 \\
+\bottomrule
+\end{longtable}
 
-  \item \textbf{CTE (Common Table Expression)}
-  \begin{minted}{sql}
-WITH MaxSalary AS (
-  SELECT MAX(monthly_salary) AS max_sal
-  FROM EMPLOYEE WHERE store_id = 2
-)
-SELECT name FROM EMPLOYEE
-WHERE monthly_salary > (SELECT max_sal FROM MaxSalary);
-  \end{minted}
+\vspace{0.5cm}
 
-  \item \textbf{VIEW}
-  \begin{minted}{sql}
-CREATE VIEW STORE_SALES_VIEW AS
-SELECT s.store_id, sd.product_id, sd.qty
-FROM STORE s
-JOIN SALES_DETAIL sd ON s.id = sd.store_id;
-  \end{minted}
-\end{itemize}
+\subsection*{IV. Data Manipulation Language (DML) - Modification}
+
+\begin{longtable}{>{\bfseries}p{0.2\textwidth} p{0.25\textwidth} p{0.45\textwidth} p{0.05\textwidth}}
+\toprule
+\textbf{Command} & \textbf{Purpose} & \textbf{Basic Structure/Keywords} & \textbf{Ref.} \\
+\midrule
+\endhead
+\textbf{INSERT INTO} & Adds one or more rows into a table[cite: 846]. & \texttt{INSERT INTO \textless table\_name\textgreater\ [(<col\_list>)] VALUES (\textless value\_list\textgreater)} [cite: 847, 850] & p. 54 \\
+\textbf{Bulk Insertion} & Inserts data generated by a \texttt{SELECT} statement[cite: 862]. & \texttt{INSERT INTO \textless table\_name\textgreater\ (\textless col\_list\textgreater) SELECT... FROM... GROUP BY...} [cite: 869, 870, 871] & p. 56 \\
+\textbf{DELETE FROM} & Removes rows from a table based on a condition[cite: 876]. & \texttt{DELETE FROM \textless table\_name\textgreater\ WHERE \textless condition\textgreater} (can use subqueries) [cite: 877, 880] & p. 57 \\
+\textbf{UPDATE} & Modifies existing values in rows[cite: 892]. & \texttt{UPDATE \textless table\_name\textgreater\ SET \textless col\textgreater\ = \textless value\textgreater\ [WHERE \textless condition\textgreater]} (can update multiple columns or use expressions/subqueries) [cite: 893, 897, 900] & p. 58 \\
+\bottomrule
+\end{longtable}
+
+\vspace{0.5cm}
+
+\subsection*{V. Views and CTE}
+Tools for structuring and simplifying complex queries[cite: 1338].
+
+\begin{longtable}{>{\bfseries}p{0.2\textwidth} p{0.25\textwidth} p{0.45\textwidth} p{0.05\textwidth}}
+\toprule
+\textbf{Concept} & \textbf{Purpose} & \textbf{Keywords/Structure} & \textbf{Ref.} \\
+\midrule
+\endhead
+\textbf{CTE} & Defines a temporary, named result set for use within a single query[cite: 1350]. & \texttt{WITH CTE\_name AS (SELECT...) [, another\_CTE AS (SELECT...)] SELECT... FROM CTE\_name...} [cite: 1353, 1357, 1362] & p. 90, 92 \\
+\textbf{Materialized CTE} & Forces the temporary result set to be stored (materialized)[cite: 1414, 1417]. & \texttt{WITH CTE\_name AS MATERIALIZED (...)} [cite: 1420] & p. 94 \\
+\textbf{View} & A virtual table derived from other tables, used to simplify queries[cite: 1433, 1435]. & \texttt{CREATE VIEW \textless view\_name\textgreater\ AS SELECT...} [cite: 1437] & p. 95 \\
+\textbf{Materialized View} & A view whose data is physically stored at creation time[cite: 1486]. & \texttt{CREATE MATERIALIZED VIEW \textless view\_name\textgreater\ AS SELECT... [WITH NO DATA];} [cite: 1481, 1499] & p. 99, 100 \\
+\textbf{Refresh View} & Updates the data in a materialized view[cite: 1494]. & \texttt{REFRESH MATERIALIZED VIEW \textless view\_name\textgreater;} [cite: 1500] & p. 100 \\
+\bottomrule
+\end{longtable}
 
 \end{document}

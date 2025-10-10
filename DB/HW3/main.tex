@@ -87,6 +87,27 @@ select e.id as employee_id,
     (select h2.store_id from employee_store_history h2 where h2.employee_id=e.id order by h2.start_date_time limit 1 offset 1) as second_store_id
 from employee e;
         \end{minted}
+        \item Calculating the total quantity purchased for each product, then ordering by total quantity and product\_id, using \texttt{limit 2 offset 3} to find the 4th and 5th products. Finally, joining with purchase\_detail and purchase tables to get the required information.
+        \begin{minted}{sql}
+with total_qty as(
+    select pd.product_id as product_id, sum(pd.qty) as total_qty, count(*) as purchase_count
+    from purchase_detail pd
+    group by pd.product_id
+),
+target_product as(
+    select product_id
+    from total_qty
+    order by total_qty desc, product_id asc
+    limit 2 offset 3
+)
+select p.id as product_id, p.name as product_name, pu.store_id as store_id, count(*) as purchase_count, sum(pd.qty) as total_qty
+from target_product tp
+join product p on tp.product_id = p.id
+join purchase_detail pd on pd.product_id = p.id
+join purchase pu on pd.purchase_no = pu.purchase_no
+group by p.id, p.name, pu.store_id
+order by p.id, pu.store_id;
+        \end{minted}
     \end{enumerate}
 \end{enumerate}
 

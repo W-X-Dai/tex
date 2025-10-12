@@ -260,6 +260,64 @@ plt.savefig("2b_leaderboard.png")
 plt.show()            
         \end{minted}
     \end{enumerate}
+    \item
+    \begin{enumerate}
+        \item 
+        \begin{enumerate}
+            \item I'll use \textbf{Surrogate Key} as the primary key because Nature Key might be ambiguous. For example, multiple vehicles may be scheduled at the same time, and a composite Natural Key (such as vehicle ID, departure station, destination station, and time) would be too complex and hard to maintain.\\
+            I'll use \textbf{Serial Number} instead of UUID because dispatch record only exists in a single table and does not require global uniqueness. Serial numbers are simpler, easier to manage, and provide better indexing performance for frequent insertions.
+            \item Yes, I’ll add a “soft delete flag” to the dispatch record table. Dispatch records are important historical data that may be needed for future analysis or auditing, so they should not be physically deleted.\\
+            Soft deletion allows us to retain the record while marking it as inactive, preventing accidental data loss and preserving referential integrity with related tables. It also provides flexibility to restore records if needed.
+            \item As Fig~\ref{fig:3aiii} shows:
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=0.8\textwidth]{src/3aiii.png}
+                \caption{Relational Schema Diagram for Dispatch Record}
+                \label{fig:3aiii}
+            \end{figure}
+        \end{enumerate}
+        \item As Fig~\ref{fig:3b} shows:
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.8\textwidth]{src/3b.png}
+            \caption{Relational Schema Diagram for Dispatch and Rental Record}
+            \label{fig:3b}
+        \end{figure}
+    \end{enumerate}
+    \item As Table~\ref{tab:NFcheck} shows. I know that if it violates a lower normal form, it must violate all higher normal forms. But this table only discusses each normal form separately.
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{c c p{12cm}}
+            \toprule
+            NF & Check & Reason \\
+            \midrule
+            1 & No & It has multiple employees recorded in one table\\
+            2 & No & \texttt{make\_date} only related to the \texttt{v\_id}, but the primary key is composite with \texttt{v\_id} and \texttt{from\_datetime}.\\
+            3 & Yes &  \\
+            BC & Yes &  \\
+            4 & Yes &  \\
+            \bottomrule
+        \end{tabular}
+        \caption{Normal Form Check for Vehicle Maintenance Record}
+        \label{tab:NFcheck}
+    \end{table}
+    \item As Table~\ref{tab:NFcheck2} shows. I know that if it violates a lower normal form, it must violate all higher normal forms. But this table only discusses each normal form separately.
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{c c p{12cm}}
+            \toprule
+            NF & Check & Reason \\
+            \midrule
+            1 & Yes & \\
+            2 & Yes & \\
+            3 & No & In \texttt{RELOCATION} table, \texttt{make\_date} is related to \texttt{v\_id} and \texttt{v\_id} is not a primary key.\\
+            BC & Yes &  \\
+            4 & Yes &  \\
+            \bottomrule
+        \end{tabular}
+        \caption{Normal Form Check for Vehicle Maintenance Record}
+        \label{tab:NFcheck2}
+    \end{table}
 \end{enumerate}
 
 \end{document}

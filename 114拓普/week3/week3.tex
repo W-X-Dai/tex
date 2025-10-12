@@ -57,7 +57,7 @@
 
 \title{Selection Statements \& Logical Operators}
 \author{Tai, Wei Hsuan}
-\date{week 2}
+\date{week 3}
 
 \begin{document}
 	\begin{frame}
@@ -153,6 +153,25 @@
             \item Integer to character: convert the ASCII code to its corresponding character.
         \end{itemize}
     \end{frame}
+    \begin{frame}
+        \frametitle{Little Practice}
+        We give all letters a score according to their position in the alphabet.\\
+        For example, \texttt{a=1, b=2, c=3, ..., z=26}.\\
+        Given a lowercase letter, tell me its score.\\
+        Hint: you may need to use force data type casting.
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{Solution}
+        We know that all letters have their own ASCII code, and the ASCII code is continuous.\\
+        Therefore, we can just calculate the distance between the given letter and \texttt{'a'}.\\
+        Remember to add \texttt{1} to the result, because \texttt{'a'} is the first letter.\\
+        \begin{minted}{cpp}
+            char c;
+            cin >>c;
+            cout<<(int)(c-'a'+1)<<'\n';
+        \end{minted}
+        You can add brackets to fix the target data type.
+    \end{frame}
 
     \section{Selection Statements}
     \begin{frame}
@@ -188,8 +207,130 @@
             cout<<gpa<<'\n';
         }            
         \end{minted}
-        
+        But this notation is not easy to read. We have a more readable way to do it.
+    \end{frame}
+    \begin{frame}
+        \frametitle{Overview of Selection Statements}
+        Selection statements are used to select a block of code to be executed based on a condition.\\
+        In C++, we have three selection statements: \texttt{if}, \texttt{if-else} and \texttt{switch}.\\
+        In fact, \texttt{switch} is not commonly used, so we will focus on \texttt{if} and \texttt{if-else} today.
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{Structure of Selection Statements}
+        \begin{minted}{cpp}
+            if(condition) {
+                // code to be executed if condition is true
+            }else if(condition2){
+                // code to be executed if condition2 is true
+            }else{
+                // code to be executed if both condition and condition2 are false
+            }
+        \end{minted}
+        Note that condition must be a boolean expression, which means it can only be \texttt{true} or \texttt{false}.
+        In C++, any non-zero value is considered as \texttt{true}, and \texttt{0} is considered as \texttt{false}.\\
+        We often use a logical expression as the condition.
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{Back to GPA conversion}
+        \begin{minted}{cpp}
+        #include<bits/stdc++.h>
+        using namespace std;
+
+        int main(){
+            int score;
+            double gpa=0;
+            cin >>score;
+            if(score>79){
+                gpa=4.0;
+            }else if(score>69){
+                gpa=2.8;
+            }else if(score>59){
+                gpa=1.5;
+            }
+            cout<<gpa<<'\n';
+        }            
+        \end{minted}
+    \end{frame}
+    \begin{frame}
+        \frametitle{Practice}
+        Given a letter, tell me it is uppercase or lowercase.\\
+        Hint: Remeber that letters are continuous in ASCII table.
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{Solution}
+        \begin{minted}{cpp}
+        #include<bits/stdc++.h>
+        using namespace std;
+
+        int main(){
+            char c;
+            cin >> c;
+            if(c>='A' && c<='Z'){
+                cout<<"Uppercase"<<endl;
+            }else if(c>='a' && c<='z'){
+                cout<<"Lowercase"<<endl;
+            }
+        }
+        \end{minted}
     \end{frame}
 
-
+    \section{Logical Operators}
+    \begin{frame}
+        \frametitle{Overview of Logical Operators}
+        In Selection Statements, logical expressions are often used as the condition.\\
+        In fact, computers would calculate the logical expressions to determine whether the condition is true or false, then return the result to the selection statements.\\
+    \end{frame}
+    \begin{frame}
+        \frametitle{Logical Operators}
+        In C++, we have three logical operators: \texttt{AND (\&\&)}, \texttt{OR (||)} and \texttt{NOT (!)}, and we've learned them in the previous course. Let's take a recap.
+        \begin{table}
+            \centering
+            \begin{tabular}{cc|c|c|c}
+                \toprule
+                A & B & A \texttt{\&\&} B & A \texttt{||} B & !A \\
+                \midrule
+                0 & 0 & 0 & 0 & 1 \\
+                0 & 1 & 0 & 1 & 1 \\
+                1 & 0 & 0 & 1 & 0 \\
+                1 & 1 & 1 & 1 & 0 \\
+                \bottomrule
+            \end{tabular}
+            \caption{Truth Table of Logical Operators}
+        \end{table}
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{Usage}
+        With logical operators, we can combine multiple conditions into one condition.\\
+        For example, we want to check if a number is between 1 and 10.\\
+        We can do it like this:
+        \begin{minted}{cpp}
+            int a;
+            cin >>a;
+            if(a>=1 && a<=10){
+                cout<<"a is between 1 and 10"<<endl;
+            }
+        \end{minted}
+    \end{frame}
+    \begin{frame}
+        \frametitle{Practice}
+        Given two integers, tell me how many even numbers are between them (inclusive).
+        For example, given \texttt{3} and \texttt{9}, the even numbers between them are \texttt{4, 6, 8}.\\
+        In this problem, loop is forbidden because the number of integers between the two given integers may be too large.(e.g. $10^{15}$)
+    \end{frame}
+    \begin{frame}
+        \frametitle{Practice}
+        There are 3 ants on a stick of length $L$.
+        The positions of the ants are $a$, $b$ and $c$.
+        Each ant will randomly move to the left or right with equal probability.
+        When two ants meet, they will turn back and move in the opposite direction.
+        When an ant reaches the end of the stick, it will fall off.
+        Calculate the expected time for all ants to fall off the stick.
+    \end{frame}
+    \begin{frame}
+        \frametitle{Practice}
+        There's a robot on a 2D plane.
+        The robot starts at the origin \texttt{(0, 0)} and faces the positive x-axis.
+        At $t^{th}$ second, the robot will move forward $t$ units, then turn left 90 degrees.
+        After $n$ seconds, where will the robot be?
+    \end{frame}
 \end{document}

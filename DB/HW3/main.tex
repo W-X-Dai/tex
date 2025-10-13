@@ -61,12 +61,21 @@
 \begin{enumerate}
     \item 
     \begin{enumerate}
+        % 1a
         \item Left join all advisors(e) and their advisees(s), if someone has no advisee, then s would be NULL.
         \begin{minted}{sql}
 select e.id, e.name from employee as e
 left join employee s on e.id=s.supervisor_id
 where s.supervisor_id is null;
         \end{minted}
+        Fig~\ref{fig:1a} is the result:
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.5\textwidth]{src/1a.png}
+            \caption{Result of 1(a)}
+            \label{fig:1a}
+        \end{figure}
+
         \item Find the latest store id of each employee before 2025-01-05 and left join to the employee table.
         \begin{minted}{sql}
 select e.id as employee_id, h.store_id
@@ -80,6 +89,13 @@ and h.start_date_time=(
         and h2.start_date_time <= '2025-01-05'
     );           
         \end{minted}
+        Fig~\ref{fig:1b} is the result:
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.5\textwidth]{src/1b.png}
+            \caption{Result of 1(b)}
+            \label{fig:1b}
+        \end{figure}
         \item Using \texttt{limit 1} to obtain the first store id and \texttt{limit 1 offset 1} to obtain the second store id (after skipping the first one), then join them to produce the final result.
         \begin{minted}{sql}
 select e.id as employee_id,
@@ -87,6 +103,13 @@ select e.id as employee_id,
     (select h2.store_id from employee_store_history h2 where h2.employee_id=e.id order by h2.start_date_time limit 1 offset 1) as second_store_id
 from employee e;
         \end{minted}
+        Fig~\ref{fig:1c} is the result:
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.8\textwidth]{src/1c.png}
+            \caption{Result of 1(c)}
+            \label{fig:1c}
+        \end{figure}
         \item Calculating the total quantity purchased for each product, then ordering by total quantity and product\_id, using \texttt{limit 2 offset 3} to find the 4th and 5th products. Finally, joining with purchase\_detail and purchase tables to get the required information.
         \begin{minted}{sql}
 with total_qty as(
@@ -108,6 +131,13 @@ join purchase pu on pd.purchase_no = pu.purchase_no
 group by p.id, p.name, pu.store_id
 order by p.id, pu.store_id;
         \end{minted}
+        Fig~\ref{fig:1d} is the result:
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.8\textwidth]{src/1d.png}
+            \caption{Result of 1(d)}
+            \label{fig:1d}
+        \end{figure}
         \item First choose the target product ids by ranking the total purchased quantity, then cross join with store table to get all combinations of target products and stores. Finally, left join with purchase and purchase\_detail tables to get the required information.
         \begin{minted}{sql}
 with total_qty as(
@@ -129,6 +159,13 @@ join product p on p.id = t.product_id
 group by s.id, t.product_id, p.name
 order by t.product_id, s.id;          
         \end{minted}
+        Fig~\ref{fig:1e} is the result:
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.8\textwidth]{src/1e.png}
+            \caption{Result of 1(e)}
+            \label{fig:1e}
+        \end{figure}
         \item Calculate the total spending of each member in each store, then rank them within each store based on the total spending. Using \texttt{rank()} instead of \texttt{row\_number()} to handle ties in spending amounts. While ranking, using \texttt{partition by} to separate rankings for each store. 
         \begin{minted}{sql}
 select sa.store_id as store_id, sa.member_id as member_id, sum(sd.unit_price*sd.qty) as amount, rank() over(partition by sa.store_id order by sum(sd.unit_price*sd.qty) desc) as rnk
@@ -139,6 +176,13 @@ where member_id is not null
 group by sa.store_id, sa.member_id
 order by sa.store_id, rnk;
         \end{minted}
+        Fig~\ref{fig:1f} is the result:
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.5\textwidth]{src/1f.png}
+            \caption{Result of 1(f)}
+            \label{fig:1f}
+        \end{figure}
     \end{enumerate}
     \item
     \begin{enumerate}
@@ -301,7 +345,7 @@ plt.show()
         \caption{Normal Form Check for Vehicle Maintenance Record}
         \label{tab:NFcheck}
     \end{table}
-    \item As Table~\ref{tab:NFcheck2} shows. I know that if it violates a lower normal form, it must violate all higher normal forms. But this table only discusses each normal form separately.
+    \item Table~\ref{tab:NFcheck2} shows the normal form checking of \texttt{RELOCATION}, and \texttt{RELOCATION\_EMPLOYEE} does not violate any normal form. I know that if it violates a lower normal form, it must violate all higher normal forms. But this table only discusses each normal form separately.
     \begin{table}[H]
         \centering
         \begin{tabular}{c c p{12cm}}

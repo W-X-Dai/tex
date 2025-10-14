@@ -28,7 +28,7 @@ usr_rnk as(
 )
 select user_id, 
        sum(
-           cast(rnk = 1 as int) * 5 +
+           cast(rnk = 1 as int) * 4 +
            cast(rnk = 2 as int) * 2 +
            cast(rnk = 3 as int) * 1
        ) as score

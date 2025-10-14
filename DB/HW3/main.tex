@@ -138,26 +138,32 @@ order by p.id, pu.store_id;
             \caption{Result of 1(d)}
             \label{fig:1d}
         \end{figure}
-        \item First choose the target product ids by ranking the total purchased quantity, then cross join with store table to get all combinations of target products and stores. Finally, left join with purchase and purchase\_detail tables to get the required information.
+        \item Using the code in 1(d) as a CTE to find the purchase result, then cross join all products and stores to get all combinations, and left join with the previous result to get the total quantity purchased (if no purchase, then 0). Finally, order by total quantity and product id.
         \begin{minted}{sql}
 with total_qty as(
-    select pd.product_id as product_id, row_number() over(order by sum(pd.qty) desc, pd.product_id asc) as rnk
+    select pd.product_id as product_id, sum(pd.qty) as total_qty, count(*) as purchase_count
     from purchase_detail pd
     group by pd.product_id
 ),
-target as(
+target_product as(
     select product_id
-    from total_qty 
-    where rnk >= 4 and rnk <= 5
+    from total_qty
+    order by total_qty desc, product_id asc
+    limit 2 offset 3
+), 
+product_purchase as(
+    select p.id as product_id, pu.store_id as store_id, count(*) as purchase_count, sum(pd.qty) as total_qty
+    from target_product tp
+    join product p on tp.product_id = p.id
+    join purchase_detail pd on pd.product_id = p.id
+    join purchase pu on pd.purchase_no = pu.purchase_no
+    group by p.id, p.name, pu.store_id
 )
-select t.product_id as id, p.name as name, s.id as store_id, coalesce(sum(pd.qty), 0) as amount, coalesce(count(distinct pu.purchase_no), 0) as cnt
-from target t --target store id
-cross join store s
-left join purchase pu on pu.store_id = s.id
-left join purchase_detail pd on pu.purchase_no = pd.purchase_no and t.product_id = pd.product_id
-join product p on p.id = t.product_id 
-group by s.id, t.product_id, p.name
-order by t.product_id, s.id;          
+select p.id as p_id, p.name as name, s.id as s_id , coalesce(pp.total_qty, 0) as total_qty, coalesce(pp.purchase_count, 0) as purchase_count
+from store s
+cross join product p
+left join product_purchase pp on pp.product_id = p.id and pp.store_id = s.id
+order by total_qty desc, p.id asc;         
         \end{minted}
         Fig~\ref{fig:1e} is the result:
         \begin{figure}[H]
@@ -166,15 +172,20 @@ order by t.product_id, s.id;
             \caption{Result of 1(e)}
             \label{fig:1e}
         \end{figure}
-        \item Calculate the total spending of each member in each store, then rank them within each store based on the total spending. Using \texttt{rank()} instead of \texttt{row\_number()} to handle ties in spending amounts. While ranking, using \texttt{partition by} to separate rankings for each store. 
+        \item I first calculate the total spending amount of each member in each store, then cross join all stores and members to get all combinations, and left join with the previous result to get the total spending amount (if no spending, then 0). Finally, I rank the members in each store by their total spending amount.
         \begin{minted}{sql}
-select sa.store_id as store_id, sa.member_id as member_id, sum(sd.unit_price*sd.qty) as amount, rank() over(partition by sa.store_id order by sum(sd.unit_price*sd.qty) desc) as rnk
-
-from sales sa
-join sales_detail sd on sd.receipt_no = sa.receipt_no
-where member_id is not null
-group by sa.store_id, sa.member_id
-order by sa.store_id, rnk;
+with member_spending as (
+    select sa.store_id as store_id, sa.member_id as member_id, sum(sd.unit_price*sd.qty) as amount
+    from sales sa
+    join sales_detail sd on sd.receipt_no = sa.receipt_no
+    where member_id is not null
+    group by sa.store_id, sa.member_id
+)
+select s.id as store_id, m.id as member_id, coalesce(ms.amount, 0) as total_amount, rank() over(partition by s.id order by coalesce(ms.amount, 0) desc) as rnk
+from store s
+cross join member m
+left join member_spending ms on ms.store_id = s.id and ms.member_id = m.id
+order by s.id, rnk, m.id;
         \end{minted}
         Fig~\ref{fig:1f} is the result:
         \begin{figure}[H]
@@ -282,7 +293,7 @@ usr_rnk as(
 )
 select user_id, 
        sum(
-           cast(rnk = 1 as int) * 5 +
+           cast(rnk = 1 as int) * 4 +
            cast(rnk = 2 as int) * 2 +
            cast(rnk = 3 as int) * 1
        ) as score
@@ -328,40 +339,43 @@ plt.show()
             \label{fig:3b}
         \end{figure}
     \end{enumerate}
-    \item As Table~\ref{tab:NFcheck} shows. I know that if it violates a lower normal form, it must violate all higher normal forms. But this table only discusses each normal form separately.
-    \begin{table}[H]
-        \centering
-        \begin{tabular}{c c p{12cm}}
-            \toprule
-            NF & Check & Reason \\
-            \midrule
-            1 & No & It has multiple employees recorded in one table\\
-            2 & No & \texttt{make\_date} only related to the \texttt{v\_id}, but the primary key is composite with \texttt{v\_id} and \texttt{from\_datetime}.\\
-            3 & Yes &  \\
-            BC & Yes &  \\
-            4 & Yes &  \\
-            \bottomrule
-        \end{tabular}
-        \caption{Normal Form Check for Vehicle Maintenance Record}
-        \label{tab:NFcheck}
-    \end{table}
-    \item Table~\ref{tab:NFcheck2} shows the normal form checking of \texttt{RELOCATION}, and \texttt{RELOCATION\_EMPLOYEE} does not violate any normal form. I know that if it violates a lower normal form, it must violate all higher normal forms. But this table only discusses each normal form separately.
-    \begin{table}[H]
-        \centering
-        \begin{tabular}{c c p{12cm}}
-            \toprule
-            NF & Check & Reason \\
-            \midrule
-            1 & Yes & \\
-            2 & Yes & \\
-            3 & No & In \texttt{RELOCATION} table, \texttt{make\_date} is related to \texttt{v\_id} and \texttt{v\_id} is not a primary key.\\
-            BC & Yes &  \\
-            4 & Yes &  \\
-            \bottomrule
-        \end{tabular}
-        \caption{Normal Form Check for Vehicle Maintenance Record}
-        \label{tab:NFcheck2}
-    \end{table}
+    \item 
+    \begin{enumerate}    
+        \item As Table~\ref{tab:NFcheck} shows. I know that if it violates a lower normal form, it must violate all higher normal forms. But this table only discusses each normal form separately.
+        \begin{table}[H]
+            \centering
+            \begin{tabular}{c c p{12cm}}
+                \toprule
+                NF & Check & Reason \\
+                \midrule
+                1 & No & It has multiple employees recorded in one table\\
+                2 & No & \texttt{make\_date} only related to the \texttt{v\_id}, but the primary key is composite with \texttt{v\_id} and \texttt{from\_datetime}.\\
+                3 & Yes &  \\
+                BC & Yes &  \\
+                4 & Yes &  \\
+                \bottomrule
+            \end{tabular}
+            \caption{Normal Form Check for Vehicle Maintenance Record}
+            \label{tab:NFcheck}
+        \end{table}
+        \item Table~\ref{tab:NFcheck2} shows the normal form checking of \texttt{RELOCATION}, and \texttt{RELOCATION\_EMPLOYEE} does not violate any normal form. I know that if it violates a lower normal form, it must violate all higher normal forms. But this table only discusses each normal form separately.
+        \begin{table}[H]
+            \centering
+            \begin{tabular}{c c p{12cm}}
+                \toprule
+                NF & Check & Reason \\
+                \midrule
+                1 & Yes & \\
+                2 & Yes & \\
+                3 & No & In \texttt{RELOCATION} table, \texttt{make\_date} is related to \texttt{v\_id} and \texttt{v\_id} is not a primary key.\\
+                BC & Yes &  \\
+                4 & Yes &  \\
+                \bottomrule
+            \end{tabular}
+            \caption{Normal Form Check for Vehicle Maintenance Record}
+            \label{tab:NFcheck2}
+        \end{table}
+    \end{enumerate}
 \end{enumerate}
 
 \end{document}

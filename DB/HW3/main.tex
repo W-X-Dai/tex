@@ -138,32 +138,29 @@ order by p.id, pu.store_id;
             \caption{Result of 1(d)}
             \label{fig:1d}
         \end{figure}
-        \item Using the code in 1(d) as a CTE to find the purchase result, then cross join all products and stores to get all combinations, and left join with the previous result to get the total quantity purchased (if no purchase, then 0). Finally, order by total quantity and product id.
+        \item Similar to 1(d), but using cross join to get all combinations of the target products and stores, then left join with purchase and purchase\_detail to get the required information (if no purchase, then 0).
         \begin{minted}{sql}
-with total_qty as(
-    select pd.product_id as product_id, sum(pd.qty) as total_qty, count(*) as purchase_count
+with total_qty as (
+    select pd.product_id, sum(pd.qty) as total_qty, count(*) as purchase_count
     from purchase_detail pd
     group by pd.product_id
 ),
-target_product as(
+target_product as (
     select product_id
     from total_qty
     order by total_qty desc, product_id asc
     limit 2 offset 3
-), 
-product_purchase as(
-    select p.id as product_id, pu.store_id as store_id, count(*) as purchase_count, sum(pd.qty) as total_qty
-    from target_product tp
-    join product p on tp.product_id = p.id
-    join purchase_detail pd on pd.product_id = p.id
-    join purchase pu on pd.purchase_no = pu.purchase_no
-    group by p.id, p.name, pu.store_id
 )
-select p.id as p_id, p.name as name, s.id as s_id , coalesce(pp.total_qty, 0) as total_qty, coalesce(pp.purchase_count, 0) as purchase_count
-from store s
-cross join product p
-left join product_purchase pp on pp.product_id = p.id and pp.store_id = s.id
-order by total_qty desc, p.id asc;         
+select 
+    p.id as product_id, p.name as product_name, s.id as store_id, coalesce(count(pd.product_id), 0) as cnt, coalesce(sum(pd.qty), 0) as total_qty
+from target_product tp
+join product p on tp.product_id = p.id
+cross join store s
+left join purchase pu on pu.store_id = s.id
+left join purchase_detail pd on pd.purchase_no = pu.purchase_no and pd.product_id = p.id
+group by p.id, p.name, s.id
+order by p.id, s.id;
+        
         \end{minted}
         Fig~\ref{fig:1e} is the result:
         \begin{figure}[H]
@@ -331,7 +328,6 @@ plt.show()
                 \label{fig:3aiii}
             \end{figure}
         \end{enumerate}
-        % TODO 3b have some error that should be fixed
         \item As Fig~\ref{fig:3b} shows:
         \begin{figure}[H]
             \centering
@@ -351,8 +347,8 @@ plt.show()
                 \midrule
                 1 & No & It has multiple employees recorded in one table\\
                 2 & No & \texttt{make\_date} only related to the \texttt{v\_id}, but the primary key is composite with \texttt{v\_id} and \texttt{from\_datetime}.\\
-                3 & Yes &  \\
-                BC & Yes &  \\
+                3 & No & We can get \texttt{v\_id} by \texttt{(v\_id, from\_datetime)} and \texttt{make\_date} from \texttt{v\_id}.\\
+                BC & No & As it violates 3NF, it must also violate BCNF(because \texttt{v\_id} is not a super key)\\
                 4 & Yes &  \\
                 \bottomrule
             \end{tabular}
@@ -369,7 +365,7 @@ plt.show()
                 1 & Yes & \\
                 2 & Yes & \\
                 3 & No & In \texttt{RELOCATION} table, \texttt{make\_date} is related to \texttt{v\_id} and \texttt{v\_id} is not a primary key.\\
-                BC & Yes &  \\
+                BC & No & As it violates 3NF, it must also violate BCNF(because \texttt{v\_id} is not a super key)\\
                 4 & Yes &  \\
                 \bottomrule
             \end{tabular}

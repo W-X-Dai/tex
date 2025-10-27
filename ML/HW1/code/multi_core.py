@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 from dataclasses import dataclass
 from typing import Optional
 from copy import deepcopy
+from joblib import Parallel, delayed
+import os
 
 @dataclass
 class Dataset:
@@ -25,16 +27,16 @@ def evaluation(x, y, diagram=0):
     y = y[valid_indices]
 
     if len(np.unique(y)) < 2:
-        print("Only one class present in evaluation. AUC is undefined.")
-        return 0.5 # or np.nan
-        
+        print("Warning: Only one class present in evaluation. AUC is undefined.")
+        return 0.5
+
     thresh = np.sort(np.unique(x))[::-1]
     fpr_list, tpr_list = [], []
     neg, pos = np.sum(y == 0), np.sum(y == 1)
 
     if pos == 0 or neg == 0:
-        print("Only one class present after filtering. AUC is undefined.")
-        return 0.5 # or np.nan
+        print("Warning: Only one class present after filtering. AUC is undefined.")
+        return 0.5
 
     for t in thresh:
         y_pred = (x>=t).astype(int)
@@ -61,7 +63,6 @@ def evaluation(x, y, diagram=0):
 
 def log_sum_exp(a, b):
     m = np.maximum(a, b)
-
     diff_a = a - m
     diff_b = b - m
     term1 = np.exp(diff_a) if diff_a > -np.inf else 0
@@ -83,7 +84,7 @@ def get_parameters(data: Dataset):
     n = n_pos+n_neg
     
     if n_pos == 0 or n_neg == 0:
-        print("Training fold contains only one class.")
+        print("Warning: Training fold contains only one class.")
         return None
 
     n_features = X_train.shape[1]
@@ -121,7 +122,8 @@ def estimate(data: Dataset):
     
     params = get_parameters(data)
     if params is None:
-        return 0.0, 0.5
+        return 0.0, 0.5 
+
     p0, p1, mu0, mu1, cm0, cm1 = params
 
     X_train = X_train_all[:, selected_features]
@@ -133,10 +135,10 @@ def estimate(data: Dataset):
         det0 = np.linalg.det(cm0)
         det1 = np.linalg.det(cm1)
     except np.linalg.LinAlgError:
-        print("Singular matrix encountered despite regularization.")
-        return 0.0, 0.
+        print("Warning: Singular matrix encountered despite regularization.")
+        return 0.0, 0.5
 
-    d = X_train.shape[1]
+    d = X_train.shape[1] 
     mu0_v = mu0.reshape(-1, 1)
     mu1_v = mu1.reshape(-1, 1)
 
@@ -184,16 +186,17 @@ def feature_selection(data: Dataset):
         local_best_prior = 0.5
 
         for i in range(n_features):
-            if best_mask[i] == 1:
+            if best_mask[i] == True:
                 continue
 
             local_mask = best_mask.copy()
-            local_mask[i] = 1
+            local_mask[i] = True 
 
             local_data = deepcopy(data)
             local_data.feature_mask = local_mask
 
             local_auc, test_prior_for_this_mask = estimate(local_data)
+            
             if local_auc > local_best_auc:
                 local_best_auc = local_auc
                 local_best_mask = local_mask
@@ -209,53 +212,64 @@ def feature_selection(data: Dataset):
 
     return best_auc, best_mask, best_prior_for_best_mask
 
-def loocv(data): 
-    n_samples = data.shape[0]
-    # 'SeqNum', 'GroundTruth', 'Gender'
-    n_features = data.shape[1] - len(['SeqNum', 'GroundTruth', 'Gender'])
+def process_fold(i, data_df):
+    print(f"--- Processing LOOCV Fold {i+1}/{data_df.shape[0]} ---")
+    test = data_df.iloc[[i]]
+    train = data_df.drop(index=i)
+
+    train = train.reset_index(drop=True)
+    test = test.reset_index(drop=True)
+
+    X_train = train.drop(columns = ['SeqNum', 'GroundTruth',  'Gender']).to_numpy()
+    X_test = test.drop(columns = ['SeqNum', 'GroundTruth',  'Gender']).to_numpy()
+
+    y_train = train['GroundTruth'].to_numpy()
+    y_test = test['GroundTruth'].to_numpy()
+    
+    fold_data = Dataset(
+        X_train = X_train,
+        X_test = X_test,
+        y_train = y_train,
+        y_test = y_test
+    )
+    
+    auc, mask, pr = feature_selection(fold_data)
+    
+    print(f"Fold {i+1} Test Posterior: {pr:.4f} (True Label: {y_test[0]})")
+    print(f"Fold {i+1} Selected {np.sum(mask)} features.")
+    
+    return pr, mask.astype(int)
+
+def loocv(data_df):
+    n_samples = data_df.shape[0]
+    n_features = data_df.shape[1] - len(['SeqNum', 'GroundTruth', 'Gender'])
     
     prior = np.zeros(shape=n_samples, dtype=float)
     mask_stat = np.zeros(shape=n_features, dtype=int)
     
-    all_y = data['GroundTruth'].to_numpy()
+    all_y = data_df['GroundTruth'].to_numpy()
+    
+    cpu_count = os.cpu_count()
+    n_cores = cpu_count - 2 if cpu_count and cpu_count > 2 else 1
+    print(f"--- Starting LOOCV on {n_cores} cores using joblib ---")
+    
+    results = Parallel(n_jobs=n_cores)(
+        delayed(process_fold)(i, data_df) for i in range(n_samples)
+    )
+    
+    print("\n--- LOOCV Finished (All folds complete) ---")
 
     for i in range(n_samples):
-        print(f"LOOCV Fold {i+1}/{n_samples}")
-        test = data.iloc[[i]]
-        train = data.drop(index=i)
-
-        train = train.reset_index(drop=True)
-        test = test.reset_index(drop=True)
-
-        X_train = train.drop(columns = ['SeqNum', 'GroundTruth',  'Gender']).to_numpy()
-        X_test = test.drop(columns = ['SeqNum', 'GroundTruth',  'Gender']).to_numpy()
-
-        y_train = train['GroundTruth'].to_numpy()
-        y_test = test['GroundTruth'].to_numpy()
-        
-        fold_data = Dataset(
-            X_train = X_train,
-            X_test = X_test,
-            y_train = y_train,
-            y_test = y_test
-        )
-        # best auc, mask, and prior of test data under the selected mask
-        auc, mask, pr = feature_selection(fold_data)
-        
+        pr, mask = results[i]
         prior[i] = pr
-        mask_stat += mask.astype(int)
+        mask_stat += mask
         
-        print(f"Fold {i+1} Test Posterior: {pr:.4f} (True Label: {y_test[0]})")
-        print(f"Fold {i+1} Selected {np.sum(mask)} features.")
-        
-    print("\nLOOCV Finished")
     print(f"Final posterior probabilities for each sample:\n{prior}")
     print(f"Feature selection frequency mask:\n{mask_stat}")
     
-    print("\n Overall Model Performance (from LOOCV posteriors)")
+    print("\n--- Overall Model Performance (from LOOCV posteriors) ---")
     overall_auc = evaluation(x=prior, y=all_y, diagram=1)
     print(f"Overall LOOCV AUC: {overall_auc:.4f}")
-
 
 if __name__ == '__main__':
     df = pd.read_excel('AcromegalyFeatureSet.xlsx')

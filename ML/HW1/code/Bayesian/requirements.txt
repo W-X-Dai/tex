@@ -1,0 +1,20 @@
+# ...existing code...
+numpy>=1.21
+pandas>=1.3
+matplotlib>=3.4
+openpyxl>=3.0
+# Bayesian / probabilistic modelling
+pymc>=4.1             # PyMC 用於貝式推論
+arviz>=0.12           # 結果視覺化與診斷（與 PyMC 搭配）
+xarray>=0.20          # ArviZ 相依
+# Classical/Bayesian stats utilities
+statsmodels>=0.13
+patsy>=0.5
+# Machine learning / Random Forest
+scikit-learn>=1.0
+scipy>=1.7
+joblib>=1.1
+# Optional utilities
+seaborn>=0.11
+scikit-optimize>=0.9.0
+# ...existing code...

@@ -53,6 +53,14 @@
 \newpage
 \tableofcontents
 \newpage
+\section*{Usage of Artificial Intelligence Tools}
+In the Bayesian Decision Model (NumPy version), I did not use any large language model (LLM) tools to generate any part of the code; all code was written entirely by myself.
+
+However, since I was not familiar with parallel processing in Python, I used Gemini to assist in generating the parallel processing code based on my initial implementation.
+
+For the Random Forest Classifier, I used Gemini to generate the initial structure of the code using Python's scikit-learn library. After receiving the generated code, I reviewed and modified it to meet the specific requirements of the assignment, including adding evaluation metrics and plotting the ROC curve.
+
+For the report, to make my expression more academic and formal, I used ChatGPT to help refine and polish the language in certain sections of the report. I provided ChatGPT with my original text and requested suggestions for improvement, which I then reviewed and incorporated as appropriate.
 
 \section{Problem 1}
 
@@ -67,7 +75,7 @@ p(\mathbf{x}|\mu, \Sigma) = \frac{1}{(2\pi)^{d/2} |\Sigma|^{1/2}} \exp\left(-\fr
 where $\mu$ is the mean vector, $\Sigma$ is the covariance matrix, and $d$ is the dimensionality of the data.
 
 \subsubsection{Parameter Estimation}
-To estimate the parameters of the Gaussian distributions for each class, I need the prior probabilities $P(C_i)$, the mean vectors $\mu_i$, and the covariance matrices $\Sigma_i$ for each class $C_i$. 
+To estimate the parameters of the Gaussian distributions for each class, the prior probabilities $P(C_i)$, the mean vectors $\mu_i$, and the covariance matrices $\Sigma_i$ for each class $C_i$ are required.
 
 The prior probabilities are estimated as follow, $N_i$ is the number of samples in class $C_i$ and $N$ is the total number of samples.
 \begin{equation}
@@ -240,17 +248,15 @@ To discuss this phenomenon, take AIC as an example, AIC is defined as
 \text{AIC} = 2k - 2\ln(L),
 \end{equation}
 where $k$ is the number of parameters and $L$ is the maximized likelihood of the model.  Because the number of features (and thus parameters) in the dataset is relatively small, the penalty term $2k$ exerts only a weak influence on the criterion. 
-
 As a result, AIC becomes dominated by the likelihood term and fails to effectively penalize model complexity, leading to the selection of suboptimal feature subsets. 
-
 In contrast, using AUC directly as the objective function better reflects the model's discriminative ability and yields feature combinations that improve classification performance.
 
-\subsubsection{Result}
+\subsubsection{Result for Bayesian Classifier with Forward Feature Selection}
 \paragraph{Metrics with Feature Selection: }
 
 The AUC of loocv with feature selection is 0.9233, Fig.~\ref{fig:roc_fs} shows the ROC curve.
 
-With threshold = 0.5, the accuracy, sensitivity, and specificity are listed below:    
+For this binary classification problem, we denote the two classes as $C_0$ and $C_1$, if posterior probability $P(C_1|x) > P(C_0|x)$, we classify the data point $x$ as class $C_1$, otherwise class $C_0$. Thus, I choose the threshold as 0.5 to evalute the model, the performance metrics are as follows:
 \begin{itemize}
     \item Accuracy:    0.8350 (86/103)
     \item Sensitivity: 0.8537 (35/41)
@@ -261,7 +267,6 @@ With threshold = 0.5, the accuracy, sensitivity, and specificity are listed belo
 The frequency of selected features across all folds is summarized in Table~\ref{tab:feature_frequency}.
 
 The top 2 features selected are NasoFacialA, LVermilionH, and NoseW with LVermilionH and NoseW tied at 100 times, so I choose NasoFacialA and LVermilionH(alphabetical) to plot the decision boundary in Fig.~\ref{decision_boundary_fs}.
-
 
 \begin{table}[H]
     \centering
@@ -287,25 +292,249 @@ The top 2 features selected are NasoFacialA, LVermilionH, and NoseW with LVermil
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{src/roc_curve.png}
+    \includegraphics[width=0.9\textwidth]{src/roc_curve.png}
     \caption{ROC curve with feature selection}
     \label{fig:roc_fs}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{src/decision_boundary_plot.png}
+    \includegraphics[width=0.9\textwidth]{src/decision_boundary_plot.png}
     \caption{Decision boundary with feature selection}
     \label{decision_boundary_fs}
 \end{figure}
 
 \subsubsection{Others}
+\paragraph{Code Structure.}
+
+In the \texttt{code/Bayesian/} directory, \texttt{origin.py} serves as the baseline implementation of the Bayesian classifier without complete outputs and efficiency optimizations. \texttt{numpy\_accr.py} is the complete version that includes all required outputs and NumPy-based vectorization described in this report, while \texttt{multi\_core\_accr.py} integrates multiprocessing optimizations for LOOCV to further enhance computational efficiency.
+
+Parallel processing may not be supported in all environments (the experiments were conducted on Ubuntu 24.04.3 LTS with Linux kernel 6.14.0-33-generic). Therefore, a NumPy-optimized version is also provided for compatibility. If the environment supports multiprocessing, it is recommended to execute the multi-core accelerated version, which produces results within only a few seconds.
+
+
+
+\paragraph{Efficiency Optimization.}
+It is well known that Python is generally less efficient than compiled languages such as C or C++. Therefore, I employed extensive NumPy vectorized operations to accelerate computation. Furthermore, since each fold in the LOOCV process is independent, I used the multiprocessing library to parallelize the computation across multiple CPU cores, which significantly reduced the overall runtime.
+
 
 \subsection{Random Forest Classifier}
 \subsubsection{Model Description}
-In this homework, I implement a Random Forest Classifier to classify data points based on their features. The model constructs a multitude of decision trees during training and outputs the mode of the classes (classification) of the individual trees.
+This homework assigns the implementation of Bayesian Classifier, but Random Forest is also a widely used classification algorithm.
 
+I implemented a Random Forest Classifier using the \texttt{RandomForestClassifier} from the \texttt{sklearn.ensemble} module. Then, I tried Out-of-Bag (OOB) estimation, 10-fold cross-validation, and Leave-One-Out Cross-Validation (LOOCV) to evaluate the model performance and compared the results. 
+
+
+\subsubsection{Result for Random Forest Classifier}
+The result ROC curve is shown in Fig.~\ref{fig:roc_rf}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{src/roc_curve_rf_comparison.png}
+    \caption{ROC curve of Random Forest Classifier with LOOCV}
+    \label{fig:roc_rf}
+\end{figure}
+
+These methods perform similarly well, with OOB AUC at 0.9076, 10-fold CV AUC at 0.9058, and LOOCV AUC at 0.9103.
+
+
+
+\subsection{Discussion}
+
+Following is the performance comparison of different evaluation methods:
+\begin{table}[H]
+    \centering
+    \caption{Performance Comparison of Different Models and Evaluation Methods}
+    \label{tab:performance_comparison}
+    \begin{tabular}{lcccc}
+        \toprule
+        \textbf{Method} & \textbf{AUC} & \textbf{Accuracy} & \textbf{Sensitivity} & \textbf{Specificity} \\
+        \midrule
+        Bayesian (LOOCV, FFS) & 0.9233 & 0.8350 & 0.8537 & 0.8226 \\
+        RF (OOB)             & 0.9076 & 0.8252 & 0.7317 & 0.8871 \\
+        RF (10-fold CV)      & 0.9058 & 0.8738 & 0.8293 & 0.9032 \\
+        RF (LOOCV)           & 0.9103 & 0.8544 & 0.8049 & 0.8871 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+Note that FFS means forward feature selection, RF means Random Forest, CV means cross-validation, and OOB means out-of-bag estimation.
+
+All four evaluation methods achieve AUC values greater than 0.9, demonstrating strong discriminative capability. The Bayesian classifier with forward feature selection attains the highest AUC of 0.9233, while the Random Forest with 10-fold cross-validation yields the highest accuracy of 0.8738. This indicates that both feature selection and ensemble learning effectively enhance model performance under limited data conditions.
+
+However, the relatively small dataset size remains a critical constraint. Although the four methods perform similarly well in this study, the observed differences in AUC and accuracy may become more evident with a larger sample size. In particular, the OOB estimate tends to slightly underestimate sensitivity due to the stochastic nature of bootstrap sampling, whereas k-fold CV provides a more stable performance estimate at the cost of additional computation.
+
+Overall, both the Bayesian classifier with feature selection and the Random Forest classifier demonstrate promising performance for this binary classification task. The Bayesian approach shows a slight advantage in AUC, but its robustness cannot be confirmed solely from this small dataset. Further validation on larger and more diverse datasets is necessary to assess their true generalization ability and stability.
+
+\newpage
 \section{Problem 2}
 
+\subsection*{1. Problem Setup}
+
+Assume we have data points 
+\[
+x^t \mid \theta \sim \mathcal{N}(\theta, \sigma^2), \quad t = 1, 2, \ldots, N,
+\]
+and a Gaussian prior on the unknown mean parameter:
+\[
+\theta \sim \mathcal{N}(\mu_0, \sigma_0^2).
+\]
+Our goal is to find the posterior distribution \( p(\theta \mid X) \), where \( X = \{x^1, \ldots, x^N\} \).
+
+
+
+\subsection*{2. Bayes' Rule}
+
+Starting from
+\[
+p(\theta \mid X)p(X) = p(X \mid \theta)p(\theta),
+\]
+we obtain
+\[
+p(\theta \mid X) = \frac{p(X \mid \theta)p(\theta)}{p(X)} \propto p(X \mid \theta)p(\theta),
+\]
+since \( p(X) \) does not depend on \( \theta \).
+
+
+
+\subsection*{3. Likelihood as a Gaussian in \(\theta\)}
+
+Under the i.i.d. assumption,
+\[
+p(X \mid \theta) = \prod_{t=1}^N p(x^t \mid \theta)
+= (2\pi\sigma^2)^{-N/2} \exp\!\left(-\frac{1}{2\sigma^2}\sum_{t=1}^N (x^t - \theta)^2\right).
+\]
+
+Let \( m = \frac{1}{N}\sum_{t=1}^N x^t \) be the sample mean.  
+Then,
+\[
+\sum_{t=1}^N (x^t - \theta)^2
+= \sum_{t=1}^N (x^t - m)^2 + N(\theta - m)^2.
+\]
+Ignoring terms independent of \( \theta \),
+\[
+p(X \mid \theta) \propto \exp\!\left(-\frac{N}{2\sigma^2}(\theta - m)^2\right),
+\]
+which is a Gaussian density in \( \theta \):
+\[
+p(X \mid \theta) \equiv \mathcal{N}\!\left(\theta; m, \frac{\sigma^2}{N}\right).
+\]
+
+
+
+\subsection*{4. Multiplying Two Gaussian Distributions}
+
+The prior is
+\[
+p(\theta) = \mathcal{N}(\theta; \mu_0, \sigma_0^2).
+\]
+
+Hence, the unnormalized posterior is
+\[
+p(\theta \mid X) \propto p(X \mid \theta)p(\theta)
+= \mathcal{N}\!\left(\theta; m, \frac{\sigma^2}{N}\right)
+  \times \mathcal{N}\!\left(\theta; \mu_0, \sigma_0^2\right).
+\]
+
+
+
+\subsection*{5. Product of Two Gaussians}
+
+For any two Gaussian densities
+\[
+\mathcal{N}(\theta; \mu_1, \sigma_1^2)
+\quad \text{and} \quad
+\mathcal{N}(\theta; \mu_2, \sigma_2^2),
+\]
+their product is proportional to another Gaussian:
+\[
+\mathcal{N}(\theta; \mu_1, \sigma_1^2)\,
+\mathcal{N}(\theta; \mu_2, \sigma_2^2)
+\propto
+\mathcal{N}(\theta; \mu', \sigma'^2),
+\]
+where
+\[
+\sigma'^2 = \frac{1}{\frac{1}{\sigma_1^2} + \frac{1}{\sigma_2^2}},
+\quad
+\mu' = \sigma'^2\!\left(\frac{\mu_1}{\sigma_1^2} + \frac{\mu_2}{\sigma_2^2}\right).
+\]
+
+
+
+\subsection*{6. Applying the Gaussian Product Formula}
+
+By identifying parameters:
+\[
+(\mu_1, \sigma_1^2) = (m, \tfrac{\sigma^2}{N}), 
+\quad 
+(\mu_2, \sigma_2^2) = (\mu_0, \sigma_0^2),
+\]
+we obtain the posterior parameters:
+\[
+\sigma_n^2 = \frac{1}{\frac{N}{\sigma^2} + \frac{1}{\sigma_0^2}},
+\quad
+\mu_n = \sigma_n^2\!\left(\frac{N m}{\sigma^2} + \frac{\mu_0}{\sigma_0^2}\right).
+\]
+
+Thus, the posterior distribution is:
+\[
+p(\theta \mid X) = \mathcal{N}(\theta; \mu_n, \sigma_n^2).
+\]
+
+
+
+\subsection*{7. Posterior Mean and Interpretation}
+
+The posterior mean (the Bayesian estimator) is:
+\[
+E[\theta \mid X] = \mu_n
+= 
+\frac{\frac{N}{\sigma^2}}{\frac{N}{\sigma^2} + \frac{1}{\sigma_0^2}}\,m
++
+\frac{\frac{1}{\sigma_0^2}}{\frac{N}{\sigma^2} + \frac{1}{\sigma_0^2}}\,\mu_0.
+\]
+
+\noindent
+This is a precision-weighted average:
+\[
+E[\theta \mid X]
+= w_{\text{data}}\, m + w_{\text{prior}}\, \mu_0,
+\]
+where
+\[
+w_{\text{data}} = \frac{N/\sigma^2}{N/\sigma^2 + 1/\sigma_0^2},
+\quad
+w_{\text{prior}} = \frac{1/\sigma_0^2}{N/\sigma^2 + 1/\sigma_0^2}.
+\]
+
+
+
+\subsection*{8. Limiting Cases}
+
+\begin{itemize}
+    \item If the data are abundant (\( N \to \infty \)), 
+    \( E[\theta \mid X] \to m \): posterior dominated by data.
+    \item If the prior is very confident (\( \sigma_0^2 \to 0 \)), 
+    \( E[\theta \mid X] \to \mu_0 \): posterior dominated by prior.
+    \item If the prior is uninformative (\( \sigma_0^2 \to \infty \)),
+    \( E[\theta \mid X] \to m \): reduces to the MLE.
+\end{itemize}
+
+
+
+\subsection*{9. Final Result}
+
+\[
+\boxed{
+p(\theta \mid X) = 
+\mathcal{N}\!\left(
+\mu_n,\ 
+\sigma_n^2
+\right),
+\quad
+\sigma_n^2 = \frac{1}{\tfrac{N}{\sigma^2} + \tfrac{1}{\sigma_0^2}},
+\quad
+\mu_n = \sigma_n^2\!\left(\frac{N m}{\sigma^2} + \frac{\mu_0}{\sigma_0^2}\right).
+}
+\]
 
 \end{document}

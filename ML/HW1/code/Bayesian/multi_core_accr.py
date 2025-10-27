@@ -1,4 +1,4 @@
-"""using numpy to accelerate computing with multi core allowed, using aic to select features"""
+"""using numpy to accelerate computing with multi core allowed"""
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -127,7 +127,7 @@ def estimate(data: Dataset):
     
     params = get_parameters(data)
     if params is None:
-        return -np.inf, 0.5
+        return 0.0, 0.5
     p0, p1, mu0, mu1, cm0, cm1 = params
 
     X_train = X_train_all[:, selected_features]
@@ -140,7 +140,7 @@ def estimate(data: Dataset):
         det1 = np.linalg.det(cm1)
     except np.linalg.LinAlgError:
         print("[ERROR] Singular matrix encountered despite regularization.")
-        return -np.inf, 0.5
+        return 0.0, 0.5
 
     d = X_train.shape[1]
     mu0_v = mu0.reshape(-1, 1)
@@ -159,13 +159,10 @@ def estimate(data: Dataset):
     # posterior
     log_post0 = np.log(p0) + log_px0
     log_post1 = np.log(p1) + log_px1
-    log_den = np.logaddexp(log_post0, log_post1)
+    log_den = np.logaddexp(log_post0, log_post1) 
     
-
-    total_log_likelihood = np.sum(log_den)
-    k = d**2 + 3*d + 1
-    aic = 2 * k - 2 * total_log_likelihood
-    performance = aic
+    scores = np.exp(log_post1 - log_den)
+    performance = evaluation(x=scores, y=y_train)
 
     # test posterior
     x = X_test.reshape(-1, 1)
@@ -183,13 +180,13 @@ def feature_selection(data: Dataset):
     n_features = data.X_test.shape[1]
     
     best_mask = np.zeros(n_features, dtype=bool)
-    best_auc = -np.inf
+    best_auc = 0.0
     best_prior_for_best_mask = 0.5
 
     n = 0
     while n < n_features:
         local_best_mask = best_mask.copy()
-        local_best_auc = -np.inf
+        local_best_auc = -1.0
         local_best_prior = 0.5
 
         for i in range(n_features):
@@ -203,12 +200,12 @@ def feature_selection(data: Dataset):
             local_data.feature_mask = local_mask
 
             local_auc, test_prior_for_this_mask = estimate(local_data)
-            if local_auc > local_best_auc:
+            if local_auc > local_best_auc: # type: ignore
                 local_best_auc = local_auc
                 local_best_mask = local_mask
                 local_best_prior = test_prior_for_this_mask
 
-        if local_best_auc <= best_auc:
+        if local_best_auc <= best_auc: # type: ignore
             break
         else:
             best_auc = local_best_auc
@@ -428,3 +425,36 @@ if __name__ == '__main__':
     print("[INFO] Starting Leave-One-Out Cross-Validation...")
     np.random.seed(98)
     loocv(df)
+
+"""
+- Feature Selection Count:
+NasoFacialA    103
+NoseW          100
+LVermilionH    100
+FaceWmax        99
+LFaceH          98
+LVermilionC     95
+NoseVol         92
+FaceWM          91
+Na-Chin         71
+MouthW          62
+FaceWL          55
+LipH            37
+UVermilionH     35
+UVermilionC     35
+MFaceH          34
+Subn-Chin       33
+NoseSurfA       15
+FaceWU           5
+   LipD          3
+dtype: int64
+
+- Overall Model Performance (from LOOCV posteriors):
+[INFO] ROC Curve is saved as roc_curve.png
+
+ Metrics (using threshold = 0.5):
+    Accuracy:    0.8350 (86/103)
+    Sensitivity: 0.8537 (35/41)
+    Specificity: 0.8226 (51/62)
+ Area Under Curve: 0.9233
+"""

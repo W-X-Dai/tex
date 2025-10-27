@@ -200,12 +200,12 @@ def feature_selection(data: Dataset):
             local_data.feature_mask = local_mask
 
             local_auc, test_prior_for_this_mask = estimate(local_data)
-            if local_auc > local_best_auc:
+            if local_auc > local_best_auc: # type: ignore
                 local_best_auc = local_auc
                 local_best_mask = local_mask
                 local_best_prior = test_prior_for_this_mask
 
-        if local_best_auc <= best_auc:
+        if local_best_auc <= best_auc: # type: ignore
             break
         else:
             best_auc = local_best_auc

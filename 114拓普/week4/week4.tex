@@ -236,7 +236,63 @@
         But we often use \texttt{for} loop when the number of iterations is known.
     \end{frame}
     \begin{frame}[fragile]
-        \frametitle{Another Example}
-    
+        \frametitle{Input until EOF(End of File)}
+        In competitive programming, you often need to read input until the end of the file (EOF). This can be done using a \texttt{while} loop in combination with the \texttt{cin} stream.
+        \begin{minted}{c++}
+            int x;
+            while(cin>>x){
+                // process x
+            }
+        \end{minted}
     \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{Some tricks}
+        If you are not sure when the loop should end, you can use an infinite loop with a \texttt{break} statement to exit the loop when a certain condition is met.
+        \begin{minted}{c++}
+            while(1){
+                // code to be executed
+                if(condition_to_exit){
+                    break;
+                }
+            }
+        \end{minted}
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{Some tricks}
+        If you want to skip the current iteration and move to the next one, you can use the \texttt{continue} statement.
+        \begin{minted}{c++}
+            while(1){
+                // code to be executed
+                if(condition_to_exit){
+                    continue;
+                }
+            }
+        \end{minted}
+        Note that \texttt{break} and \texttt{continue} can be used in both \texttt{for} and \texttt{while} loops, but they only affect the innermost loop they are placed in.
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{Example}
+        Here is an example of using \texttt{continue} in a loop to show only odd numbers from 0 to 9:
+        \begin{minted}{c++}
+            for(int i=0;i<10;i++){
+                if(i%2==0)continue;
+                cout<<i<<'\n';
+            }
+        \end{minted}
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{Common issue}
+        This code snippet demonstrates the use of \texttt{break} inside nested loops. The \texttt{break} statement only exits the innermost loop, not all loops.
+        \begin{minted}{c++}
+            for(int i=0;i<10;i++){
+                for(int j=0;j<10;j++){
+                    if(j==5)break;
+                    cout<<i<<' '<<j<<'\n';
+                }
+            }            
+        \end{minted}
+    \end{frame}
+
+    
+
 \end{document}

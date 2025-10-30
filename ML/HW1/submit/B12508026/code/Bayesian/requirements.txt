@@ -1,0 +1,14 @@
+numpy
+pandas
+matplotlib
+openpyxl
+pymc
+arviz
+xarray
+statsmodels
+patsy
+scikit-learn
+scipy
+joblib
+seaborn
+scikit-optimize

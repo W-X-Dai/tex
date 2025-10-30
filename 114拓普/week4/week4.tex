@@ -1,0 +1,242 @@
+\documentclass[xcolor=dvipsnames]{beamer}
+
+% ==== 主題 ====
+\usetheme{metropolis}
+\usefonttheme{professionalfonts}          % 不覆蓋你自訂的字型
+
+% ==== 字型 ====
+\usepackage{fontspec}
+\usepackage{xeCJK}
+\renewcommand{\familydefault}{\rmdefault} % 使用 serif 字體（重點）
+
+% 西文字型：Times New Roman 的開源替代品
+\setmainfont{TeX Gyre Termes}[
+  Ligatures=TeX,
+  BoldFont={* Bold},
+  ItalicFont={* Italic}
+]
+
+% 中文字型（可改為思源宋體、標楷體等）
+\setCJKmainfont{Noto Serif CJK TC}
+\setCJKsansfont{Noto Sans CJK TC} % 有需要再用
+\setCJKmonofont{Noto Sans Mono CJK TC}
+
+% ==== 數學字型（與正文字體一致）====
+\usepackage{unicode-math}
+\setmathfont{TeX Gyre Termes Math}
+
+% ==== 套件 ====
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{minted}
+\usepackage{fvextra}
+\usepackage{xcolor}
+\usepackage{booktabs}
+
+% ==== 顏色設定（可選）====
+\definecolor{MyBlue}{RGB}{3, 55, 105}
+\setbeamercolor{structure}{fg=MyBlue}
+\setbeamercolor{block title}{bg=MyBlue,fg=white}
+\setbeamercolor{block body}{bg=blue!5}
+\setbeamertemplate{section in toc}{%
+  \inserttocsectionnumber.~\inserttocsection\par
+}
+
+\setminted{
+    linenos,                % 行號
+    frame=lines,            % 上下框線
+    framesep=5pt,           % 程式碼與邊框距離
+    numbersep=8pt,          % 行號與程式碼距離
+    fontsize=\scriptsize,   % 字體大小
+    breaklines,             % 自動換行
+    tabsize=4,              % tab 寬度
+    rulecolor=\color{black},% 框線顏色
+    xleftmargin=1.5em       % 左側縮排
+}
+
+\title{Loop}
+\author{Tai, Wei Hsuan}
+\date{week 4}
+
+\begin{document}
+	\begin{frame}
+		\titlepage
+	\end{frame}
+
+\begin{frame}
+    \frametitle{Announcement}
+    Recording or photographing the slides or any content displayed on the screen is permitted for personal use only. \\[6pt]
+    Redistribution, modification, or any commercial use of the materials is strictly prohibited. \\[12pt]
+    \textit{© 2025 [Tai, Wei Hsuan]. All rights reserved. For personal use only.}
+\end{frame}
+
+
+    % course material qrcode
+    \begin{frame}
+        \frametitle{\href{https://drive.google.com/drive/folders/14Tkn-rddw0k1obeOxkWi00S43M0e9wlW?usp=sharing}{Course Materials}}
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.6\textwidth]{src/qrcode.png}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Outline}
+        \tableofcontents
+    \end{frame}
+
+    \section{Recap}
+    \begin{frame}[fragile]
+        \frametitle{Basic Structure}
+        \begin{minted}{c++}
+            #include<bits/stdc++.h>
+            using namespace std;
+
+            int main(){
+                // code here
+                return 0;
+            }            
+        \end{minted}
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{Variables and basic I/O}
+        \begin{minted}{c++}
+            #include<bits/stdc++.h>
+            using namespace std;
+
+            int main(){
+                int a;
+                cin >>a;
+                cout<<"The value of a is: "<<a<<'\n';
+            }
+        \end{minted}
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{Selection Statements}
+        \begin{minted}{c++}
+            if(condition){
+                // code when condition is true
+            }else if(condition2){
+                // code when condition2 is true
+            }else{
+                // code when both conditions are false
+            }
+        \end{minted}
+    \end{frame}
+    \begin{frame}
+        \frametitle{Example: Leap Year Determination}
+        According to the science state, the total time for the Earth to orbit the Sun is approximately 365.25 days. To account for this extra quarter day, an extra day is added to the calendar every four years, resulting in a leap year with 366 days. However, to further refine the calendar and maintain alignment with the solar year, additional rules are applied:
+        \begin{itemize}
+            \item It can devise by 4.
+            \item It can not devise by 100, unless it can devise by 400.
+        \end{itemize}
+        For instance, the year 2000 is a leap year because it is divisible by 400, while the year 1900 is not a leap year because it is divisible by 100 but not by 400.
+    \end{frame}
+    \begin{frame}
+        \frametitle{Strategy}
+        While executing a determination operator, we should list the levels of conditions from the most general to the most specific, applying the rules from wild to strict (like a sieve), because the strict rule is a subset of the wild rule.
+
+        Though we can utilize \texttt{else if} to avoid redundant checks, but this strategy can also help us to think more clearly.
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{Strategy(cont.)}
+        Take the leap year determination as an example, if you don't care the level of conditions, you may write the code like this:
+        \begin{minted}{c++}
+            if(a%100==0)ly=0;
+            else if(a%400==0)ly=1;
+            else if(a%4==0)ly=1;
+        \end{minted}
+        What's the problem? What if the year is 2000?
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{Strategy(cont.)}
+        In any case, you should list the conditions ranked by their levels ascendingly or descendingly, randomly mixing them is \textbf{CHAOS and EVIL!}
+        
+        One possible correct code is:
+        \begin{minted}{c++}
+            if(a%400==0)ly=1;
+            else if(a%100==0)ly=0;
+            else if(a%4==0)ly=1;
+        \end{minted}
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{Strategy(cont.)}
+        If you list the level from wild to strict, you can even omit the \texttt{else} statements:
+        \begin{minted}{c++}
+            if(a%4==0)ly=1;
+            if(a%100==0)ly=0;
+            if(a%400==0)ly=1;
+        \end{minted}
+    \end{frame}
+
+    \section{Loop}
+    \begin{frame}
+        \frametitle{Basic Conception}
+        If you want to repeat a block of code multiple times, you can use loops. Loops are used to execute a block of code repeatedly until a certain condition is met.
+
+        You can also skip or terminate the loop based on certain conditions using \texttt{continue} and \texttt{break} statements.
+    \end{frame}
+    \begin{frame}
+        \frametitle{Two Types of Loops}
+        There are two primary types of loops in C++:
+        \begin{itemize}
+            \item \textbf{For Loop}: Used when the number of iterations is known beforehand.
+            \item \textbf{While Loop}: Used when the number of iterations is not known beforehand and depends on a condition.
+        \end{itemize}
+        In one word, if you know how many times you want to repeat, use \texttt{for}, otherwise use \texttt{while}.
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{For loop}
+        In the initialization, you can declare and initialize loop control variables that would only be used in the loop. The condition is checked before each iteration, and if it evaluates to true, the loop body is executed. After each iteration, the update statement is executed to modify the loop control variables.
+
+        Remember the variables' scope rules! Variables declared in the initialization part are only accessible within the loop.
+        \begin{minted}{c++}
+            for(initialization; condition; update){
+                // code to be executed
+            }
+        \end{minted}
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{Example}
+        For instance, to print numbers from 1 to 10:
+        \begin{minted}{c++}
+            for(int i=1;i<=10;i++){
+                cout<<i<<'\n';
+            }
+            cout<<i<<'\n'; // Error: i is not defined here
+        \end{minted}
+        One common usage of \texttt{for} loop is to iterate through arrays or collections.
+        \begin{minted}{c++}
+            for(int i=0;i<n;i++){
+                cout<<arr[i]<<'\n';
+            }
+        \end{minted}
+    \end{frame}
+
+    \begin{frame}[fragile]
+        \frametitle{While loop}
+        The \texttt{while} loop continues to execute the block of code as long as the specified condition is true. The condition is checked before each iteration, and if it evaluates to false, the loop terminates.
+        \begin{minted}{c++}
+            while(condition){
+                // code to be executed
+            }
+        \end{minted}
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{Example}
+        For example, to print numbers from 1 to 10 using a \texttt{while} loop:
+        \begin{minted}{c++}
+            int i=1;
+            while(i<=10){
+                cout<<i<<'\n';
+                i++;
+            }
+        \end{minted}
+        But we often use \texttt{for} loop when the number of iterations is known.
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{Another Example}
+    
+    \end{frame}
+\end{document}

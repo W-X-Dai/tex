@@ -69,28 +69,28 @@ For the report, to make my expression more academic and formal, I used ChatGPT t
 In this homework, I implement a Bayesian Decision Model to classify data points based on their features. The model assumes that the data points are generated from a mixture of Gaussian distributions, each corresponding to a different class.
 
 A multivariate Gaussian distribution is defined as follows:
-\begin{equation}
+$$
 p(\mathbf{x}|\mu, \Sigma) = \frac{1}{(2\pi)^{d/2} |\Sigma|^{1/2}} \exp\left(-\frac{1}{2}(\mathbf{x}-\mu)^T \Sigma^{-1} (\mathbf{x}-\mu)\right)
-\end{equation}
+$$
 where $\mu$ is the mean vector, $\Sigma$ is the covariance matrix, and $d$ is the dimensionality of the data.
 
 \subsubsection{Parameter Estimation}
 To estimate the parameters of the Gaussian distributions for each class, the prior probabilities $P(C_i)$, the mean vectors $\mu_i$, and the covariance matrices $\Sigma_i$ for each class $C_i$ are required.
 
 The prior probabilities are estimated as follow, $N_i$ is the number of samples in class $C_i$ and $N$ is the total number of samples.
-\begin{equation}
+$$
 P(C_i) = \frac{N_i}{N}
-\end{equation}
+$$
 
 The mean vector for each class is estimated as:
-\begin{equation}
+$$
 \mu_i = \frac{1}{N_i} \sum_{x \in C_i} x
-\end{equation}
+$$
 
 The covariance matrix for each class is estimated as:
-\begin{equation}
+$$
 \Sigma_i = \frac{1}{N_i} \sum_{x \in C_i} (x - \mu_i)(x - \mu_i)^T
-\end{equation}
+$$
 
 \subsubsection{Feature Selection}
 In this homework, I implement a forward feature selection algorithm to select the best subset of features that maximizes the model's performance. The algorithm starts with an empty set of features and iteratively adds the feature that results in the highest increase in performance, measured by the Area Under the Curve (AUC) of the Receiver Operating Characteristic (ROC) curve.
@@ -244,9 +244,9 @@ Fold 103: ['FaceWL', 'FaceWmax', 'MFaceH', 'LFaceH', 'LVermilionH', 'NoseVol', '
 I'd tried AIC and BIC for feature selection, but they did not perform as well as AUC-based selection in this study (with AUC < 0.7 and selecting the same features repeatedly). 
 
 To discuss this phenomenon, take AIC as an example, AIC is defined as
-\begin{equation}
+$$
 \text{AIC} = 2k - 2\ln(L),
-\end{equation}
+$$
 where $k$ is the number of parameters and $L$ is the maximized likelihood of the model.  Because the number of features (and thus parameters) in the dataset is relatively small, the penalty term $2k$ exerts only a weak influence on the criterion. 
 As a result, AIC becomes dominated by the likelihood term and fails to effectively penalize model complexity, leading to the selection of suboptimal feature subsets. 
 In contrast, using AUC directly as the objective function better reflects the model's discriminative ability and yields feature combinations that improve classification performance.
@@ -309,7 +309,7 @@ The top 2 features selected are NasoFacialA, LVermilionH, and NoseW with LVermil
 
 In the \texttt{code/Bayesian/} directory, \texttt{origin.py} serves as the baseline implementation of the Bayesian classifier without complete outputs and efficiency optimizations. \texttt{numpy\_accr.py} is the complete version that includes all required outputs and NumPy-based vectorization described in this report, while \texttt{multi\_core\_accr.py} integrates multiprocessing optimizations for LOOCV to further enhance computational efficiency.
 
-Parallel processing may not be supported in all environments (the experiments were conducted on Ubuntu 24.04.3 LTS with Linux kernel 6.14.0-33-generic). Therefore, a NumPy-optimized version is also provided for compatibility. If the environment supports multiprocessing, it is recommended to execute the multi-core accelerated version, which produces results within only a few seconds.
+Parallel processing may not be supported in all environments (the experiments were conducted on Ubuntu 24.04.3 LTS with Linux kernel 6.14.0-33-generic, Python 3.10.13). Therefore, a NumPy-optimized version is also provided for compatibility. If the environment supports multiprocessing, it is recommended to execute the multi-core accelerated version, which produces results within only a few seconds.
 
 
 
@@ -367,174 +367,113 @@ Overall, both the Bayesian classifier with feature selection and the Random Fore
 \newpage
 \section{Problem 2}
 
-\subsection*{1. Problem Setup}
+We have the Bayesian equation, where $p(X \mid \theta)$ is the likelihood, $p(\theta)$ is the prior, and $p(X)$ is the evidence.
 
-Assume we have data points 
+$$
+p(\theta \mid X) = \frac{p(X \mid \theta)p(\theta)}{p(X)},
+$$
+
+
+Given \( x^t \mid \theta \sim \mathcal{N}(\theta, \sigma^2) \) (i.i.d.), we have
 \[
-x^t \mid \theta \sim \mathcal{N}(\theta, \sigma^2), \quad t = 1, 2, \ldots, N,
-\]
-and a Gaussian prior on the unknown mean parameter:
-\[
-\theta \sim \mathcal{N}(\mu_0, \sigma_0^2).
-\]
-Our goal is to find the posterior distribution \( p(\theta \mid X) \), where \( X = \{x^1, \ldots, x^N\} \).
-
-
-
-\subsection*{2. Bayes' Rule}
-
-Starting from
-\[
-p(\theta \mid X)p(X) = p(X \mid \theta)p(\theta),
-\]
-we obtain
-\[
-p(\theta \mid X) = \frac{p(X \mid \theta)p(\theta)}{p(X)} \propto p(X \mid \theta)p(\theta),
-\]
-since \( p(X) \) does not depend on \( \theta \).
-
-
-
-\subsection*{3. Likelihood as a Gaussian in \(\theta\)}
-
-Under the i.i.d. assumption,
-\[
-p(X \mid \theta) = \prod_{t=1}^N p(x^t \mid \theta)
-= (2\pi\sigma^2)^{-N/2} \exp\!\left(-\frac{1}{2\sigma^2}\sum_{t=1}^N (x^t - \theta)^2\right).
+p(X \mid \theta)
+= (2\pi\sigma^2)^{-N/2}
+\exp\!\left[-\frac{1}{2\sigma^2}\sum_{t=1}^{N}(x^t - \theta)^2\right].
 \]
 
-Let \( m = \frac{1}{N}\sum_{t=1}^N x^t \) be the sample mean.  
+The prior distribution is
+\[
+p(\theta)
+= (2\pi\sigma_0^2)^{-1/2}
+\exp\!\left[-\frac{1}{2\sigma_0^2}(\theta - \mu_0)^2\right].
+\]
+
+The evidence is defined as following, which ensures that the posterior integrates to 1.
+\[
+p(X) = \int_{-\infty}^{\infty} p(X \mid \theta)p(\theta)\,d\theta,
+\]
+
+Substituting the likelihood and prior into the Bayesian equation, we have the posterior distribution as follows:
+
+\[
+p(\theta \mid X)
+= \frac{
+(2\pi\sigma^2)^{-N/2}(2\pi\sigma_0^2)^{-1/2}
+\exp\!\left[
+-\frac{1}{2\sigma^2}\sum_{t=1}^{N}(x^t - \theta)^2
+-\frac{1}{2\sigma_0^2}(\theta - \mu_0)^2
+\right]
+}{
+p(X)
+}
+\]
+
+This equation form explicitly includes the normalization term \(p(X)\).
+
+Let the sample mean be
+$
+m = \frac{1}{N}\sum_{t=1}^N x^t
+$
 Then,
 \[
 \sum_{t=1}^N (x^t - \theta)^2
-= \sum_{t=1}^N (x^t - m)^2 + N(\theta - m)^2.
+= \sum_{t=1}^N (x^t - m)^2 + N(\theta - m)^2
 \]
-Ignoring terms independent of \( \theta \),
+
+Substituting and absorbing the constant term into \(p(X)\), we have
 \[
-p(X \mid \theta) \propto \exp\!\left(-\frac{N}{2\sigma^2}(\theta - m)^2\right),
+p(\theta \mid X)
+= \frac{1}{Z}
+\exp\!\left[
+-\frac{1}{2}
+\left(
+\frac{N}{\sigma^2}(\theta - m)^2
++ \frac{1}{\sigma_0^2}(\theta - \mu_0)^2
+\right)
+\right]
 \]
-which is a Gaussian density in \( \theta \):
+
+where \(Z\) is the updated normalization constant (related to \(p(X)\)).
+
+Define
 \[
-p(X \mid \theta) \equiv \mathcal{N}\!\left(\theta; m, \frac{\sigma^2}{N}\right).
+A = \frac{N}{\sigma^2} + \frac{1}{\sigma_0^2}, \qquad
+B = \frac{N m}{\sigma^2} + \frac{\mu_0}{\sigma_0^2}.
 \]
 
-
-
-\subsection*{4. Multiplying Two Gaussian Distributions}
-
-The prior is
+Then, we have
 \[
-p(\theta) = \mathcal{N}(\theta; \mu_0, \sigma_0^2).
+\frac{N}{\sigma^2}(\theta - m)^2 + \frac{1}{\sigma_0^2}(\theta - \mu_0)^2
+= A\!\left(\theta - \frac{B}{A}\right)^2 + \text{constant}.
 \]
 
-Hence, the unnormalized posterior is
+Substitute this result back:
 \[
-p(\theta \mid X) \propto p(X \mid \theta)p(\theta)
-= \mathcal{N}\!\left(\theta; m, \frac{\sigma^2}{N}\right)
-  \times \mathcal{N}\!\left(\theta; \mu_0, \sigma_0^2\right).
+p(\theta \mid X)
+= \frac{1}{\sqrt{2\pi\sigma_n^2}}
+\exp\!\left[-\frac{(\theta - \mu_n)^2}{2\sigma_n^2}\right],
 \]
 
-
-
-\subsection*{5. Product of Two Gaussians}
-
-For any two Gaussian densities
-\[
-\mathcal{N}(\theta; \mu_1, \sigma_1^2)
-\quad \text{and} \quad
-\mathcal{N}(\theta; \mu_2, \sigma_2^2),
-\]
-their product is proportional to another Gaussian:
-\[
-\mathcal{N}(\theta; \mu_1, \sigma_1^2)\,
-\mathcal{N}(\theta; \mu_2, \sigma_2^2)
-\propto
-\mathcal{N}(\theta; \mu', \sigma'^2),
-\]
 where
-\[
-\sigma'^2 = \frac{1}{\frac{1}{\sigma_1^2} + \frac{1}{\sigma_2^2}},
+$$
+\sigma_n^2 = \frac{1}{A}
+= \frac{1}{\tfrac{N}{\sigma^2} + \tfrac{1}{\sigma_0^2}},
 \quad
-\mu' = \sigma'^2\!\left(\frac{\mu_1}{\sigma_1^2} + \frac{\mu_2}{\sigma_2^2}\right).
-\]
+\mu_n = \frac{B}{A}
+= \frac{\tfrac{N m}{\sigma^2} + \tfrac{\mu_0}{\sigma_0^2}}
+{\tfrac{N}{\sigma^2} + \tfrac{1}{\sigma_0^2}}.
+$$
 
-
-
-\subsection*{6. Applying the Gaussian Product Formula}
-
-By identifying parameters:
+Because the posterior \(p(\theta \mid X)\) is Gaussian, its expectation equals its mean:
 \[
-(\mu_1, \sigma_1^2) = (m, \tfrac{\sigma^2}{N}), 
-\quad 
-(\mu_2, \sigma_2^2) = (\mu_0, \sigma_0^2),
-\]
-we obtain the posterior parameters:
-\[
-\sigma_n^2 = \frac{1}{\frac{N}{\sigma^2} + \frac{1}{\sigma_0^2}},
-\quad
-\mu_n = \sigma_n^2\!\left(\frac{N m}{\sigma^2} + \frac{\mu_0}{\sigma_0^2}\right).
+E[\theta \mid X] = \mu_n.
 \]
 
-Thus, the posterior distribution is:
-\[
-p(\theta \mid X) = \mathcal{N}(\theta; \mu_n, \sigma_n^2).
-\]
-
-
-
-\subsection*{7. Posterior Mean and Interpretation}
-
-The posterior mean (the Bayesian estimator) is:
-\[
-E[\theta \mid X] = \mu_n
-= 
-\frac{\frac{N}{\sigma^2}}{\frac{N}{\sigma^2} + \frac{1}{\sigma_0^2}}\,m
-+
-\frac{\frac{1}{\sigma_0^2}}{\frac{N}{\sigma^2} + \frac{1}{\sigma_0^2}}\,\mu_0.
-\]
-
-\noindent
-This is a precision-weighted average:
+Thus,
 \[
 E[\theta \mid X]
-= w_{\text{data}}\, m + w_{\text{prior}}\, \mu_0,
-\]
-where
-\[
-w_{\text{data}} = \frac{N/\sigma^2}{N/\sigma^2 + 1/\sigma_0^2},
-\quad
-w_{\text{prior}} = \frac{1/\sigma_0^2}{N/\sigma^2 + 1/\sigma_0^2}.
-\]
-
-
-
-\subsection*{8. Limiting Cases}
-
-\begin{itemize}
-    \item If the data are abundant (\( N \to \infty \)), 
-    \( E[\theta \mid X] \to m \): posterior dominated by data.
-    \item If the prior is very confident (\( \sigma_0^2 \to 0 \)), 
-    \( E[\theta \mid X] \to \mu_0 \): posterior dominated by prior.
-    \item If the prior is uninformative (\( \sigma_0^2 \to \infty \)),
-    \( E[\theta \mid X] \to m \): reduces to the MLE.
-\end{itemize}
-
-
-
-\subsection*{9. Final Result}
-
-\[
-\boxed{
-p(\theta \mid X) = 
-\mathcal{N}\!\left(
-\mu_n,\ 
-\sigma_n^2
-\right),
-\quad
-\sigma_n^2 = \frac{1}{\tfrac{N}{\sigma^2} + \tfrac{1}{\sigma_0^2}},
-\quad
-\mu_n = \sigma_n^2\!\left(\frac{N m}{\sigma^2} + \frac{\mu_0}{\sigma_0^2}\right).
-}
+= \frac{\tfrac{N}{\sigma^2}}{\tfrac{N}{\sigma^2} + \tfrac{1}{\sigma_0^2}}\,m
++ \frac{\tfrac{1}{\sigma_0^2}}{\tfrac{N}{\sigma^2} + \tfrac{1}{\sigma_0^2}}\,\mu_0.
 \]
 
 \end{document}

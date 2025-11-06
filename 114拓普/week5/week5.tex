@@ -1,0 +1,293 @@
+\documentclass[xcolor=dvipsnames]{beamer}
+
+% ==== 主題 ====
+\usetheme{metropolis}
+\usefonttheme{professionalfonts}          % 不覆蓋你自訂的字型
+
+% ==== 字型 ====
+\usepackage{fontspec}
+\usepackage{xeCJK}
+\renewcommand{\familydefault}{\rmdefault} % 使用 serif 字體（重點）
+
+% 西文字型：Times New Roman 的開源替代品
+\setmainfont{TeX Gyre Termes}[
+  Ligatures=TeX,
+  BoldFont={* Bold},
+  ItalicFont={* Italic}
+]
+
+% 中文字型（可改為思源宋體、標楷體等）
+\setCJKmainfont{Noto Serif CJK TC}
+\setCJKsansfont{Noto Sans CJK TC} % 有需要再用
+\setCJKmonofont{Noto Sans Mono CJK TC}
+
+% ==== 數學字型（與正文字體一致）====
+\usepackage{unicode-math}
+\setmathfont{TeX Gyre Termes Math}
+
+% ==== 套件 ====
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{minted}
+\usepackage{fvextra}
+\usepackage{xcolor}
+\usepackage{booktabs}
+
+% ==== 顏色設定（可選）====
+\definecolor{MyBlue}{RGB}{3, 55, 105}
+\setbeamercolor{structure}{fg=MyBlue}
+\setbeamercolor{block title}{bg=MyBlue,fg=white}
+\setbeamercolor{block body}{bg=blue!5}
+\setbeamertemplate{section in toc}{%
+  \inserttocsectionnumber.~\inserttocsection\par
+}
+
+\setminted{
+    linenos,                % 行號
+    frame=lines,            % 上下框線
+    framesep=5pt,           % 程式碼與邊框距離
+    numbersep=8pt,          % 行號與程式碼距離
+    fontsize=\scriptsize,   % 字體大小
+    breaklines,             % 自動換行
+    tabsize=4,              % tab 寬度
+    rulecolor=\color{black},% 框線顏色
+    xleftmargin=1.5em       % 左側縮排
+}
+
+\title{Nested Loop, Arrays}
+\author{Tai, Wei Hsuan}
+\date{week 5}
+
+\begin{document}
+	\begin{frame}
+		\titlepage
+	\end{frame}
+
+\begin{frame}
+    \frametitle{Announcement}
+    Recording or photographing the slides or any content displayed on the screen is permitted for personal use only. \\[6pt]
+    Redistribution, modification, or any commercial use of the materials is strictly prohibited. \\[12pt]
+    \textit{© 2025 [Tai, Wei Hsuan]. All rights reserved. For personal use only.}
+\end{frame}
+
+
+    % course material qrcode
+    \begin{frame}
+        \frametitle{\href{https://drive.google.com/drive/folders/14Tkn-rddw0k1obeOxkWi00S43M0e9wlW?usp=sharing}{Course Materials}}
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.6\textwidth]{src/qrcode.png}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{進度安排}
+        \makebox[\linewidth][c]{%
+            \begin{tabular}{cl cl}
+            \toprule
+            日期 & 主題 & 日期 & 主題 \\
+            \midrule
+            9/12  & 課程簡介、基礎輸入輸出、變數   & 11/28 & 函式 \\
+            9/19  & 變數的運算           & 12/5  & 遞迴 \\
+            10/17 & 選擇結構與邏輯運算子     & 12/12 & Struct, Vector\\
+            10/31 & 重複結構                 & 12/19 & Stack, Queue \\
+            11/7  & 巢狀迴圈、陣列                 & 12/26 & TBD \\
+            11/21 & 期中考                   & 1/2   & TBD \\
+                &                          & 1/9   & 期末考 \\
+            \bottomrule
+            \end{tabular}
+        }
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Outline}
+        \tableofcontents
+    \end{frame}
+
+    \section{Recap}
+    \begin{frame}[fragile]
+        \frametitle{Basic Structure}
+        \begin{minted}{c++}
+            #include<bits/stdc++.h>
+            using namespace std;
+
+            int main(){
+                // code here
+                return 0;
+            }            
+        \end{minted}
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{Variables and basic I/O}
+        \begin{minted}{c++}
+            #include<bits/stdc++.h>
+            using namespace std;
+
+            int main(){
+                int a;
+                cin >>a;
+                cout<<"The value of a is: "<<a<<'\n';
+            }
+        \end{minted}
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{Selection Statements}
+        \begin{minted}{c++}
+            if(condition){
+                // code when condition is true
+            }else if(condition2){
+                // code when condition2 is true
+            }else{
+                // code when both conditions are false
+            }
+        \end{minted}
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{for loop}
+        How to utilize \texttt{for} loop to print odd numbers from 1 to n?
+        \begin{minted}{c++}
+            int n;
+            cin >>n;
+            for(int i=1;i<=n;i++){
+                if(i%2==1){
+                    cout<<i<<'\n';
+                }
+            }
+        \end{minted}
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{for loop(cont.)}
+        You can also:
+        \begin{minted}{c++}
+            int n;
+            cin >>n;
+            for(int i=1;i<=n;i+=2){
+                cout<<i<<'\n';
+            }
+        \end{minted}
+        Question: Can you use \texttt{continue} to achieve the same effect?
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{while loop}
+        \begin{minted}{c++}
+            int i=1, n;
+            cin >>n;         
+            while(i<=n){
+                cout<<i<<'\n';
+                i+=2;
+            }   
+        \end{minted}
+    \end{frame}
+    \begin{frame}
+        \frametitle{Prime Number Detection}
+        Given a positive integer n, how to determine whether it is a prime number?
+        
+        It is well known that a prime number is a natural number greater than 1 that cannot be formed by multiplying two smaller natural numbers. In other words, a prime number has exactly two distinct positive divisors: 1 and itself.
+
+        Thus, we can just check whether n is divisible by any integer from 2 to n-1.
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{Implementation}
+        \begin{minted}{c++}
+            int n;
+            cin >>n;
+            bool is_prime=true;
+            for(int i=2;i<n;i++){
+                if(n%i==0){
+                    is_prime=false;
+                    break;
+                }
+            }
+            if(is_prime)cout<<n<<" is a prime number.\n";
+            else cout<<n<<" is not a prime number.\n";
+        \end{minted}
+        The above implementation has a small error. Can you spot it?
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{Little Error}
+        What if the input n is 1? By definition, 1 is not a prime number. However, the above code will output that 1 is a prime number.
+        To fix this, we can add a condition to check if n is less than or equal to 1.
+        \begin{minted}{c++}
+            int n;
+            cin >>n;
+            bool is_prime=true;
+            if(n<=1)is_prime=false;
+            for(int i=2;i<n;i++){
+                if(n%i==0){
+                    is_prime=false;
+                    break;
+                }
+            }
+            if(is_prime)cout<<n<<" is a prime number.\n";
+            else cout<<n<<" is not a prime number.\n";
+        \end{minted}
+    \end{frame}
+    \begin{frame}
+        \frametitle{Optimization}
+        A computer can do about $10^8$ operations per second. If n is very large (e.g., $10^12$), the above algorithm may take too long to run.
+
+        Note that if n is divisible by a number larger than $\sqrt{n}$, the corresponding divisor must be smaller than $\sqrt{n}$. Therefore, we only need to check for divisibility up to $\sqrt{n}$.
+
+        With this optimization, we can efficiently determine the primality of large numbers.
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{Implementation}
+        \begin{minted}{c++}
+            int n;
+            cin >>n;
+            bool is_prime=true;
+            if(n<=1)is_prime=false;
+            for(int i=2;i*i<=n;i++){
+                if(n%i==0){
+                    is_prime=false;
+                    break;
+                }
+            }
+            if(is_prime)cout<<n<<" is a prime number.\n";
+            else cout<<n<<" is not a prime number.\n";
+        \end{minted}
+    \end{frame}    
+
+    \section{Nested Loop}
+    \begin{frame}
+        \frametitle{Nested Loop}
+        The main idea is, anything can be inserted into a loop, including another loop. If we want to do some loop repeatedly, we can use nested loops.
+
+        For instance, how to print a $5\times 4$ rectangle of asterisks(*)? Note that there are 5 rows and 4 columns.
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{Implementation}
+        \begin{minted}{c++}
+            for(int i=1;i<=5;i++){          
+                for(int j=1;j<=4;j++){     
+                    cout<<"*";
+                }
+                cout<<'\n';                  
+            }
+        \end{minted}
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{Another example}
+        Note that in the inner loop, the veiables defined in the outer loop are also accessible. Thus, we can use nested loops to print a multiplication table.
+        \begin{minted}{c++}
+            for(int i=1;i<=9;i++){  
+                for(int j=1;j<=9;j++){   
+                    cout<<i<<"x"<<j<<"="<<i*j<<'\t';
+                }
+                cout<<'\n';                  
+            }
+        \end{minted}
+    \end{frame}
+    \begin{frame}
+        \frametitle{Practice}
+        ZeroJudge Problem c418: \href{https://zerojudge.tw/ShowProblem?problemid=c418}{c418. Bert的三角形 (1)}
+    \end{frame}
+
+    \section{Arrays}
+    \begin{frame}
+        \frametitle{Basic Concept}
+        If you regard variables as boxes that can store a single value, then an array is like a row of boxes that can store multiple values of the same type. Each box in the array can be accessed using an index, which indicates its position in the array. In fact, arrays are contiguous memory locations that store multiple values of the same type.
+    \end{frame}
+
+\end{document}

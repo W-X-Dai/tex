@@ -289,5 +289,53 @@
         \frametitle{Basic Concept}
         If you regard variables as boxes that can store a single value, then an array is like a row of boxes that can store multiple values of the same type. Each box in the array can be accessed using an index, which indicates its position in the array. In fact, arrays are contiguous memory locations that store multiple values of the same type.
     \end{frame}
+    \begin{frame}
+        \frametitle{Declare an Array}
+        In the previous page, we know that an array is a collection of variables of the same type. To declare an array, we need to specify the type of the elements and the number of elements in the array. The syntax is similar to variables declaration, as follows:\texttt{TYPE IDENTIFIER[SIZE]}
+
+        For instance, \texttt{int a[10]} declares an array of 10 integers.
+    \end{frame}
+    \begin{frame}
+        \frametitle{Usage of Arrays}
+        You can consider each element in the array as a separate variable. You can access and modify each element using its index. Note that the index starts from 0. For example, to access the first element of the array \texttt{a}, you can use \texttt{a[0]}. To access the second element, you can use \texttt{a[1]}, and so on.
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{Some examples}
+        \begin{minted}{c++}
+            int a[5];
+            for(int i=0;i<5;++i){
+                cin>>a[i];
+            }
+            for(int i=0;i<5;++i){
+                cout<<a[i]<<" ";
+            }
+        \end{minted}
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{String}
+        Sometimes, the format of the input is a string of characters. In C++, we can use a character array to store a string. However, a character array is inconvenient to use. Thus, C++ provides a built-in string type that is easier to use. Here is an example of using a string:
+        \begin{minted}{c++}
+            string s;
+            cin >>s;
+            cout<<"The input string is: "<<s<<'\n';
+            cout<<"The length of the string is: "<<s.size()<<'\n';
+            cout<<"The first character of the string is: "<<s[0]<<'\n';
+        \end{minted}
+    \end{frame}
+    \begin{frame}
+        \frametitle{String(cont.)}
+        Note that the index of a string also starts from 0. Thus, the first character of the string is at index 0, the second character is at index 1, and so on. You can also use a loop to iterate through each character in the string.
+
+        You can consider a string as a flexible array of characters that can grow or shrink in size as needed. The usage of strings is similar to arrays, but strings have additional functionalities that make them easier to work with. If you truly interest in string, you can refer to \href{https://cplusplus.com/reference/string/string/}{C++ String Reference} for more details.
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Practice}
+        \begin{itemize}
+            \item Given n numbers, list them in reverse order.
+            \item Given n numbers, list the frequency of each number.
+            \item The formula of standard deviation is:$SD=\sqrt{\frac{1}{n}\sum_{i=1}^{n}(x_i-\mu)^2}$, where $\mu$ is the mean of the n numbers. Given n numbers, calculate the standard deviation.
+        \end{itemize}
+    \end{frame}
 
 \end{document}

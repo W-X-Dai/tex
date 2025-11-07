@@ -47,7 +47,7 @@
 \maketitle
 
 \lhead{Week 5 Solutions}
-\rhead{Tai, Wei-Hsuan}
+\rhead{\today}
 
 \begin{enumerate}
     \item Given n numbers, list them in reverse order.
@@ -79,7 +79,7 @@ int main(){
 }
         \end{minted}
     \end{itemize}
-    \item Given n numbers, list the frequency of each number.
+    \item Given n numbers, list the frequency of each number. Note that the numbers are all between 0 and 100.
     \begin{itemize}
         \item Idea: Use an array to count the frequency of each number.
         \item Sample Input:
@@ -152,7 +152,125 @@ int main(){
     \end{itemize}
     \item Given n numbers, find the length of the longest continuous increasing subsequence.
     \begin{itemize}
-        \item Idea: Enumerate the strat of the subsequence, and extend it as long as possible.
+        \item Idea: Enumerate the start of the subsequence, and extend it as long as possible.
+        \item Sample Input:
+        \begin{minted}{text}
+13
+10 22 9 33 21 50 41 60 80 3 5 7 8
+        \end{minted}
+        \item Sample Output:
+        \begin{minted}{text}
+4
+        \end{minted}
+        \item Solution:
+        \begin{minted}{c++}
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    int arr[10005], n, mx=-1;
+    cin >>n;
+    for(int i=0;i<n;++i)cin >>arr[i];
+    
+    for(int i=0;i<n;++i){
+        for(int j=0;i+j<n;++j){
+            int now=i+j;
+            if(j==0 || arr[now]>arr[now-1]){
+                mx=max(mx, j+1);
+            }
+            else break;
+        }
+    }
+    cout<<mx<<'\n';
+}
+        \end{minted}
+    \end{itemize}
+    \item Given n numbers, find their greatest common divisor (GCD) and least common multiple (LCM).
+    \begin{itemize}
+        \item Idea: Enumerate all numbers to find the GCD and LCM.
+        \item Sample Input:
+        \begin{minted}{text}
+5
+12 18 24 30 42
+        \end{minted}
+        \item Sample Output:
+        \begin{minted}{text}
+6 2520
+        \end{minted}
+        \item Solution:
+        \begin{minted}{c++}
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    int arr[10005], n, GCD, LCM, mi=1e9, ma=-1e9;
+    cin >>n;
+    for(int i=0;i<n;++i)cin >>arr[i], mi=min(mi, arr[i]), ma=max(ma, arr[i]);
+
+    GCD=1;
+    for(int i=1;i<=mi;++i){
+        bool flag=true;
+        for(int j=0;j<n;++j){
+            if(arr[j]%i!=0){
+                flag=false;
+                break;
+            }
+        }
+        if(flag)GCD=i;
+    }
+
+    LCM=ma;
+    for(int i=ma;;++i){
+        bool flag=true;
+        for(int j=0;j<n;++j){
+            if(i%arr[j]!=0){
+                flag=false;
+                break;
+            }
+        }
+        if(flag){
+            LCM=i;
+            break;
+        }
+    }
+    cout<<GCD<<" "<<LCM<<'\n';
+}
+        \end{minted}
+    \end{itemize}
+    \item Given n numbers, find the maximum sum of any contiguous subarray (elements in the array may be negative).
+    \begin{itemize}
+        \item Idea: Enumerate the start and end of the subarray, and calculate the sum.
+        \item Sample Input:
+        \begin{minted}{text}
+7
+-2 1 -3 4 1 -1 5
+        \end{minted}
+        \item Sample Output:
+        \begin{minted}{text}
+9
+        \end{minted}
+        \item Solution:
+        \begin{minted}{c++}
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    int arr[10005], n;
+    cin >>n;
+    for(int i=0;i<n;++i)cin >>arr[i];
+
+    int ma=-1e9, cur=0;
+    for(int i=0;i<n;++i){
+        for(int j=i;j<n;++j){
+            cur+=arr[j];
+            ma=max(ma, cur);
+        }
+        cur=0;
+    }
+
+    cout<<ma<<'\n';
+}
+        \end{minted}
     \end{itemize}
 \end{enumerate}
 

@@ -2,10 +2,16 @@
 using namespace std;
 
 int main(){
-    for(int i=1;i<=9;i++){          // outer loop for rows
-        for(int j=1;j<=9;j++){      // inner loop for columns
-            cout<<i<<"x"<<j<<"="<<i*j<<'\t';       // print the product
+    int arr[10005], n, mx=-1;
+    for(int i=0;i<n;++i)cin >>arr[i];
+    
+    for(int i=0;i<n;++i){
+        for(int j=1;j<n;++j){
+
         }
-        cout<<'\n';                  // new line after each row
     }
 }
+/*
+13
+1 2 3 4 2 3 4 5 3 4 5 6 7
+*/

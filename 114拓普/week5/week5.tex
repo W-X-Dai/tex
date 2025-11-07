@@ -248,6 +248,12 @@
             else cout<<n<<" is not a prime number.\n";
         \end{minted}
     \end{frame}    
+    \begin{frame}
+        \frametitle{Scope of the variables}
+        The scope of a variable is the region of the program where the variable is defined and can be accessed. In C++, the scope of a variable is determined by where it is declared. Variables declared inside a block (enclosed by curly braces \{\}) are local to that block and cannot be accessed outside of it. Variables declared outside of any block are global and can be accessed from anywhere in the program.
+
+        If you declare a variable globally, the variable will automatically be initialized to zero. However, if you declare a variable locally, the variable will have a random value if not initialized.
+    \end{frame}
 
     \section{Nested Loop}
     \begin{frame}
@@ -299,6 +305,21 @@
         \frametitle{Usage of Arrays}
         You can consider each element in the array as a separate variable. You can access and modify each element using its index. Note that the index starts from 0. For example, to access the first element of the array \texttt{a}, you can use \texttt{a[0]}. To access the second element, you can use \texttt{a[1]}, and so on.
     \end{frame}
+    \begin{frame}
+        \frametitle{Initialize an Array}
+        As variables, the values of the elements in an array are also random if not initialized. Thus, we often initialize an array when declaring it. The simplest way to initialize an array is to set all elements to zero. We can do this by adding \texttt{=\{0\}} after the declaration. For example, \texttt{int a[10]=\{0\}} declares an array of 10 integers and initializes all elements to zero.
+
+        Declaring an array globally will also initialize all elements to zero automatically.
+    \end{frame}
+    \begin{frame}
+        \frametitle{Notes of Arrays}
+        \begin{itemize}
+            \item The size of the array is fixed while declaring it. You cannot change the size of the array after declaring it.
+            \item Using a variable as the size of the array is illegal. The size must be a constant integer. Some compilers may allow it as an extension, but it is not standard C++ (i.e., not portable).
+            \item The maximum size of an array is determined by the amount of memory available. The limit of a global array is about several million elements, while the limit of a local array is about a few tens of thousands of elements. 
+        \end{itemize}
+    \end{frame}
+
     \begin{frame}[fragile]
         \frametitle{Some examples}
         \begin{minted}{c++}
@@ -331,11 +352,14 @@
 
     \begin{frame}
         \frametitle{Practice}
-        \begin{itemize}
+        \begin{enumerate}
             \item Given n numbers, list them in reverse order.
-            \item Given n numbers, list the frequency of each number.
+            \item Given n numbers, list the frequency of each number, each number is between 1 and 100.
             \item The formula of standard deviation is:$SD=\sqrt{\frac{1}{n}\sum_{i=1}^{n}(x_i-\mu)^2}$, where $\mu$ is the mean of the n numbers. Given n numbers, calculate the standard deviation.
-        \end{itemize}
+            \item Given n numbers, find the length of the longest continuous increasing subsequence.
+            \item Given n numbers, find their greatest common divisor (GCD) and least common multiple (LCM).
+            \item Given n numbers, find the maximum sum of any contiguous subarray (elements in the array may be negative).
+        \end{enumerate}
     \end{frame}
 
 \end{document}

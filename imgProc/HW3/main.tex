@@ -46,7 +46,7 @@
 
 \maketitle
 
-\lhead{lhead}
+\lhead{Fundamentals of Biomedical Image Processing HW 3}
 \rhead{B12508026戴偉璿}
 
 \section{Theoretical Questions}
@@ -325,7 +325,7 @@ img_ori = cv2.imread('../src/Fig2.gif', 0)
 if img_ori is None:
     raise ValueError("Image not found or unable to load.")
 
-# Get the eroded image
+# Get the edge of the image
 thresh = 128
 img = np.zeros_like(img_ori, dtype=np.uint8)
 img[img_ori >= thresh] = 255

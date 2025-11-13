@@ -1,0 +1,112 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage{xeCJK}
+\usepackage{fontspec}
+\setCJKmainfont{Noto Serif CJK TC}[Script=CJK]
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\setlength{\headheight}{14.5pt}
+\addtolength{\topmargin}{-2.5pt}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{caption}
+\usepackage{indentfirst}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{float}
+\usepackage{minted}
+\setlength{\parindent}{2em}
+\pagestyle{fancy}
+\fancyhf{}
+\cfoot{\thepage}
+\linespread{1.3}
+\setminted{
+    linenos,                % 行號
+    frame=lines,            % 上下框線
+    framesep=5pt,           % 程式碼與邊框距離
+    numbersep=8pt,          % 行號與程式碼距離
+    fontsize=\scriptsize,   % 字體大小
+    breaklines,             % 自動換行
+    tabsize=4,              % tab 寬度
+    rulecolor=\color{black},% 框線顏色
+    xleftmargin=1.5em       % 左側縮排
+}
+\usepackage{pgffor} % for loop
+\usepackage{subcaption} % for subfigure environment
+
+\title{資料庫管理 HW04}
+\author{B12508026戴偉璿}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\lhead{資料庫管理 HW04}
+\rhead{B12508026戴偉璿}
+
+\begin{enumerate}
+    \item To check if PostgreSQL can avoid dirty read, I design two transactions:
+    \begin{itemize}
+        \item Transaction A: Update balance to 999 of account\_id 1
+        \begin{minted}{sql}
+            begin;
+            update accounts set balance = 999 where account_id = 1;
+            commit;
+        \end{minted}
+        \item Transaction B: Read the record.
+        \begin{minted}{sql}
+            begin; select * from accounts where account_id = 1; commit;
+            
+            
+        \end{minted}
+    \end{itemize}
+    The execution steps are as follows:
+    \begin{enumerate}
+        \item Transaction A begins.
+        \item Transaction A updates balance to 999 of account\_id 1, but does not commit yet.
+        \item Transaction B begins.
+        \item Transaction B reads the record of account\_id 1.
+        \item Transaction B gets the old balance (not 999), which means dirty read is avoided.
+        \item Transaction B commits.
+        \item Transaction A commits.
+        \item Transaction B begins.
+        \item Transaction B reads the record of account\_id 1.
+        \item Transaction B gets the new balance (999) after Transaction A commits.
+        \item Transaction B commits.
+    \end{enumerate}
+
+    Following are the screenshots of each step. Left panel shows Transaction A, right panel shows Transaction B. Figure \ref{fig:1-1} shows the original status of the accounts table, we can see the balance of account\_id 1 is 1000. Figure \ref{fig:1-2} shows Transaction A updates balance to 999 of account\_id 1 but does not commit yet, so that Transaction B still reads the old balance (1000). Figure \ref{fig:1-3} shows Transaction A commits, and then Transaction B reads the new balance (999) of account\_id 1. You can determine the execution order by the system time shown in the top of each figure.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1\textwidth]{src/1-1.png}
+        \caption{Orginal status of the accounts table}
+        \label{fig:1-1}
+    \end{figure}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1\textwidth]{src/1-2.png}
+        \caption{Transaction A updates balance to 999 of account\_id 1, but does not commit yet}
+        \label{fig:1-2}
+    \end{figure}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1\textwidth]{src/1-3.png}
+        \caption{Transaction A commits, Transaction B reads the new balance (999) of account\_id 1}
+        \label{fig:1-3}
+    \end{figure}
+
+    With the experiments above, we can see that PostgreSQL can avoid dirty read.
+    \item
+    \begin{enumerate}
+        \item Only the write 
+    \end{enumerate}
+\end{enumerate}
+
+\end{document}

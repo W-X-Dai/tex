@@ -105,7 +105,37 @@
     With the experiments above, we can see that PostgreSQL can avoid dirty read.
     \item
     \begin{enumerate}
-        \item Only the write 
+        \item A conflict occurs when two transactions access the same data item and at least one of the acceses is a write operation. For item $X$, three conflicts occurs between  $\{O_{11}, O_{23}\}$, $\{O_{17}, O_{21}\}$, $\{O_{17}, O_{23}\}$; for itme $Y$, there are no conflicts; for item $Z$, two conflicts occurs between $\{O_{15}, O_{24}\}$, $\{O_{15}, O_{26}\}$.
+        \item The serial schedule of $T_2 \rightarrow T_1$ is as follows:
+        $$
+        O_{21}\rightarrow O_{23}\rightarrow O_{24}\rightarrow O_{26}\rightarrow
+        O_{11}\rightarrow O_{12}\rightarrow O_{13}\rightarrow O_{15}\rightarrow O_{17}.
+        $$
+
+        To analyze the conflicting operation pairs, we can discuss by data items:
+
+        For item $X$, the operation order must obey: $O_{21}\prec O_{23}\prec O_{17}$, $O_{23}\prec O_{11}\prec O_{17}$
+
+        For item $Y$, there are no conflicts, so there is no constraint.
+
+        For item $Z$, the operation order must obey: $O_{24}\prec O_{26}\prec O_{15}$
+
+        Therefore, one such conflict-equivalent non-serial schedule is:
+        $$
+        O_{21}\rightarrow O_{23}\rightarrow O_{11}\rightarrow 
+        O_{24}\rightarrow O_{26}\rightarrow 
+        O_{12}\rightarrow O_{13}\rightarrow O_{15}\rightarrow O_{17}.
+        $$
+
+        \item The serial schedule of $T_1 \rightarrow T_2$ is as follows:
+        $$
+        O_{11}\rightarrow O_{12}\rightarrow O_{13}\rightarrow O_{15}\rightarrow O_{17}\rightarrow
+        O_{21}\rightarrow O_{23}\rightarrow O_{24}\rightarrow O_{26}.
+        $$
+
+        Consider the last operation of $T_1$ and the first operation of $T_2$, we have $O_{17}\prec O_{21}$ because $O_{17}$ is the write operation and they access the same data item $X$.
+        
+        To maintain the order within the transactions, $O_{17}$ must be the last operation in the schedule and $O_{21}$ must be the first operation in the schedule. From the analyze above, $O_{21}$ must after $O_{17}$. Therefore, there is no such conflict-equivalent non-serial schedule.
     \end{enumerate}
 \end{enumerate}
 

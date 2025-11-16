@@ -137,6 +137,11 @@
         
         To maintain the order within the transactions, $O_{17}$ must be the last operation in the schedule and $O_{21}$ must be the first operation in the schedule. From the analyze above, $O_{21}$ must after $O_{17}$. Therefore, there is no such conflict-equivalent non-serial schedule.
     \end{enumerate}
+    \item Lost update often occurs when two transactions read the same version of a data item and then update it based on that old value. This causes one update to overwrite the other, resulting in one update being lost. To address this issue, we can acquire a read lock before reading the data item so that other transactions cannot write to it until the read lock is released. This prevents the read operation from being interfered with by concurrent writes. Before updating the data, we can upgrade the read lock to a write lock to prevent other transactions from reading or writing the item until the write lock is released. This prevents other transactions from accessing the data while it is being updated, ensuring data integrity.
+    \item 
+    \begin{enumerate}
+        \item This SQL statement querys the top 10 reserved sales departure from station id 1030 and arrival station id 1000 at 2023-08-01.
+    \end{enumerate}
 \end{enumerate}
 
 \end{document}

@@ -162,9 +162,10 @@
             
         \end{minted}
         
-        \item Following is the code to create index on \texttt{trip\_id}, \texttt{depart\_station\_id},\\ and \texttt{arrive\_station\_id}:   
+        \item Following is the code to create index on \texttt{trip\_id}, \texttt{depart\_station\_id},\\ and \texttt{arrive\_station\_id}, \texttt{trip\_id} apprears in both \texttt{pass} and \texttt{reserved\_ticket} table, but the botttleneck is in the subquery which accesses \texttt{reserved\_ticket} table, so I decide to create index on \texttt{trip\_id} in \texttt{reserved\_ticket} table.
+        
         \begin{minted}{sql}
-create index idx_trip_id on pass(trip_id);
+create index idx_trip_id on reserved_ticket(trip_id);
 
 create index idx_depart_station_id on reserved_ticket(depart_station_id);
 
@@ -172,66 +173,193 @@ create index idx_arrive_station_id on reserved_ticket(arrive_station_id);
         \end{minted}
         Following is the query plan after creating index on \texttt{trip\_id}
         \begin{minted}{sql}
- Limit  (cost=66.83..196.66 rows=10 width=28)
-   ->  Result  (cost=66.83..560.17 rows=38 width=28)
-         ->  Sort  (cost=66.83..66.93 rows=38 width=20)
+ Limit  (cost=66.83..196.66 rows=10 width=28) (actual time=0.208..0.502 rows=10 loops=1)
+   ->  Result  (cost=66.83..560.17 rows=38 width=28) (actual time=0.208..0.501 rows=10 loops=1)
+         ->  Sort  (cost=66.83..66.93 rows=38 width=20) (actual time=0.153..0.154 rows=10 loops=1)
                Sort Key: p1.depart_time
-               ->  Hash Join  (cost=35.44..66.01 rows=38 width=20)
+               Sort Method: top-N heapsort  Memory: 25kB
+               ->  Hash Join  (cost=35.44..66.01 rows=38 width=20) (actual time=0.088..0.143 rows=62 loops=1)
                      Hash Cond: (p2.trip_id = p1.trip_id)
                      Join Filter: (p1.depart_time < p2.arrive_time)
-                     ->  Seq Scan on pass p2  (cost=0.00..30.06 rows=195 width=12)
+                     Rows Removed by Join Filter: 60
+                     ->  Seq Scan on pass p2  (cost=0.00..30.06 rows=195 width=12) (actual time=0.003..0.050 rows=195 loops=1)
                            Filter: (station_id = 1000)
-                     ->  Hash  (cost=34.08..34.08 rows=109 width=12)
-                           ->  Seq Scan on pass p1  (cost=0.00..34.08 rows=109 width=12)
+                           Rows Removed by Filter: 1410
+                     ->  Hash  (cost=34.08..34.08 rows=109 width=12) (actual time=0.070..0.071 rows=122 loops=1)
+                           Buckets: 1024  Batches: 1  Memory Usage: 14kB
+                           ->  Seq Scan on pass p1  (cost=0.00..34.08 rows=109 width=12) (actual time=0.010..0.061 rows=122 loops=1)
                                  Filter: ((depart_time > '06:00:00'::time without time zone) AND (station_id = 1030))
+                                 Rows Removed by Filter: 1483
          SubPlan 1
-           ->  Aggregate  (cost=12.96..12.97 rows=1 width=8)
-                 ->  Index Only Scan using idx_trip_id_on_reserved_ticket on reserved_ticket  (cost=0.43..12.58 rows=151 width=0)
+           ->  Aggregate  (cost=12.96..12.97 rows=1 width=8) (actual time=0.034..0.034 rows=1 loops=10)
+                 ->  Index Only Scan using idx_trip_id_on_reserved_ticket on reserved_ticket  (cost=0.43..12.58 rows=151 width=0) (actual time=0.003..0.023 rows=507 loops=10)
                        Index Cond: ((trip_id = p1.trip_id) AND (arrive_station_id = 1000) AND (depart_station_id = 1030) AND (travel_date >= '2023-08-01'::date) AND (travel_date <= '2023-08-31'::date))
+                       Heap Fetches: 0
+ Planning Time: 0.955 ms
+ Execution Time: 0.521 ms
         \end{minted}
 
         Following is the query plan after creating index on \texttt{depart\_station\_id}:
         \begin{minted}{sql}
- Limit  (cost=66.83..196.66 rows=10 width=28)
-   ->  Result  (cost=66.83..560.17 rows=38 width=28)
-         ->  Sort  (cost=66.83..66.93 rows=38 width=20)
+ Limit  (cost=66.83..196.66 rows=10 width=28) (actual time=0.208..0.508 rows=10 loops=1)
+   ->  Result  (cost=66.83..560.17 rows=38 width=28) (actual time=0.200..0.500 rows=10 loops=1)
+         ->  Sort  (cost=66.83..66.93 rows=38 width=20) (actual time=0.149..0.150 rows=10 loops=1)
                Sort Key: p1.depart_time
-               ->  Hash Join  (cost=35.44..66.01 rows=38 width=20)
+               Sort Method: top-N heapsort  Memory: 25kB
+               ->  Hash Join  (cost=35.44..66.01 rows=38 width=20) (actual time=0.086..0.139 rows=62 loops=1)
                      Hash Cond: (p2.trip_id = p1.trip_id)
                      Join Filter: (p1.depart_time < p2.arrive_time)
-                     ->  Seq Scan on pass p2  (cost=0.00..30.06 rows=195 width=12)
+                     Rows Removed by Join Filter: 60
+                     ->  Seq Scan on pass p2  (cost=0.00..30.06 rows=195 width=12) (actual time=0.003..0.049 rows=195 loops=1)
                            Filter: (station_id = 1000)
-                     ->  Hash  (cost=34.08..34.08 rows=109 width=12)
-                           ->  Seq Scan on pass p1  (cost=0.00..34.08 rows=109 width=12)
+                           Rows Removed by Filter: 1410
+                     ->  Hash  (cost=34.08..34.08 rows=109 width=12) (actual time=0.072..0.073 rows=122 loops=1)
+                           Buckets: 1024  Batches: 1  Memory Usage: 14kB
+                           ->  Seq Scan on pass p1  (cost=0.00..34.08 rows=109 width=12) (actual time=0.010..0.063 rows=122 loops=1)
                                  Filter: ((depart_time > '06:00:00'::time without time zone) AND (station_id = 1030))
+                                 Rows Removed by Filter: 1483
          SubPlan 1
-           ->  Aggregate  (cost=12.96..12.97 rows=1 width=8)
-                 ->  Index Only Scan using idx_trip_id_on_reserved_ticket on reserved_ticket  (cost=0.43..12.58 rows=151 width=0)
+           ->  Aggregate  (cost=12.96..12.97 rows=1 width=8) (actual time=0.035..0.035 rows=1 loops=10)
+                 ->  Index Only Scan using idx_trip_id_on_reserved_ticket on reserved_ticket  (cost=0.43..12.58 rows=151 width=0) (actual time=0.003..0.023 rows=507 loops=10)
                        Index Cond: ((trip_id = p1.trip_id) AND (arrive_station_id = 1000) AND (depart_station_id = 1030) AND (travel_date >= '2023-08-01'::date) AND (travel_date <= '2023-08-31'::date))
-
+                       Heap Fetches: 0
+ Planning Time: 0.216 ms
+ Execution Time: 0.526 ms
         \end{minted}
 
         Following is the query plan after creating index on \texttt{arrive\_station\_id}:
         \begin{minted}{sql}
- Limit  (cost=66.83..196.66 rows=10 width=28)
-   ->  Result  (cost=66.83..560.17 rows=38 width=28)
-         ->  Sort  (cost=66.83..66.93 rows=38 width=20)
+ Limit  (cost=66.83..196.66 rows=10 width=28) (actual time=0.207..0.512 rows=10 loops=1)
+   ->  Result  (cost=66.83..560.17 rows=38 width=28) (actual time=0.206..0.511 rows=10 loops=1)
+         ->  Sort  (cost=66.83..66.93 rows=38 width=20) (actual time=0.152..0.153 rows=10 loops=1)
                Sort Key: p1.depart_time
-               ->  Hash Join  (cost=35.44..66.01 rows=38 width=20)
+               Sort Method: top-N heapsort  Memory: 25kB
+               ->  Hash Join  (cost=35.44..66.01 rows=38 width=20) (actual time=0.089..0.144 rows=62 loops=1)
                      Hash Cond: (p2.trip_id = p1.trip_id)
                      Join Filter: (p1.depart_time < p2.arrive_time)
-                     ->  Seq Scan on pass p2  (cost=0.00..30.06 rows=195 width=12)
+                     Rows Removed by Join Filter: 60
+                     ->  Seq Scan on pass p2  (cost=0.00..30.06 rows=195 width=12) (actual time=0.003..0.050 rows=195 loops=1)
                            Filter: (station_id = 1000)
-                     ->  Hash  (cost=34.08..34.08 rows=109 width=12)
-                           ->  Seq Scan on pass p1  (cost=0.00..34.08 rows=109 width=12)
+                           Rows Removed by Filter: 1410
+                     ->  Hash  (cost=34.08..34.08 rows=109 width=12) (actual time=0.074..0.075 rows=122 loops=1)
+                           Buckets: 1024  Batches: 1  Memory Usage: 14kB
+                           ->  Seq Scan on pass p1  (cost=0.00..34.08 rows=109 width=12) (actual time=0.010..0.065 rows=122 loops=1)
                                  Filter: ((depart_time > '06:00:00'::time without time zone) AND (station_id = 1030))
+                                 Rows Removed by Filter: 1483
          SubPlan 1
-           ->  Aggregate  (cost=12.96..12.97 rows=1 width=8)
-                 ->  Index Only Scan using idx_trip_id_on_reserved_ticket on reserved_ticket  (cost=0.43..12.58 rows=151 width=0)
+           ->  Aggregate  (cost=12.96..12.97 rows=1 width=8) (actual time=0.035..0.035 rows=1 loops=10)
+                 ->  Index Only Scan using idx_trip_id_on_reserved_ticket on reserved_ticket  (cost=0.43..12.58 rows=151 width=0) (actual time=0.004..0.023 rows=507 loops=10)
                        Index Cond: ((trip_id = p1.trip_id) AND (arrive_station_id = 1000) AND (depart_station_id = 1030) AND (travel_date >= '2023-08-01'::date) AND (travel_date <= '2023-08-31'::date))
-     
+                       Heap Fetches: 0
+ Planning Time: 0.228 ms
+ Execution Time: 0.532 ms
         \end{minted}
+
+        We can observe that the estimated total cost remains the same (560.17) even after creating the single-column indexes. This is because the PostgreSQL query planner determined that a sequential scan was still cheaper than using any of the available indexes. Given the table size, data distribution, and the low selectivity of the filtering conditions, the planner estimated that scanning the entire table sequentially would cost less than performing an index scan. In this situation, the additional overhead of index traversal and random I/O did not yield any performance improvement, so the planner correctly chose a sequential scan.
+
+        \item Following is the code to create a composite index on \texttt{trip\_id}, \texttt{depart\_station\_id}, and \texttt{arrive\_station\_id}:
+        \begin{minted}{sql}
+create index idx_tda on reserved_ticket(trip_id, depart_station_id, arrive_station_id);
+        \end{minted}
+        
+        Following is the query plan after creating a composite index on \texttt{trip\_id},\\ \texttt{depart\_station\_id}, and \texttt{arrive\_station\_id}:
+        \begin{minted}{sql}
+ Limit  (cost=66.83..196.66 rows=10 width=28) (actual time=0.217..0.512 rows=10 loops=1)
+   ->  Result  (cost=66.83..560.17 rows=38 width=28) (actual time=0.212..0.507 rows=10 loops=1)
+         ->  Sort  (cost=66.83..66.93 rows=38 width=20) (actual time=0.153..0.154 rows=10 loops=1)
+               Sort Key: p1.depart_time
+               Sort Method: top-N heapsort  Memory: 25kB
+               ->  Hash Join  (cost=35.44..66.01 rows=38 width=20) (actual time=0.089..0.144 rows=62 loops=1)
+                     Hash Cond: (p2.trip_id = p1.trip_id)
+                     Join Filter: (p1.depart_time < p2.arrive_time)
+                     Rows Removed by Join Filter: 60
+                     ->  Seq Scan on pass p2  (cost=0.00..30.06 rows=195 width=12) (actual time=0.003..0.050 rows=195 loops=1)
+                           Filter: (station_id = 1000)
+                           Rows Removed by Filter: 1410
+                     ->  Hash  (cost=34.08..34.08 rows=109 width=12) (actual time=0.075..0.075 rows=122 loops=1)
+                           Buckets: 1024  Batches: 1  Memory Usage: 14kB
+                           ->  Seq Scan on pass p1  (cost=0.00..34.08 rows=109 width=12) (actual time=0.010..0.065 rows=122 loops=1)
+                                 Filter: ((depart_time > '06:00:00'::time without time zone) AND (station_id = 1030))
+                                 Rows Removed by Filter: 1483
+         SubPlan 1
+           ->  Aggregate  (cost=12.96..12.97 rows=1 width=8) (actual time=0.035..0.035 rows=1 loops=10)
+                 ->  Index Only Scan using idx_trip_id_on_reserved_ticket on reserved_ticket  (cost=0.43..12.58 rows=151 width=0) (actual time=0.003..0.023 rows=507 loops=10)
+                       Index Cond: ((trip_id = p1.trip_id) AND (arrive_station_id = 1000) AND (depart_station_id = 1030) AND (travel_date >= '2023-08-01'::date) AND (travel_date <= '2023-08-31'::date))
+                       Heap Fetches: 0
+ Planning Time: 0.246 ms
+ Execution Time: 0.531 ms
+        \end{minted}
+
+        Still, it does not enhance the performance of query(estimated cost remains 560.17). The reason is similar to the previous analysis: despite the presence of a composite index, the PostgreSQL query planner determined that a sequential scan was still the most efficient method for accessing the data. The filtering conditions and data distribution likely resulted in low selectivity, making the overhead of using the index outweigh its benefits. Consequently, the planner opted for a sequential scan, leading to no change in the estimated cost.
     \end{enumerate}
+    \item 
+    \begin{enumerate}
+        \item Fig.~\ref{fig:5a} shows the B+ tree index structure for the given data entries. 
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=1\textwidth]{src/5a.png}
+            \caption{B+ Tree Index Structure}
+            \label{fig:5a}
+        \end{figure}
+        \item Fig.~\ref{fig:5b} shows the before and after inserting 700 into the B+ tree. We can see that a new inner node is created after the insertion because the leaf node would be full after inserting 700. Thus it splits into two leaf nodes, and an inner node 700 is created to point to these two leaf nodes.
+        \begin{figure}[h]
+            \centering
+            \begin{minipage}{0.48\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{src/5b-1.png}
+            \end{minipage}
+            \hfill
+            \begin{minipage}{0.48\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{src/5b-2.png}
+            \end{minipage}
+            \caption{Before and after insert 700}
+            \label{fig:5b}
+        \end{figure}
+        \newpage
+        \item Fig.~\ref{fig:5c} shows the before and after inserting 350 into the B+ tree. As 350 is guided to the leftmost leaf node, and this leaf node is not full, we can simply insert 350 into this leaf node without any split.
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.7\textwidth]{src/5c-1.png}
+            \centering
+            \includegraphics[width=0.7\textwidth]{src/5c-2.png}
+            \caption{Before and after insert 350}
+            \label{fig:5c}
+        \end{figure}
+        \item Fig.~\ref{fig:5d} shows the before and after inserting 418 into the B+ tree. As the leaf node where 418 is guided to would be full after inserting 418, it splits into two leaf nodes. And a new inner node 418 is created to point to these two leaf nodes. 
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=\textwidth]{src/5d-1.png}
+            \centering
+            \includegraphics[width=\textwidth]{src/5d-2.png}
+            \caption{Before and after insert 418}
+            \label{fig:5d}
+        \end{figure}
+    \end{enumerate}
+    \item 
+    \begin{minted}{sql}
+-- create index on pass(station_id, depart_time, trip_id)
+create index index_sdt on pass(station_id, depart_time, trip_id);
+
+-- explain analyze
+ Limit  (cost=0.56..158.60 rows=10 width=28) (actual time=0.060..0.369 rows=10 loops=1)
+   ->  Nested Loop  (cost=0.56..601.11 rows=38 width=28) (actual time=0.060..0.368 rows=10 loops=1)
+         ->  Index Only Scan using index_sdt on pass p1  (cost=0.28..6.46 rows=109 width=12) (actual time=0.007..0.008 rows=18 loops=1)
+               Index Cond: ((station_id = 1030) AND (depart_time > '06:00:00'::time without time zone))
+               Heap Fetches: 0
+         ->  Index Scan using pass_pkey on pass p2  (cost=0.28..0.92 rows=1 width=12) (actual time=0.001..0.001 rows=1 loops=18)
+               Index Cond: ((trip_id = p1.trip_id) AND (station_id = 1000))
+               Filter: (p1.depart_time < arrive_time)
+               Rows Removed by Filter: 0
+         SubPlan 1
+           ->  Aggregate  (cost=12.96..12.97 rows=1 width=8) (actual time=0.034..0.034 rows=1 loops=10)
+                 ->  Index Only Scan using idx_trip_id_on_reserved_ticket on reserved_ticket  (cost=0.43..12.58 rows=151 width=0) (actual time=0.003..0.022 rows=507 loops=10)
+                       Index Cond: ((trip_id = p1.trip_id) AND (arrive_station_id = 1000) AND (depart_station_id = 1030) AND (travel_date >= '2023-08-01'::date) AND (travel_date <= '2023-08-31'::date))
+                       Heap Fetches: 0
+ Planning Time: 0.220 ms
+ Execution Time: 0.385 ms
+    \end{minted}
+
 \end{enumerate}
 
 \end{document}

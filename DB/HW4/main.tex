@@ -62,27 +62,27 @@
         \end{minted}
         \item Transaction B: Read the record.
         \begin{minted}{sql}
-            begin; select * from accounts where account_id = 1; commit;
-            
-            
+            begin; 
+			select * from accounts where account_id = 1; 
+			commit;
         \end{minted}
     \end{itemize}
     The execution steps are as follows:
     \begin{enumerate}
         \item Transaction A begins.
-        \item Transaction A updates balance to 999 of account\_id 1, but does not commit yet.
+        \item Transaction A updates balance to 1000 of account\_id 1, but does not commit yet.
         \item Transaction B begins.
         \item Transaction B reads the record of account\_id 1.
-        \item Transaction B gets the old balance (not 999), which means dirty read is avoided.
+        \item Transaction B gets the old balance (not 1000), which means dirty read is avoided.
         \item Transaction B commits.
         \item Transaction A commits.
         \item Transaction B begins.
         \item Transaction B reads the record of account\_id 1.
-        \item Transaction B gets the new balance (999) after Transaction A commits.
+        \item Transaction B gets the new balance (1000) after Transaction A commits.
         \item Transaction B commits.
     \end{enumerate}
 
-    Following are the screenshots of each step. Left panel shows Transaction A, right panel shows Transaction B. Figure \ref{fig:1-1} shows the original status of the accounts table, we can see the balance of account\_id 1 is 1000. Figure \ref{fig:1-2} shows Transaction A updates balance to 999 of account\_id 1 but does not commit yet, so that Transaction B still reads the old balance (1000). Figure \ref{fig:1-3} shows Transaction A commits, and then Transaction B reads the new balance (999) of account\_id 1. You can determine the execution order by the system time shown in the top of each figure.
+    Following are the screenshots of each step. Left panel shows Transaction A, right panel shows Transaction B. Figure \ref{fig:1-1} shows the original status of the accounts table, we can see the balance of account\_id 1 is 1000. Figure \ref{fig:1-2} shows Transaction A updates balance to 1000 of account\_id 1 but does not commit yet, so that Transaction B still reads the old balance (1000). Figure \ref{fig:1-3} shows Transaction A commits, and then Transaction B reads the new balance (1000) of account\_id 1.
     \begin{figure}[H]
         \centering
         \includegraphics[width=1\textwidth]{src/1-1.png}
@@ -92,13 +92,13 @@
     \begin{figure}[H]
         \centering
         \includegraphics[width=1\textwidth]{src/1-2.png}
-        \caption{Transaction A updates balance to 999 of account\_id 1, but does not commit yet}
+        \caption{Transaction A updates balance to 1000 of account\_id 1, but does not commit yet}
         \label{fig:1-2}
     \end{figure}
     \begin{figure}[H]
         \centering
         \includegraphics[width=1\textwidth]{src/1-3.png}
-        \caption{Transaction A commits, Transaction B reads the new balance (999) of account\_id 1}
+        \caption{Transaction A commits, Transaction B reads the new balance of account\_id 1}
         \label{fig:1-3}
     \end{figure}
 
@@ -136,38 +136,98 @@
         Consider the last operation of $T_1$ and the first operation of $T_2$, we have $O_{17}\prec O_{21}$ because $O_{17}$ is the write operation and they access the same data item $X$.
         
         To maintain the order within the transactions, $O_{17}$ must be the last operation in the schedule and $O_{21}$ must be the first operation in the schedule. From the analyze above, $O_{21}$ must after $O_{17}$. Therefore, there is no such conflict-equivalent non-serial schedule.
+		
+		\item Following is the 2PL table for the two transactions:
+		\begin{table}[H]
+		\centering
+		\caption{2PL tables for transactions T1 and T2}
+		\label{tab:2pl_T1_T2}
+		\begin{subtable}[t]{0.48\textwidth}
+		\centering
+		\caption{Transaction T1 under 2PL}
+		\label{tab:T1_T2_2PL_T1}
+		\begin{tabular}{l l l}
+			\toprule
+			\textbf{id} & \textbf{Operation} & \textbf{Phase} \\
+			\midrule
+			$L_{11}$ & \texttt{read\_lock(X)} & Expanding \\
+			$O_{11}$ & \texttt{read\_item(X)} & - \\
+			$L_{12}$ & \texttt{read\_lock(Y)} & Expanding \\
+			$O_{12}$ & \texttt{read\_item(Y)} & - \\
+			$L_{13}$ & \texttt{read\_lock(Z)} & Expanding \\
+			$O_{13}$ & \texttt{read\_item(Z)} & - \\
+			$O_{14}$ & $Z \leftarrow X + Y$ & - \\
+			$L_{14}$ & \texttt{write\_lock(Z)} & Expanding \\
+			$O_{15}$ & \texttt{write\_item(Z)} & - \\
+			$O_{16}$ & $X \leftarrow 100$ & - \\
+			$L_{15}$ & \texttt{write\_lock(X)} & Expanding \\
+			$O_{17}$ & \texttt{write\_item(X)} & - \\
+			$L_{16}$ & \texttt{unlock(X)} & Shrinking \\
+			$L_{17}$ & \texttt{unlock(Y)} & Shrinking \\
+			$L_{18}$ & \texttt{unlock(Z)} & Shrinking \\
+			\bottomrule
+		\end{tabular}
+		\end{subtable}\hfill
+		\begin{subtable}[t]{0.48\textwidth}
+		\centering
+		\caption{Transaction T2 under 2PL}
+		\label{tab:T1_T2_2PL_T2}
+		\begin{tabular}{l l l}
+			\toprule
+			\textbf{id} & \textbf{Operation} & \textbf{Phase} \\
+			\midrule
+			$L_{21}$ & \texttt{read\_lock(X)} & Expanding \\
+			$O_{21}$ & \texttt{read\_item(X)} & - \\
+			$O_{22}$ & $X \leftarrow X + 10$ & - \\
+			$L_{22}$ & \texttt{write\_lock(X)} & Expanding \\
+			$O_{23}$ & \texttt{write\_item(X)} & - \\
+			$L_{23}$ & \texttt{read\_lock(Z)} & Expanding \\
+			$O_{24}$ & \texttt{read\_item(Z)} & - \\
+			$O_{25}$ & $Z \leftarrow Z + X$ & - \\
+			$O_{26}$ & \texttt{read\_item(Z)} & - \\
+			$L_{24}$ & \texttt{unlock(X)} & Shrinking \\
+			$L_{25}$ & \texttt{unlock(Z)} & Shrinking \\
+			\bottomrule
+		\end{tabular}
+		\end{subtable}
+		\end{table}
+
+		\item Following is one possible conflict-serializable schedule that would lead to deadlock under 2PL:
+		\begin{table}[H]
+		\centering
+		\caption{A non-serializable interleaving that leads to deadlock under 2PL}
+		\label{tab:2pl_deadlock}
+		\begin{tabular}{l l l}
+		\toprule
+		\textbf{Step} & \textbf{Operation} & \textbf{Note / Lock Status} \\
+		\midrule
+		1  & $T_1$: \texttt{read\_lock(X)}   & $T_1$ holds $X$-R \\
+		2  & $T_1$: \texttt{read\_item(X)}   & - \\
+		3  & $T_2$: \texttt{read\_lock(X)}   & $T_1, T_2$ share $X$-R \\
+		4  & $T_2$: \texttt{read\_item(X)}   & - \\
+		5  & $T_2$: \texttt{write\_lock(X)}  & \textbf{blocked}, $T_1$ holds $X$-R \\
+		6  & $T_1$: \texttt{read\_lock(Y)}   & $T_1$ holds $Y$-R \\
+		7  & $T_1$: \texttt{read\_item(Y)}   & - \\
+		8  & $T_1$: \texttt{read\_lock(Z)}   & $T_1$ holds $Z$-R \\
+		9  & $T_1$: \texttt{read\_item(Z)}   & - \\
+		10 & $T_1$: \texttt{write\_lock(Z)}  & \textbf{blocked}, $T_2$ holds $Z$-R \\
+		\bottomrule
+		\end{tabular}
+		\end{table}
+
     \end{enumerate}
     \item Lost update often occurs when two transactions read the same version of a data item and then update it based on that old value. This causes one update to overwrite the other, resulting in one update being lost. To address this issue, we can acquire a read lock before reading the data item so that other transactions cannot write to it until the read lock is released. This prevents the read operation from being interfered with by concurrent writes. Before updating the data, we can upgrade the read lock to a write lock to prevent other transactions from reading or writing the item until the write lock is released. This prevents other transactions from accessing the data while it is being updated, ensuring data integrity.
     \item 
     \begin{enumerate}
         \item This SQL statement queries the top 10 reserved sales for trips that depart from station\_id 1030 and arrive at station\_id 1000 during the period from 2023-08-01 to 2023-08-31, and the train must depart after 06:00. It joins the PASS table with itself on trip\_id, where p1 represents the departure station (1030) and p2 represents the arrival station (1000). After joining, it selects each trip's departure and arrival time, and uses a subquery to count how many tickets were reserved for that same trip and same station pair within the specified date range. Finally, the results are ordered by departure time and limited to the first 10 row
-        \item Following is hte query plan generated by PostgreSQL for the SQL statement above, the estimated cost is 560.17.
-        \begin{minted}{sql}
- Limit  (cost=66.83..196.66 rows=10 width=28) (actual time=0.199..0.492 rows=10 loops=1)
-   ->  Result  (cost=66.83..560.17 rows=38 width=28) (actual time=0.198..0.491 rows=10 loops=1)
-         ->  Sort  (cost=66.83..66.93 rows=38 width=20) (actual time=0.145..0.146 rows=10 loops=1)
-               Sort Key: p1.depart_time
-               Sort Method: top-N heapsort  Memory: 25kB
-               ->  Hash Join  (cost=35.44..66.01 rows=38 width=20) (actual time=0.086..0.138 rows=62 loops=1)
-                     Hash Cond: (p2.trip_id = p1.trip_id)
-                     Join Filter: (p1.depart_time < p2.arrive_time)
-                     Rows Removed by Join Filter: 60
-                     ->  Seq Scan on pass p2  (cost=0.00..30.06 rows=195 width=12) (actual time=0.003..0.048 rows=195 loops=1)
-                           Filter: (station_id = 1000)
-                           Rows Removed by Filter: 1410
-                     ->  Hash  (cost=34.08..34.08 rows=109 width=12) (actual time=0.071..0.072 rows=122 loops=1)
-                           Buckets: 1024  Batches: 1  Memory Usage: 14kB
-                           ->  Seq Scan on pass p1  (cost=0.00..34.08 rows=109 width=12) (actual time=0.010..0.062 rows=122 loops=1)
-                                 Filter: ((depart_time > '06:00:00'::time without time zone) AND (station_id = 1030))
-                                 Rows Removed by Filter: 1483
-         SubPlan 1
-           ->  Aggregate  (cost=12.96..12.97 rows=1 width=8) (actual time=0.034..0.034 rows=1 loops=10)
-                 ->  Index Only Scan using idx_trip_id_on_reserved_ticket on reserved_ticket  (cost=0.43..12.58 rows=151 width=0) (actual time=0.004..0.023 rows=507 loops=10)
-                       Index Cond: ((trip_id = p1.trip_id) AND (arrive_station_id = 1000) AND (depart_station_id = 1030) AND (travel_date >= '2023-08-01'::date) AND (travel_date <= '2023-08-31'::date))
-                       Heap Fetches: 0
- Planning Time: 0.191 ms
- Execution Time: 0.510 ms
-        \end{minted}
+        
+        \item Fig.~\ref{fig:4b} is hte query plan generated by PostgreSQL for the SQL statement above, the estimated cost is 3750384.97.
+        \begin{figure}[H]
+			\centering
+			\includegraphics[width=1\textwidth]{src/4b.png}
+			\caption{Query Plan without Index}
+			\label{fig:4b}
+		\end{figure}
         
         \item Following is the code to create index on \texttt{trip\_id}, \texttt{depart\_station\_id},\\ and \texttt{arrive\_station\_id}, \texttt{trip\_id} apprears in both \texttt{pass} and \texttt{reserved\_ticket} table, but the botttleneck is in the subquery which accesses \texttt{reserved\_ticket} table, so I decide to create index on \texttt{trip\_id} in \texttt{reserved\_ticket} table.
         
@@ -178,126 +238,59 @@ create index idx_depart_station_id on reserved_ticket(depart_station_id);
 
 create index idx_arrive_station_id on reserved_ticket(arrive_station_id);
         \end{minted}
-        Following is the query plan after creating index on \texttt{trip\_id}
-        \begin{minted}{sql}
- Limit  (cost=66.83..196.66 rows=10 width=28) (actual time=0.208..0.502 rows=10 loops=1)
-   ->  Result  (cost=66.83..560.17 rows=38 width=28) (actual time=0.208..0.501 rows=10 loops=1)
-         ->  Sort  (cost=66.83..66.93 rows=38 width=20) (actual time=0.153..0.154 rows=10 loops=1)
-               Sort Key: p1.depart_time
-               Sort Method: top-N heapsort  Memory: 25kB
-               ->  Hash Join  (cost=35.44..66.01 rows=38 width=20) (actual time=0.088..0.143 rows=62 loops=1)
-                     Hash Cond: (p2.trip_id = p1.trip_id)
-                     Join Filter: (p1.depart_time < p2.arrive_time)
-                     Rows Removed by Join Filter: 60
-                     ->  Seq Scan on pass p2  (cost=0.00..30.06 rows=195 width=12) (actual time=0.003..0.050 rows=195 loops=1)
-                           Filter: (station_id = 1000)
-                           Rows Removed by Filter: 1410
-                     ->  Hash  (cost=34.08..34.08 rows=109 width=12) (actual time=0.070..0.071 rows=122 loops=1)
-                           Buckets: 1024  Batches: 1  Memory Usage: 14kB
-                           ->  Seq Scan on pass p1  (cost=0.00..34.08 rows=109 width=12) (actual time=0.010..0.061 rows=122 loops=1)
-                                 Filter: ((depart_time > '06:00:00'::time without time zone) AND (station_id = 1030))
-                                 Rows Removed by Filter: 1483
-         SubPlan 1
-           ->  Aggregate  (cost=12.96..12.97 rows=1 width=8) (actual time=0.034..0.034 rows=1 loops=10)
-                 ->  Index Only Scan using idx_trip_id_on_reserved_ticket on reserved_ticket  (cost=0.43..12.58 rows=151 width=0) (actual time=0.003..0.023 rows=507 loops=10)
-                       Index Cond: ((trip_id = p1.trip_id) AND (arrive_station_id = 1000) AND (depart_station_id = 1030) AND (travel_date >= '2023-08-01'::date) AND (travel_date <= '2023-08-31'::date))
-                       Heap Fetches: 0
- Planning Time: 0.955 ms
- Execution Time: 0.521 ms
-        \end{minted}
+        Fig.~\ref{fig:4c-1} is the query plan after creating index on \texttt{trip\_id}, Fig.~\ref{fig:4c-2} is the query plan after creating index on \texttt{depart\_station\_id}, Fig.~\ref{fig:4c-3} is the query plan after creating index on \texttt{arrive\_station\_id}.
 
-        Following is the query plan after creating index on \texttt{depart\_station\_id}:
-        \begin{minted}{sql}
- Limit  (cost=66.83..196.66 rows=10 width=28) (actual time=0.208..0.508 rows=10 loops=1)
-   ->  Result  (cost=66.83..560.17 rows=38 width=28) (actual time=0.200..0.500 rows=10 loops=1)
-         ->  Sort  (cost=66.83..66.93 rows=38 width=20) (actual time=0.149..0.150 rows=10 loops=1)
-               Sort Key: p1.depart_time
-               Sort Method: top-N heapsort  Memory: 25kB
-               ->  Hash Join  (cost=35.44..66.01 rows=38 width=20) (actual time=0.086..0.139 rows=62 loops=1)
-                     Hash Cond: (p2.trip_id = p1.trip_id)
-                     Join Filter: (p1.depart_time < p2.arrive_time)
-                     Rows Removed by Join Filter: 60
-                     ->  Seq Scan on pass p2  (cost=0.00..30.06 rows=195 width=12) (actual time=0.003..0.049 rows=195 loops=1)
-                           Filter: (station_id = 1000)
-                           Rows Removed by Filter: 1410
-                     ->  Hash  (cost=34.08..34.08 rows=109 width=12) (actual time=0.072..0.073 rows=122 loops=1)
-                           Buckets: 1024  Batches: 1  Memory Usage: 14kB
-                           ->  Seq Scan on pass p1  (cost=0.00..34.08 rows=109 width=12) (actual time=0.010..0.063 rows=122 loops=1)
-                                 Filter: ((depart_time > '06:00:00'::time without time zone) AND (station_id = 1030))
-                                 Rows Removed by Filter: 1483
-         SubPlan 1
-           ->  Aggregate  (cost=12.96..12.97 rows=1 width=8) (actual time=0.035..0.035 rows=1 loops=10)
-                 ->  Index Only Scan using idx_trip_id_on_reserved_ticket on reserved_ticket  (cost=0.43..12.58 rows=151 width=0) (actual time=0.003..0.023 rows=507 loops=10)
-                       Index Cond: ((trip_id = p1.trip_id) AND (arrive_station_id = 1000) AND (depart_station_id = 1030) AND (travel_date >= '2023-08-01'::date) AND (travel_date <= '2023-08-31'::date))
-                       Heap Fetches: 0
- Planning Time: 0.216 ms
- Execution Time: 0.526 ms
-        \end{minted}
+		For each index created, the estimated costs are as follows:
 
-        Following is the query plan after creating index on \texttt{arrive\_station\_id}:
-        \begin{minted}{sql}
- Limit  (cost=66.83..196.66 rows=10 width=28) (actual time=0.207..0.512 rows=10 loops=1)
-   ->  Result  (cost=66.83..560.17 rows=38 width=28) (actual time=0.206..0.511 rows=10 loops=1)
-         ->  Sort  (cost=66.83..66.93 rows=38 width=20) (actual time=0.152..0.153 rows=10 loops=1)
-               Sort Key: p1.depart_time
-               Sort Method: top-N heapsort  Memory: 25kB
-               ->  Hash Join  (cost=35.44..66.01 rows=38 width=20) (actual time=0.089..0.144 rows=62 loops=1)
-                     Hash Cond: (p2.trip_id = p1.trip_id)
-                     Join Filter: (p1.depart_time < p2.arrive_time)
-                     Rows Removed by Join Filter: 60
-                     ->  Seq Scan on pass p2  (cost=0.00..30.06 rows=195 width=12) (actual time=0.003..0.050 rows=195 loops=1)
-                           Filter: (station_id = 1000)
-                           Rows Removed by Filter: 1410
-                     ->  Hash  (cost=34.08..34.08 rows=109 width=12) (actual time=0.074..0.075 rows=122 loops=1)
-                           Buckets: 1024  Batches: 1  Memory Usage: 14kB
-                           ->  Seq Scan on pass p1  (cost=0.00..34.08 rows=109 width=12) (actual time=0.010..0.065 rows=122 loops=1)
-                                 Filter: ((depart_time > '06:00:00'::time without time zone) AND (station_id = 1030))
-                                 Rows Removed by Filter: 1483
-         SubPlan 1
-           ->  Aggregate  (cost=12.96..12.97 rows=1 width=8) (actual time=0.035..0.035 rows=1 loops=10)
-                 ->  Index Only Scan using idx_trip_id_on_reserved_ticket on reserved_ticket  (cost=0.43..12.58 rows=151 width=0) (actual time=0.004..0.023 rows=507 loops=10)
-                       Index Cond: ((trip_id = p1.trip_id) AND (arrive_station_id = 1000) AND (depart_station_id = 1030) AND (travel_date >= '2023-08-01'::date) AND (travel_date <= '2023-08-31'::date))
-                       Heap Fetches: 0
- Planning Time: 0.228 ms
- Execution Time: 0.532 ms
-        \end{minted}
+		\begin{center}
+			\begin{tabular}{lc}
+				\toprule
+				Index Created & Estimated Cost \\
+				\midrule
+				no index & 3750384.97 \\
+				trip\_id & 1024884.52 \\
+				depart\_station\_id & 1559993.73 \\
+				arrive\_station\_id & 1731233.13 \\
+				\bottomrule
+			\end{tabular}			
+		\end{center}
 
-        We can observe that the estimated total cost remains the same (560.17) even after creating the single-column indexes. This is because the PostgreSQL query planner determined that a sequential scan was still cheaper than using any of the available indexes. Given the table size, data distribution, and the low selectivity of the filtering conditions, the planner estimated that scanning the entire table sequentially would cost less than performing an index scan. In this situation, the additional overhead of index traversal and random I/O did not yield any performance improvement, so the planner correctly chose a sequential scan.
+		We can observe that creating an index on \texttt{trip\_id} significantly reduces the estimated cost from 3750384.97 to 1024884.52, indicating a substantial improvement in query performance. However, creating indexes on \texttt{depart\_station\_id} and \\ \texttt{arrive\_station\_id} also reduces the estimated costs, but not as significantly as the \texttt{trip\_id} index. This suggests that while these indexes do help, they are not as effective in optimizing the query as the
+
+
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=1\textwidth]{src/4c-1.png}
+			\caption{Query Plan with trip\_id Index}
+			\label{fig:4c-1}
+		\end{figure}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=1\textwidth]{src/4c-2.png}
+			\caption{Query Plan with depart\_station\_id Index}
+			\label{fig:4c-2}
+		\end{figure}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=1\textwidth]{src/4c-3.png}
+			\caption{Query Plan with arrive\_station\_id Index}
+			\label{fig:4c-3}
+		\end{figure}
+		
 
         \item Following is the code to create a composite index on \texttt{trip\_id}, \texttt{depart\_station\_id}, and \texttt{arrive\_station\_id}:
         \begin{minted}{sql}
 create index idx_tda on reserved_ticket(trip_id, depart_station_id, arrive_station_id);
         \end{minted}
 
-        Following is the query plan after creating a composite index on \texttt{trip\_id},\\ \texttt{depart\_station\_id}, and \texttt{arrive\_station\_id}:
-        \begin{minted}{sql}
- Limit  (cost=66.83..196.66 rows=10 width=28) (actual time=0.217..0.512 rows=10 loops=1)
-   ->  Result  (cost=66.83..560.17 rows=38 width=28) (actual time=0.212..0.507 rows=10 loops=1)
-         ->  Sort  (cost=66.83..66.93 rows=38 width=20) (actual time=0.153..0.154 rows=10 loops=1)
-               Sort Key: p1.depart_time
-               Sort Method: top-N heapsort  Memory: 25kB
-               ->  Hash Join  (cost=35.44..66.01 rows=38 width=20) (actual time=0.089..0.144 rows=62 loops=1)
-                     Hash Cond: (p2.trip_id = p1.trip_id)
-                     Join Filter: (p1.depart_time < p2.arrive_time)
-                     Rows Removed by Join Filter: 60
-                     ->  Seq Scan on pass p2  (cost=0.00..30.06 rows=195 width=12) (actual time=0.003..0.050 rows=195 loops=1)
-                           Filter: (station_id = 1000)
-                           Rows Removed by Filter: 1410
-                     ->  Hash  (cost=34.08..34.08 rows=109 width=12) (actual time=0.075..0.075 rows=122 loops=1)
-                           Buckets: 1024  Batches: 1  Memory Usage: 14kB
-                           ->  Seq Scan on pass p1  (cost=0.00..34.08 rows=109 width=12) (actual time=0.010..0.065 rows=122 loops=1)
-                                 Filter: ((depart_time > '06:00:00'::time without time zone) AND (station_id = 1030))
-                                 Rows Removed by Filter: 1483
-         SubPlan 1
-           ->  Aggregate  (cost=12.96..12.97 rows=1 width=8) (actual time=0.035..0.035 rows=1 loops=10)
-                 ->  Index Only Scan using idx_trip_id_on_reserved_ticket on reserved_ticket  (cost=0.43..12.58 rows=151 width=0) (actual time=0.003..0.023 rows=507 loops=10)
-                       Index Cond: ((trip_id = p1.trip_id) AND (arrive_station_id = 1000) AND (depart_station_id = 1030) AND (travel_date >= '2023-08-01'::date) AND (travel_date <= '2023-08-31'::date))
-                       Heap Fetches: 0
- Planning Time: 0.246 ms
- Execution Time: 0.531 ms
-        \end{minted}
-
-        Still, it does not enhance the performance of query(estimated cost remains 560.17). The reason is similar to the previous analysis: despite the presence of a composite index, the PostgreSQL query planner determined that a sequential scan was still the most efficient method for accessing the data. The filtering conditions and data distribution likely resulted in low selectivity, making the overhead of using the index outweigh its benefits. Consequently, the planner opted for a sequential scan, leading to no change in the estimated cost.
+        Fig.~\ref{fig:4d} is the query plan after creating a composite index on \texttt{trip\_id},\\ \texttt{depart\_station\_id}, and \texttt{arrive\_station\_id}:
+ 
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=1\textwidth]{src/4d.png}
+			\caption{Query Plan with Composite Index}
+			\label{fig:4d}
+		\end{figure}
     \end{enumerate}
     \item 
     \begin{enumerate}
@@ -343,30 +336,37 @@ create index idx_tda on reserved_ticket(trip_id, depart_station_id, arrive_stati
             \label{fig:5d}
         \end{figure}
     \end{enumerate}
-    \item 
+    \item Following may one possible index method to optimize the query performance for the given SQL statement:
     \begin{minted}{sql}
--- create index on pass(station_id, depart_time, trip_id)
-create index index_sdt on pass(station_id, depart_time, trip_id);
+create index idx_reserve_optimized on reserved_ticket(depart_station_id, arrive_station_id, travel_date, trip_id);
+	\end{minted}
 
--- explain analyze
- Limit  (cost=0.56..158.60 rows=10 width=28) (actual time=0.060..0.369 rows=10 loops=1)
-   ->  Nested Loop  (cost=0.56..601.11 rows=38 width=28) (actual time=0.060..0.368 rows=10 loops=1)
-         ->  Index Only Scan using index_sdt on pass p1  (cost=0.28..6.46 rows=109 width=12) (actual time=0.007..0.008 rows=18 loops=1)
-               Index Cond: ((station_id = 1030) AND (depart_time > '06:00:00'::time without time zone))
-               Heap Fetches: 0
-         ->  Index Scan using pass_pkey on pass p2  (cost=0.28..0.92 rows=1 width=12) (actual time=0.001..0.001 rows=1 loops=18)
-               Index Cond: ((trip_id = p1.trip_id) AND (station_id = 1000))
-               Filter: (p1.depart_time < arrive_time)
-               Rows Removed by Filter: 0
-         SubPlan 1
-           ->  Aggregate  (cost=12.96..12.97 rows=1 width=8) (actual time=0.034..0.034 rows=1 loops=10)
-                 ->  Index Only Scan using idx_trip_id_on_reserved_ticket on reserved_ticket  (cost=0.43..12.58 rows=151 width=0) (actual time=0.003..0.022 rows=507 loops=10)
-                       Index Cond: ((trip_id = p1.trip_id) AND (arrive_station_id = 1000) AND (depart_station_id = 1030) AND (travel_date >= '2023-08-01'::date) AND (travel_date <= '2023-08-31'::date))
-                       Heap Fetches: 0
- Planning Time: 0.220 ms
- Execution Time: 0.385 ms
-    \end{minted}
 
 \end{enumerate}
 
 \end{document}
+
+explain
+SELECT
+p1. trip_id ,
+p1. depart_time AS departure_time ,
+p2. arrive_time AS arrival_time ,
+(
+SELECT COUNT (*)
+FROM RESERVED_TICKET
+WHERE trip_id = p1. trip_id
+AND depart_station_id = 1030
+AND arrive_station_id = 1000
+AND travel_date BETWEEN '2023-08-01 '
+AND '2023-08-31 '
+) AS reserved_sales
+FROM PASS p1
+JOIN PASS p2 ON p1. trip_id = p2. trip_id
+WHERE p1. station_id = 1030
+AND p2. station_id = 1000
+AND p1. depart_time > ' 06:00:00 '
+AND p1. depart_time < p2. arrive_time
+ORDER BY p1. depart_time
+LIMIT 10;
+
+create index idx_reserve_optimized on reserved_ticket(depart_station_id, arrive_station_id, travel_date, trip_id);

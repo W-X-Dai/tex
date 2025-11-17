@@ -196,24 +196,28 @@
 		\begin{table}[H]
 		\centering
 		\caption{A non-serializable interleaving that leads to deadlock under 2PL}
-		\label{tab:2pl_deadlock}
-		\begin{tabular}{l l l}
+		\label{tab:2pl_deadlock_interleave}
+		\begin{tabular}{l l l l}
 		\toprule
-		\textbf{Step} & \textbf{Operation} & \textbf{Note / Lock Status} \\
+		\textbf{id} & \textbf{Operation T1} & \textbf{Operation T2} & \textbf{Phase} \\
 		\midrule
-		1  & $T_1$: \texttt{read\_lock(X)}   & $T_1$ holds $X$-R \\
-		2  & $T_1$: \texttt{read\_item(X)}   & - \\
-		3  & $T_2$: \texttt{read\_lock(X)}   & $T_1, T_2$ share $X$-R \\
-		4  & $T_2$: \texttt{read\_item(X)}   & - \\
-		5  & $T_2$: \texttt{write\_lock(X)}  & \textbf{blocked}, $T_1$ holds $X$-R \\
-		6  & $T_1$: \texttt{read\_lock(Y)}   & $T_1$ holds $Y$-R \\
-		7  & $T_1$: \texttt{read\_item(Y)}   & - \\
-		8  & $T_1$: \texttt{read\_lock(Z)}   & $T_1$ holds $Z$-R \\
-		9  & $T_1$: \texttt{read\_item(Z)}   & - \\
-		10 & $T_1$: \texttt{write\_lock(Z)}  & \textbf{blocked}, $T_2$ holds $Z$-R \\
+		L11 & \texttt{read\_lock(X)}      &                       & Expanding \\
+		O11 & \texttt{read\_item(X)}      &                       & - \\
+		L21 &                              & \texttt{read\_lock(X)} & Expanding \\
+		O21 &                              & \texttt{read\_item(X)} & - \\
+		L22 &                              & \texttt{write\_lock(X)} & \textbf{Blocked} (T1 holds X-R) \\
+		L12 & \texttt{read\_lock(Y)}      &                       & Expanding \\
+		O12 & \texttt{read\_item(Y)}      &                       & - \\
+		L13 & \texttt{read\_lock(Z)}      &                       & Expanding \\
+		O13 & \texttt{read\_item(Z)}      &                       & - \\
+		L14 & \texttt{write\_lock(Z)}     &                       & \textbf{Blocked} (T2 holds Z-R) \\
+		\midrule
+		\multicolumn{4}{l}{\textbf{Deadlock:} $T_1$ waits for $Z$ while $T_2$ waits for $X$.} \\
+		\multicolumn{4}{l}{Wait-for cycle: $T_1 \rightarrow T_2 \rightarrow T_1$} \\
 		\bottomrule
 		\end{tabular}
 		\end{table}
+
 
     \end{enumerate}
     \item Lost update often occurs when two transactions read the same version of a data item and then update it based on that old value. This causes one update to overwrite the other, resulting in one update being lost. To address this issue, we can acquire a read lock before reading the data item so that other transactions cannot write to it until the read lock is released. This prevents the read operation from being interfered with by concurrent writes. Before updating the data, we can upgrade the read lock to a write lock to prevent other transactions from reading or writing the item until the write lock is released. This prevents other transactions from accessing the data while it is being updated, ensuring data integrity.

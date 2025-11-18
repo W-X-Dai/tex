@@ -192,29 +192,33 @@ commit;
 		\end{subtable}
 		\end{table}
 
-		\item Following is one possible conflict-serializable schedule that would lead to deadlock under 2PL, a deadlock occurs because T1 holds a shared lock on X while T2 attempts to upgrade its shared lock on X to an exclusive lock. At the same time, T2 holds a shared lock on Z, and T1 attempts to acquire an exclusive lock on Z. Both transactions enter a circular wait condition, and since neither can release its lock during the 2PL shrinking phase, a deadlock is formed.
+		\item As shown in the table below, when T2 attempts to upgrade its lock on X to a write lock, it is blocked by T1's existing read lock on X. T1 will be blocked when it later attempts to upgrade its lock on X because T2 holds the read lock on X. This creates a circular wait condition, leading to a deadlock between T1 and T2.
 
-		\begin{table}[H]
-		\centering
-		\caption{A non-serializable interleaving that leads to deadlock under 2PL}
-		\label{tab:2pl_deadlock_interleave}
-		\begin{tabular}{l l l l}
-		\toprule
-		\textbf{id} & \textbf{T1} & \textbf{T2} & \textbf{Phase} \\
-		\midrule
-		L11 & \texttt{read\_lock(X)}      &                       & Expanding \\
-		O11 & \texttt{read\_item(X)}      &                       & - \\
-		L21 &                              & \texttt{read\_lock(X)} & Expanding \\
-		O21 &                              & \texttt{read\_item(X)} & - \\
-		L22 &                              & \texttt{write\_lock(X)} & \textbf{Blocked} (T1 holds X-R) \\
-		L12 & \texttt{read\_lock(Y)}      &                       & Expanding \\
-		O12 & \texttt{read\_item(Y)}      &                       & - \\
-		L13 & \texttt{read\_lock(Z)}      &                       & Expanding \\
-		O13 & \texttt{read\_item(Z)}      &                       & - \\
-		L14 & \texttt{write\_lock(Z)}     &                       & \textbf{Blocked} (T2 holds Z-R) \\
-		\bottomrule
-		\end{tabular}
-		\end{table}
+        \begin{table}[H]
+        \centering
+        \caption{A non-serializable interleaving that leads to deadlock under 2PL}
+        \label{tab:2pl_deadlock_interleave}
+        \begin{tabular}{l l l}
+        \toprule
+        \textbf{T1} & \textbf{T2} & \textbf{Phase} \\ \midrule
+        \texttt{read\_lock(X)} & & Expanding \\
+        \texttt{read\_item(X)}  &                          &  \\ 
+                                        &  \texttt{read\_lock(X)}  & Expanding \\
+                                        &  \texttt{read\_item(X)}  &  \\
+                                        &  \texttt{write\_item(X)} & blocked, T1 holds S(X) \\
+
+        \texttt{read\_lock(Y)} &                          & Expanding \\
+        \texttt{read\_item(Y)}  &                          &  \\
+        \texttt{read\_lock(Z)}  &                          & Expanding \\
+        \texttt{read\_item(Z)}  &                          &  \\
+        \texttt{write\_item(Z)}  &                          & Expanding \\
+        \texttt{write\_item(Z)}  &                          &  \\
+        \texttt{write\_lock(X)} &                          & blocked, T2 holds S(X) \\
+
+        \bottomrule
+        \end{tabular}
+        \end{table}
+
 
 
     \end{enumerate}

@@ -282,7 +282,7 @@ create index idx_arrive_station_id on reserved_ticket(arrive_station_id);
 		\end{figure}
 		
 
-        \item Following is the code to create a composite index on \texttt{trip\_id}, \texttt{depart\_station\_id}, and \texttt{arrive\_station\_id}:
+        \item Following is the code to create a composite index on \texttt{trip\_id}, \texttt{depart\_station\_id}, and \texttt{arrive\_station\_id}, and the estimated cost is 22244.14.
         \begin{minted}{sql}
 create index idx_tda on reserved_ticket(trip_id, depart_station_id, arrive_station_id);
         \end{minted}

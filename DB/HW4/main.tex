@@ -295,6 +295,23 @@ create index idx_tda on reserved_ticket(trip_id, depart_station_id, arrive_stati
 			\caption{Query Plan with Composite Index}
 			\label{fig:4d}
 		\end{figure}
+
+        \item As my feeling, the index with higher estimated cost would lead to a slower query performance. To quantify the actual performance difference, I run \texttt{explain analyze} on the SQL statement for each index created above. For each index, I execute the query 5 times and take the mean of the execution time (in milliseconds). The results are shown in the table below:
+        \begin{table}[H]
+        \centering
+        \begin{tabular}{l r r}
+        \toprule
+        \textbf{Index} & \textbf{Mean (ms)} & \textbf{Estimated Cost} \\
+        \midrule
+        No index & 1097.573 & 3,750,384.97 \\
+        trip\_id & 219.085 & 1,024,884.52 \\
+        depart\_station\_id & 944.488 & 1,559,993.73 \\
+        arrive\_station\_id & 1035.202 & 1,731,233.13 \\
+        trip\_id, depart\_station\_id, arrive\_station\_id & 4.151 & 22,244.14 \\
+        \bottomrule
+        \end{tabular}
+        \end{table}
+
     \end{enumerate}
     \item 
     \begin{enumerate}

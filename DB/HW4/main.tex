@@ -340,11 +340,22 @@ create index idx_tda on reserved_ticket(trip_id, depart_station_id, arrive_stati
             \label{fig:5d}
         \end{figure}
     \end{enumerate}
-    \item Following may one possible index method to optimize the query performance for the given SQL statement:
+    \item I noticed that the after creating the multicolumn index, the estimated cost is significantly reduced compared to the single-column indexes created earlier. This indicates that the multicolumn index is more effective in optimizing the query performance for this specific SQL statement. Therefore, I decided to try to assemble another columns used in the sub query to see if it can further improve the performance. In the multicolumn index of PostgreSQL, the order of the columns matters. Since the subquery filters on \texttt{trip\_id}, \texttt{arrive\_station\_id}, \texttt{depart\_station\_id}, and \texttt{travel\_date}, I decided to create an index with these columns in the order that best matches the filtering conditions.
+    
+    Following may one possible index method to optimize the query performance for the given SQL statement:
     \begin{minted}{sql}
-create index idx_reserve_optimized on reserved_ticket(depart_station_id, arrive_station_id, travel_date, trip_id);
+create index idx on reserved_ticket(trip_id, arrive_station_id, depart_station_id, travel_date);
 	\end{minted}
 
+    The query plan after creating the index is shown in Fig.~\ref{fig:6}:
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1\textwidth]{src/6.png}
+        \caption{Query Plan after creating optimized index}
+        \label{fig:6}
+    \end{figure}
+    
+    We can see that the estimated cost is further reduced to 560.17 after creating the optimized index, which is significantly lower than the previous costs. This indicates that the new index is highly effective in improving the query performance for the given SQL statement.
 
 \end{enumerate}
 
@@ -373,4 +384,4 @@ AND p1. depart_time < p2. arrive_time
 ORDER BY p1. depart_time
 LIMIT 10;
 
-create index idx_reserve_optimized on reserved_ticket(depart_station_id, arrive_station_id, travel_date, trip_id);
+create index idx_reserve_optimized on reserved_ticket(trip_id, travel_date, depart_station_id, arrive_station_id);

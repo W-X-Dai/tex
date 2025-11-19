@@ -1,0 +1,526 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage{xeCJK}
+\usepackage{fontspec}
+\setCJKmainfont{Noto Serif CJK TC}[Script=CJK]
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\setlength{\headheight}{14.5pt}
+\addtolength{\topmargin}{-2.5pt}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{caption}
+\usepackage{indentfirst}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{float}
+\usepackage{minted}
+\setlength{\parindent}{2em}
+\pagestyle{fancy}
+\fancyhf{}
+\cfoot{\thepage}
+\linespread{1.3}
+\setminted{
+    linenos,                % 行號
+    frame=lines,            % 上下框線
+    framesep=5pt,           % 程式碼與邊框距離
+    numbersep=8pt,          % 行號與程式碼距離
+    fontsize=\scriptsize,   % 字體大小
+    breaklines,             % 自動換行
+    tabsize=4,              % tab 寬度
+    rulecolor=\color{black},% 框線顏色
+    xleftmargin=1.5em       % 左側縮排
+}
+
+\title{Machine Learning HW2}
+\author{B12508026戴偉璿}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\lhead{Machine Learning HW2}
+\rhead{B12508026戴偉璿}
+
+\section{Main Part}
+\begin{enumerate}
+    \item 
+    \begin{enumerate}
+        \item I decided to use Proportion of Variance (PoV) with thresh = 0.95 to determine the number of principal components to keep. With this threshold, I found that each fold selected 7 principal components to retain at least 95\% of the variance in the data. This my cause by the characteristics of loocv, where each training fold is very similar to the overall dataset, leading to consistent PCA results across folds. The execution log for PCA in each fold is provided in Appendix \ref{app:pca_log}.
+        \item The overall performance of Bayesian classification with PCA (thresh=0.95) using LOOCV is summarized in Table \ref{tab:loocv_pca_095_performance} below, and the confusion matrix is shown in Table \ref{tab:loocv_pca_095_confusion}. Fig.~\ref{fig:loocv_pca_095_roc_curve} presents the ROC curve for this configuration.
+        \begin{table}[H]
+            \centering
+            \begin{tabular}{lc}
+                \toprule
+                Metric & Value \\
+                \midrule
+                Accuracy & 0.8835 \\
+                Precision & 0.8421 \\
+                Recall (Sensitivity) & 0.8537 \\
+                Specificity & 0.9032 \\
+                AUC & 0.9256 \\
+                \bottomrule
+            \end{tabular}         
+            \caption{LOOCV Performance with PCA (thresh=0.95)}
+            \label{tab:loocv_pca_095_performance}   
+        \end{table}
+        \begin{table}[H]
+            \centering
+            \begin{tabular}{lcc}
+                \toprule
+                Confusion Matrix & Positive & Negative \\
+                \midrule
+                True Predict & 35(TP) & 56(TN) \\
+                False Predict & 6(FP) & 6(FN) \\
+                \bottomrule
+            \end{tabular}         
+            \caption{LOOCV Confusion Matrix with PCA (thresh=0.95)}
+            \label{tab:loocv_pca_095_confusion}
+        \end{table}
+
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.7\textwidth]{src/loocv_pca_095_roc_curve.png}
+            \caption{LOOCV ROC Curve with PCA (thresh=0.95)}
+            \label{fig:loocv_pca_095_roc_curve}
+        \end{figure}
+
+        With the execution results above, we can see that applying PCA with a variance retention threshold of 95\% leads to a robust classification performance. The AUC of 0.9256 indicates a strong ability to distinguish between the positive and negative classes. The accuracy of 88.35\% further supports the effectiveness of this approach in the given dataset.
+
+        However, the limited amount of data may lead to overfitting. This high performance might not generalize well to unseen data. Although this method performs well on the current dataset under LOOCV evaluation, it still needs further validation on larger and more diverse datasets to confirm its robustness and generalizability.
+    \end{enumerate}
+
+\end{enumerate}
+
+\newpage
+\appendix
+\section{PCA execution log}
+\label{app:pca_log}
+
+Following is the log messages printed during PCA execution in each LOOCV fold.
+\begin{minted}{text}
+[INFO] Starting Leave-One-Out Cross-Validation...
+start with thresh=0.95
+LOOCV Fold 1/103
+[INFO] selected 7 principal components to retain 95.39% variance.
+Fold 1 Training AUC: 0.9572
+Fold 1 Test Posterior: 0.0000 (True Label: 0)
+LOOCV Fold 2/103
+[INFO] selected 7 principal components to retain 95.47% variance.
+Fold 2 Training AUC: 0.9600
+Fold 2 Test Posterior: 0.8823 (True Label: 0)
+LOOCV Fold 3/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+Fold 3 Training AUC: 0.9572
+Fold 3 Test Posterior: 0.0272 (True Label: 0)
+LOOCV Fold 4/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+Fold 4 Training AUC: 0.9556
+Fold 4 Test Posterior: 0.0003 (True Label: 0)
+LOOCV Fold 5/103
+[INFO] selected 7 principal components to retain 95.43% variance.
+Fold 5 Training AUC: 0.9568
+Fold 5 Test Posterior: 0.0001 (True Label: 0)
+LOOCV Fold 6/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+Fold 6 Training AUC: 0.9568
+Fold 6 Test Posterior: 0.2732 (True Label: 0)
+LOOCV Fold 7/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+Fold 7 Training AUC: 0.9564
+Fold 7 Test Posterior: 0.0004 (True Label: 0)
+LOOCV Fold 8/103
+[INFO] selected 7 principal components to retain 95.46% variance.
+Fold 8 Training AUC: 0.9572
+Fold 8 Test Posterior: 0.0102 (True Label: 0)
+LOOCV Fold 9/103
+[INFO] selected 7 principal components to retain 95.52% variance.
+Fold 9 Training AUC: 0.9548
+Fold 9 Test Posterior: 0.0246 (True Label: 0)
+LOOCV Fold 10/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+Fold 10 Training AUC: 0.9576
+Fold 10 Test Posterior: 0.6959 (True Label: 0)
+LOOCV Fold 11/103
+[INFO] selected 7 principal components to retain 95.49% variance.
+Fold 11 Training AUC: 0.9584
+Fold 11 Test Posterior: 0.8634 (True Label: 0)
+LOOCV Fold 12/103
+[INFO] selected 7 principal components to retain 95.51% variance.
+Fold 12 Training AUC: 0.9572
+Fold 12 Test Posterior: 0.9936 (True Label: 0)
+LOOCV Fold 13/103
+[INFO] selected 7 principal components to retain 95.52% variance.
+Fold 13 Training AUC: 0.9580
+Fold 13 Test Posterior: 0.2064 (True Label: 0)
+LOOCV Fold 14/103
+[INFO] selected 7 principal components to retain 95.51% variance.
+Fold 14 Training AUC: 0.9552
+Fold 14 Test Posterior: 0.0250 (True Label: 0)
+LOOCV Fold 15/103
+[INFO] selected 7 principal components to retain 95.47% variance.
+Fold 15 Training AUC: 0.9548
+Fold 15 Test Posterior: 0.0057 (True Label: 0)
+LOOCV Fold 16/103
+[INFO] selected 7 principal components to retain 95.53% variance.
+Fold 16 Training AUC: 0.9560
+Fold 16 Test Posterior: 0.0031 (True Label: 0)
+LOOCV Fold 17/103
+[INFO] selected 7 principal components to retain 95.49% variance.
+Fold 17 Training AUC: 0.9552
+Fold 17 Test Posterior: 0.0002 (True Label: 0)
+LOOCV Fold 18/103
+[INFO] selected 7 principal components to retain 95.49% variance.
+Fold 18 Training AUC: 0.9556
+Fold 18 Test Posterior: 0.2335 (True Label: 0)
+LOOCV Fold 19/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+Fold 19 Training AUC: 0.9548
+Fold 19 Test Posterior: 0.0165 (True Label: 0)
+LOOCV Fold 20/103
+[INFO] selected 7 principal components to retain 95.49% variance.
+Fold 20 Training AUC: 0.9552
+Fold 20 Test Posterior: 0.0008 (True Label: 0)
+LOOCV Fold 21/103
+[INFO] selected 7 principal components to retain 95.57% variance.
+Fold 21 Training AUC: 0.9556
+Fold 21 Test Posterior: 0.0003 (True Label: 0)
+LOOCV Fold 22/103
+[INFO] selected 7 principal components to retain 95.51% variance.
+Fold 22 Training AUC: 0.9568
+Fold 22 Test Posterior: 0.0194 (True Label: 0)
+LOOCV Fold 23/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+Fold 23 Training AUC: 0.9560
+Fold 23 Test Posterior: 0.0602 (True Label: 0)
+LOOCV Fold 24/103
+[INFO] selected 7 principal components to retain 95.51% variance.
+Fold 24 Training AUC: 0.9568
+Fold 24 Test Posterior: 0.0205 (True Label: 0)
+LOOCV Fold 25/103
+[INFO] selected 7 principal components to retain 95.54% variance.
+Fold 25 Training AUC: 0.9556
+Fold 25 Test Posterior: 0.0366 (True Label: 0)
+LOOCV Fold 26/103
+[INFO] selected 7 principal components to retain 95.51% variance.
+Fold 26 Training AUC: 0.9560
+Fold 26 Test Posterior: 0.0421 (True Label: 0)
+LOOCV Fold 27/103
+[INFO] selected 7 principal components to retain 95.58% variance.
+Fold 27 Training AUC: 0.9560
+Fold 27 Test Posterior: 0.0002 (True Label: 0)
+LOOCV Fold 28/103
+[INFO] selected 7 principal components to retain 95.53% variance.
+Fold 28 Training AUC: 0.9568
+Fold 28 Test Posterior: 0.0355 (True Label: 0)
+LOOCV Fold 29/103
+[INFO] selected 7 principal components to retain 95.52% variance.
+Fold 29 Training AUC: 0.9556
+Fold 29 Test Posterior: 0.0020 (True Label: 0)
+LOOCV Fold 30/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+Fold 30 Training AUC: 0.9580
+Fold 30 Test Posterior: 0.7351 (True Label: 0)
+LOOCV Fold 31/103
+[INFO] selected 7 principal components to retain 95.49% variance.
+Fold 31 Training AUC: 0.9576
+Fold 31 Test Posterior: 0.0774 (True Label: 0)
+LOOCV Fold 32/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+Fold 32 Training AUC: 0.9564
+Fold 32 Test Posterior: 0.4315 (True Label: 0)
+LOOCV Fold 33/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+Fold 33 Training AUC: 0.9568
+Fold 33 Test Posterior: 0.1194 (True Label: 0)
+LOOCV Fold 34/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+Fold 34 Training AUC: 0.9576
+Fold 34 Test Posterior: 0.4015 (True Label: 0)
+LOOCV Fold 35/103
+[INFO] selected 7 principal components to retain 95.61% variance.
+Fold 35 Training AUC: 0.9572
+Fold 35 Test Posterior: 0.0888 (True Label: 0)
+LOOCV Fold 36/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+Fold 36 Training AUC: 0.9548
+Fold 36 Test Posterior: 0.0349 (True Label: 0)
+LOOCV Fold 37/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+Fold 37 Training AUC: 0.9568
+Fold 37 Test Posterior: 0.1389 (True Label: 0)
+LOOCV Fold 38/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+Fold 38 Training AUC: 0.9548
+Fold 38 Test Posterior: 1.0000 (True Label: 1)
+LOOCV Fold 39/103
+[INFO] selected 7 principal components to retain 95.54% variance.
+Fold 39 Training AUC: 0.9552
+Fold 39 Test Posterior: 1.0000 (True Label: 1)
+LOOCV Fold 40/103
+[INFO] selected 7 principal components to retain 95.49% variance.
+Fold 40 Training AUC: 0.9577
+Fold 40 Test Posterior: 0.9565 (True Label: 1)
+LOOCV Fold 41/103
+[INFO] selected 7 principal components to retain 95.54% variance.
+Fold 41 Training AUC: 0.9653
+Fold 41 Test Posterior: 0.0215 (True Label: 1)
+LOOCV Fold 42/103
+[INFO] selected 7 principal components to retain 95.44% variance.
+Fold 42 Training AUC: 0.9548
+Fold 42 Test Posterior: 1.0000 (True Label: 1)
+LOOCV Fold 43/103
+[INFO] selected 7 principal components to retain 95.37% variance.
+Fold 43 Training AUC: 0.9565
+Fold 43 Test Posterior: 1.0000 (True Label: 1)
+LOOCV Fold 44/103
+[INFO] selected 7 principal components to retain 95.51% variance.
+Fold 44 Training AUC: 0.9560
+Fold 44 Test Posterior: 0.9641 (True Label: 1)
+LOOCV Fold 45/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+Fold 45 Training AUC: 0.9565
+Fold 45 Test Posterior: 0.9624 (True Label: 1)
+LOOCV Fold 46/103
+[INFO] selected 7 principal components to retain 95.47% variance.
+Fold 46 Training AUC: 0.9556
+Fold 46 Test Posterior: 0.9901 (True Label: 1)
+LOOCV Fold 47/103
+[INFO] selected 7 principal components to retain 95.53% variance.
+Fold 47 Training AUC: 0.9552
+Fold 47 Test Posterior: 0.7765 (True Label: 1)
+LOOCV Fold 48/103
+[INFO] selected 7 principal components to retain 95.55% variance.
+Fold 48 Training AUC: 0.9577
+Fold 48 Test Posterior: 0.9473 (True Label: 1)
+LOOCV Fold 49/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+Fold 49 Training AUC: 0.9569
+Fold 49 Test Posterior: 0.8532 (True Label: 1)
+LOOCV Fold 50/103
+[INFO] selected 7 principal components to retain 95.24% variance.
+Fold 50 Training AUC: 0.9556
+Fold 50 Test Posterior: 1.0000 (True Label: 1)
+LOOCV Fold 51/103
+[INFO] selected 7 principal components to retain 95.43% variance.
+Fold 51 Training AUC: 0.9544
+Fold 51 Test Posterior: 1.0000 (True Label: 1)
+LOOCV Fold 52/103
+[INFO] selected 7 principal components to retain 95.52% variance.
+Fold 52 Training AUC: 0.9560
+Fold 52 Test Posterior: 0.0010 (True Label: 0)
+LOOCV Fold 53/103
+[INFO] selected 7 principal components to retain 95.49% variance.
+Fold 53 Training AUC: 0.9564
+Fold 53 Test Posterior: 0.0294 (True Label: 0)
+LOOCV Fold 54/103
+[INFO] selected 7 principal components to retain 95.43% variance.
+Fold 54 Training AUC: 0.9548
+Fold 54 Test Posterior: 1.0000 (True Label: 1)
+LOOCV Fold 55/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+Fold 55 Training AUC: 0.9568
+Fold 55 Test Posterior: 0.3133 (True Label: 0)
+LOOCV Fold 56/103
+[INFO] selected 7 principal components to retain 95.55% variance.
+Fold 56 Training AUC: 0.9657
+Fold 56 Test Posterior: 0.0225 (True Label: 1)
+LOOCV Fold 57/103
+[INFO] selected 7 principal components to retain 95.49% variance.
+Fold 57 Training AUC: 0.9544
+Fold 57 Test Posterior: 0.4537 (True Label: 1)
+LOOCV Fold 58/103
+[INFO] selected 7 principal components to retain 95.59% variance.
+Fold 58 Training AUC: 0.9585
+Fold 58 Test Posterior: 0.1557 (True Label: 1)
+LOOCV Fold 59/103
+[INFO] selected 7 principal components to retain 95.40% variance.
+Fold 59 Training AUC: 0.9581
+Fold 59 Test Posterior: 1.0000 (True Label: 1)
+LOOCV Fold 60/103
+[INFO] selected 7 principal components to retain 95.45% variance.
+Fold 60 Training AUC: 0.9556
+Fold 60 Test Posterior: 0.9153 (True Label: 1)
+LOOCV Fold 61/103
+[INFO] selected 7 principal components to retain 95.49% variance.
+Fold 61 Training AUC: 0.9560
+Fold 61 Test Posterior: 0.0070 (True Label: 0)
+LOOCV Fold 62/103
+[INFO] selected 7 principal components to retain 95.54% variance.
+Fold 62 Training AUC: 0.9564
+Fold 62 Test Posterior: 0.0360 (True Label: 0)
+LOOCV Fold 63/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+Fold 63 Training AUC: 0.9596
+Fold 63 Test Posterior: 0.1115 (True Label: 0)
+LOOCV Fold 64/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+Fold 64 Training AUC: 0.9584
+Fold 64 Test Posterior: 0.0922 (True Label: 0)
+LOOCV Fold 65/103
+[INFO] selected 7 principal components to retain 95.49% variance.
+Fold 65 Training AUC: 0.9560
+Fold 65 Test Posterior: 0.0187 (True Label: 0)
+LOOCV Fold 66/103
+[INFO] selected 7 principal components to retain 95.53% variance.
+Fold 66 Training AUC: 0.9560
+Fold 66 Test Posterior: 0.0378 (True Label: 0)
+LOOCV Fold 67/103
+[INFO] selected 7 principal components to retain 95.52% variance.
+Fold 67 Training AUC: 0.9576
+Fold 67 Test Posterior: 0.4102 (True Label: 0)
+LOOCV Fold 68/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+Fold 68 Training AUC: 0.9556
+Fold 68 Test Posterior: 0.0402 (True Label: 0)
+LOOCV Fold 69/103
+[INFO] selected 7 principal components to retain 95.46% variance.
+Fold 69 Training AUC: 0.9556
+Fold 69 Test Posterior: 0.0154 (True Label: 0)
+LOOCV Fold 70/103
+[INFO] selected 7 principal components to retain 95.55% variance.
+Fold 70 Training AUC: 0.9552
+Fold 70 Test Posterior: 0.0014 (True Label: 0)
+LOOCV Fold 71/103
+[INFO] selected 7 principal components to retain 95.52% variance.
+Fold 71 Training AUC: 0.9548
+Fold 71 Test Posterior: 0.0037 (True Label: 0)
+LOOCV Fold 72/103
+[INFO] selected 7 principal components to retain 95.52% variance.
+Fold 72 Training AUC: 0.9564
+Fold 72 Test Posterior: 0.0545 (True Label: 0)
+LOOCV Fold 73/103
+[INFO] selected 7 principal components to retain 95.52% variance.
+Fold 73 Training AUC: 0.9568
+Fold 73 Test Posterior: 0.0854 (True Label: 0)
+LOOCV Fold 74/103
+[INFO] selected 7 principal components to retain 95.54% variance.
+Fold 74 Training AUC: 0.9576
+Fold 74 Test Posterior: 0.1040 (True Label: 0)
+LOOCV Fold 75/103
+[INFO] selected 7 principal components to retain 95.49% variance.
+Fold 75 Training AUC: 0.9617
+Fold 75 Test Posterior: 0.0473 (True Label: 1)
+LOOCV Fold 76/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+Fold 76 Training AUC: 0.9552
+Fold 76 Test Posterior: 0.0005 (True Label: 0)
+LOOCV Fold 77/103
+[INFO] selected 7 principal components to retain 95.52% variance.
+Fold 77 Training AUC: 0.9556
+Fold 77 Test Posterior: 0.0035 (True Label: 0)
+LOOCV Fold 78/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+Fold 78 Training AUC: 0.9552
+Fold 78 Test Posterior: 0.0016 (True Label: 0)
+LOOCV Fold 79/103
+[INFO] selected 7 principal components to retain 95.45% variance.
+Fold 79 Training AUC: 0.9532
+Fold 79 Test Posterior: 0.5043 (True Label: 1)
+LOOCV Fold 80/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+Fold 80 Training AUC: 0.9573
+Fold 80 Test Posterior: 1.0000 (True Label: 1)
+LOOCV Fold 81/103
+[INFO] selected 7 principal components to retain 95.51% variance.
+Fold 81 Training AUC: 0.9556
+Fold 81 Test Posterior: 0.0146 (True Label: 0)
+LOOCV Fold 82/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+Fold 82 Training AUC: 0.9556
+Fold 82 Test Posterior: 0.0054 (True Label: 0)
+LOOCV Fold 83/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+Fold 83 Training AUC: 0.9548
+Fold 83 Test Posterior: 0.9959 (True Label: 1)
+LOOCV Fold 84/103
+[INFO] selected 7 principal components to retain 95.46% variance.
+Fold 84 Training AUC: 0.9536
+Fold 84 Test Posterior: 1.0000 (True Label: 1)
+LOOCV Fold 85/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+Fold 85 Training AUC: 0.9552
+Fold 85 Test Posterior: 1.0000 (True Label: 1)
+LOOCV Fold 86/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+Fold 86 Training AUC: 0.9540
+Fold 86 Test Posterior: 0.7460 (True Label: 1)
+LOOCV Fold 87/103
+[INFO] selected 7 principal components to retain 95.54% variance.
+Fold 87 Training AUC: 0.9552
+Fold 87 Test Posterior: 0.9895 (True Label: 1)
+LOOCV Fold 88/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+Fold 88 Training AUC: 0.9548
+Fold 88 Test Posterior: 0.9999 (True Label: 1)
+LOOCV Fold 89/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+Fold 89 Training AUC: 0.9564
+Fold 89 Test Posterior: 0.0167 (True Label: 0)
+LOOCV Fold 90/103
+[INFO] selected 7 principal components to retain 95.52% variance.
+Fold 90 Training AUC: 0.9608
+Fold 90 Test Posterior: 0.8152 (True Label: 0)
+LOOCV Fold 91/103
+[INFO] selected 7 principal components to retain 95.49% variance.
+Fold 91 Training AUC: 0.9564
+Fold 91 Test Posterior: 0.0020 (True Label: 0)
+LOOCV Fold 92/103
+[INFO] selected 7 principal components to retain 95.49% variance.
+Fold 92 Training AUC: 0.9544
+Fold 92 Test Posterior: 0.9862 (True Label: 1)
+LOOCV Fold 93/103
+[INFO] selected 7 principal components to retain 95.44% variance.
+Fold 93 Training AUC: 0.9565
+Fold 93 Test Posterior: 1.0000 (True Label: 1)
+LOOCV Fold 94/103
+[INFO] selected 7 principal components to retain 95.40% variance.
+Fold 94 Training AUC: 0.9565
+Fold 94 Test Posterior: 1.0000 (True Label: 1)
+LOOCV Fold 95/103
+[INFO] selected 7 principal components to retain 95.41% variance.
+Fold 95 Training AUC: 0.9585
+Fold 95 Test Posterior: 1.0000 (True Label: 1)
+LOOCV Fold 96/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+Fold 96 Training AUC: 0.9532
+Fold 96 Test Posterior: 0.7928 (True Label: 1)
+LOOCV Fold 97/103
+[INFO] selected 7 principal components to retain 95.60% variance.
+Fold 97 Training AUC: 0.9577
+Fold 97 Test Posterior: 0.8888 (True Label: 1)
+LOOCV Fold 98/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+Fold 98 Training AUC: 0.9585
+Fold 98 Test Posterior: 0.9953 (True Label: 1)
+LOOCV Fold 99/103
+[INFO] selected 7 principal components to retain 95.47% variance.
+Fold 99 Training AUC: 0.9528
+Fold 99 Test Posterior: 0.9996 (True Label: 1)
+LOOCV Fold 100/103
+[INFO] selected 7 principal components to retain 95.53% variance.
+Fold 100 Training AUC: 0.9565
+Fold 100 Test Posterior: 0.9940 (True Label: 1)
+LOOCV Fold 101/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+Fold 101 Training AUC: 0.9581
+Fold 101 Test Posterior: 1.0000 (True Label: 1)
+LOOCV Fold 102/103
+[INFO] selected 7 principal components to retain 95.53% variance.
+Fold 102 Training AUC: 0.9548
+Fold 102 Test Posterior: 0.9295 (True Label: 1)
+LOOCV Fold 103/103
+[INFO] selected 7 principal components to retain 95.51% variance.
+Fold 103 Training AUC: 0.9746
+Fold 103 Test Posterior: 0.0020 (True Label: 1)
+
+[INFO] LOOCV Finished
+\end{minted}
+\end{document}

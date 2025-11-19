@@ -2,10 +2,7 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from matplotlib.markers import MarkerStyle
 from dataclasses import dataclass
-from typing import Optional
-from copy import deepcopy
 
 @dataclass
 class Dataset:
@@ -13,10 +10,35 @@ class Dataset:
     X_test: np.ndarray
     y_train: np.ndarray
     y_test: np.ndarray
-    feature_mask: Optional[np.ndarray] = None
 
 def get_data(data: Dataset):
-    return data.X_train, data.X_test, data.y_train, data.y_test, data.feature_mask
+    return data.X_train, data.X_test, data.y_train, data.y_test
+
+# X: N*d, X_T: d*N
+def PCA(X: np.ndarray, thresh=0.95):
+    """perform PCA on data X, return projection matrix W"""
+    # covariance = X^T X / n
+    XTX = (X.T @ X) / X.shape[0]   # d*d
+
+    # eigen decomposition
+    eigvals, eigvecs = np.linalg.eigh(XTX)
+
+    # sort
+    sorted_idx = np.argsort(eigvals)[::-1]
+    eigvals = eigvals[sorted_idx]
+    eigvecs = eigvecs[:, sorted_idx]
+
+    # numerical stabilization
+    eigvals = np.maximum(eigvals, 0)
+
+    # variance explained
+    total_var = np.sum(eigvals)
+    var_exp = np.cumsum(eigvals) / total_var
+
+    n_components = np.searchsorted(var_exp, thresh) + 1
+    print(f"[INFO] selected {n_components} principal components to retain {var_exp[n_components-1]*100:.2f}% variance.")
+
+    return eigvecs[:, :n_components]
 
 # x is the value, y is the label
 def evaluation(x, y, diagram=0):
@@ -79,10 +101,10 @@ def log_sum_exp(a, b):
     return m + np.log(term1 + term2)
 
 def get_parameters(data: Dataset):
-    """get parameters with feature selection mask"""
+    """get parameters with all projected training data"""
     # get data
-    X_train_all, _, y_train, _, selected_features = get_data(data)
-    X_train = X_train_all[:, selected_features]
+    # N*k _ N*1 _
+    X_train, _, y_train, _ = get_data(data)
 
     # prior probability
     counts = np.bincount(y_train.astype(int))
@@ -101,14 +123,12 @@ def get_parameters(data: Dataset):
     # print(X_train.shape, y_train.shape) 
 
     # mean, shape[0]: rows, shape[1]: features
-    mask0 = (y_train == 0)
-    mask1 = (y_train == 1)
-    mu0 = X_train[mask0].mean(axis=0)
-    mu1 = X_train[mask1].mean(axis=0)
+    mu0 = X_train[y_train == 0].mean(axis=0)
+    mu1 = X_train[y_train == 1].mean(axis=0)
     
     # co-matrix
-    X0_centered = X_train[mask0] - mu0
-    X1_centered = X_train[mask1] - mu1
+    X0_centered = X_train[y_train == 0] - mu0
+    X1_centered = X_train[y_train == 1] - mu1
 
     cm0 = (X0_centered.T @ X0_centered) / n_neg
     cm1 = (X1_centered.T @ X1_centered) / n_pos
@@ -120,15 +140,13 @@ def get_parameters(data: Dataset):
     return p0, p1, mu0, mu1, cm0, cm1
 
 def estimate(data: Dataset):
-    X_train_all, X_test_all, y_train, y_test, selected_features = get_data(data)
+    # N*k 1*k N*1 1*1
+    X_train, X_test, y_train, y_test = get_data(data)
     
     params = get_parameters(data)
     if params is None:
         return 0.0, 0.5
     p0, p1, mu0, mu1, cm0, cm1 = params
-
-    X_train = X_train_all[:, selected_features]
-    X_test = X_test_all[:, selected_features]
 
     try:
         inv0 = np.linalg.inv(cm0)
@@ -172,147 +190,12 @@ def estimate(data: Dataset):
     test_prior = np.exp(log_post1_test - log_den_test).item()
 
     return performance, test_prior
-    
-def feature_selection(data: Dataset):
-    n_features = data.X_test.shape[1]
-    
-    best_mask = np.zeros(n_features, dtype=bool)
-    best_auc = 0.0
-    best_prior_for_best_mask = 0.5
 
-    n = 0
-    while n < n_features:
-        local_best_mask = best_mask.copy()
-        local_best_auc = -1.0
-        local_best_prior = 0.5
-
-        for i in range(n_features):
-            if best_mask[i] == 1:
-                continue
-
-            local_mask = best_mask.copy()
-            local_mask[i] = 1
-
-            local_data = deepcopy(data)
-            local_data.feature_mask = local_mask
-
-            local_auc, test_prior_for_this_mask = estimate(local_data)
-            if local_auc > local_best_auc: # type: ignore
-                local_best_auc = local_auc
-                local_best_mask = local_mask
-                local_best_prior = test_prior_for_this_mask
-
-        if local_best_auc <= best_auc:  # type: ignore
-            break
-        else:
-            best_auc = local_best_auc
-            best_mask = local_best_mask
-            best_prior_for_best_mask = local_best_prior
-            n += 1
-
-    return best_auc, best_mask, best_prior_for_best_mask
-
-def plot_bivariate_decision_boundary(data_df, feature1_name, feature2_name):
-    """This section is helped by AI"""
-    print(f"[INFO] Plotting decision boundary for: {feature1_name} and {feature2_name}")
-    
-    X = data_df[[feature1_name, feature2_name]].to_numpy()
-    y = data_df['GroundTruth'].to_numpy()
-    d = X.shape[1]
-    
-    n_pos = np.sum(y == 1)
-    n_neg = np.sum(y == 0)
-    n = n_pos + n_neg
-    p1 = n_pos / n
-    p0 = n_neg / n
-    
-    mu0 = np.zeros(shape=d, dtype=float)
-    mu1 = np.zeros(shape=d, dtype=float)
-    for i in range(n):
-        mu0 += (y[i] == 0) * X[i]
-        mu1 += (y[i] == 1) * X[i]
-    mu0 /= n_neg
-    mu1 /= n_pos
-    
-    cm0 = np.zeros(shape=(d, d), dtype=float)
-    cm1 = np.zeros(shape=(d, d), dtype=float)
-    for t in range(n):
-        if y[t] == 0:
-            diff = (X[t] - mu0).reshape(-1, 1)
-            cm0 += diff @ diff.T
-        else:
-            diff = (X[t] - mu1).reshape(-1, 1)
-            cm1 += diff @ diff.T
-    cm0 /= n_neg
-    cm1 /= n_pos
-    
-    reg = 1e-6
-    cm0 += np.eye(d) * reg
-    cm1 += np.eye(d) * reg
-
-    try:
-        inv_cm0 = np.linalg.inv(cm0)
-        inv_cm1 = np.linalg.inv(cm1)
-        det_cm0 = np.linalg.det(cm0)
-        det_cm1 = np.linalg.det(cm1)
-    except np.linalg.LinAlgError:
-        print("[ERROR] Singular matrix during plotting.")
-        return
-
-    x_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1
-    y_min, y_max = X[:, 1].min() - 1, X[:, 1].max() + 1
-    
-    xx, yy = np.meshgrid(np.linspace(x_min, x_max, 200),
-                         np.linspace(y_min, y_max, 200))
-    
-    grid_points = np.c_[xx.ravel(), yy.ravel()]
-    
-    def gaussian_pdf(X_grid, mu, inv_C, det_C):
-        coeff = 1.0 / (np.sqrt((2 * np.pi)**d * det_C))
-        diff = X_grid - mu
-        exponent = -0.5 * np.sum((diff @ inv_C) * diff, axis=1)
-        return coeff * np.exp(exponent)
-
-    Z0_like = gaussian_pdf(grid_points, mu0, inv_cm0, det_cm0)
-    Z1_like = gaussian_pdf(grid_points, mu1, inv_cm1, det_cm1)
-    
-    Z_boundary = (Z1_like * p1) - (Z0_like * p0)
-    
-    Z0_plot = Z0_like.reshape(xx.shape)
-    Z1_plot = Z1_like.reshape(xx.shape)
-    Z_boundary_plot = Z_boundary.reshape(xx.shape)
-    plt.figure(figsize=(10, 8))
-    
-    plt.scatter(X[y==0, 0], X[y==0, 1], 
-                marker=MarkerStyle('o'), c='blue', alpha=0.7, label='Class 0 (Circles)')
-    plt.scatter(X[y==1, 0], X[y==1, 1], 
-                marker=MarkerStyle('+'), c='red', alpha=0.7, label='Class 1 (Plus Signs)')
-    
-    plt.contour(xx, yy, Z0_plot, colors='blue', linestyles='--', alpha=0.5)
-    plt.contour(xx, yy, Z1_plot, colors='red', linestyles=':', alpha=0.5)
-    
-    plt.contour(xx, yy, Z_boundary_plot, levels=[0], colors='black', linewidths=2)
-    
-    plt.xlabel(feature1_name)
-    plt.ylabel(feature2_name)
-    plt.title('Bivariate Gaussian Decision Boundary and Contours')
-    plt.legend()
-    plt.grid(True)
-    plt.savefig('decision_boundary_plot.png', dpi=400)
-    print("[INFO] Decision boundary plot saved as 'decision_boundary_plot.png'")
-    plt.show()
-
-def loocv(data): 
-    non_feature_cols = ['SeqNum', 'GroundTruth', 'Gender']
-    feature_names = data.drop(columns=non_feature_cols).columns.to_list()
-    n_features = len(feature_names)    
+def loocv(data, thresh=0.95): 
+    print(f"start with thresh={thresh}")
     n_samples = data.shape[0]
-
     prior = np.zeros(shape=n_samples, dtype=float)
-    mask_stat = np.zeros(shape=n_features, dtype=int)
-    
     all_y = data['GroundTruth'].to_numpy()
-    selected_features_per_fold = []
 
     for i in range(n_samples):
         print(f"LOOCV Fold {i+1}/{n_samples}")
@@ -322,47 +205,46 @@ def loocv(data):
         train = train.reset_index(drop=True)
         test = test.reset_index(drop=True)
 
-        X_train = train.drop(columns = ['SeqNum', 'GroundTruth',  'Gender']).to_numpy()
-        X_test = test.drop(columns = ['SeqNum', 'GroundTruth',  'Gender']).to_numpy()
+        # origin data
+        X_train_raw = train.drop(columns=['SeqNum','GroundTruth','Gender']).to_numpy()
+        X_test_raw  = test.drop(columns=['SeqNum','GroundTruth','Gender']).to_numpy()
+
+        std, mu = X_train_raw.std(axis=0), X_train_raw.mean(axis=0)
+        std[std == 0] = 1.0
+        X_train_std = (X_train_raw - mu) / std
+        X_test_std  = (X_test_raw  - mu) / std
+
+        pca = PCA(X_train_std, thresh=thresh) # d×k
+
+        X_train_centered = X_train_std # N×d
+        X_test_centered  = X_test_std # 1×d
+
+        # projected data
+        Z_train = X_train_centered @ pca # N×k
+        Z_test  = X_test_centered  @ pca # 1×k
 
         y_train = train['GroundTruth'].to_numpy()
         y_test = test['GroundTruth'].to_numpy()
         
         fold_data = Dataset(
-            X_train = X_train,
-            X_test = X_test,
-            y_train = y_train,
-            y_test = y_test
+            X_train = Z_train, # N×k
+            X_test = Z_test, # 1×k
+            y_train = y_train, # N×1
+            y_test = y_test # 1×1
         )
         # best auc, mask, and prior of test data under the selected mask
-        auc, mask, pr = feature_selection(fold_data)
         
-        # record features selected in each fold
-        selected_feature_names = [name for name, m in zip(feature_names, mask) if m]
-        selected_features_per_fold.append(selected_feature_names)
-        print(f"Fold {i+1} Selected Features: {selected_feature_names}")
+        perf, pr = estimate(fold_data)
+
+        print(f"Fold {i+1} Training AUC: {perf:.4f}")
 
         prior[i] = pr
-        mask_stat += mask.astype(int)
         
         print(f"Fold {i+1} Test Posterior: {pr:.4f} (True Label: {y_test[0]})")
-        print(f"Fold {i+1} Selected {np.sum(mask)} features.")
         
     # show the results
     print("\n[INFO] LOOCV Finished")
-    print(f"- Final posterior probabilities for each sample:\n{prior}")
-
-    print("\n- Feature sets per fold:")    
-    for i, feats in enumerate(selected_features_per_fold, 1):
-        print(f"Fold {i}: {feats}")
-
-    print(f"- Feature selection frequency mask:\n{mask_stat}")
-    
-    feature_counts_series = pd.Series(mask_stat, index=feature_names)
-    sorted_features = feature_counts_series.sort_values(ascending=False)
-    
-    print("\n- Feature Selection Count:")
-    print(sorted_features)
+    # print(f"- Final posterior probabilities for each sample:\n{prior}")
 
     # show the performance
     print("\n- Overall Model Performance (from LOOCV posteriors)")
@@ -381,26 +263,12 @@ def loocv(data):
     sensitivity = tp / total_pos if total_pos > 0 else 0.0
     specificity = tn / total_neg if total_neg > 0 else 0.0
 
-    print(f"\n Metrics (using threshold = {thresh}):")
+    print(f"\nMetrics (using threshold = {thresh}):")
     print(f"    Accuracy:    {accuracy:.4f} ({(tp+tn)}/{n_samples})")
     print(f"    Sensitivity: {sensitivity:.4f} ({tp}/{total_pos})")
     print(f"    Specificity: {specificity:.4f} ({tn}/{total_neg})")
-    print(f" Area Under Curve: {overall_auc:.4f}")
+    print(f"Area Under Curve: {overall_auc:.4f}")
     
-    # top 2 features plot
-    top_feature_1 = sorted_features.index[0]
-    top_feature_2 = sorted_features.index[1]
-    print("[INFO] Select the top 2 features by frequency count.")
-    
-    if len(sorted_features) > 2 and sorted_features.iloc[1] == sorted_features.iloc[2]:
-        print(f"[INFO] A tie was detected for second place at {sorted_features.iloc[1]} counts.")
-        print(f"[INFO] Selected '{top_feature_2}' based on default sort order (alphabetical).")
-    else:
-        print("[INFO] No tie detected for the top 2 features.")
-
-    print(f"[INFO] Automatically selected features: {top_feature_1} (Count: {sorted_features.iloc[0]}), {top_feature_2} (Count: {sorted_features.iloc[1]})")
-
-    plot_bivariate_decision_boundary(data, top_feature_1, top_feature_2)
 
 
 if __name__ == '__main__':
@@ -409,4 +277,6 @@ if __name__ == '__main__':
     print(df.head())
     print("[INFO] Starting Leave-One-Out Cross-Validation...")
     np.random.seed(98)
-    loocv(df)
+
+    thresh = 0.95
+    loocv(df, thresh=thresh)

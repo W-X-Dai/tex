@@ -49,10 +49,24 @@
 \lhead{Machine Learning HW2}
 \rhead{B12508026戴偉璿}
 
+\newpage
+\section*{Usage of Artificial Intelligence Tools}
+In this homework, I utilized my code in HW 1, which was developed without AI assistance. The code for PCA implementation and plotting was written by myself, based on my understanding of the concepts.
+
+For the report, to make my expression more academic and formal, I used ChatGPT to help refine and polish the language in certain sections of the report. Besides, I utilized ChatGPT to help me generate the plots due to unfamiliarity with the matplotlib library. I provided ChatGPT with my original text and requested suggestions for improvement, which I then reviewed and incorporated as appropriate.
+
+\section*{Code Structure}
+The file \texttt{numpy\_accr.py} contains the main implementation of PCA and LOOCV evaluation. The file \texttt{plot.py} is used for generating the required plots. It's modified from \texttt{numpy\_accr.py}, so the functions may be similiar.
+
+The file \texttt{multi\_core\_accr.py} integrates multiprocessing optimizations for LOOCV to further enhance computational efficiency.
+
+Parallel processing may not be supported in all environments (the experiments were conducted on Ubuntu 24.04.3 LTS with Linux kernel 6.14.0-33-generic, Python 3.10.13). Therefore, a NumPy-optimized version is also provided for compatibility. If the environment supports multiprocessing, it is recommended to execute the multi-core accelerated version, which produces results within only a few seconds.
+
+\newpage
 \begin{enumerate}
     \item 
     \begin{enumerate}
-        \item I decided to use Proportion of Variance (PoV) with thresh = 0.95 to determine the number of principal components to keep. With this threshold, I found that each fold selected 7 principal components to retain at least 95\% of the variance in the data. This my cause by the characteristics of loocv, where each training fold is very similar to the overall dataset, leading to consistent PCA results across folds. The execution log for PCA in each fold is provided in Appendix \ref{app:pca_log}.
+        \item I decided to use Proportion of Variance (PoV) with thresh = 0.95 to determine the number of principal components to keep. With this threshold, I found that each fold selected 7 principal components to retain at least 95\% of the variance in the data. This may be caused by the characteristics of loocv, where each training fold is very similar to the overall dataset, leading to consistent PCA results across folds. The execution log for PCA in each fold is provided in Appendix \ref{app:pca_log}.
         \item The overall performance of Bayesian classification with PCA (thresh=0.95) using LOOCV is summarized in Table \ref{tab:loocv_pca_095_performance} below, and the confusion matrix is shown in Table \ref{tab:loocv_pca_095_confusion}. Fig.~\ref{fig:loocv_pca_095_roc_curve} presents the ROC curve for this configuration.
         \begin{table}[H]
             \centering
@@ -106,6 +120,13 @@
             \label{fig:pca_scree_plot}
         \end{figure}
         \item The top 5 eigenvalues are: 9.254088, 3.874613, 1.869370, 1.058813, and 0.904257. All eigenvalues and their corresponding eigenvectors can be found in Appendix \ref{app:eigenvalues_eigenvectors}.
+        \item PCA projection with Gaussian contours and decision boundary is shown in Fig.~\ref{fig:pca_gaussian_decision}.
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.7\textwidth]{src/pca_gaussian_decision.png}
+            \caption{PCA 2D Projection with Gaussian Contours and Decision Boundary}
+            \label{fig:pca_gaussian_decision}
+        \end{figure}
     \end{enumerate}
 
 \end{enumerate}

@@ -1,0 +1,149 @@
+\documentclass[xcolor=dvipsnames]{beamer}
+
+% ==== 主題 ====
+\usetheme{metropolis}
+\usefonttheme{professionalfonts}          % 不覆蓋你自訂的字型
+
+% ==== 字型 ====
+\usepackage{fontspec}
+\usepackage{xeCJK}
+\renewcommand{\familydefault}{\rmdefault} % 使用 serif 字體（重點）
+
+% 西文字型：Times New Roman 的開源替代品
+\setmainfont{TeX Gyre Termes}[
+  Ligatures=TeX,
+  BoldFont={* Bold},
+  ItalicFont={* Italic}
+]
+
+% 中文字型（可改為思源宋體、標楷體等）
+\setCJKmainfont{Noto Serif CJK TC}
+\setCJKsansfont{Noto Sans CJK TC} % 有需要再用
+\setCJKmonofont{Noto Sans Mono CJK TC}
+
+% ==== 數學字型（與正文字體一致）====
+\usepackage{unicode-math}
+\setmathfont{TeX Gyre Termes Math}
+
+% ==== 套件 ====
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{minted}
+\usepackage{fvextra}
+\usepackage{xcolor}
+\usepackage{booktabs}
+
+% ==== 顏色設定（可選）====
+\definecolor{MyBlue}{RGB}{3, 55, 105}
+\setbeamercolor{structure}{fg=MyBlue}
+\setbeamercolor{block title}{bg=MyBlue,fg=white}
+\setbeamercolor{block body}{bg=blue!5}
+\setbeamertemplate{section in toc}{%
+  \inserttocsectionnumber.~\inserttocsection\par
+}
+
+\setminted{
+    linenos,                % 行號
+    frame=lines,            % 上下框線
+    framesep=5pt,           % 程式碼與邊框距離
+    numbersep=8pt,          % 行號與程式碼距離
+    fontsize=\scriptsize,   % 字體大小
+    breaklines,             % 自動換行
+    tabsize=4,              % tab 寬度
+    rulecolor=\color{black},% 框線顏色
+    xleftmargin=1.5em       % 左側縮排
+}
+
+\title{Midterm}
+\author{Tai, Wei Hsuan}
+\date{week 6}
+
+\begin{document}
+	\begin{frame}
+		\titlepage
+	\end{frame}
+
+\begin{frame}
+    \frametitle{Announcement}
+    Recording or photographing the slides or any content displayed on the screen is permitted for personal use only. \\[6pt]
+    Redistribution, modification, or any commercial use of the materials is strictly prohibited. \\[12pt]
+    \textit{© 2025 [Tai, Wei Hsuan]. All rights reserved. For personal use only.}
+\end{frame}
+
+
+    % course material qrcode
+    \begin{frame}
+        \frametitle{\href{https://drive.google.com/drive/folders/14Tkn-rddw0k1obeOxkWi00S43M0e9wlW?usp=sharing}{Course Materials}}
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.6\textwidth]{src/qrcode.png}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Outline}
+        \tableofcontents
+    \end{frame}
+    \section{Exam Rule}
+    \begin{frame}
+        \frametitle{Exam Rule}
+        \begin{itemize}
+            \item Open book, open internet, open discussion.
+            \item Having trouble? Raise your hand, and I will come to help.
+            \item LLM is not allowed.
+            \item Time limit: 90 minutes(From 18:25 to 19:55).
+            \item Top 3 participants will get cookies.
+        \end{itemize}
+    \end{frame}
+
+    \section{Simple Solutions}
+    \begin{frame}
+        \frametitle{Overview}
+        While joining a competition, quickly overview the problem first and find simple questions to solve first. Remember to solve subtasks first if there are any.
+        \begin{table}
+            \centering
+            \begin{tabular}{l l l}
+                \toprule
+                Problem & Concept  \\ 
+                \midrule
+                1. Evil Ceremony & Selection statement \\ 
+                2. Calculate Practice & Basic I/O \\ 
+                3. Star Tree & Nested Loop \\ 
+                4. Sum & Loop \\ 
+                5. Safe-Pro & Array \\
+                \bottomrule
+            \end{tabular}
+            \caption{Problem Overview}
+        \end{table}
+    \end{frame}
+    \begin{frame}
+        \frametitle{Evil Ceremony}
+        There are lots of restrictions in this problem, but we can summarize them first:
+        \begin{itemize}
+            \item Not a leap year.
+            \item \texttt{mm\%dd != 0}
+            \item \texttt{dd} is even and not equal to 13.
+        \end{itemize}
+        With the summarized restrictions, we can easily implement the solution with selection statements.
+    \end{frame}
+    \begin{frame}
+        \frametitle{Calculate Practice}
+        This problem is straightforward. Just read two integers and output their sum, difference, product, quotient, and remainder. Remember that there's no space between the operator and operands in the output. Thus, you neew to read an integer, a character, and another integer.
+
+        Besides, the result may be larger than the range of \texttt{int}, so we need to use \texttt{long long} to store the result.
+    \end{frame}
+    \begin{frame}
+        \frametitle{Star Tree}
+        This problem seems complicated, but it can be decomposed into a triangle and a bar. You need to optput a triangle on the top and a bar at the bottom. The triangle can be implemented with nested loops, and the bar can be implemented with a single loop.
+    \end{frame}
+    \begin{frame}
+        \frametitle{Sum}
+        This problem is straightforward. You just need to calculate the nth fibonacci number and accumulate the sum of the digits. This is why you need to overview all problems first.
+    \end{frame}
+    \begin{frame}
+        \frametitle{Safe-Pro}
+        This problem is very complicated but not hard. You need several arrays to store the data. Just think clearly and implement it step by step.
+    \end{frame}
+  
+\end{document}

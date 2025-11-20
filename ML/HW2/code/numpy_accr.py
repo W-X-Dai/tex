@@ -269,8 +269,6 @@ def loocv(data, thresh=0.95):
     print(f"    Specificity: {specificity:.4f} ({tn}/{total_neg})")
     print(f"Area Under Curve: {overall_auc:.4f}")
     
-
-
 if __name__ == '__main__':
     df = pd.read_excel('AcromegalyFeatureSet.xlsx')
     print("[INFO] Data loaded successfully:")

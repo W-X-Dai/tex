@@ -1,0 +1,66 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage{xeCJK}
+\usepackage{fontspec}
+\setCJKmainfont{Noto Serif CJK TC}[Script=CJK]
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\setlength{\headheight}{14.5pt}
+\addtolength{\topmargin}{-2.5pt}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{caption}
+\usepackage{indentfirst}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{float}
+\usepackage{minted}
+\setlength{\parindent}{2em}
+\pagestyle{fancy}
+\fancyhf{}
+\cfoot{\thepage}
+\linespread{1.3}
+\setminted{
+    linenos,                % 行號
+    frame=lines,            % 上下框線
+    framesep=5pt,           % 程式碼與邊框距離
+    numbersep=8pt,          % 行號與程式碼距離
+    fontsize=\scriptsize,   % 字體大小
+    breaklines,             % 自動換行
+    tabsize=4,              % tab 寬度
+    rulecolor=\color{black},% 框線顏色
+    xleftmargin=1.5em       % 左側縮排
+}
+
+\title{直線與圓}
+\author{B12508026戴偉璿}
+\date{\today}
+
+\begin{document}
+
+\lhead{直線與圓}
+\rhead{\today}
+
+\begin{enumerate}
+    \item 兩直線$L_1: (m+2)x+(m+3)y=10, L_2: 6x+(2m-1)y=5$
+    \begin{enumerate}
+        \item 計算$m$為何值時，$L_1$與$L_2$平行。\vspace{2cm}
+        \item 計算$m$為何值時，$L_1$與$L_2$垂直。\vspace{2cm}
+    \end{enumerate}
+    \item 若$\triangle ABC$是個直角三角形且$A(3, -2), B(-1, a), C(2, 1)$，求$a$的值。\vspace{2cm}
+    \item 已知$L_1: x-2y+3=0, L_2: 2x+3y=0, L_3: ax-y-1=0$，若這三條直線不能圍成三角形，求$a$的值。\vspace{2cm}
+    \item 設$A(-2, -1), B(3, 2)$，直線$L: x-y+k=0$與$\overline{AB}$相交，求$k$的範圍。\vspace{2cm}
+    \item 設$A(2, 1), B(-1, 3)$，直線$L: y=mx+6$與$\overline{AB}$相交，求$m$的範圍。\vspace{2cm}
+    \item 已知$L_1: 2x+y-2=0, L_2: y=0, L_3: x-y+1=0$共同圍出了三角形$\triangle ABC$
+    \begin{enumerate}
+        \item 求$\triangle ABC$的面積。\vspace{2cm}
+        \item 若直線$L: y=mx+\tfrac{3}{2}$與這個三角形相交，求$m$的範圍。\vspace{2cm}
+    \end{enumerate}
+\end{enumerate}
+\end{document}

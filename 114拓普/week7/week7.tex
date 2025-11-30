@@ -1,0 +1,281 @@
+\documentclass[xcolor=dvipsnames]{beamer}
+
+% ==== 主題 ====
+\usetheme{metropolis}
+\usefonttheme{professionalfonts}          % 不覆蓋你自訂的字型
+
+% ==== 字型 ====
+\usepackage{fontspec}
+\usepackage{xeCJK}
+\renewcommand{\familydefault}{\rmdefault} % 使用 serif 字體（重點）
+
+% 西文字型：Times New Roman 的開源替代品
+\setmainfont{TeX Gyre Termes}[
+  Ligatures=TeX,
+  BoldFont={* Bold},
+  ItalicFont={* Italic}
+]
+
+% 中文字型（可改為思源宋體、標楷體等）
+\setCJKmainfont{Noto Serif CJK TC}
+\setCJKsansfont{Noto Sans CJK TC} % 有需要再用
+\setCJKmonofont{Noto Sans Mono CJK TC}
+
+% ==== 數學字型（與正文字體一致）====
+\usepackage{unicode-math}
+\setmathfont{TeX Gyre Termes Math}
+
+% ==== 套件 ====
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{minted}
+\usepackage{fvextra}
+\usepackage{xcolor}
+\usepackage{booktabs}
+
+% ==== 顏色設定（可選）====
+\definecolor{MyBlue}{RGB}{3, 55, 105}
+\setbeamercolor{structure}{fg=MyBlue}
+\setbeamercolor{block title}{bg=MyBlue,fg=white}
+\setbeamercolor{block body}{bg=blue!5}
+\setbeamertemplate{section in toc}{%
+  \inserttocsectionnumber.~\inserttocsection\par
+}
+
+\setminted{
+    linenos,                % 行號
+    frame=lines,            % 上下框線
+    framesep=5pt,           % 程式碼與邊框距離
+    numbersep=8pt,          % 行號與程式碼距離
+    fontsize=\scriptsize,   % 字體大小
+    breaklines,             % 自動換行
+    tabsize=4,              % tab 寬度
+    rulecolor=\color{black},% 框線顏色
+    xleftmargin=1.5em       % 左側縮排
+}
+
+\title{Functions}
+\author{Tai, Wei Hsuan}
+\date{week 7}
+
+\begin{document}
+	\begin{frame}
+		\titlepage
+	\end{frame}
+
+\begin{frame}
+    \frametitle{Announcement}
+    Recording or photographing the slides or any content displayed on the screen is permitted for personal use only. \\[6pt]
+    Redistribution, modification, or any commercial use of the materials is strictly prohibited. \\[12pt]
+    \textit{© 2025 [Tai, Wei Hsuan]. All rights reserved. For personal use only.}
+\end{frame}
+
+    % course material qrcode
+    \begin{frame}
+        \frametitle{\href{https://drive.google.com/drive/folders/14Tkn-rddw0k1obeOxkWi00S43M0e9wlW?usp=sharing}{Course Materials}}
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.6\textwidth]{src/qrcode.png}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Outline}
+        \tableofcontents
+    \end{frame}
+
+    \section{Recap}
+    \begin{frame}[fragile]
+        \frametitle{Basic I/O}
+        \begin{minted}{cpp}
+            #include <iostream>
+            using namespace std;
+
+            int main() {
+                int a, b;
+                cin >> a >> b;
+                cout << a + b << endl;
+                return 0;
+            }
+        \end{minted}
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{Selection Statement}
+        \begin{minted}{cpp}
+            #include <iostream>
+            using namespace std;
+
+            int main() {
+                int a;
+                cin >> a;
+                if (a > 0) {
+                    cout << "Positive" << endl;
+                } else if (a < 0) {
+                    cout << "Negative" << endl;
+                } else {
+                    cout << "Zero" << endl;
+                }
+                return 0;
+            }
+        \end{minted}
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{While Loop}
+        \begin{minted}{cpp}
+            #include <iostream>
+            using namespace std;
+
+            int main() {
+                int i = 0;
+                while (i < 10) {
+                    cout << i << " ";
+                    i++;
+                }
+                cout << endl;
+                return 0;
+            }
+        \end{minted}
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{For Loop}
+        \begin{minted}{cpp}
+            #include <iostream>
+            using namespace std;
+
+            int main() {
+                for (int i = 0; i < 10; i++) {
+                    cout << i << " ";
+                }
+                cout << endl;
+                return 0;
+            }
+        \end{minted}
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{Nested Loop}
+        \begin{minted}{cpp}
+            #include <iostream>
+            using namespace std;
+
+            int main() {
+                for (int i = 0; i < 5; i++) {
+                    for (int j = 0; j < 5; j++) {
+                        cout << "(" << i << ", " << j << ") ";
+                    }
+                    cout << endl;
+                }
+                return 0;
+            }
+        \end{minted}
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{1D Array}
+        \begin{minted}{cpp}
+            #include <iostream>
+            using namespace std;
+
+            int main() {
+                int arr[5];
+                for (int i = 0; i < 5; i++) {
+                    cin >> arr[i];
+                }
+                cout << endl;
+                return 0;
+            }
+        \end{minted}
+    \end{frame}
+
+    \section{2D Array}
+    \begin{frame}
+        \frametitle{Basic Concept}
+        Sometimes we need to store data in a table format, for instance, a chessboard or a matrix. \\
+        To achieve this, we can use a 2D array. \\
+        The concept of 2D array is easy. We can generate an array with any data type, how about an array of arrays?
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{Declaration and Initialization}
+        \begin{minted}{cpp}
+            int matrix[3][4]; // Declare a 2D array with 3 rows and 4 columns
+            for(int i = 0; i < 3; i++) {
+                for(int j = 0; j < 4; j++) {
+                    cin >>matrix[i][j];
+                }
+            }
+            for(int i = 0; i < 3; i++) {
+                for(int j = 0; j < 4; j++) {
+                    cout << matrix[i][j] << " ";
+                }
+                cout << endl;
+            }
+        \end{minted}
+        The utilization of a nD array is similar to a 1D array, just with more indices.
+    \end{frame}
+    
+    \section{Functions}
+    \begin{frame}
+        \frametitle{Basic Concept}
+        Sometimes our code may be very long and complicated. To make them more organized and reusable, we can use functions. \\
+        A function is a block of code that performs a specific task. It can take inputs, process them, and return an output.\\
+        While developing a project, we often split our code into multiple functions to shorten the main program. This makes our code more readable and easier to debug.
+    \end{frame}
+    \begin{frame}
+        \frametitle{An example: Minesweeper}
+        In the game Minesweeper, we have multiple repeated tasks. For example, checking the number of mines around a cell, output the game board, and handling user input, ... and so on. \\
+    \end{frame}
+    \begin{frame}
+        \frametitle{Components of a function}
+        A function consists of several components:
+        \begin{itemize}
+            \item Function Declaration (Prototype)
+            \item Function Definition
+            \item Function Call
+        \end{itemize}
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{Function Declaration}
+        A function declaration tells the compiler about a function's name, return type, and parameters. It is usually placed at the beginning of the program or in a header file. Following is a simple function declaration:
+        \begin{minted}{cpp}
+            int add(int a, int b);
+        \end{minted}
+        This declares a function named \texttt{add} that takes two integer parameters and returns an integer.
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{Function Definition}
+        A function definition provides the actual body of the function. It specifies what the function does. After some complex calculations, it returns the result to the caller. No matter what you did in this function, it would only return the object you put after \texttt{return}.\\
+        Here is the definition of the \texttt{add} function:
+        \begin{minted}{cpp}
+            int add(int a, int b) {
+                return a + b;
+            }
+        \end{minted}
+        This function takes two integers as input and returns their sum. Now you know why there's a \texttt{return 0} statement in the \texttt{main} function! (Some big projects utilize the whole cpp file as a function, so you need to return an integer to indicate the program's exit status.)
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{Function Call}
+        A function call is used to execute a function. When a function is called, the program control is transferred to the function, and after the function execution is completed, the control returns to the point where the function was called.\\
+        Here is how to call the \texttt{add} function:
+        \begin{minted}{cpp}
+            int result = add(5, 3);
+            cout << "The sum is: " << result << endl;
+        \end{minted}
+        This calls the \texttt{add} function with arguments 5 and 3, and stores the returned value in the variable \texttt{result}.
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{An example of function}
+        \begin{minted}{c++}
+            #include <iostream>
+            using namespace std;
+
+            int add(int a, int b) {
+                return a + b;
+            }
+
+            int main() {
+                int result = add(5, 3);
+                cout << "The sum is: " << result << endl;
+                return 0;
+            }
+        \end{minted}
+    \end{frame}
+\end{document}

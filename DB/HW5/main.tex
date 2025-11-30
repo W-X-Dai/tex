@@ -73,7 +73,14 @@
         The DBMS first pushes down the filters so that the tables become smaller before any joins.
         Then it estimates how many rows remain after each step and chooses the join order that keeps the intermediate results as small as possible.
         This is why it joins \texttt{SALES\_DETAIL} and \texttt{SALES} first using a Hash Join, and only later joins \texttt{PRODUCT} using an index.
+        \item The query plan of this query is same as Fig~.\ref{fig: 2c}. 
     \end{enumerate}
-
+    % 3
+    \item 
+    \begin{enumerate}
+        \item 
+    \end{enumerate}
+    % 4
+    \item ACID refers to Atomicity, Consistency, Isolation, and Durability, they guarantee that database transactions are processed reliably. BASE refers to Basically Available, Soft state, Eventual consistency, which is an alternative to the ACID model for database systems that prioritize availability over strict consistency. In summary, ACID focuses on ensuring data integrity and reliability through strict transaction management, while BASE emphasizes system availability and scalability by allowing for eventual consistency.
 \end{enumerate}
 \end{document}

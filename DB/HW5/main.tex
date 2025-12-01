@@ -52,7 +52,7 @@
 \rhead{B12508026戴偉璿}
 
 \begin{enumerate}
-    \item If we read the outer loop into $B-2$ blocks, the total cost is $M$(number of outer blocks)$+ \lceil\frac{M}{B-2}\rceil \times N$(number of inner loop read times). Thus, the total cost is $\lceil\frac{M}{B-2}\rceil \times N + M$ I/Os. In the other way, if we read the inner loop into $B-2$ blocks, the total cost is $N + \lceil\frac{N}{B-2}\rceil \times M$ I/Os. Therefore, the total cost is $\min(\lceil\frac{M}{B-2}\rceil \times N + M, N + \lceil\frac{N}{B-2}\rceil \times M)$ I/Os. Thus, these two methods are roughly equal. However, in practical, we usually put smaller relation in the outer loop to reduce the number of passes of the inner loop. In this case, place the smaller relation into $B-2$ blocks is better.
+    \item If we read the outer loop into $B-2$ blocks, the total cost is $M$(number of outer blocks)$+ \lceil\frac{M}{B-2}\rceil \times N$(number of inner loop read times). Thus, the total cost is $\lceil\frac{M}{B-2}\rceil \times N + M$ I/Os. In the other way, if we read the inner loop into $B-2$ blocks, this means that we need to read the outer loop $M$ times, each time all $N$ blocks would be read. Thus, the total cost is $M+M\times N$ I/Os. Based on the above analysis, allocating most buffers to the inner relation (i.e., reading B-2 inner blocks at a time) significantly reduces performance in efficiency.
     \item 
     \begin{enumerate}
         \item I don't think this plan is more efficient. There are no join keys between \texttt{PRODUCT} and \texttt{SALES}. If we join these two relations first, it would cause cartesian product, which would produce a very large intermediate relation.

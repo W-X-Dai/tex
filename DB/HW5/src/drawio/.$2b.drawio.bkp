@@ -5,75 +5,75 @@
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="y0eaJgO4z6p4YCfL9LlT-1" value="&lt;font style=&quot;font-size: 48px;&quot; face=&quot;Times New Roman&quot;&gt;&amp;nbsp;⋈&lt;/font&gt;" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="518" y="410" width="40" height="30" as="geometry" />
+          <mxGeometry x="555" y="410" width="40" height="30" as="geometry" />
         </mxCell>
         <mxCell id="y0eaJgO4z6p4YCfL9LlT-2" value="&lt;font style=&quot;font-size: 72px;&quot; face=&quot;Times New Roman&quot;&gt;σ&lt;/font&gt;" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="413" y="495" width="60" height="30" as="geometry" />
+          <mxGeometry x="450" y="495" width="60" height="30" as="geometry" />
         </mxCell>
         <mxCell id="y0eaJgO4z6p4YCfL9LlT-3" value="&lt;font style=&quot;font-size: 72px;&quot; face=&quot;Times New Roman&quot;&gt;π&lt;/font&gt;" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="413" y="570" width="60" height="30" as="geometry" />
+          <mxGeometry x="450" y="570" width="60" height="30" as="geometry" />
         </mxCell>
         <mxCell id="y0eaJgO4z6p4YCfL9LlT-4" value="&lt;font face=&quot;Courier New&quot;&gt;s.store_id&lt;/font&gt;&lt;div&gt;&lt;font face=&quot;Courier New&quot;&gt;s.date_time&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font face=&quot;Courier New&quot;&gt;s.receipt_no&lt;/font&gt;&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="463" y="575" width="90" height="30" as="geometry" />
+          <mxGeometry x="500" y="575" width="90" height="30" as="geometry" />
         </mxCell>
         <mxCell id="y0eaJgO4z6p4YCfL9LlT-5" value="&lt;font face=&quot;Times New Roman&quot;&gt;SALES&lt;/font&gt;" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="413" y="645" width="60" height="30" as="geometry" />
+          <mxGeometry x="450" y="645" width="60" height="30" as="geometry" />
         </mxCell>
         <mxCell id="y0eaJgO4z6p4YCfL9LlT-6" value="&lt;font style=&quot;font-size: 72px;&quot; face=&quot;Times New Roman&quot;&gt;π&lt;/font&gt;" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="593" y="570" width="60" height="30" as="geometry" />
+          <mxGeometry x="630" y="570" width="60" height="30" as="geometry" />
         </mxCell>
         <mxCell id="y0eaJgO4z6p4YCfL9LlT-7" value="&lt;font face=&quot;Courier New&quot;&gt;sd.product_id&lt;/font&gt;&lt;div&gt;&lt;font face=&quot;Courier New&quot;&gt;sd.unit_price&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font face=&quot;Courier New&quot;&gt;sd.receipt_no&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font face=&quot;Courier New&quot;&gt;sd.qty&lt;/font&gt;&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="642" y="575" width="90" height="30" as="geometry" />
+          <mxGeometry x="679" y="575" width="90" height="30" as="geometry" />
         </mxCell>
         <mxCell id="y0eaJgO4z6p4YCfL9LlT-8" value="&lt;font face=&quot;Times New Roman&quot;&gt;SALES_DETAIL&lt;/font&gt;" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="597" y="645" width="60" height="30" as="geometry" />
+          <mxGeometry x="634" y="645" width="60" height="30" as="geometry" />
         </mxCell>
         <mxCell id="y0eaJgO4z6p4YCfL9LlT-9" value="" style="endArrow=classic;html=1;rounded=0;strokeWidth=1;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="443" y="650" as="sourcePoint" />
-            <mxPoint x="443" y="615" as="targetPoint" />
+            <mxPoint x="480" y="650" as="sourcePoint" />
+            <mxPoint x="480" y="615" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="y0eaJgO4z6p4YCfL9LlT-13" value="&lt;font face=&quot;Courier New&quot;&gt;s.store_id=1&lt;/font&gt;" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="463" y="505" width="90" height="30" as="geometry" />
+          <mxGeometry x="500" y="505" width="90" height="30" as="geometry" />
         </mxCell>
         <mxCell id="y0eaJgO4z6p4YCfL9LlT-14" value="" style="endArrow=classic;html=1;rounded=0;strokeWidth=1;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="622.71" y="650" as="sourcePoint" />
-            <mxPoint x="622.71" y="615" as="targetPoint" />
+            <mxPoint x="659.71" y="650" as="sourcePoint" />
+            <mxPoint x="659.71" y="615" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="y0eaJgO4z6p4YCfL9LlT-15" value="" style="endArrow=classic;html=1;rounded=0;strokeWidth=1;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="442.71000000000004" y="570" as="sourcePoint" />
-            <mxPoint x="442.71000000000004" y="535" as="targetPoint" />
+            <mxPoint x="479.71000000000004" y="570" as="sourcePoint" />
+            <mxPoint x="479.71000000000004" y="535" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="y0eaJgO4z6p4YCfL9LlT-16" value="&lt;font style=&quot;font-size: 72px;&quot; face=&quot;Times New Roman&quot;&gt;σ&lt;/font&gt;" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="593" y="495" width="60" height="30" as="geometry" />
+          <mxGeometry x="630" y="495" width="60" height="30" as="geometry" />
         </mxCell>
         <mxCell id="y0eaJgO4z6p4YCfL9LlT-17" value="&lt;font face=&quot;Courier New&quot;&gt;sd.unit_price&amp;gt;=20&lt;/font&gt;" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="643" y="505" width="90" height="30" as="geometry" />
+          <mxGeometry x="680" y="505" width="90" height="30" as="geometry" />
         </mxCell>
         <mxCell id="y0eaJgO4z6p4YCfL9LlT-18" value="" style="endArrow=classic;html=1;rounded=0;strokeWidth=1;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="622.71" y="570" as="sourcePoint" />
-            <mxPoint x="622.71" y="535" as="targetPoint" />
+            <mxPoint x="659.71" y="570" as="sourcePoint" />
+            <mxPoint x="659.71" y="535" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="y0eaJgO4z6p4YCfL9LlT-19" value="&lt;font face=&quot;Courier New&quot;&gt;sd.receipt_no&lt;/font&gt;&lt;div&gt;&lt;font face=&quot;Courier New&quot;&gt;=s.receipt_no&lt;/font&gt;&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="493" y="450" width="90" height="30" as="geometry" />
+          <mxGeometry x="530" y="450" width="90" height="30" as="geometry" />
         </mxCell>
         <mxCell id="y0eaJgO4z6p4YCfL9LlT-20" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="443" y="500" as="sourcePoint" />
-            <mxPoint x="483" y="480" as="targetPoint" />
+            <mxPoint x="480" y="500" as="sourcePoint" />
+            <mxPoint x="520" y="480" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="y0eaJgO4z6p4YCfL9LlT-21" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="623" y="500" as="sourcePoint" />
-            <mxPoint x="593" y="480" as="targetPoint" />
+            <mxPoint x="660" y="500" as="sourcePoint" />
+            <mxPoint x="630" y="480" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="y0eaJgO4z6p4YCfL9LlT-22" value="&lt;font style=&quot;font-size: 72px;&quot; face=&quot;Times New Roman&quot;&gt;π&lt;/font&gt;" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" parent="1" vertex="1">
@@ -105,20 +105,20 @@
         </mxCell>
         <mxCell id="y0eaJgO4z6p4YCfL9LlT-29" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="540" y="410" as="sourcePoint" />
+            <mxPoint x="584" y="410" as="sourcePoint" />
             <mxPoint x="504" y="370" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="y0eaJgO4z6p4YCfL9LlT-30" value="&lt;font style=&quot;font-size: 72px;&quot; face=&quot;Times New Roman&quot;&gt;π&lt;/font&gt;" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="419" y="250" width="60" height="30" as="geometry" />
+          <mxGeometry x="424" y="250" width="60" height="30" as="geometry" />
         </mxCell>
         <mxCell id="y0eaJgO4z6p4YCfL9LlT-31" value="&lt;div&gt;&lt;font face=&quot;Courier New&quot;&gt;sd.product_id&amp;nbsp;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font face=&quot;Courier New&quot;&gt;sd.unit_price&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font face=&quot;Courier New&quot;&gt;sd.qty&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;font face=&quot;Courier New&quot;&gt;p.name&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font face=&quot;Courier New&quot;&gt;s.date_time&lt;/font&gt;&lt;/div&gt;&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="468" y="240" width="127" height="65" as="geometry" />
+          <mxGeometry x="473" y="240" width="247" height="65" as="geometry" />
         </mxCell>
         <mxCell id="y0eaJgO4z6p4YCfL9LlT-32" value="" style="endArrow=classic;html=1;rounded=0;strokeWidth=1;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="448.71000000000004" y="330" as="sourcePoint" />
-            <mxPoint x="448.71000000000004" y="295" as="targetPoint" />
+            <mxPoint x="453.71000000000004" y="330" as="sourcePoint" />
+            <mxPoint x="453.71000000000004" y="295" as="targetPoint" />
           </mxGeometry>
         </mxCell>
       </root>

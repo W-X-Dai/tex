@@ -56,6 +56,12 @@ int main() {
         }
     }
     cout<<"total rows: "<<rows<<"\n";
+
+    int cnt=0;
+    for(int i=0;i<100;++i){
+        cnt+=v1[i].size();
+    }
+    cout<<"first 100 buckets total size: "<<cnt<<"\n";
     // for(int i=0;i<10;i++){
     //     for(int j=0;j<10;++j){
     //         if(j!=9)

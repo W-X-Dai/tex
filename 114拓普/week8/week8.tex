@@ -112,10 +112,25 @@
     \begin{frame}[fragile]
         \frametitle{Usage}
         \begin{minted}{cpp}
-            random_device rd;  // Obtain a random number from hardware
-            mt19937 eng(rd()); // Seed the generator
-            uniform_real_distribution<> distr(0.0, 1.0); // Define the range
-            double random_value = distr(eng); // Generate random number
+random_device rd;  // Obtain a random number from hardware
+mt19937 eng(rd()); // Seed the generator
+uniform_int_distribution<int>(a,b) rand_int(a, b); // Define the range
+uniform_real_distribution<double> rand_real(0.0, 1.0); // Define the range
+double random_value = rand_real(eng); // Generate random number
+        \end{minted}
+    \end{frame}
+    \begin{frame}[fragile]
+        \begin{minted}{cpp}
+#include<bits/stdc++.h>
+using namespace std;
+
+random_device rd;
+mt19937 g(rd());
+uniform_int_distribution<int> dist(0, 1000000);
+
+int main(){
+    cout<<dist(g)<<"\n";
+}            
         \end{minted}
     \end{frame}
 

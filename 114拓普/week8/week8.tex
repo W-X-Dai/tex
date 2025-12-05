@@ -1,0 +1,143 @@
+\documentclass[xcolor=dvipsnames]{beamer}
+
+% ==== 主題 ====
+\usetheme{metropolis}
+\usefonttheme{professionalfonts}          % 不覆蓋你自訂的字型
+
+% ==== 字型 ====
+\usepackage{fontspec}
+\usepackage{xeCJK}
+\renewcommand{\familydefault}{\rmdefault} % 使用 serif 字體（重點）
+
+% 西文字型：Times New Roman 的開源替代品
+\setmainfont{TeX Gyre Termes}[
+  Ligatures=TeX,
+  BoldFont={* Bold},
+  ItalicFont={* Italic}
+]
+
+% 中文字型（可改為思源宋體、標楷體等）
+\setCJKmainfont{Noto Serif CJK TC}
+\setCJKsansfont{Noto Sans CJK TC} % 有需要再用
+\setCJKmonofont{Noto Sans Mono CJK TC}
+
+% ==== 數學字型（與正文字體一致）====
+\usepackage{unicode-math}
+\setmathfont{TeX Gyre Termes Math}
+
+% ==== 套件 ====
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{minted}
+\usepackage{fvextra}
+\usepackage{xcolor}
+\usepackage{booktabs}
+
+% ==== 顏色設定（可選）====
+\definecolor{MyBlue}{RGB}{3, 55, 105}
+\setbeamercolor{structure}{fg=MyBlue}
+\setbeamercolor{block title}{bg=MyBlue,fg=white}
+\setbeamercolor{block body}{bg=blue!5}
+\setbeamertemplate{section in toc}{%
+  \inserttocsectionnumber.~\inserttocsection\par
+}
+
+\setminted{
+    linenos,                % 行號
+    frame=lines,            % 上下框線
+    framesep=5pt,           % 程式碼與邊框距離
+    numbersep=8pt,          % 行號與程式碼距離
+    fontsize=\scriptsize,   % 字體大小
+    breaklines,             % 自動換行
+    tabsize=4,              % tab 寬度
+    rulecolor=\color{black},% 框線顏色
+    xleftmargin=1.5em       % 左側縮排
+}
+
+\title{Application: 1A2B}
+\author{Tai, Wei Hsuan}
+\date{week 8}
+
+\begin{document}
+	\begin{frame}
+		\titlepage
+	\end{frame}
+
+\begin{frame}
+    \frametitle{Announcement}
+    Recording or photographing the slides or any content displayed on the screen is permitted for personal use only. \\[6pt]
+    Redistribution, modification, or any commercial use of the materials is strictly prohibited. \\[12pt]
+    \textit{© 2025 [Tai, Wei Hsuan]. All rights reserved. For personal use only.}
+\end{frame}
+
+    % course material qrcode
+    \begin{frame}
+        \frametitle{\href{https://drive.google.com/drive/folders/14Tkn-rddw0k1obeOxkWi00S43M0e9wlW?usp=sharing}{Course Materials}}
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.6\textwidth]{src/qrcode.png}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Outline}
+        \tableofcontents
+    \end{frame}
+    \section{Warn Up: Calculate Pi with Monte Carlo method}
+    \begin{frame}
+        \frametitle{What is Pi?}
+        Pi ($\pi$) is a mathematical constant that represents the ratio of a circle's circumference to its diameter. It is an irrational number, meaning it cannot be expressed as a simple fraction, and its decimal representation goes on infinitely without repeating. The value of π is approximately 3.14159.
+
+        If a circle has a radius of $r$, then its area would be $$A = \pi r^2.$$
+    \end{frame}
+    \begin{frame}
+        \frametitle{\href{https://en.wikipedia.org/wiki/Monte_Carlo_method\#/media/File:Pi_monte_carlo_all.gif}{Monte Carlo method}}
+        Intuitively, if we drop random points into a square that encloses a quarter circle, the ratio of points that fall inside the quarter circle to the total number of points should approximate the ratio of the areas of the quarter circle to the square.
+    \end{frame}
+    \begin{frame}
+        \frametitle{How to generate random numbers?}
+        In C++, we can leverage the \texttt{<random>} library to generate random numbers. With \texttt{rand()} function, we can generate a random integer between 0 and \texttt{RAND\_MAX}. We can use remainder operation to limit the range. However, there may be some issue with this function.
+        \begin{itemize}
+            \item Range is too small (i.e., \texttt{RAND\_MAX} is at least 32767)
+            \item Not thread-safe, people can estimate the next number.
+            \item Not uniformly distributed.
+            \item Remainder operation may introduce bias.
+        \end{itemize}
+    \end{frame}
+    \begin{frame}
+        \frametitle{Mt19937}
+        Mt19937 is a widely used pseudorandom number generator (PRNG) known for its high quality and long period. It is based on the Mersenne Twister algorithm, which was developed by Makoto Matsumoto and Takuji Nishimura in 1997. The "19937" in its name refers to the fact that it has a period of $2^{19937}-1$, meaning it can generate a vast sequence of random numbers before repeating.
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{Usage}
+        \begin{minted}{cpp}
+            random_device rd;  // Obtain a random number from hardware
+            mt19937 eng(rd()); // Seed the generator
+            uniform_real_distribution<> distr(0.0, 1.0); // Define the range
+            double random_value = distr(eng); // Generate random number
+        \end{minted}
+    \end{frame}
+
+    \section{Overview}
+    \begin{frame}
+        \frametitle{What is 1A2B?}
+        1A2B is a number guessing game. The classic version is: the computer randomly generates a 4-digit number with no repeated digits, and the player tries to guess it. After each guess, the computer provides feedback in the form of "A" and "B". A indicates the number of digits that are correct and in the correct position, while B indicates the number of correct digits but in the wrong position. The game continues until the player guesses the correct number (4A0B).
+    \end{frame}
+    \begin{frame}
+        \frametitle{Game Process}
+        \begin{enumerate}
+            \item Computer generates answer.
+            \item Player makes a guess.
+            \item Computer provides feedback in the form of "A" and "B".
+            \item Repeat steps 2 and 3 until the player guesses the correct number.
+        \end{enumerate}
+    \end{frame}
+    
+    \section{How to generate an answer?}
+    \begin{frame}[fragile]
+        \frametitle{Random Function}
+        The most important part of the game is to generate a random 4-digit number with no repeated digits. 
+    \end{frame}
+
+\end{document}

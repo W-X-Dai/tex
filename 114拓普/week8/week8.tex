@@ -55,14 +55,19 @@
     xleftmargin=1.5em       % 左側縮排
 }
 
-\title{Application: 1A2B}
+\title{Applications}
 \author{Tai, Wei Hsuan}
 \date{week 8}
+\AtBeginSubsection{
+  \begin{frame}{Outline}
+    \tableofcontents[currentsection, currentsubsection]
+  \end{frame}
+}
 
 \begin{document}
-	\begin{frame}
-		\titlepage
-	\end{frame}
+\begin{frame}
+    \titlepage
+\end{frame}
 
 \begin{frame}
     \frametitle{Announcement}
@@ -85,6 +90,7 @@
         \tableofcontents
     \end{frame}
     \section{Warn Up: Calculate Pi with Monte Carlo method}
+    \subsection{Introduction to Monte Carlo Method}
     \begin{frame}
         \frametitle{What is Pi?}
         Pi ($\pi$) is a mathematical constant that represents the ratio of a circle's circumference to its diameter. It is an irrational number, meaning it cannot be expressed as a simple fraction, and its decimal representation goes on infinitely without repeating. The value of π is approximately 3.14159.
@@ -95,6 +101,8 @@
         \frametitle{\href{https://en.wikipedia.org/wiki/Monte_Carlo_method\#/media/File:Pi_monte_carlo_all.gif}{Monte Carlo method}}
         Intuitively, if we drop random points into a square that encloses a quarter circle, the ratio of points that fall inside the quarter circle to the total number of points should approximate the ratio of the areas of the quarter circle to the square.
     \end{frame}
+
+    \subsection{Random Numbers}
     \begin{frame}
         \frametitle{How to generate random numbers?}
         In C++, we can leverage the \texttt{<random>} library to generate random numbers. With \texttt{rand()} function, we can generate a random integer between 0 and \texttt{RAND\_MAX}. We can use remainder operation to limit the range. However, there may be some issue with this function.
@@ -133,15 +141,65 @@ int main(){
 }            
         \end{minted}
     \end{frame}
+
+    \subsection{Implement of Monte Carlo method}
     \begin{frame}
+        \frametitle{Estimation of Pi}
+        Here, the task is:
+        \begin{itemize}
+            \item Generate N random points within a square of side length 1.
+            \item Count how many points fall within the quarter circle of radius 1.
+            \item Estimate the value of π using the ratio of points inside the quarter circle to the total number of points.
+        \end{itemize}
+    \end{frame}
+    \begin{frame}[fragile]
         \frametitle{Generate N points within the Square}
+        \begin{minted}{cpp}
+random_device rd;
+mt19937 g(rd()); 
+uniform_real_distribution<double> rand_real(0.0, 1.0);
+int N=100000;
+for(int i = 0; i < N; i++){
+    double x = rand_real(g);
+    double y = rand_real(g);
+}
+        \end{minted}
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{Count points within the Quarter Circle}
+        \begin{minted}{cpp}
+int inside_circle=0;
+for(int i=0;i<N;i++){
+    double x=rand_real(g);
+    double y=rand_real(g);
+    if(x*x+y*y<=1.0) inside_circle++;
+}
+        \end{minted}
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{Estimate the value of Pi}
+        The area of the quarter circle is $\pi(\cfrac{r}{2})^2= \cfrac{\pi}{4}$ (since $r=1$), and the area of the square is $1 \times 1 = 1$. Therefore, the ratio of the area of the quarter circle to the area of the square is $\cfrac{\pi}{4}$. Thus, we can estimate $\pi$ as follows:
+        \begin{minted}{cpp}
+double pi_estimate=4.0*inside_circle/N;
+cout<<"Estimated value of Pi: "<<pi_estimate<<"\n";
+        \end{minted}
+        Finally, combining all parts together, we get the complete code for estimating π using the Monte Carlo method.
+    \end{frame}
+    \begin{frame}
+        \frametitle{More}
+        \begin{itemize}
+            \item Try different values of N (e.g., 1000, 10000, 100000, 1000000) and observe how the estimate of π improves with larger sample sizes.
+            \item Can you think of any improvements or optimizations to the code?
+        \end{itemize}
     \end{frame}
 
-    \section{Overview}
+    \section{Application: 1A2B}
+    \subsection{Overview}
     \begin{frame}
         \frametitle{What is 1A2B?}
         1A2B is a number guessing game. The classic version is: the computer randomly generates a 4-digit number with no repeated digits, and the player tries to guess it. After each guess, the computer provides feedback in the form of "A" and "B". A indicates the number of digits that are correct and in the correct position, while B indicates the number of correct digits but in the wrong position. The game continues until the player guesses the correct number (4A0B).
     \end{frame}
+    \subsection{Function analysis}
     \begin{frame}
         \frametitle{Game Process}
         \begin{enumerate}
@@ -151,11 +209,52 @@ int main(){
             \item Repeat steps 2 and 3 until the player guesses the correct number.
         \end{enumerate}
     \end{frame}
+    \begin{frame}
+        \frametitle{Function Analysis}
+        To implement the game, we need to define several functions:
+        \begin{itemize}
+            \item Generate Answer
+            \item Check Input Validity
+            \item Calculate A and B
+        \end{itemize}
+    \end{frame}
     
-    \section{How to generate an answer?}
+    \subsection{Game Implementation}
     \begin{frame}[fragile]
         \frametitle{Random Function}
-        The most important part of the game is to generate a random 4-digit number with no repeated digits. 
+        The most important part of the game is to generate a random n-digit number with no repeated digits. (n is between 2 and 9) \\
+
+        To generate n unique digits, generating them one by one is obvously not a good idea. Instead, we can use an array to store all digits from 0 to 9, shuffle them randomly, and then take the first n digits as the answer.
     \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{Shuffle Function}
+        \begin{minted}{cpp}
+string num="123456789";
+shuffle(num.begin(), num.end(), g);
+
+string res="";
+for(int i=0; i<n; i++) res+=num[i];
+        \end{minted}
+        With the above code, we can shuffle the whole string of the array \texttt{num}. After shuffling, we can take the first n elements as our answer.
+        Remember to check if n is between 2 and 9.
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{Check Input Validity}
+        To ensure the player's guess is valid, we need to check three conditions:
+        \begin{itemize}
+            \item The input length must be equal to n.
+            \item The input must only contain digits (1-9).
+            \item All digits in the input must be unique.
+        \end{itemize}
+    \end{frame}
+    \begin{frame}
+        \frametitle{Calculate A and B}
+        To calculate the number of A's and B's:
+        \begin{itemize}
+            \item For A's: Compare each digit of the player's guess with the corresponding digit of the answer. If they match, increment the A count.
+            \item For B's: For each digit in the player's guess, check if it exists in the answer but in a different position. If it does, increment the B count.
+        \end{itemize}
+    \end{frame}
+
 
 \end{document}

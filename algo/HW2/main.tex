@@ -134,6 +134,22 @@ for i in 1..n:
     
     This answer is discussed with ChatGPT and refrerred to \url{https://www.geeksforgeeks.org/dsa/dinics-algorithm-maximum-flow/}.
 
+    \item Set $S_i=\{v\in V;d(s, v)\le i\}$. The distance from $s$ to $t$ is at least $k$, thus, $(S_i, V\backslash S_i)$ is a s-t cut $\forall i\in [0, k-1]$. 
+    
+    Consider each edge $(u, v)\in E$, it will contribute to at most one of the cuts, specifically, the cut $(S_i, V\backslash S_i)$ where $i=d(s, u)$. Since $d(s, v)\le d(s, u)+1$, thus, $u\in S_i$ and $v\notin S_i$. If $d(s, v)=d(s, u)$, then $v$ is also in $S_i$ and this edge does not contribute to any cut.
+    Therefore, the total capacity of all these cuts is $\displaystyle\sum_{i=0}^{k-1} |E(S_i, V\backslash S_i)|\le |E|$
+    
+    The result above represents that the sum of all $k$ cuts' capacities is at most $|E|$. By the pigeonhole principle, at least one of these cuts must have a capacity of at most $\displaystyle\frac{|E|}{k}$. Thus, there exists an s-t cut with capacity no greater than $\displaystyle\frac{|E|}{k}$.
+
+    This answer is discussed with ChatGPT.
+
+    \item The time complexity of Ford-Fulkerson is $O(|E||f^*|)$ where $|f^*|$ is the maximum flow value. The maximum flow is $|U|$, therefore the time complexity can also represented as $O(|E||U|)$.
+    
+    However, the capacity is recorded in binary form, the exact input of $O(|E||U|)$ has just $O(\log |U|)$ input. Which means, if $|U|$ is large (e.g. $2^n$), the input size is only $O(n)$, but the time complexity is $O(|E|2^n)$, which is not polynomial in terms of the input size.
+
+    For algorithm that won the best paper award in FOCS 2022, the time complexity is $O(|E|^{1+o(1)}\log |U|)$, which is polynomial in terms of the input size.
+
+    This answer is discussed with ChatGPT.
 \end{enumerate}
 
 \end{document}

@@ -1,0 +1,141 @@
+\documentclass[xcolor=dvipsnames]{beamer}
+
+% ==== 主題 ====
+\usetheme{metropolis}
+\usefonttheme{professionalfonts}          % 不覆蓋你自訂的字型
+
+% ==== 字型 ====
+\usepackage{fontspec}
+\usepackage{xeCJK}
+\renewcommand{\familydefault}{\rmdefault} % 使用 serif 字體（重點）
+
+% 西文字型：Times New Roman 的開源替代品
+\setmainfont{TeX Gyre Termes}[
+  Ligatures=TeX,
+  BoldFont={* Bold},
+  ItalicFont={* Italic}
+]
+
+% 中文字型（可改為思源宋體、標楷體等）
+\setCJKmainfont{Noto Serif CJK TC}
+\setCJKsansfont{Noto Sans CJK TC} % 有需要再用
+\setCJKmonofont{Noto Sans Mono CJK TC}
+
+% ==== 數學字型（與正文字體一致）====
+\usepackage{unicode-math}
+\setmathfont{TeX Gyre Termes Math}
+
+% ==== 套件 ====
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{minted}
+\usepackage{fvextra}
+\usepackage{xcolor}
+\usepackage{booktabs}
+
+% ==== 顏色設定（可選）====
+\definecolor{MyBlue}{RGB}{3, 55, 105}
+\setbeamercolor{structure}{fg=MyBlue}
+\setbeamercolor{block title}{bg=MyBlue,fg=white}
+\setbeamercolor{block body}{bg=blue!5}
+\setbeamertemplate{section in toc}{%
+  \inserttocsectionnumber.~\inserttocsection\par
+}
+
+\setminted{
+    linenos,                % 行號
+    frame=lines,            % 上下框線
+    framesep=5pt,           % 程式碼與邊框距離
+    numbersep=8pt,          % 行號與程式碼距離
+    fontsize=\scriptsize,   % 字體大小
+    breaklines,             % 自動換行
+    tabsize=4,              % tab 寬度
+    rulecolor=\color{black},% 框線顏色
+    xleftmargin=1.5em       % 左側縮排
+}
+
+\title{Applications}
+\author{Tai, Wei Hsuan}
+\date{week 9}
+\AtBeginSubsection{
+  \begin{frame}{Outline}
+    \tableofcontents[currentsection, currentsubsection]
+  \end{frame}
+}
+
+\begin{document}
+\begin{frame}
+    \titlepage
+\end{frame}
+
+\begin{frame}
+    \frametitle{Announcement}
+    Recording or photographing the slides or any content displayed on the screen is permitted for personal use only. \\[6pt]
+    Redistribution, modification, or any commercial use of the materials is strictly prohibited. \\[12pt]
+    \textit{© 2025 [Tai, Wei Hsuan]. All rights reserved. For personal use only.}
+\end{frame}
+
+    % course material qrcode
+    \begin{frame}
+        \frametitle{\href{https://drive.google.com/drive/folders/14Tkn-rddw0k1obeOxkWi00S43M0e9wlW?usp=sharing}{Course Materials}}
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.6\textwidth]{src/qrcode.png}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Outline}
+        \tableofcontents
+    \end{frame}
+    \section{Minesweeper}
+    \subsection{Overview}
+    \begin{frame}
+        \frametitle{What is Minesweeper}
+        Minesweeper is a classic single-player puzzle game that challenges players to uncover a grid of cells while avoiding hidden mines. The objective is to clear the board without detonating any mines, using numerical clues provided by revealed cells to deduce the locations of the mines.
+    \end{frame}
+    \subsection{Analysis}
+    \begin{frame}
+        \frametitle{Gaming Process}
+        \begin{enumerate}
+            \item The game starts with a grid of covered cells, some of which contain hidden mines.
+            \item Players click on cells to reveal them. If a cell contains a mine, the game ends.
+            \item If a cell does not contain a mine, it reveals a number indicating how many adjacent cells contain mines.
+            \item Players use these numerical clues to deduce the locations of the mines and avoid clicking on them.
+            \item Repeat the process until all non-mine cells are revealed, resulting in a win.
+        \end{enumerate}
+    \end{frame}
+    \begin{frame}
+        \frametitle{What do we need?}
+        \begin{itemize}
+            \item A grid to represent the game board.
+            \item Random placement of mines within the grid.
+            \item Logic to calculate and display the numbers indicating adjacent mines.
+            \item User input handling for cell clicks.
+            \item Game state management to track wins and losses.
+        \end{itemize}
+    \end{frame}
+    \subsection{Let's Start!}
+    \begin{frame}
+        \frametitle{Generate the Game Board}
+        In this phase, player should enter the size of the grid and the progeam would automatically generate the game board with mines randomly placed. Remember to ensure the input size is within the acceptable range (e.g., 5 to 10).
+
+        Refer to \texttt{random.cpp} in the google classroom for random number generation.
+    \end{frame}
+    \begin{frame}
+        \frametitle{Check the result}
+        After generating the game board, we can display the answer key to verify the correct placement of mines and the corresponding numbers for each cell. This step is crucial for debugging and ensuring the game's logic is functioning as intended.
+    \end{frame}
+    \begin{frame}
+        \frametitle{Showing the map to players}
+        Finally, we need to implement the functionality to display the game board to players. This involves revealing the cells based on player input while keeping the mines hidden until the game ends. Players should be able to see the numbers indicating adjacent mines as they uncover safe cells.
+    \end{frame}
+    \begin{frame}
+        \frametitle{Start minesweeping}
+        Note that in the CLI (Command Line Interface), players would need to input the coordinates of the cell they want to reveal. The program should handle this input, update the game board accordingly, and check for win/loss conditions after each move.
+
+        After they input the coordinates, update the \texttt{record} array to mark the cell as revealed and call the \texttt{show\_map()} function to display the updated game board.
+    \end{frame}
+
+\end{document}

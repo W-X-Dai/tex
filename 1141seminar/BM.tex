@@ -1,0 +1,307 @@
+\documentclass[xcolor=dvipsnames]{beamer}
+
+% ==== 主題 ====
+\usetheme{metropolis}
+\usefonttheme{professionalfonts}          % 不覆蓋你自訂的字型
+
+% ==== 字型 ====
+\usepackage{fontspec}
+\usepackage{xeCJK}
+\renewcommand{\familydefault}{\rmdefault} % 使用 serif 字體（重點）
+
+% 西文字型：Times New Roman 的開源替代品
+\setmainfont{TeX Gyre Termes}[
+  Ligatures=TeX,
+  BoldFont={* Bold},
+  ItalicFont={* Italic}
+]
+
+% 中文字型（可改為思源宋體、標楷體等）
+\setCJKmainfont{Noto Serif CJK TC}
+\setCJKsansfont{Noto Sans CJK TC} % 有需要再用
+\setCJKmonofont{Noto Sans Mono CJK TC}
+
+% ==== 數學字型（與正文字體一致）====
+\usepackage{unicode-math}
+\setmathfont{TeX Gyre Termes Math}
+
+% ==== 套件 ====
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{minted}
+\usepackage{fvextra}
+\usepackage{xcolor}
+\usepackage{booktabs}
+
+% ==== 顏色設定（可選）====
+\definecolor{MyBlue}{RGB}{3, 55, 105}
+\setbeamercolor{structure}{fg=MyBlue}
+\setbeamercolor{block title}{bg=MyBlue,fg=white}
+\setbeamercolor{block body}{bg=blue!5}
+\setbeamertemplate{section in toc}{%
+  \inserttocsectionnumber.~\inserttocsection\par
+}
+
+\setminted{
+    linenos,                % 行號
+    frame=lines,            % 上下框線
+    framesep=5pt,           % 程式碼與邊框距離
+    numbersep=8pt,          % 行號與程式碼距離
+    fontsize=\scriptsize,   % 字體大小
+    breaklines,             % 自動換行
+    tabsize=4,              % tab 寬度
+    rulecolor=\color{black},% 框線顏色
+    xleftmargin=1.5em       % 左側縮排
+}
+
+\title{Boltzmann Machine}
+\author{Tai, Wei Hsuan}
+\date{\today}
+\AtBeginSubsection{
+  \begin{frame}{Outline}
+    \tableofcontents[currentsection, currentsubsection]
+  \end{frame}
+}
+
+\begin{document}
+\begin{frame}
+    \titlepage
+\end{frame}
+
+\begin{frame}{Outline}
+    \tableofcontents
+\end{frame}
+
+\section{What is a Boltzmann Machine(BM)?}
+\begin{frame}
+  \frametitle{Basic concept}
+  \begin{columns}[T]
+    \begin{column}{0.5\textwidth}
+      Boltzmann Machine (BM) is an undirected stochastic neural network that can learn a probability distribution over the whole network states, including visible and hidden units. It is named after the Boltzmann distribution in statistical mechanics, which describes the distribution of energy states in a system at thermal equilibrium.
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{figure}
+        \centering
+        \includegraphics[width=0.8\textwidth]{src/BM_network.png}
+        \caption{BM utilizes a network structure to model complex relationships between variables.(Source: wikipedia)}
+      \end{figure}
+    \end{column}
+  \end{columns}
+\end{frame}
+\begin{frame}
+  \frametitle{Theorem Foundations}
+  A BM is a binary-valued network, set $s_i$ as the state of unit $i$, which can be either 0 or 1. For the i-th unit of the network, its total input is given by:
+  $$z_i=b_i + \sum_j s_jw_{ij}$$
+  where $b_i$ is the bias of unit $i$, $w_{ij}$ is the weight between unit $i$ and unit $j$, and $s_j$ is the state of unit $j$. Then it would update its state according to the following probability:
+  $$P(s_i=1)=\frac{1}{1+e^{-z_i}}$$
+  Note that the main idea of this update is not sigmoid activation, it's just looking similar.
+
+\end{frame}
+\begin{frame}
+  \frametitle{Theorem fundations(cont.)}
+  If all the units are updated many times, the network will reach thermal equilibrium, and the probability of the network being in a certain state $s$ is given by the Boltzmann distribution:
+  $$P(s)=\frac{e^{-E(s)}}{\sum_{s'} e^{-E(s')}}$$
+  where $E(s)$ is the energy of state $s$, defined as:
+  $$E(s)=-\left(\sum_{i<j} w_{ij}s_is_j + \sum_i b_is_i\right)$$
+\end{frame}
+
+
+\section{Why does lower energy mean higher probability?}
+\begin{frame}
+  \frametitle{Statistical Physics}
+  The content above are striving to maximize the probability by minimizing the energy, but why do lower energy states have higher probability? This can be explained by statistical physics.
+
+  Statistical physics describes the behavior of systems with a large number of particles, the interactions between particles lead to different energy states. The BM model borrows this concept to model the interactions between neurons in a neural network. $s_i$ can be thought of as the state of a particle, and the weights $w_{ij}$ represent the interactions between particles.
+\end{frame}
+\begin{frame}
+  \frametitle{Boltzmann Distribution}
+  In statistical physics, the Boltzmann distribution describes the probability of a system being in a certain energy state at thermal equilibrium. The probability of a system being in a state with energy $E$ is given by:
+  $$P(E)=\frac{e^{-E/kT}}{Z}$$
+  where $k$ is the Boltzmann constant, $T$ is the temperature, and $Z$ is the partition function, which normalizes the probabilities. In the context of BM, we can set $kT=1$ for simplicity, leading to the earlier mentioned formula:
+  $$P(s)=\frac{e^{-E(s)}}{Z}, Z=\sum_{s'} e^{-E(s')}$$
+  This shows that states with lower energy have higher probabilities, as the exponential function decreases rapidly with increasing energy.
+\end{frame}
+
+\section{How does BM learn?}
+\begin{frame}
+  \frametitle{Target for BMs}
+  The overall target of training a BM is to adjust the weights and biases to minimize the difference between the model's distribution and the target distribution. It can be represented as:
+  $$\max_w \mathbb{E}_{v\sim P_{data}}[\log P_{model}(v)]$$
+  where $P_{data}$ is the target distribution, and $P_{model}$ is the distribution learned by the BM.
+\end{frame}
+\begin{frame}
+  \frametitle{How an original BM learns?}
+  To achieve the target above, we can use gradient ascent to update the weights and biases. The gradient of the log-likelihood with respect to a weight $w_{ij}$ is given by:
+  $$\langle \cfrac{\partial\log P(v)}{\partial w_{ij}}\rangle_{data}=\langle s_i s_j\rangle_{data}-\langle s_i s_j\rangle_{model}$$
+  where $\langle s_i s_j\rangle_{data}$ is the expected value of the product of states $s_i$ and $s_j$ under the data distribution, and $\langle s_i s_j\rangle_{model}$ is the expected value under the model's distribution. The weights are then updated as follows:
+  $$w_{ij} \leftarrow w_{ij} + \eta (\langle s_i s_j\rangle_{data} - \langle s_i s_j\rangle_{model})$$
+  where $\eta$ is the learning rate. Note that $s_i$ and $s_j$ are the states of units $i$ and $j$, respectively. Thus, the weight update is based on the difference between the correlations of the units in the data and the model.
+\end{frame}
+\begin{frame}
+  \frametitle{Restricted Boltzmann Machine(RBM)}
+  However, computing $\langle s_i s_j\rangle_{model}$ requires sampling from the model's equilibrium distribution, which is computationally expensive. To address this problem, a simplified version of BM called Restricted Boltzmann Machine (RBM) is introduced. 
+  
+  RBM restricts the connections between units, allowing only connections between visible and hidden units, but not within the same layer. This restriction simplifies the learning process and makes it more efficient.
+\end{frame}
+\begin{frame}
+  \frametitle{Two phases of learning}
+  Here are the two phases of RBM learning:
+  \begin{itemize}
+    \item Positive phase: In this phase, the visible units are clamped to the data, and the hidden units are updated based on the visible units. The correlations $\langle s_i s_j\rangle_{data}$ are computed during this phase.
+    \item Negative phase: In this phase, the visible units are updated based on the hidden units learned in the positive phase, and the hidden units are updated based on the visible units. The correlations $\langle s_i s_j\rangle_{model}$ are computed during this phase.
+  \end{itemize}
+  In short:\\
+  Positive phase: $data\rightarrow v_{data}\rightarrow h_{data}$\\
+  Negative phase: $h_{data}\rightarrow v_{model}\rightarrow h_{model}$
+\end{frame}
+\begin{frame}
+  \begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{src/RBM.png}
+    \caption{RBM learning process consists of two phases: positive phase and negative phase.(doi: 10.3389/fnins.2018.00680)}
+  \end{figure}
+\end{frame}
+\begin{frame}
+  \frametitle{Contrastive Divergence(CD)}
+  The learning rule of Boltzmann Machines consists of a positive phase and a negative phase. While the positive phase can be computed exactly, the negative phase requires sampling from the model's equilibrium distribution, which is computationally prohibitive.
+
+  Thus, Hinton proposed a method called Contrastive Divergence (CD) to approximate the negative phase. CD performs a small number of Gibbs sampling steps (often just one step, known as CD-1) starting from the data distribution to obtain samples for the negative phase. This approximation significantly speeds up the learning process while still providing good results.
+\end{frame}
+\begin{frame}
+  \frametitle{CD (cont.)}
+  Given a data vector $v^{(0)}$, the positive phase samples the hidden units
+  according to:
+  $$
+  p(h_j = 1 \mid v^{(0)}) = \sigma\!\left(b_j + \sum_i v^{(0)}_i w_{ij}\right)
+  $$
+
+  Using the sampled hidden units $h^{(0)}$, a reconstruction of the visible
+  units is generated in the negative phase by:
+  $$
+  p(v_i^{(1)} = 1 \mid h^{(0)}) = \sigma\!\left(a_i + \sum_j h^{(0)}_j w_{ij}\right)
+  $$
+
+  Finally we can sample the hidden units again from the reconstructed visible units:
+  $$
+  p(h_j^{(1)} = 1 \mid v^{(1)}) = \sigma\!\left(b_j + \sum_i v^{(1)}_i w_{ij}\right)
+  $$
+\end{frame}
+\begin{frame}
+  \frametitle{Parameter update}
+  With the samples $v^{(0)}, h^{(0)}, v^{(1)}, h^{(1)}$, the weight update rule becomes:
+  $$w_{ij} \leftarrow w_{ij} + \eta (\langle v_i h_j\rangle_{data} - \langle v_i h_j\rangle_{recon})$$
+  where $\langle v_i h_j\rangle_{data}$ is computed using $v^{(0)}$ and $h^{(0)}$, and $\langle v_i h_j\rangle_{recon}$ is computed using $v^{(1)}$ and $h^{(1)}$.
+\end{frame}
+\begin{frame}
+  \frametitle{How does a BM work?}
+  We put the label of the data as a part of visible units while training the BM. During prediction, we clamp the known visible units (features) and let the hidden units and unknown visible units (labels) be updated through Gibbs sampling. After several iterations, the states of the unknown visible units can be used as the predicted labels.
+
+  While executing generation, we can also clamp all the visible units except for some units (e.g. label) to generate new samples.
+\end{frame}
+\begin{frame}
+  \frametitle{Another Usage: RBM for Representation Learning}
+  The hidden units of an RBM learn latent representations that capture meaningful structure in the input data, such as strokes and local patterns. These representations can be reused as features for downstream tasks.
+
+  I've done an experiment that deploying a single-layer RBM as an unsupervised feature extractor for the MNIST dataset. After pretraining the RBM, the learned hidden representations are fed into a linear classifier trained
+  with backpropagation. This setup allows us to evaluate the quality of the representations learned by the RBM. Following is the result
+\end{frame}
+\begin{frame}
+  \begin{figure}
+    \centering
+    \includegraphics[width=0.9\textwidth]{src/exp1.png}
+    \caption{RBM as feature extractor on MNIST dataset.}
+  \end{figure}
+\end{frame}
+\begin{frame}
+  \begin{figure}
+    \centering
+    \includegraphics[width=0.9\textwidth]{src/exp2.png}
+    \caption{RBM as feature extractor on MNIST dataset.}
+  \end{figure}
+\end{frame}
+
+\section{Why BM is considered more brain-like than Backpropagation(BP)?}
+\begin{frame}
+  \frametitle{What is Backpropagation (BP)?}
+  Backpropagation is a learning algorithm used to train artificial neural networks by minimizing a global loss function. It computes the gradient of the loss with respect to each weight by applying the chain rule of calculus and propagating error signals backward through the network.
+
+  To conclude it, weight updates in BP depend on:
+  \begin{itemize}
+    \item A globally defined error signal
+    \item Precise gradient information
+    \item Symmetric forward and backward weight paths
+  \end{itemize}
+
+  However, there is little biological evidence that the brain implements such global error backpropagation mechanisms.
+\end{frame}
+
+\begin{frame}
+  \frametitle{Hebbian Learning}
+  Hebbian learning is a biologically motivated learning rule stating that the
+  connection between two neurons is strengthened when they are co-activated.
+  It depends only on local information, namely the activities of the pre-
+  and post-synaptic neurons.
+
+  Unlike backpropagation, Hebbian learning does not require a global error signal
+  or backward propagation of gradients, making it more biologically plausible.
+
+  Importantly, the learning rule of Boltzmann Machines can be interpreted as a
+  form of \textbf{contrastive Hebbian learning}, where synaptic updates are driven
+  by the difference between neural correlations observed in the positive (data)
+  and negative (model) phases.
+\end{frame}
+\begin{frame}
+  \frametitle{The difference between brain and BM}
+  \begin{itemize}
+    \item There's no evidence that the brain is minimizing a global energy function like BMs do.
+    \item The stochastic methods.
+    \item BMs require symmetric weights, which is not biologically realistic.
+  \end{itemize}
+\end{frame}
+
+\section{What have we learned from BMs?}
+\begin{frame}
+  \frametitle{Why were Boltzmann Machines popular in the early days?}
+  \begin{itemize}
+    \item Probabilistic foundation for neural networks
+    \item Principled unsupervised learning
+    \item Avoidance of the vanishing gradient problem  
+    \item Biological and physical plausibility  
+    \item Foundation for deep learning pretraining  
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Why are BMs rarely used in practice today?}
+  \begin{itemize}
+    \item Computation complexity
+    \item Difficulty in training deep architectures
+    \item Emergence of more efficient models
+  \end{itemize}
+\end{frame}
+\begin{frame}
+  \frametitle{BM in nowadays}
+  \begin{itemize}
+    \item EBM, DBN
+    \item Transfer learning
+    \item Diffusion model
+    \item GAN
+    \item VAE
+  \end{itemize}
+\end{frame}
+
+\section{My Thoughts}
+
+\begin{frame}[shrink=10]
+  \frametitle{References}
+  \begin{itemize}
+    \item Ackley, D. H., Hinton, G. E., \& Sejnowski, T. J. (1985). A learning algorithm for Boltzmann Machines. Cognitive Science, 9(1), 147-169. https://doi.org/10.1207/s15516709cog0901\_7
+    \item Hinton, G.E. (2012). A Practical Guide to Training Restricted Boltzmann Machines. In: Montavon, G., Orr, G.B., Müller, KR. (eds) Neural Networks: Tricks of the Trade. Lecture Notes in Computer Science, vol 7700. Springer, Berlin, Heidelberg. https://doi.org/10.1007/978-3-642-35289-8\_32
+    \item http://www.scholarpedia.org/article/Boltzmann\_machine
+    \item Hu, H., Gao, L., \& Ma, Q. (2016). Deep Restricted Boltzmann Networks. ArXiv, abs/1611.07917.
+    \item Rachael L. Sumner, Meg J. Spriggs, Suresh D. Muthukumaraswamy, Ian J. Kirk, The role of Hebbian learning in human perception: a methodological and theoretical review of the human Visual Long-Term Potentiation paradigm, Neuroscience \& Biobehavioral Reviews,Volume 115,2020,Pages 220-237,ISSN 0149-7634,https://doi.org/10.1016/j.neubiorev.2020.03.013.
+  \end{itemize}
+\end{frame}
+
+\end{document}

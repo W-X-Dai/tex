@@ -1,5 +1,5 @@
 import numpy as np
-from myann import ANN
+from myann import ANN # type: ignore
 
 # XOR dataset
 X = np.array([

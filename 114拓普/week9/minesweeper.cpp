@@ -8,7 +8,7 @@ int dir[8][2]={{1, 0}, {0, 1}, {-1, 0}, {0, -1},
 
 random_device rd;
 mt19937 g(rd()); 
-uniform_int_distribution<int> rand_int(1, 5);
+uniform_int_distribution<int> rand_int(1, 2);
 
 inline bool initialize(){
     cout<<"Please choose the size of the map(6~10)\n>>>";

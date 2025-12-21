@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from dataclasses import dataclass
+from myann import ANN # type: ignore
 
 @dataclass
 class Dataset:
@@ -10,6 +11,53 @@ class Dataset:
     X_test: np.ndarray
     y_train: np.ndarray
     y_test: np.ndarray
+
+def Network(data: Dataset, LR=0.1, epochs=500):
+    # N*k
+    X_train, X_test, y_train, y_test = get_data(data)
+    N, d = X_train.shape
+
+
+    # model
+    ann=ANN(lr=LR)
+    ann.add_linear(d, 20)
+    ann.add_relu()
+    ann.add_linear(20, 10)
+    ann.add_relu()
+    ann.add_linear(10, 1)
+    ann.add_sigmoid()
+
+    for e in range(epochs):
+        epoch_loss = 0.0
+        for i in range(N):
+            x = X_train[i].astype(float)
+            y = float(y_train[i])
+
+            out = ann.forward(x)
+            y_pred = float(out[0])
+
+            loss = ann.bce(y, y_pred)
+            epoch_loss += loss
+
+            ann.backward(y, y_pred)
+            ann.update()
+
+        # if(e==epochs-1):
+        #     print(f"[epoch {e}], Loss: {epoch_loss / N:.4f}")
+
+    train_scores = np.zeros(N, dtype=float)
+    for i in range(N):
+        x = X_train[i].astype(float)
+        out = ann.forward(x)
+        train_scores[i] = float(out[0])
+
+    train_auc = evaluation(x=train_scores, y=y_train)
+
+    x_test = X_test[0].astype(float)
+    out_test = ann.forward(x_test)
+    test_prob = float(out_test[0])
+
+    return train_auc, test_prob
 
 def get_data(data: Dataset):
     return data.X_train, data.X_test, data.y_train, data.y_test
@@ -91,110 +139,12 @@ def evaluation(x, y, diagram=0):
         print("[INFO] ROC Curve is saved as roc_curve.png")
     return auc
 
-def log_sum_exp(a, b):
-    m = np.maximum(a, b)
-
-    diff_a = a - m
-    diff_b = b - m
-    term1 = np.exp(diff_a) if diff_a > -np.inf else 0
-    term2 = np.exp(diff_b) if diff_b > -np.inf else 0
-    return m + np.log(term1 + term2)
-
-def get_parameters(data: Dataset):
-    """get parameters with all projected training data"""
-    # get data
-    # N*k _ N*1 _
-    X_train, _, y_train, _ = get_data(data)
-
-    # prior probability
-    counts = np.bincount(y_train.astype(int))
-    n_neg = counts[0] if len(counts) > 0 else 0
-    n_pos = counts[1] if len(counts) > 1 else 0
-
-    n = n_pos+n_neg
-    
-    if n_pos == 0 or n_neg == 0:
-        print("[ERROR] Training fold contains only one class.")
-        return None
-
-    p0, p1 = n_neg/n, n_pos/n
-    # print(p0, p1, n)
-    # print(X_train.shape, y_train.shape) 
-
-    # mean, shape[0]: rows, shape[1]: features
-    mu0 = X_train[y_train == 0].mean(axis=0)
-    mu1 = X_train[y_train == 1].mean(axis=0)
-    
-    # co-matrix
-    X0_centered = X_train[y_train == 0] - mu0
-    X1_centered = X_train[y_train == 1] - mu1
-
-    cm0 = (X0_centered.T @ X0_centered) / n_neg
-    cm1 = (X1_centered.T @ X1_centered) / n_pos
-
-    reg = 1e-6 
-    cm0 += np.eye(cm0.shape[0]) * reg
-    cm1 += np.eye(cm1.shape[0]) * reg
-
-    return p0, p1, mu0, mu1, cm0, cm1
-
-def estimate(data: Dataset):
-    # N*k 1*k N*1 1*1
-    X_train, X_test, y_train, y_test = get_data(data)
-    
-    params = get_parameters(data)
-    if params is None:
-        return 0.0, 0.5
-    p0, p1, mu0, mu1, cm0, cm1 = params
-
-    try:
-        inv0 = np.linalg.inv(cm0)
-        inv1 = np.linalg.inv(cm1)
-        det0 = np.linalg.det(cm0)
-        det1 = np.linalg.det(cm1)
-    except np.linalg.LinAlgError:
-        print("[ERROR] Singular matrix encountered despite regularization.")
-        return 0.0, 0.
-
-    d = X_train.shape[1]
-    mu0_v = mu0.reshape(-1, 1)
-    mu1_v = mu1.reshape(-1, 1)
-
-    const0 = -0.5 * (d * np.log(2 * np.pi) + np.log(det0))
-    const1 = -0.5 * (d * np.log(2 * np.pi) + np.log(det1))
-
-    # score
-    Xc0 = X_train - mu0
-    Xc1 = X_train - mu1
-
-    log_px0 = const0 - 0.5 * np.sum((Xc0 @ inv0) * Xc0, axis=1)
-    log_px1 = const1 - 0.5 * np.sum((Xc1 @ inv1) * Xc1, axis=1)
-
-    # posterior
-    log_post0 = np.log(p0) + log_px0
-    log_post1 = np.log(p1) + log_px1
-    log_den = np.logaddexp(log_post0, log_post1) 
-    
-    scores = np.exp(log_post1 - log_den)
-    performance = evaluation(x=scores, y=y_train)
-
-    # test posterior
-    x = X_test.reshape(-1, 1)
-    log_px0 = -0.5 * np.log((2*np.pi)**d * det0) - 0.5 * ((x - mu0_v).T @ inv0 @ (x - mu0_v))
-    log_px1 = -0.5 * np.log((2*np.pi)**d * det1) - 0.5 * ((x - mu1_v).T @ inv1 @ (x - mu1_v))
-    
-    log_post1_test = np.log(p1) + log_px1
-    log_post0_test = np.log(p0) + log_px0
-    log_den_test = log_sum_exp(log_post1_test, log_post0_test)
-    test_prior = np.exp(log_post1_test - log_den_test).item()
-
-    return performance, test_prior
-
 def loocv(data, thresh=0.95): 
     print(f"start with thresh={thresh}")
     n_samples = data.shape[0]
     prior = np.zeros(shape=n_samples, dtype=float)
     all_y = data['GroundTruth'].to_numpy()
+    train_auc = 0.0
 
     for i in range(n_samples):
         print(f"LOOCV Fold {i+1}/{n_samples}")
@@ -233,13 +183,14 @@ def loocv(data, thresh=0.95):
         )
         # best auc, mask, and prior of test data under the selected mask
         
-        perf, pr = estimate(fold_data)
+        perf, pr = Network(data=fold_data, LR=0.005, epochs=700)
 
         print(f"Fold {i+1} Training AUC: {perf:.4f}")
+        train_auc+=perf
 
         prior[i] = pr
         
-        print(f"Fold {i+1} Test Posterior: {pr:.4f} (True Label: {y_test[0]})")
+        print(f"Fold {i+1} Test Probability: {pr:.4f} (True Label: {y_test[0]})")
         
     # show the results
     print("\n[INFO] LOOCV Finished")
@@ -266,8 +217,8 @@ def loocv(data, thresh=0.95):
     print(f"    Accuracy:    {accuracy:.4f} ({(tp+tn)}/{n_samples})")
     print(f"    Sensitivity: {sensitivity:.4f} ({tp}/{total_pos})")
     print(f"    Specificity: {specificity:.4f} ({tn}/{total_neg})")
-    print(f"Area Under Curve: {overall_auc:.4f}")
-    
+    print(f"Test AUC: {overall_auc:.4f}")
+    print(f"Train AUC: {train_auc/n_samples:.4f}")
 if __name__ == '__main__':
     df = pd.read_excel('AcromegalyFeatureSet.xlsx')
     print("[INFO] Data loaded successfully:")

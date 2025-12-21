@@ -61,6 +61,25 @@ class ANN{
         }
     };
 
+    struct ReLU:Layer{
+        VectorXd a_lazy;
+
+        VectorXd forward(const VectorXd &x) override{
+            a_lazy=x.unaryExpr([](double a){
+                return max(a, 0.0);
+            });
+            return a_lazy;
+        }
+
+        VectorXd backward(const VectorXd &x) override{
+            VectorXd result(x.size());
+            for(int i=0;i<x.size();++i){
+                result[i]=(a_lazy[i]>0 ? x[i] : 0.0);
+            }
+            return result;
+        }        
+    };
+
     double lr;
     vector<unique_ptr<Layer>> layers;
 
@@ -74,6 +93,10 @@ public:
 
     void add_sigmoid(){
         layers.emplace_back(make_unique<sigmoid>());
+    }
+
+    void add_relu(){
+        layers.emplace_back(make_unique<ReLU>());
     }
 
     void update(){

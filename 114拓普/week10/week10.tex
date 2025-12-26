@@ -1,0 +1,153 @@
+\documentclass[xcolor=dvipsnames]{beamer}
+
+% ==== 主題 ====
+\usetheme{metropolis}
+\usefonttheme{professionalfonts}          % 不覆蓋你自訂的字型
+
+% ==== 字型 ====
+\usepackage{fontspec}
+\usepackage{xeCJK}
+\renewcommand{\familydefault}{\rmdefault} % 使用 serif 字體（重點）
+
+% 西文字型：Times New Roman 的開源替代品
+\setmainfont{TeX Gyre Termes}[
+  Ligatures=TeX,
+  BoldFont={* Bold},
+  ItalicFont={* Italic}
+]
+
+% 中文字型（可改為思源宋體、標楷體等）
+\setCJKmainfont{Noto Serif CJK TC}
+\setCJKsansfont{Noto Sans CJK TC} % 有需要再用
+\setCJKmonofont{Noto Sans Mono CJK TC}
+
+% ==== 數學字型（與正文字體一致）====
+\usepackage{unicode-math}
+\setmathfont{TeX Gyre Termes Math}
+
+% ==== 套件 ====
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{minted}
+\usepackage{fvextra}
+\usepackage{xcolor}
+\usepackage{booktabs}
+
+% ==== 顏色設定（可選）====
+\definecolor{MyBlue}{RGB}{3, 55, 105}
+\setbeamercolor{structure}{fg=MyBlue}
+\setbeamercolor{block title}{bg=MyBlue,fg=white}
+\setbeamercolor{block body}{bg=blue!5}
+\setbeamertemplate{section in toc}{%
+  \inserttocsectionnumber.~\inserttocsection\par
+}
+
+\setminted{
+    linenos,                % 行號
+    frame=lines,            % 上下框線
+    framesep=5pt,           % 程式碼與邊框距離
+    numbersep=8pt,          % 行號與程式碼距離
+    fontsize=\scriptsize,   % 字體大小
+    breaklines,             % 自動換行
+    tabsize=4,              % tab 寬度
+    rulecolor=\color{black},% 框線顏色
+    xleftmargin=1.5em       % 左側縮排
+}
+
+\title{APCS Practice}
+\author{Tai, Wei Hsuan}
+\date{week 10}
+\AtBeginSubsection{
+  \begin{frame}{Outline}
+    \tableofcontents[currentsection, currentsubsection]
+  \end{frame}
+}
+
+\begin{document}
+\begin{frame}
+    \titlepage
+\end{frame}
+
+\begin{frame}
+    \frametitle{Announcement}
+    Recording or photographing the slides or any content displayed on the screen is permitted for personal use only. \\[6pt]
+    Redistribution, modification, or any commercial use of the materials is strictly prohibited. \\[12pt]
+    \textit{© 2025 [Tai, Wei Hsuan]. All rights reserved. For personal use only.}
+\end{frame}
+
+    % course material qrcode
+    \begin{frame}
+        \frametitle{\href{https://drive.google.com/drive/folders/14Tkn-rddw0k1obeOxkWi00S43M0e9wlW?usp=sharing}{Course Materials}}
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.6\textwidth]{src/qrcode.png}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Outline}
+        \tableofcontents
+    \end{frame}
+    \section{Intro to APCS}
+    \begin{frame}
+        \frametitle{What is APCS}
+        \begin{itemize}
+            \item Advanced Placement Computer Science (APCS)
+            \item Help you apply to universities with a lower grade 
+            \item Coding exam and multiple choice exam
+        \end{itemize}
+    \end{frame}
+    \begin{frame}
+        \frametitle{Coding Exam}
+        \begin{itemize}
+            \item Seperated to 4 levels（初級、中級、中高級、高級）
+            \item Each level has different problems.
+            \item You have to finish 3 problems in 2 hours.
+            \item \textbf{OFFLINE JUDGE}
+            \item My target is to help you pass the \textbf{初級} and \textbf{中級} level in G7.
+        \end{itemize}
+    \end{frame}
+    \begin{frame}
+        \begin{figure}
+            \centering
+            \includegraphics[width=\textwidth]{src/apcs_levels.png}
+            \caption{APCS Levels}
+        \end{figure}
+    \end{frame}
+    \begin{frame}
+        \begin{figure}
+            \centering
+            \includegraphics[width=\textwidth]{src/basic_level.png}
+            \caption{初級測驗範圍}
+        \end{figure}
+    \end{frame}
+    \begin{frame}
+        \begin{figure}
+            \centering
+            \includegraphics[width=\textwidth]{src/mid_level.png}
+            \caption{中級測驗範圍}
+        \end{figure}
+    \end{frame}
+    
+    \section{Sample Problems}
+    \begin{frame}
+        \frametitle{g275. 七言對聯}
+        Just determine by the requirements.
+    \end{frame}
+    \begin{frame}
+        \frametitle{o711. 裝飲料}
+        This is a little complex, but the problem can be seperated into 4 conditions, set the bottom one has L1 capacity, the second one has L2 capacity.
+        \begin{itemize}
+            \item L1 $\rightarrow$ L1
+            \item L1 $\rightarrow$ L2
+            \item L1 $\rightarrow$ capacity of the cup
+            \item L2 $\rightarrow$ L2
+            \item L2 $\rightarrow$ capacity of the cup
+        \end{itemize}
+    \end{frame}
+    \begin{frame}
+        \frametitle{m931. 遊戲選角}
+
+    \end{frame}
+\end{document}

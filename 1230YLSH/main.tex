@@ -55,7 +55,7 @@
     xleftmargin=1.5em       % 左側縮排
 }
 
-\title{How should we face this new era}
+\title{How Should We Face This New Era?}
 \author{Tai, Wei Hsuan}
 \date{December 30, 2025}
 \AtBeginSubsection{
@@ -65,8 +65,16 @@
 }
 
 \begin{document}
+
 \begin{frame}
     \titlepage
+\end{frame}
+
+\begin{frame}
+    \frametitle{Announcement}
+    Recording or photographing the slides or any content displayed on the screen is permitted for personal use only. \\[6pt]
+    Redistribution, modification, or any commercial use of the materials is strictly prohibited. \\[12pt]
+    \textit{© 2025 [Tai, Wei Hsuan]. All rights reserved. For personal use only.}
 \end{frame}
 
 \begin{frame}{Outline}
@@ -83,6 +91,25 @@
         \item CTBC brothers, Philadelphia Phillies, Manchester City
         \item Brawl Stars, Core Keeper, Rim World
         \item Old songs
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{My exam scores}
+    \begin{itemize}
+        \item 學測
+        \begin{itemize}
+            \item 國文：13
+            \item 英文：13
+            \item 數學：13
+            \item 自然：14
+        \end{itemize}
+        \item 分科
+        \begin{itemize}
+            \item 數學：55
+            \item 物理：52
+            \item 化學：37.....（仁祥老師我很抱歉）
+        \end{itemize}
     \end{itemize}
 \end{frame}
 
@@ -153,6 +180,206 @@
 
 \section{About AI}
 
+\begin{frame}
+    \frametitle{What is AI}
+    Artificial Intelligence (AI) refers to systems that can make decisions or perform tasks that are typically associated with human intelligence, such as reasoning, problem-solving, or decision-making.
+   
+    In a very broad sense, even simple rule-based systems (e.g., a vending machine) can be viewed as a primitive form of AI.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Artificial Intelligence, Machine Learning, Deep Learning}
+    \begin{itemize}
+        \item AI: The broad concept of machines being able to carry out tasks in a way that we would consider "smart".
+        \item ML: A subset of AI that involves the idea that machines can learn from data and improve their performance over time without being explicitly programmed.
+        \item DL: A subset of machine learning that uses neural networks with many layers (hence "deep") to analyze various factors of data.
+    \end{itemize}   
+    It is considered that $DL\subset ML\subset AI$
+\end{frame}
+\begin{frame}
+    \frametitle{AI, ML, DL (cont.)}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.9\linewidth]{src/aidlml.png}
+        \caption{Relationship between AI, ML, and DL}
+    \end{figure}
+\end{frame}
+\begin{frame}
+    \frametitle{The principle of Machine Learning}
+    In fact, the core idea of ML is \textbf{function approximation}.
+
+    Given a set of input data $X$ and corresponding output data $Y$, the goal of ML is to find a function $f$ such that:
+    $$Y \approx f(X)$$
+    Where $f$ is typically represented by a model with parameters that can be adjusted based on the training data.
+
+    Thus, we can describe it more precisely as:
+    $$y=P(answer|input)$$
+\end{frame}
+\begin{frame}
+    \frametitle{Three main types of Machine Learning}
+    \begin{itemize}
+        \item Classification: Assigning input data to predefined categories.
+        $$y = \arg\max_y P(y \mid x)$$
+        \item Regression: Predicting continuous output values based on input data.
+        $$y = \mathbb{E}[y \mid x]$$
+        \item Generation: Creating new data instances that resemble the training data.
+        $$x \sim P(x)$$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{A simple pipeline to train a ML model}
+    \begin{enumerate}
+        \item Define the model architectures (i.e. define the function $f$)
+        \item Define the loss function (i.e. define how to measure the error)
+        \item Optimize the model parameters to minimize the loss function using training data
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}
+    \frametitle{A simple regression model}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.8\linewidth]{src/regression.png}
+        \caption{A simple linear regression model fitting data points.}
+    \end{figure}
+    \footnotesize{https://speech.ee.ntu.edu.tw/~hylee/ml/ml2021-course-data/regression\%20(v16).pdf}
+\end{frame}
+\begin{frame}
+    \frametitle{A simple regression model (cont.)}
+    With the trained model, we can predict the output for new input data, and then compute the error (loss) between the predicted output and the actual output. With this error, we can adjust the model parameters to minimize the loss using optimization techniques like gradient descent (using partial derivative).
+\end{frame}
+
+\begin{frame}
+    \frametitle{Why AI now?}
+    \begin{itemize}
+        \item Increase in computational power (e.g. GPUs, TPUs)
+        \item Availability of large datasets (Big Data)
+        \item Advances in algorithms and architectures (e.g. CNNs, RNNs, Transformers)
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{What are LLMs?}
+    \begin{itemize}
+        \item Large Language Models
+        \item Like a World Chain Game
+        \item Trained on massive text data to predict the next word in a sequence
+        \item $P(word_n | word_1, word_2, ..., word_{n-1})$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{What is ChatGPT?}
+    \begin{itemize}
+        \item Generative Pre-trained Transformer
+        \item Developed by OpenAI
+        \item Based on the Transformer architecture
+        \item Fine-tuned for conversational tasks
+        \item One of the earliest well known LLMs
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+With the brief introduction above, do you think artificial intelligence will replace us?
+\end{frame}
+
+\begin{frame}
+    \frametitle{How should we face this new era?}
+    \begin{itemize}
+        \item This is the best of times, and the worst of times.
+        \item Tools can be double-edged swords
+        \item Embrace the change and adapt (i.e. knowing how to use AI effectively)
+        \item Focus on \textbf{uniquely human skills} (e.g. creativity, empathy, critical thinking)
+        \item Ethical considerations and responsible use of AI
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{What are LLMs good at?}
+    \begin{itemize}
+        \item Help you learn in your preferred way
+        \item Capture and summarize information quickly
+        \item Translate languages
+        \item Collect information
+        \item Talk to you
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{What shouldn't LLMs do?}
+    \begin{itemize}
+        \item Finish your homework for you
+        \item Make important decisions for you
+        \item Handling professional tasks without human oversight
+        \item Generate ideas without your input
+    \end{itemize}
+\end{frame}
+
 \section{About You}
+\begin{frame}
+    \frametitle{What can you do now?}
+    \begin{itemize}
+        \item Enhance your english skills
+        \item Learn programming (At least you should able to read and understand code)
+        \item Learn basic mathematics (Linear Algebra, Probability, Statistics)
+        \item Learnign how to express your ideas clearly
+        \item \textbf{Find a way to release your stress}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Abilities you should establish}
+    \begin{itemize}
+        \item Fundational skills 
+        \item Media literacy 
+        \item Critical thinking
+        \item Adaptability and lifelong learning
+        \item Courge to try new things
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Major or School?}
+    For me, I'm strongly interested in programming, but my score is not good enough for computer science. After careful consideration, I decided to choose school first(NTU).
+
+    Biomedical engineering is like an extension of senior high school. We study the basic sciences and engineering in the first two years, and then specialize in biomedical topics in the last two years. This gives me a solid foundation to pursue my interests in programming and AI while still being in a reputable university.
+
+    It kind of gives you two more years to decide what you really want to do in the future.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Other miscellaneous questions}
+    \begin{itemize}
+        \item Difference between BME, EE, CS, LS(Life Science)
+        \item How to find the balance between academics and extracurriculars(e.g. programming)
+        \item Get start with programming
+        \item How to leverage your advantages
+        \item What can you prepare now for your college life
+        \item Experienced emotions and approaches to coping with them
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Q \& A}
+    \Huge{Any questions?}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Contact Information}
+    Here are some of my contact information:
+    \begin{itemize}
+        \item joshdai930908@gmail.com
+        \item wxdai@gapp.ylsh.ilc.edu.tw
+        \item By your teacher
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Thanks for your attention!}
+    \Huge{Humans won't be replaced by tools.\\
+People who refuse to learn how to use tools might be.}
+\end{frame}
+
 
 \end{document}

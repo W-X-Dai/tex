@@ -1,0 +1,158 @@
+\documentclass[xcolor=dvipsnames]{beamer}
+
+% ==== 主題 ====
+\usetheme{metropolis}
+\usefonttheme{professionalfonts}          % 不覆蓋你自訂的字型
+
+% ==== 字型 ====
+\usepackage{fontspec}
+\usepackage{xeCJK}
+\renewcommand{\familydefault}{\rmdefault} % 使用 serif 字體（重點）
+
+% 西文字型：Times New Roman 的開源替代品
+\setmainfont{TeX Gyre Termes}[
+  Ligatures=TeX,
+  BoldFont={* Bold},
+  ItalicFont={* Italic}
+]
+
+% 中文字型（可改為思源宋體、標楷體等）
+\setCJKmainfont{Noto Serif CJK TC}
+\setCJKsansfont{Noto Sans CJK TC} % 有需要再用
+\setCJKmonofont{Noto Sans Mono CJK TC}
+
+% ==== 數學字型（與正文字體一致）====
+\usepackage{unicode-math}
+\setmathfont{TeX Gyre Termes Math}
+
+% ==== 套件 ====
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{minted}
+\usepackage{fvextra}
+\usepackage{xcolor}
+\usepackage{booktabs}
+
+% ==== 顏色設定（可選）====
+\definecolor{MyBlue}{RGB}{3, 55, 105}
+\setbeamercolor{structure}{fg=MyBlue}
+\setbeamercolor{block title}{bg=MyBlue,fg=white}
+\setbeamercolor{block body}{bg=blue!5}
+\setbeamertemplate{section in toc}{%
+  \inserttocsectionnumber.~\inserttocsection\par
+}
+
+\setminted{
+    linenos,                % 行號
+    frame=lines,            % 上下框線
+    framesep=5pt,           % 程式碼與邊框距離
+    numbersep=8pt,          % 行號與程式碼距離
+    fontsize=\scriptsize,   % 字體大小
+    breaklines,             % 自動換行
+    tabsize=4,              % tab 寬度
+    rulecolor=\color{black},% 框線顏色
+    xleftmargin=1.5em       % 左側縮排
+}
+
+\title{How should we face this new era}
+\author{Tai, Wei Hsuan}
+\date{December 30, 2025}
+\AtBeginSubsection{
+  \begin{frame}{Outline}
+    \tableofcontents[currentsection, currentsubsection]
+  \end{frame}
+}
+
+\begin{document}
+\begin{frame}
+    \titlepage
+\end{frame}
+
+\begin{frame}{Outline}
+    \tableofcontents
+\end{frame}
+
+\section{About Me}
+\begin{frame}
+    \frametitle{About Me}
+    \begin{itemize}
+        \item 戴偉璿
+        \item Graduated from YLSH at 112 (YLSH student id: \textbf{9}10466)
+        \item Biomedical Engineering, National Taiwan University
+        \item CTBC brothers, Philadelphia Phillies, Manchester City
+        \item Brawl Stars, Core Keeper, Rim World
+        \item Old songs
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{What I'm skilled at}
+    \begin{itemize}
+        \item C++ programming
+        \item Datastructures and Algorithms
+        \item Machine Learning and Deep Learning
+        \item Linear Algebra and Statistics
+    \end{itemize}
+\end{frame}
+
+\section{About Biomedical Engineering}
+\begin{frame}
+    \frametitle{What I'm doing now?}
+    Employing deep learning methods to generate synthetic CT images.
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.25\linewidth]{src/result_000.png}
+        \hspace{0.5em}
+        $\rightarrow$
+        \hspace{0.5em}
+        \includegraphics[width=0.25\linewidth]{src/result_010.png}
+        \hspace{0.5em}
+        $\rightarrow$
+        \hspace{0.5em}
+        \includegraphics[width=0.25\linewidth]{src/result_199.png}
+        \caption{CT image generation results across training epochs.}
+    \end{figure}
+\end{frame}
+\begin{frame}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.45\linewidth]{src/result_199.png}
+        \hspace{0.5em}
+        \includegraphics[width=0.45\linewidth]{src/real.png}
+        \caption{Generated CT image (left) vs. Real CT image (right).}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Brief Intro to Biomedical Engineering}
+    \begin{itemize}
+        \item Utilizing engineering principles to solve medical problems.
+        \item Four main areas:
+        \begin{itemize}
+            \item 生醫材料
+            \item 生物力學
+            \item 生醫電子
+            \item 生醫資訊
+        \end{itemize}
+        \item Learning basic medicine, biology, chemistry, physics, and engineering at Grade 1 and 2.
+        \item Specializing in one of the four areas at Grade 3 and 4.
+    \end{itemize}
+\end{frame}
+{
+\usebackgroundtemplate{
+    \includegraphics[
+        width=\paperwidth,
+        height=\paperheight
+    ]{src/course_map.pdf}
+}
+\begin{frame}[plain]
+\end{frame}
+}
+
+
+\section{About AI}
+
+\section{About You}
+
+\end{document}

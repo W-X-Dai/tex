@@ -134,19 +134,19 @@ int main(){
     ann.add_linear(3,1);
     ann.add_sigmoid();
 
-    vector<VectorXd> X = { (VectorXd(2)<<0,0).finished(),
-                           (VectorXd(2)<<0,1).finished(),
-                           (VectorXd(2)<<1,0).finished(),
-                           (VectorXd(2)<<1,1).finished() };
-    vector<double> Y = {0,1,1,0};
+    vector<VectorXd> X={(VectorXd(2)<<0,0).finished(),
+                        (VectorXd(2)<<0,1).finished(),
+                        (VectorXd(2)<<1,0).finished(),
+                        (VectorXd(2)<<1,1).finished()};
+    vector<double> Y={0,1,1,0};
 
     int n_epoch=10000;
     for(int e=0;e<n_epoch;++e){
         double epo_loss=0;
 
         for(int i=0;i<4;++i){
-            auto pred = ann.forward(X[i]);
-            double loss = ann.BCE(Y[i], pred(0));
+            auto pred=ann.forward(X[i]);
+            double loss=ann.BCE(Y[i], pred(0));
             epo_loss+=loss;
             ann.backward(Y[i], pred(0));
             ann.update();
@@ -158,6 +158,6 @@ int main(){
     }
 
     for(auto &x:X){
-        cout << ann.forward(x) << endl;
+        cout<<ann.forward(x)<<endl;
     }
 }

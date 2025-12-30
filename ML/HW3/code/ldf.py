@@ -21,11 +21,7 @@ def Network(data: Dataset, LR=0.1, epochs=500, min_epochs=15, patience=10, min_d
 
     # model
     ann=ANN(lr=LR)
-    ann.add_linear(d, 20)
-    ann.add_relu()
-    ann.add_linear(20, 10)
-    ann.add_relu()
-    ann.add_linear(10, 1)
+    ann.add_linear(d, 1)
     ann.add_sigmoid()
 
     for e in range(epochs):
@@ -148,8 +144,8 @@ def evaluation(x, y, diagram=0) -> float:
         plt.ylabel('TPR')
         plt.title('ROC Curve')
         plt.grid()
-        plt.savefig('roc_curve_ann.png', dpi=400)
-        print("[INFO] ROC Curve is saved as roc_curve_ann.png")
+        plt.savefig('roc_curve_ldf.png', dpi=400)
+        print("[INFO] ROC Curve is saved as roc_curve_ldf.png")
     return float(auc)
 
 def loocv(data, thresh=0.95): 

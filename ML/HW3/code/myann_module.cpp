@@ -20,10 +20,11 @@ PYBIND11_MODULE(myann, m) {
 }
 /*
 Compile command:
+conda install -c conda-forge libstdcxx-ng
+
 c++ -O3 -Wall -shared -std=c++17 -fPIC \
   $(python3 -m pybind11 --includes) \
   -I/usr/include/eigen3 \
   ./myann_module.cpp \
   -o myann$(python3-config --extension-suffix)
-
 */

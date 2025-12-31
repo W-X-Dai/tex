@@ -1,0 +1,1821 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage{xeCJK}
+\usepackage{fontspec}
+\setCJKmainfont{Noto Serif CJK TC}[Script=CJK]
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\setlength{\headheight}{14.5pt}
+\addtolength{\topmargin}{-2.5pt}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{caption}
+\usepackage{indentfirst}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{float}
+\usepackage{minted}
+\setlength{\parindent}{2em}
+\pagestyle{fancy}
+\fancyhf{}
+\cfoot{\thepage}
+\linespread{1.3}
+\setminted{
+    linenos,                % 行號
+    frame=lines,            % 上下框線
+    framesep=5pt,           % 程式碼與邊框距離
+    numbersep=8pt,          % 行號與程式碼距離
+    fontsize=\scriptsize,   % 字體大小
+    breaklines,             % 自動換行
+    tabsize=4,              % tab 寬度
+    rulecolor=\color{black},% 框線顏色
+    xleftmargin=1.5em       % 左側縮排
+}
+
+\title{Machine Learning HW3}
+\author{B12508026戴偉璿}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\lhead{Machine Learning HW3}
+\rhead{B12508026戴偉璿}
+
+\newpage
+\tableofcontents
+\newpage
+
+\section{Classification Tasks}
+
+\subsection{Overall Description}
+In this homework, I implemented Principal Component Analysis (PCA) to reduce the dimesionality. I use the Proportion of Variance (PoV) with the threshold of 0.95 to select the number of principal components. After that, I implemented three classification methods: Artificial Neural Networks (ANN), Logistic Discrimination Function (LDF), and Support Vector Machines (SVM) to classify the data.
+
+The code of this homework was modified from my previous homeworks (HW1 and HW2), and is organized into three main files: \texttt{ann.py}, \texttt{ldf.py}, and \texttt{svm.py}, each corresponding to one of the classification methods. Please read README.md before running the code.
+
+\subsection{Artificial Neural Networks}
+As LDF can be considered as a single-layer neuron network (i.e. no hidden layers), thus I decided to finish the ANN part first. 
+
+The ANN was implemented from scratch in C++, including the forward propagation, backpropagation, and parameter updates (using simple SGD), without relying on high-level deep learning libraries. This simple AN consists three types of layers: linear layer, sigmoid activation layer, and relu activation layer. User can flexibly stack these layers to form a neural network of any architecture.
+
+\subsubsection{Model Description}
+The input layer of the ANN has the same number of neurons as the number of principal components after PCA. Then, I experimented with different architectures and finally decided to use two hidden layers with 10 and 5 neurons respectively, both using ReLU activation function. The output layer has a single neuron with sigmoid activation function to output the probability of the positive class. The learning rate was set to 0.005 due to the small dataset size and to ensure stable convergence.
+
+
+To decided the training epochs, I implemented early stopping mechanism based on validation loss. The training process will stop if the validation loss does not improve for 10 consecutive epochs. The definition of "improve" here is that the validation loss decreases by at least 0.001 compared to the previous best validation loss. To avoid early stopping too early due to random fluctuations in validation loss, I set a minimum number of epochs (15 epochs) before early stopping can take effect, i.e., the training will run for at least 15 epochs regardless of validation loss. I set the maximum number of epochs to 1000 to prevent excessively long training times in case the early stopping condition is never met, but in practice, the training usually stops well before reaching this limit.
+
+\subsubsection{Results}
+The overall performance of ANN is shown in the table ~\ref{tab:ann_performance}, and the ROC curve is shown in the figure ~\ref{fig:ann_roc}. The training log is included in the appendix ~\ref{lab:ann_log}.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{l c}
+        \toprule
+        Metric & Value \\
+        \midrule
+        Accuracy & 0.8544 (88/103) \\
+        Sensitivity & 0.8293 (34/41) \\
+        Specificity & 0.8710 (54/62) \\
+        Test AUC & 0.9327 \\
+        Train AUC & 0.9714 \\
+        \bottomrule
+    \end{tabular}
+    \caption{Performance of ANN}
+    \label{tab:ann_performance}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{src/roc_curve_ann.png}
+    \caption{ROC Curve of ANN}
+    \label{fig:ann_roc}
+\end{figure}
+
+\subsection{Logistic Discrimination}
+
+\subsubsection{Model Description}
+The Logistic Discrimination Function (LDF) was implemented as a simple ANN with 0 hidden layers and 1 input layer. The input layer has the same number of neurons as the number of principal components after PCA. The output layer has a single neuron with sigmoid activation function to output the probability of the positive class. The learning rate was set to 0.005.
+
+The early stopping mechanism is the same as that of ANN, with a minimum of 15 epochs, patience of 10 epochs, and a maximum of 1000 epochs.
+\subsubsection{Results}
+The overall performance of LDF is shown in the table ~\ref{tab:ldf_performance}, and the ROC curve is shown in the figure ~\ref{fig:ldf_roc}. The training log is included in the appendix ~\ref{lab:ldf_log}.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{l c}
+        \toprule
+        Metric & Value \\
+        \midrule
+        Accuracy & 0.8738 (90/103) \\
+        Sensitivity & 0.7805 (32/41) \\
+        Specificity & 0.9355 (58/62) \\
+        Test AUC & 0.9284 \\
+        Train AUC & 0.9538 \\
+        \bottomrule
+    \end{tabular}
+    \caption{Performance of LDF}
+    \label{tab:ldf_performance}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{src/roc_curve_ldf.png}
+    \caption{ROC Curve of LDF}
+    \label{fig:ldf_roc}
+\end{figure}
+
+\subsection{Support Vector Machines}
+
+\subsubsection{Model Description}
+In this homework, a binary Support Vector Machine (SVM) classifier with a radial basis function (RBF) kernel was implemented from scratch in Python.
+The training procedure is based on the Sequential Minimal Optimization (SMO) algorithm, which optimizes the dual formulation of the SVM objective function.
+The regularization parameter 
+$C$ was set to 1.0, and the kernel parameter 
+$\gamma$ was set to 0.05 based on preliminary experiments with different parameter values.
+
+During training, the RBF kernel matrix of the training set was precomputed to improve computational efficiency.
+The algorithm iteratively scans the training samples and identifies those that violate the Karush-Kuhn-Tucker (KKT) optimality conditions based on their prediction errors.
+For each violating sample, a second sample is selected, and the corresponding pair of Lagrange multipliers is updated according to the SMO update rules while respecting the box constraints.
+The bias term is updated after each pairwise optimization step to ensure consistency of the decision function.
+
+After training, the learned dual parameters are used to compute raw decision scores for both training and test data.
+Model performance is evaluated using the area under the ROC curve (AUC), which is computed from the decision scores without probability calibration.
+
+\subsubsection{Results}
+The overall performance of SVM is shown in the table ~\ref{tab:svm_performance}, and the ROC curve is shown in the figure ~\ref{fig:svm_roc}. The training log is included in the appendix ~\ref{lab:svm_log}.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{l c}
+        \toprule
+        Metric & Value \\
+        \midrule
+        Accuracy & 0.7282 (75/103) \\
+        Sensitivity & 0.3902 (16/41) \\
+        Specificity & 0.9516 (59/62) \\
+        Test AUC & 0.8666 \\
+        Train AUC & 0.9992 \\
+        \bottomrule
+    \end{tabular}
+    \caption{Performance of SVM}
+    \label{tab:svm_performance}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{src/roc_curve_svm.png}
+    \caption{ROC Curve of SVM}
+    \label{fig:svm_roc}
+\end{figure}
+
+\subsection{SVM with Sklearn}
+
+However, there are several limitations in the custom SVM implementation.
+The adopted SMO algorithm is a simplified version and does not incorporate advanced heuristics for selecting the second working variable or accelerating convergence.
+In addition, the number of outer iterations is fixed to 100, rather than being determined by convergence criteria based on optimality conditions.
+As a result, the obtained solution may be suboptimal compared to mature SVM solvers.
+
+Implementing a fully optimized SVM solver from scratch is nontrivial and difficult to accomplish within the limited time.
+Therefore, an additional SVM implementation based on the scikit-learn library was included as a reference baseline.
+The implementation of this library-based SVM was assisted by ChatGPT.
+
+The performance of the scikit-learn SVM is summarized in Table~\ref{tab:svm_sklearn_performance}, and the corresponding ROC curve is shown in Figure~\ref{fig:svm_sklearn_roc}.
+As expected, the library-based implementation achieves better performance than the handcrafted SVM implementation.
+\begin{table}[H]
+    \centering
+    \begin{tabular}{l c}
+        \toprule
+        Metric & Value \\
+        \midrule
+        Accuracy & 0.8738 (90/103) \\
+        Sensitivity & 0.8049 (33/41) \\
+        Specificity & 0.9194 (57/62) \\
+        Test AUC & 0.9264 \\
+        Train AUC & 0.9610 \\
+        \bottomrule
+    \end{tabular}
+    \caption{Performance of SVM with Sklearn}
+    \label{tab:svm_sklearn_performance}
+\end{table}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{src/roc_curve_svm_sk.png}
+    \caption{ROC Curve of SVM with Sklearn}
+    \label{fig:svm_sklearn_roc}
+\end{figure}
+
+\section{Methods comparison}
+
+Table~\ref{tab:model_comparison} is an overall comparison of the models implemented across the three homeworks: Bayesian Classifier(BC) with forward selection(FS) from HW1, BC with PCA from HW2, and the three models from this homework: Artificial Neural Networks (ANN), Logistic Discrimination Function (LDF), and Support Vector Machines (SVM).
+
+\begin{table}[H]
+\centering
+\caption{Performance comparison of different models}
+\label{tab:model_comparison}
+\begin{tabular}{lcccccc}
+\toprule
+Metric 
+& BC + FS 
+& BC + PCA 
+& ANN 
+& LDF 
+& SVM 
+& SVM (Sklearn) \\
+\midrule
+Accuracy 
+& 0.8350
+& 0.8835
+& 0.8544
+& 0.8738
+& 0.7282
+& 0.8738 \\
+
+Sensitivity 
+& 0.8537
+& 0.8537
+& 0.8293
+& 0.7805
+& 0.3902
+& 0.8049 \\
+
+Specificity 
+& 0.8226
+& 0.9032
+& 0.8710
+& 0.9355
+& 0.9516
+& 0.9194 \\
+
+Test AUC
+& 0.9233
+& 0.9256
+& 0.9327
+& 0.9284
+& 0.8666
+& 0.9264 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Among all evaluated models, the artificial neural network (ANN) achieved the
+best overall performance, with the highest test AUC (0.9327) and a balanced
+trade-off between sensitivity (0.8293) and specificity (0.8710). This may be attributed to its flexibility in modeling complex, non-linear decision boundaries. This my cause it overfitting, but also endowed it with great potential. With proper regularization and hyperparameter tuning, ANN can generalize well to unseen data.
+
+The linear discriminant function (LDF) and the SVM implemented using scikit-learn
+exhibited comparable discriminative ability, with test AUC values close to that
+of ANN. LDF favored higher specificity at the expense of sensitivity, whereas
+the scikit-learn SVM provided a more balanced classification behavior. In
+contrast, the handcrafted SVM performed the worst, due to its simplified
+implementation and suboptimal hyperparameter choices.
+
+For the Bayesian classifier, both feature selection (FS) and principal component
+analysis (PCA) led to comparable classification performance, with similar test
+AUC values.
+
+In contrast, PCA achieved a more balanced performance, with higher specificity
+and overall accuracy while maintaining comparable sensitivity. By projecting the
+original features into a lower-dimensional orthogonal subspace, PCA effectively
+reduced feature redundancy and noise, which may explain its improved stability
+and generalization compared to direct feature selection. These results suggest
+that PCA provides a more robust feature representation for the Bayesian classifier
+in this dataset.
+
+The worst AUC in these models (handcrafted SVM) is still 0.8666, which indicates that the dataset is not robustly separable. Thus I can't draw a definitive conclusion about which model is the best.
+
+
+\newpage
+\appendix
+\section{Training Logs of ANN}
+\label{lab:ann_log}
+\begin{minted}{text}
+[INFO] Data loaded successfully:
+   SeqNum  GroundTruth  Gender  ...    NoseSurfA      NoseW  NasoFacialA
+0       1            0       2  ...  3972.311567  34.479069    32.325195
+1       2            0       2  ...  4217.911999  38.170299    41.061411
+2       3            0       2  ...  4010.477059  36.962578    36.151195
+3       4            0       2  ...  3796.839953  38.330882    32.658731
+4       5            0       2  ...  4011.612497  35.772898    36.637580
+
+[5 rows x 22 columns]
+[INFO] Starting Leave-One-Out Cross-Validation...
+start with thresh=0.95
+LOOCV Fold 1/103
+[INFO] selected 7 principal components to retain 95.39% variance.
+[INFO] Early stopping at epoch 302
+Fold 1 Training AUC: 0.9664
+Fold 1 Test Probability: 0.0000 (True Label: 0)
+LOOCV Fold 2/103
+[INFO] selected 7 principal components to retain 95.47% variance.
+[INFO] Early stopping at epoch 289
+Fold 2 Training AUC: 0.9736
+Fold 2 Test Probability: 0.6670 (True Label: 0)
+LOOCV Fold 3/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+[INFO] Early stopping at epoch 264
+Fold 3 Training AUC: 0.9716
+Fold 3 Test Probability: 0.0256 (True Label: 0)
+LOOCV Fold 4/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+[INFO] Early stopping at epoch 417
+Fold 4 Training AUC: 0.9732
+Fold 4 Test Probability: 0.0000 (True Label: 0)
+LOOCV Fold 5/103
+[INFO] selected 7 principal components to retain 95.43% variance.
+[INFO] Early stopping at epoch 294
+Fold 5 Training AUC: 0.9668
+Fold 5 Test Probability: 0.0002 (True Label: 0)
+LOOCV Fold 6/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+[INFO] Early stopping at epoch 405
+Fold 6 Training AUC: 0.9700
+Fold 6 Test Probability: 0.0193 (True Label: 0)
+LOOCV Fold 7/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+[INFO] Early stopping at epoch 317
+Fold 7 Training AUC: 0.9796
+Fold 7 Test Probability: 0.0000 (True Label: 0)
+LOOCV Fold 8/103
+[INFO] selected 7 principal components to retain 95.46% variance.
+[INFO] Early stopping at epoch 268
+Fold 8 Training AUC: 0.9644
+Fold 8 Test Probability: 0.0007 (True Label: 0)
+LOOCV Fold 9/103
+[INFO] selected 7 principal components to retain 95.52% variance.
+[INFO] Early stopping at epoch 372
+Fold 9 Training AUC: 0.9828
+Fold 9 Test Probability: 0.0000 (True Label: 0)
+LOOCV Fold 10/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+[INFO] Early stopping at epoch 447
+Fold 10 Training AUC: 0.9876
+Fold 10 Test Probability: 0.9040 (True Label: 0)
+LOOCV Fold 11/103
+[INFO] selected 7 principal components to retain 95.49% variance.
+[INFO] Early stopping at epoch 276
+Fold 11 Training AUC: 0.9596
+Fold 11 Test Probability: 0.6357 (True Label: 0)
+LOOCV Fold 12/103
+[INFO] selected 7 principal components to retain 95.51% variance.
+[INFO] Early stopping at epoch 201
+Fold 12 Training AUC: 0.9564
+Fold 12 Test Probability: 0.3151 (True Label: 0)
+LOOCV Fold 13/103
+[INFO] selected 7 principal components to retain 95.52% variance.
+[INFO] Early stopping at epoch 262
+Fold 13 Training AUC: 0.9538
+Fold 13 Test Probability: 0.6008 (True Label: 0)
+LOOCV Fold 14/103
+[INFO] selected 7 principal components to retain 95.51% variance.
+[INFO] Early stopping at epoch 430
+Fold 14 Training AUC: 0.9612
+Fold 14 Test Probability: 0.0007 (True Label: 0)
+LOOCV Fold 15/103
+[INFO] selected 7 principal components to retain 95.47% variance.
+[INFO] Early stopping at epoch 380
+Fold 15 Training AUC: 0.9674
+Fold 15 Test Probability: 0.0000 (True Label: 0)
+LOOCV Fold 16/103
+[INFO] selected 7 principal components to retain 95.53% variance.
+[INFO] Early stopping at epoch 298
+Fold 16 Training AUC: 0.9704
+Fold 16 Test Probability: 0.0000 (True Label: 0)
+LOOCV Fold 17/103
+[INFO] selected 7 principal components to retain 95.49% variance.
+[INFO] Early stopping at epoch 358
+Fold 17 Training AUC: 0.9520
+Fold 17 Test Probability: 0.0000 (True Label: 0)
+LOOCV Fold 18/103
+[INFO] selected 7 principal components to retain 95.49% variance.
+[INFO] Early stopping at epoch 485
+Fold 18 Training AUC: 0.9844
+Fold 18 Test Probability: 0.0006 (True Label: 0)
+LOOCV Fold 19/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+[INFO] Early stopping at epoch 295
+Fold 19 Training AUC: 0.9658
+Fold 19 Test Probability: 0.0000 (True Label: 0)
+LOOCV Fold 20/103
+[INFO] selected 7 principal components to retain 95.49% variance.
+[INFO] Early stopping at epoch 371
+Fold 20 Training AUC: 0.9772
+Fold 20 Test Probability: 0.0327 (True Label: 0)
+LOOCV Fold 21/103
+[INFO] selected 7 principal components to retain 95.57% variance.
+[INFO] Early stopping at epoch 190
+Fold 21 Training AUC: 0.9606
+Fold 21 Test Probability: 0.0081 (True Label: 0)
+LOOCV Fold 22/103
+[INFO] selected 7 principal components to retain 95.51% variance.
+[INFO] Early stopping at epoch 498
+Fold 22 Training AUC: 0.9858
+Fold 22 Test Probability: 0.0954 (True Label: 0)
+LOOCV Fold 23/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+[INFO] Early stopping at epoch 505
+Fold 23 Training AUC: 0.9696
+Fold 23 Test Probability: 0.0021 (True Label: 0)
+LOOCV Fold 24/103
+[INFO] selected 7 principal components to retain 95.51% variance.
+[INFO] Early stopping at epoch 302
+Fold 24 Training AUC: 0.9824
+Fold 24 Test Probability: 0.0002 (True Label: 0)
+LOOCV Fold 25/103
+[INFO] selected 7 principal components to retain 95.54% variance.
+[INFO] Early stopping at epoch 476
+Fold 25 Training AUC: 0.9680
+Fold 25 Test Probability: 0.0045 (True Label: 0)
+LOOCV Fold 26/103
+[INFO] selected 7 principal components to retain 95.51% variance.
+[INFO] Early stopping at epoch 233
+Fold 26 Training AUC: 0.9624
+Fold 26 Test Probability: 0.0954 (True Label: 0)
+LOOCV Fold 27/103
+[INFO] selected 7 principal components to retain 95.58% variance.
+[INFO] Early stopping at epoch 500
+Fold 27 Training AUC: 0.9632
+Fold 27 Test Probability: 0.0209 (True Label: 0)
+LOOCV Fold 28/103
+[INFO] selected 7 principal components to retain 95.53% variance.
+[INFO] Early stopping at epoch 392
+Fold 28 Training AUC: 0.9684
+Fold 28 Test Probability: 0.0301 (True Label: 0)
+LOOCV Fold 29/103
+[INFO] selected 7 principal components to retain 95.52% variance.
+[INFO] Early stopping at epoch 345
+Fold 29 Training AUC: 0.9728
+Fold 29 Test Probability: 0.0002 (True Label: 0)
+LOOCV Fold 30/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+[INFO] Early stopping at epoch 265
+Fold 30 Training AUC: 0.9752
+Fold 30 Test Probability: 0.5682 (True Label: 0)
+LOOCV Fold 31/103
+[INFO] selected 7 principal components to retain 95.49% variance.
+[INFO] Early stopping at epoch 178
+Fold 31 Training AUC: 0.9708
+Fold 31 Test Probability: 0.0162 (True Label: 0)
+LOOCV Fold 32/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+[INFO] Early stopping at epoch 289
+Fold 32 Training AUC: 0.9660
+Fold 32 Test Probability: 0.3021 (True Label: 0)
+LOOCV Fold 33/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+[INFO] Early stopping at epoch 279
+Fold 33 Training AUC: 0.9588
+Fold 33 Test Probability: 0.5341 (True Label: 0)
+LOOCV Fold 34/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+[INFO] Early stopping at epoch 172
+Fold 34 Training AUC: 0.9620
+Fold 34 Test Probability: 0.0029 (True Label: 0)
+LOOCV Fold 35/103
+[INFO] selected 7 principal components to retain 95.61% variance.
+[INFO] Early stopping at epoch 458
+Fold 35 Training AUC: 0.9776
+Fold 35 Test Probability: 0.0348 (True Label: 0)
+LOOCV Fold 36/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+[INFO] Early stopping at epoch 426
+Fold 36 Training AUC: 0.9792
+Fold 36 Test Probability: 0.0023 (True Label: 0)
+LOOCV Fold 37/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+[INFO] Early stopping at epoch 226
+Fold 37 Training AUC: 0.9640
+Fold 37 Test Probability: 0.7347 (True Label: 0)
+LOOCV Fold 38/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+[INFO] Early stopping at epoch 517
+Fold 38 Training AUC: 0.9839
+Fold 38 Test Probability: 0.9999 (True Label: 1)
+LOOCV Fold 39/103
+[INFO] selected 7 principal components to retain 95.54% variance.
+[INFO] Early stopping at epoch 308
+Fold 39 Training AUC: 0.9754
+Fold 39 Test Probability: 0.7580 (True Label: 1)
+LOOCV Fold 40/103
+[INFO] selected 7 principal components to retain 95.49% variance.
+[INFO] Early stopping at epoch 274
+Fold 40 Training AUC: 0.9718
+Fold 40 Test Probability: 0.7059 (True Label: 1)
+LOOCV Fold 41/103
+[INFO] selected 7 principal components to retain 95.54% variance.
+[INFO] Early stopping at epoch 193
+Fold 41 Training AUC: 0.9677
+Fold 41 Test Probability: 0.0591 (True Label: 1)
+LOOCV Fold 42/103
+[INFO] selected 7 principal components to retain 95.44% variance.
+[INFO] Early stopping at epoch 161
+Fold 42 Training AUC: 0.9637
+Fold 42 Test Probability: 0.9237 (True Label: 1)
+LOOCV Fold 43/103
+[INFO] selected 7 principal components to retain 95.37% variance.
+[INFO] Early stopping at epoch 313
+Fold 43 Training AUC: 0.9730
+Fold 43 Test Probability: 0.9999 (True Label: 1)
+LOOCV Fold 44/103
+[INFO] selected 7 principal components to retain 95.51% variance.
+[INFO] Early stopping at epoch 319
+Fold 44 Training AUC: 0.9552
+Fold 44 Test Probability: 0.8789 (True Label: 1)
+LOOCV Fold 45/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+[INFO] Early stopping at epoch 396
+Fold 45 Training AUC: 0.9762
+Fold 45 Test Probability: 0.0029 (True Label: 1)
+LOOCV Fold 46/103
+[INFO] selected 7 principal components to retain 95.47% variance.
+[INFO] Early stopping at epoch 196
+Fold 46 Training AUC: 0.9685
+Fold 46 Test Probability: 0.9292 (True Label: 1)
+LOOCV Fold 47/103
+[INFO] selected 7 principal components to retain 95.53% variance.
+[INFO] Early stopping at epoch 583
+Fold 47 Training AUC: 0.9597
+Fold 47 Test Probability: 0.8113 (True Label: 1)
+LOOCV Fold 48/103
+[INFO] selected 7 principal components to retain 95.55% variance.
+[INFO] Early stopping at epoch 332
+Fold 48 Training AUC: 0.9774
+Fold 48 Test Probability: 0.9998 (True Label: 1)
+LOOCV Fold 49/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+[INFO] Early stopping at epoch 428
+Fold 49 Training AUC: 0.9661
+Fold 49 Test Probability: 0.7874 (True Label: 1)
+LOOCV Fold 50/103
+[INFO] selected 7 principal components to retain 95.24% variance.
+[INFO] Early stopping at epoch 304
+Fold 50 Training AUC: 0.9714
+Fold 50 Test Probability: 1.0000 (True Label: 1)
+LOOCV Fold 51/103
+[INFO] selected 7 principal components to retain 95.43% variance.
+[INFO] Early stopping at epoch 209
+Fold 51 Training AUC: 0.9706
+Fold 51 Test Probability: 0.8804 (True Label: 1)
+LOOCV Fold 52/103
+[INFO] selected 7 principal components to retain 95.52% variance.
+[INFO] Early stopping at epoch 476
+Fold 52 Training AUC: 0.9852
+Fold 52 Test Probability: 0.0061 (True Label: 0)
+LOOCV Fold 53/103
+[INFO] selected 7 principal components to retain 95.49% variance.
+[INFO] Early stopping at epoch 944
+Fold 53 Training AUC: 0.9854
+Fold 53 Test Probability: 0.0684 (True Label: 0)
+LOOCV Fold 54/103
+[INFO] selected 7 principal components to retain 95.43% variance.
+[INFO] Early stopping at epoch 290
+Fold 54 Training AUC: 0.9730
+Fold 54 Test Probability: 0.9878 (True Label: 1)
+LOOCV Fold 55/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+[INFO] Early stopping at epoch 291
+Fold 55 Training AUC: 0.9776
+Fold 55 Test Probability: 0.4820 (True Label: 0)
+LOOCV Fold 56/103
+[INFO] selected 7 principal components to retain 95.55% variance.
+[INFO] Early stopping at epoch 462
+Fold 56 Training AUC: 0.9754
+Fold 56 Test Probability: 0.4762 (True Label: 1)
+LOOCV Fold 57/103
+[INFO] selected 7 principal components to retain 95.49% variance.
+[INFO] Early stopping at epoch 420
+Fold 57 Training AUC: 0.9637
+Fold 57 Test Probability: 0.9449 (True Label: 1)
+LOOCV Fold 58/103
+[INFO] selected 7 principal components to retain 95.59% variance.
+[INFO] Early stopping at epoch 261
+Fold 58 Training AUC: 0.9786
+Fold 58 Test Probability: 0.2510 (True Label: 1)
+LOOCV Fold 59/103
+[INFO] selected 7 principal components to retain 95.40% variance.
+[INFO] Early stopping at epoch 314
+Fold 59 Training AUC: 0.9831
+Fold 59 Test Probability: 0.9982 (True Label: 1)
+LOOCV Fold 60/103
+[INFO] selected 7 principal components to retain 95.45% variance.
+[INFO] Early stopping at epoch 229
+Fold 60 Training AUC: 0.9573
+Fold 60 Test Probability: 0.9354 (True Label: 1)
+LOOCV Fold 61/103
+[INFO] selected 7 principal components to retain 95.49% variance.
+[INFO] Early stopping at epoch 289
+Fold 61 Training AUC: 0.9764
+Fold 61 Test Probability: 0.0236 (True Label: 0)
+LOOCV Fold 62/103
+[INFO] selected 7 principal components to retain 95.54% variance.
+[INFO] Early stopping at epoch 477
+Fold 62 Training AUC: 0.9812
+Fold 62 Test Probability: 0.3910 (True Label: 0)
+LOOCV Fold 63/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+[INFO] Early stopping at epoch 417
+Fold 63 Training AUC: 0.9808
+Fold 63 Test Probability: 0.3443 (True Label: 0)
+LOOCV Fold 64/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+[INFO] Early stopping at epoch 164
+Fold 64 Training AUC: 0.9564
+Fold 64 Test Probability: 0.0103 (True Label: 0)
+LOOCV Fold 65/103
+[INFO] selected 7 principal components to retain 95.49% variance.
+[INFO] Early stopping at epoch 342
+Fold 65 Training AUC: 0.9784
+Fold 65 Test Probability: 0.0000 (True Label: 0)
+LOOCV Fold 66/103
+[INFO] selected 7 principal components to retain 95.53% variance.
+[INFO] Early stopping at epoch 284
+Fold 66 Training AUC: 0.9700
+Fold 66 Test Probability: 0.0381 (True Label: 0)
+LOOCV Fold 67/103
+[INFO] selected 7 principal components to retain 95.52% variance.
+[INFO] Early stopping at epoch 259
+Fold 67 Training AUC: 0.9756
+Fold 67 Test Probability: 0.1022 (True Label: 0)
+LOOCV Fold 68/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+[INFO] Early stopping at epoch 890
+Fold 68 Training AUC: 0.9700
+Fold 68 Test Probability: 0.1372 (True Label: 0)
+LOOCV Fold 69/103
+[INFO] selected 7 principal components to retain 95.46% variance.
+[INFO] Early stopping at epoch 574
+Fold 69 Training AUC: 0.9836
+Fold 69 Test Probability: 0.1233 (True Label: 0)
+LOOCV Fold 70/103
+[INFO] selected 7 principal components to retain 95.55% variance.
+[INFO] Early stopping at epoch 310
+Fold 70 Training AUC: 0.9704
+Fold 70 Test Probability: 0.0107 (True Label: 0)
+LOOCV Fold 71/103
+[INFO] selected 7 principal components to retain 95.52% variance.
+[INFO] Early stopping at epoch 283
+Fold 71 Training AUC: 0.9772
+Fold 71 Test Probability: 0.0015 (True Label: 0)
+LOOCV Fold 72/103
+[INFO] selected 7 principal components to retain 95.52% variance.
+[INFO] Early stopping at epoch 283
+Fold 72 Training AUC: 0.9772
+Fold 72 Test Probability: 0.0550 (True Label: 0)
+LOOCV Fold 73/103
+[INFO] selected 7 principal components to retain 95.52% variance.
+[INFO] Early stopping at epoch 509
+Fold 73 Training AUC: 0.9600
+Fold 73 Test Probability: 0.3368 (True Label: 0)
+LOOCV Fold 74/103
+[INFO] selected 7 principal components to retain 95.54% variance.
+[INFO] Early stopping at epoch 193
+Fold 74 Training AUC: 0.9568
+Fold 74 Test Probability: 0.0610 (True Label: 0)
+LOOCV Fold 75/103
+[INFO] selected 7 principal components to retain 95.49% variance.
+[INFO] Early stopping at epoch 401
+Fold 75 Training AUC: 0.9583
+Fold 75 Test Probability: 0.9222 (True Label: 1)
+LOOCV Fold 76/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+[INFO] Early stopping at epoch 214
+Fold 76 Training AUC: 0.9618
+Fold 76 Test Probability: 0.0078 (True Label: 0)
+LOOCV Fold 77/103
+[INFO] selected 7 principal components to retain 95.52% variance.
+[INFO] Early stopping at epoch 333
+Fold 77 Training AUC: 0.9788
+Fold 77 Test Probability: 0.0025 (True Label: 0)
+LOOCV Fold 78/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+[INFO] Early stopping at epoch 318
+Fold 78 Training AUC: 0.9696
+Fold 78 Test Probability: 0.0007 (True Label: 0)
+LOOCV Fold 79/103
+[INFO] selected 7 principal components to retain 95.45% variance.
+[INFO] Early stopping at epoch 216
+Fold 79 Training AUC: 0.9726
+Fold 79 Test Probability: 0.9951 (True Label: 1)
+LOOCV Fold 80/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+[INFO] Early stopping at epoch 437
+Fold 80 Training AUC: 0.9798
+Fold 80 Test Probability: 0.9993 (True Label: 1)
+LOOCV Fold 81/103
+[INFO] selected 7 principal components to retain 95.51% variance.
+[INFO] Early stopping at epoch 341
+Fold 81 Training AUC: 0.9692
+Fold 81 Test Probability: 0.2935 (True Label: 0)
+LOOCV Fold 82/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+[INFO] Early stopping at epoch 378
+Fold 82 Training AUC: 0.9768
+Fold 82 Test Probability: 0.0015 (True Label: 0)
+LOOCV Fold 83/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+[INFO] Early stopping at epoch 347
+Fold 83 Training AUC: 0.9786
+Fold 83 Test Probability: 0.9274 (True Label: 1)
+LOOCV Fold 84/103
+[INFO] selected 7 principal components to retain 95.46% variance.
+[INFO] Early stopping at epoch 533
+Fold 84 Training AUC: 0.9835
+Fold 84 Test Probability: 0.7104 (True Label: 1)
+LOOCV Fold 85/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+[INFO] Early stopping at epoch 346
+Fold 85 Training AUC: 0.9839
+Fold 85 Test Probability: 1.0000 (True Label: 1)
+LOOCV Fold 86/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+[INFO] Early stopping at epoch 211
+Fold 86 Training AUC: 0.9718
+Fold 86 Test Probability: 0.8934 (True Label: 1)
+LOOCV Fold 87/103
+[INFO] selected 7 principal components to retain 95.54% variance.
+[INFO] Early stopping at epoch 475
+Fold 87 Training AUC: 0.9774
+Fold 87 Test Probability: 0.9977 (True Label: 1)
+LOOCV Fold 88/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+[INFO] Early stopping at epoch 349
+Fold 88 Training AUC: 0.9742
+Fold 88 Test Probability: 0.9962 (True Label: 1)
+LOOCV Fold 89/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+[INFO] Early stopping at epoch 406
+Fold 89 Training AUC: 0.9760
+Fold 89 Test Probability: 0.0001 (True Label: 0)
+LOOCV Fold 90/103
+[INFO] selected 7 principal components to retain 95.52% variance.
+[INFO] Early stopping at epoch 383
+Fold 90 Training AUC: 0.9692
+Fold 90 Test Probability: 0.9989 (True Label: 0)
+LOOCV Fold 91/103
+[INFO] selected 7 principal components to retain 95.49% variance.
+[INFO] Early stopping at epoch 437
+Fold 91 Training AUC: 0.9848
+Fold 91 Test Probability: 0.0004 (True Label: 0)
+LOOCV Fold 92/103
+[INFO] selected 7 principal components to retain 95.49% variance.
+[INFO] Early stopping at epoch 545
+Fold 92 Training AUC: 0.9734
+Fold 92 Test Probability: 0.9141 (True Label: 1)
+LOOCV Fold 93/103
+[INFO] selected 7 principal components to retain 95.44% variance.
+[INFO] Early stopping at epoch 424
+Fold 93 Training AUC: 0.9778
+Fold 93 Test Probability: 1.0000 (True Label: 1)
+LOOCV Fold 94/103
+[INFO] selected 7 principal components to retain 95.40% variance.
+[INFO] Early stopping at epoch 381
+Fold 94 Training AUC: 0.9653
+Fold 94 Test Probability: 0.5406 (True Label: 1)
+LOOCV Fold 95/103
+[INFO] selected 7 principal components to retain 95.41% variance.
+[INFO] Early stopping at epoch 389
+Fold 95 Training AUC: 0.9766
+Fold 95 Test Probability: 1.0000 (True Label: 1)
+LOOCV Fold 96/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+[INFO] Early stopping at epoch 440
+Fold 96 Training AUC: 0.9867
+Fold 96 Test Probability: 0.9930 (True Label: 1)
+LOOCV Fold 97/103
+[INFO] selected 7 principal components to retain 95.60% variance.
+[INFO] Early stopping at epoch 240
+Fold 97 Training AUC: 0.9669
+Fold 97 Test Probability: 0.3981 (True Label: 1)
+LOOCV Fold 98/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+[INFO] Early stopping at epoch 297
+Fold 98 Training AUC: 0.9643
+Fold 98 Test Probability: 0.2609 (True Label: 1)
+LOOCV Fold 99/103
+[INFO] selected 7 principal components to retain 95.47% variance.
+[INFO] Early stopping at epoch 273
+Fold 99 Training AUC: 0.9780
+Fold 99 Test Probability: 0.9989 (True Label: 1)
+LOOCV Fold 100/103
+[INFO] selected 7 principal components to retain 95.53% variance.
+[INFO] Early stopping at epoch 373
+Fold 100 Training AUC: 0.9788
+Fold 100 Test Probability: 0.9771 (True Label: 1)
+LOOCV Fold 101/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+[INFO] Early stopping at epoch 209
+Fold 101 Training AUC: 0.9496
+Fold 101 Test Probability: 0.7546 (True Label: 1)
+LOOCV Fold 102/103
+[INFO] selected 7 principal components to retain 95.53% variance.
+[INFO] Early stopping at epoch 560
+Fold 102 Training AUC: 0.9778
+Fold 102 Test Probability: 0.8303 (True Label: 1)
+LOOCV Fold 103/103
+[INFO] selected 7 principal components to retain 95.51% variance.
+[INFO] Early stopping at epoch 440
+Fold 103 Training AUC: 0.9550
+Fold 103 Test Probability: 0.0928 (True Label: 1)
+
+[INFO] LOOCV Finished
+
+- Overall Model Performance (from LOOCV posteriors)
+[INFO] ROC Curve is saved as roc_curve_ann.png
+
+Metrics (using threshold = 0.5):
+    Accuracy:    0.8544 (88/103)
+    Sensitivity: 0.8293 (34/41)
+    Specificity: 0.8710 (54/62)
+Test AUC: 0.9327
+Train AUC: 0.9715
+\end{minted}
+
+\section{Train Logs of LDF}
+\label{lab:ldf_log}
+\begin{minted}{text}
+[INFO] Data loaded successfully:
+   SeqNum  GroundTruth  Gender  ...    NoseSurfA      NoseW  NasoFacialA
+0       1            0       2  ...  3972.311567  34.479069    32.325195
+1       2            0       2  ...  4217.911999  38.170299    41.061411
+2       3            0       2  ...  4010.477059  36.962578    36.151195
+3       4            0       2  ...  3796.839953  38.330882    32.658731
+4       5            0       2  ...  4011.612497  35.772898    36.637580
+
+[5 rows x 22 columns]
+[INFO] Starting Leave-One-Out Cross-Validation...
+start with thresh=0.95
+LOOCV Fold 1/103
+[INFO] selected 7 principal components to retain 95.39% variance.
+[INFO] Early stopping at epoch 222
+Fold 1 Training AUC: 0.9552
+Fold 1 Test Probability: 0.0010 (True Label: 0)
+LOOCV Fold 2/103
+[INFO] selected 7 principal components to retain 95.47% variance.
+[INFO] Early stopping at epoch 183
+Fold 2 Training AUC: 0.9584
+Fold 2 Test Probability: 0.7432 (True Label: 0)
+LOOCV Fold 3/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+[INFO] Early stopping at epoch 265
+Fold 3 Training AUC: 0.9544
+Fold 3 Test Probability: 0.0356 (True Label: 0)
+LOOCV Fold 4/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+[INFO] Early stopping at epoch 142
+Fold 4 Training AUC: 0.9556
+Fold 4 Test Probability: 0.0097 (True Label: 0)
+LOOCV Fold 5/103
+[INFO] selected 7 principal components to retain 95.43% variance.
+[INFO] Early stopping at epoch 224
+Fold 5 Training AUC: 0.9536
+Fold 5 Test Probability: 0.0696 (True Label: 0)
+LOOCV Fold 6/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+[INFO] Early stopping at epoch 170
+Fold 6 Training AUC: 0.9524
+Fold 6 Test Probability: 0.0465 (True Label: 0)
+LOOCV Fold 7/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+[INFO] Early stopping at epoch 231
+Fold 7 Training AUC: 0.9544
+Fold 7 Test Probability: 0.0013 (True Label: 0)
+LOOCV Fold 8/103
+[INFO] selected 7 principal components to retain 95.46% variance.
+[INFO] Early stopping at epoch 192
+Fold 8 Training AUC: 0.9532
+Fold 8 Test Probability: 0.0273 (True Label: 0)
+LOOCV Fold 9/103
+[INFO] selected 7 principal components to retain 95.52% variance.
+[INFO] Early stopping at epoch 215
+Fold 9 Training AUC: 0.9540
+Fold 9 Test Probability: 0.0766 (True Label: 0)
+LOOCV Fold 10/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+[INFO] Early stopping at epoch 190
+Fold 10 Training AUC: 0.9548
+Fold 10 Test Probability: 0.4281 (True Label: 0)
+LOOCV Fold 11/103
+[INFO] selected 7 principal components to retain 95.49% variance.
+[INFO] Early stopping at epoch 264
+Fold 11 Training AUC: 0.9568
+Fold 11 Test Probability: 0.6446 (True Label: 0)
+LOOCV Fold 12/103
+[INFO] selected 7 principal components to retain 95.51% variance.
+[INFO] Early stopping at epoch 220
+Fold 12 Training AUC: 0.9520
+Fold 12 Test Probability: 0.3875 (True Label: 0)
+LOOCV Fold 13/103
+[INFO] selected 7 principal components to retain 95.52% variance.
+[INFO] Early stopping at epoch 267
+Fold 13 Training AUC: 0.9556
+Fold 13 Test Probability: 0.6513 (True Label: 0)
+LOOCV Fold 14/103
+[INFO] selected 7 principal components to retain 95.51% variance.
+[INFO] Early stopping at epoch 190
+Fold 14 Training AUC: 0.9524
+Fold 14 Test Probability: 0.0735 (True Label: 0)
+LOOCV Fold 15/103
+[INFO] selected 7 principal components to retain 95.47% variance.
+[INFO] Early stopping at epoch 214
+Fold 15 Training AUC: 0.9552
+Fold 15 Test Probability: 0.0065 (True Label: 0)
+LOOCV Fold 16/103
+[INFO] selected 7 principal components to retain 95.53% variance.
+[INFO] Early stopping at epoch 224
+Fold 16 Training AUC: 0.9536
+Fold 16 Test Probability: 0.0461 (True Label: 0)
+LOOCV Fold 17/103
+[INFO] selected 7 principal components to retain 95.49% variance.
+[INFO] Early stopping at epoch 166
+Fold 17 Training AUC: 0.9552
+Fold 17 Test Probability: 0.0051 (True Label: 0)
+LOOCV Fold 18/103
+[INFO] selected 7 principal components to retain 95.49% variance.
+[INFO] Early stopping at epoch 237
+Fold 18 Training AUC: 0.9524
+Fold 18 Test Probability: 0.1072 (True Label: 0)
+LOOCV Fold 19/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+[INFO] Early stopping at epoch 172
+Fold 19 Training AUC: 0.9540
+Fold 19 Test Probability: 0.0456 (True Label: 0)
+LOOCV Fold 20/103
+[INFO] selected 7 principal components to retain 95.49% variance.
+[INFO] Early stopping at epoch 152
+Fold 20 Training AUC: 0.9520
+Fold 20 Test Probability: 0.0168 (True Label: 0)
+LOOCV Fold 21/103
+[INFO] selected 7 principal components to retain 95.57% variance.
+[INFO] Early stopping at epoch 235
+Fold 21 Training AUC: 0.9508
+Fold 21 Test Probability: 0.0642 (True Label: 0)
+LOOCV Fold 22/103
+[INFO] selected 7 principal components to retain 95.51% variance.
+[INFO] Early stopping at epoch 230
+Fold 22 Training AUC: 0.9548
+Fold 22 Test Probability: 0.0020 (True Label: 0)
+LOOCV Fold 23/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+[INFO] Early stopping at epoch 185
+Fold 23 Training AUC: 0.9540
+Fold 23 Test Probability: 0.0545 (True Label: 0)
+LOOCV Fold 24/103
+[INFO] selected 7 principal components to retain 95.51% variance.
+[INFO] Early stopping at epoch 292
+Fold 24 Training AUC: 0.9540
+Fold 24 Test Probability: 0.0091 (True Label: 0)
+LOOCV Fold 25/103
+[INFO] selected 7 principal components to retain 95.54% variance.
+[INFO] Early stopping at epoch 223
+Fold 25 Training AUC: 0.9392
+Fold 25 Test Probability: 0.0454 (True Label: 0)
+LOOCV Fold 26/103
+[INFO] selected 7 principal components to retain 95.51% variance.
+[INFO] Early stopping at epoch 249
+Fold 26 Training AUC: 0.9528
+Fold 26 Test Probability: 0.1990 (True Label: 0)
+LOOCV Fold 27/103
+[INFO] selected 7 principal components to retain 95.58% variance.
+[INFO] Early stopping at epoch 171
+Fold 27 Training AUC: 0.9544
+Fold 27 Test Probability: 0.0399 (True Label: 0)
+LOOCV Fold 28/103
+[INFO] selected 7 principal components to retain 95.53% variance.
+[INFO] Early stopping at epoch 216
+Fold 28 Training AUC: 0.9520
+Fold 28 Test Probability: 0.1211 (True Label: 0)
+LOOCV Fold 29/103
+[INFO] selected 7 principal components to retain 95.52% variance.
+[INFO] Early stopping at epoch 250
+Fold 29 Training AUC: 0.9528
+Fold 29 Test Probability: 0.0352 (True Label: 0)
+LOOCV Fold 30/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+[INFO] Early stopping at epoch 204
+Fold 30 Training AUC: 0.9564
+Fold 30 Test Probability: 0.3177 (True Label: 0)
+LOOCV Fold 31/103
+[INFO] selected 7 principal components to retain 95.49% variance.
+[INFO] Early stopping at epoch 163
+Fold 31 Training AUC: 0.9548
+Fold 31 Test Probability: 0.0239 (True Label: 0)
+LOOCV Fold 32/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+[INFO] Early stopping at epoch 184
+Fold 32 Training AUC: 0.9528
+Fold 32 Test Probability: 0.4003 (True Label: 0)
+LOOCV Fold 33/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+[INFO] Early stopping at epoch 158
+Fold 33 Training AUC: 0.9528
+Fold 33 Test Probability: 0.3620 (True Label: 0)
+LOOCV Fold 34/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+[INFO] Early stopping at epoch 199
+Fold 34 Training AUC: 0.9532
+Fold 34 Test Probability: 0.0275 (True Label: 0)
+LOOCV Fold 35/103
+[INFO] selected 7 principal components to retain 95.61% variance.
+[INFO] Early stopping at epoch 187
+Fold 35 Training AUC: 0.9520
+Fold 35 Test Probability: 0.1162 (True Label: 0)
+LOOCV Fold 36/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+[INFO] Early stopping at epoch 200
+Fold 36 Training AUC: 0.9532
+Fold 36 Test Probability: 0.1004 (True Label: 0)
+LOOCV Fold 37/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+[INFO] Early stopping at epoch 208
+Fold 37 Training AUC: 0.9540
+Fold 37 Test Probability: 0.3671 (True Label: 0)
+LOOCV Fold 38/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+[INFO] Early stopping at epoch 235
+Fold 38 Training AUC: 0.9532
+Fold 38 Test Probability: 0.9977 (True Label: 1)
+LOOCV Fold 39/103
+[INFO] selected 7 principal components to retain 95.54% variance.
+[INFO] Early stopping at epoch 146
+Fold 39 Training AUC: 0.9532
+Fold 39 Test Probability: 0.9916 (True Label: 1)
+LOOCV Fold 40/103
+[INFO] selected 7 principal components to retain 95.49% variance.
+[INFO] Early stopping at epoch 223
+Fold 40 Training AUC: 0.9548
+Fold 40 Test Probability: 0.7543 (True Label: 1)
+LOOCV Fold 41/103
+[INFO] selected 7 principal components to retain 95.54% variance.
+[INFO] Early stopping at epoch 264
+Fold 41 Training AUC: 0.9573
+Fold 41 Test Probability: 0.1435 (True Label: 1)
+LOOCV Fold 42/103
+[INFO] selected 7 principal components to retain 95.44% variance.
+[INFO] Early stopping at epoch 155
+Fold 42 Training AUC: 0.9512
+Fold 42 Test Probability: 0.9991 (True Label: 1)
+LOOCV Fold 43/103
+[INFO] selected 7 principal components to retain 95.37% variance.
+[INFO] Early stopping at epoch 185
+Fold 43 Training AUC: 0.9552
+Fold 43 Test Probability: 0.9991 (True Label: 1)
+LOOCV Fold 44/103
+[INFO] selected 7 principal components to retain 95.51% variance.
+[INFO] Early stopping at epoch 212
+Fold 44 Training AUC: 0.9548
+Fold 44 Test Probability: 0.7251 (True Label: 1)
+LOOCV Fold 45/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+[INFO] Early stopping at epoch 209
+Fold 45 Training AUC: 0.9560
+Fold 45 Test Probability: 0.2180 (True Label: 1)
+LOOCV Fold 46/103
+[INFO] selected 7 principal components to retain 95.47% variance.
+[INFO] Early stopping at epoch 224
+Fold 46 Training AUC: 0.9528
+Fold 46 Test Probability: 0.8574 (True Label: 1)
+LOOCV Fold 47/103
+[INFO] selected 7 principal components to retain 95.53% variance.
+[INFO] Early stopping at epoch 142
+Fold 47 Training AUC: 0.9548
+Fold 47 Test Probability: 0.7181 (True Label: 1)
+LOOCV Fold 48/103
+[INFO] selected 7 principal components to retain 95.55% variance.
+[INFO] Early stopping at epoch 230
+Fold 48 Training AUC: 0.9560
+Fold 48 Test Probability: 0.9429 (True Label: 1)
+LOOCV Fold 49/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+[INFO] Early stopping at epoch 186
+Fold 49 Training AUC: 0.9540
+Fold 49 Test Probability: 0.6575 (True Label: 1)
+LOOCV Fold 50/103
+[INFO] selected 7 principal components to retain 95.24% variance.
+[INFO] Early stopping at epoch 205
+Fold 50 Training AUC: 0.9536
+Fold 50 Test Probability: 0.9999 (True Label: 1)
+LOOCV Fold 51/103
+[INFO] selected 7 principal components to retain 95.43% variance.
+[INFO] Early stopping at epoch 195
+Fold 51 Training AUC: 0.9605
+Fold 51 Test Probability: 0.1117 (True Label: 1)
+LOOCV Fold 52/103
+[INFO] selected 7 principal components to retain 95.52% variance.
+[INFO] Early stopping at epoch 210
+Fold 52 Training AUC: 0.9540
+Fold 52 Test Probability: 0.0589 (True Label: 0)
+LOOCV Fold 53/103
+[INFO] selected 7 principal components to retain 95.49% variance.
+[INFO] Early stopping at epoch 214
+Fold 53 Training AUC: 0.9520
+Fold 53 Test Probability: 0.0112 (True Label: 0)
+LOOCV Fold 54/103
+[INFO] selected 7 principal components to retain 95.43% variance.
+[INFO] Early stopping at epoch 237
+Fold 54 Training AUC: 0.9548
+Fold 54 Test Probability: 0.9914 (True Label: 1)
+LOOCV Fold 55/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+[INFO] Early stopping at epoch 221
+Fold 55 Training AUC: 0.9580
+Fold 55 Test Probability: 0.3679 (True Label: 0)
+LOOCV Fold 56/103
+[INFO] selected 7 principal components to retain 95.55% variance.
+[INFO] Early stopping at epoch 154
+Fold 56 Training AUC: 0.9581
+Fold 56 Test Probability: 0.1884 (True Label: 1)
+LOOCV Fold 57/103
+[INFO] selected 7 principal components to retain 95.49% variance.
+[INFO] Early stopping at epoch 174
+Fold 57 Training AUC: 0.9528
+Fold 57 Test Probability: 0.8059 (True Label: 1)
+LOOCV Fold 58/103
+[INFO] selected 7 principal components to retain 95.59% variance.
+[INFO] Early stopping at epoch 220
+Fold 58 Training AUC: 0.9560
+Fold 58 Test Probability: 0.3477 (True Label: 1)
+LOOCV Fold 59/103
+[INFO] selected 7 principal components to retain 95.40% variance.
+[INFO] Early stopping at epoch 147
+Fold 59 Training AUC: 0.9544
+Fold 59 Test Probability: 0.9994 (True Label: 1)
+LOOCV Fold 60/103
+[INFO] selected 7 principal components to retain 95.45% variance.
+[INFO] Early stopping at epoch 204
+Fold 60 Training AUC: 0.9411
+Fold 60 Test Probability: 0.9862 (True Label: 1)
+LOOCV Fold 61/103
+[INFO] selected 7 principal components to retain 95.49% variance.
+[INFO] Early stopping at epoch 228
+Fold 61 Training AUC: 0.9540
+Fold 61 Test Probability: 0.1002 (True Label: 0)
+LOOCV Fold 62/103
+[INFO] selected 7 principal components to retain 95.54% variance.
+[INFO] Early stopping at epoch 193
+Fold 62 Training AUC: 0.9516
+Fold 62 Test Probability: 0.0734 (True Label: 0)
+LOOCV Fold 63/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+[INFO] Early stopping at epoch 233
+Fold 63 Training AUC: 0.9540
+Fold 63 Test Probability: 0.4440 (True Label: 0)
+LOOCV Fold 64/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+[INFO] Early stopping at epoch 168
+Fold 64 Training AUC: 0.9556
+Fold 64 Test Probability: 0.1343 (True Label: 0)
+LOOCV Fold 65/103
+[INFO] selected 7 principal components to retain 95.49% variance.
+[INFO] Early stopping at epoch 127
+Fold 65 Training AUC: 0.9540
+Fold 65 Test Probability: 0.0068 (True Label: 0)
+LOOCV Fold 66/103
+[INFO] selected 7 principal components to retain 95.53% variance.
+[INFO] Early stopping at epoch 210
+Fold 66 Training AUC: 0.9536
+Fold 66 Test Probability: 0.1788 (True Label: 0)
+LOOCV Fold 67/103
+[INFO] selected 7 principal components to retain 95.52% variance.
+[INFO] Early stopping at epoch 163
+Fold 67 Training AUC: 0.9536
+Fold 67 Test Probability: 0.1447 (True Label: 0)
+LOOCV Fold 68/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+[INFO] Early stopping at epoch 199
+Fold 68 Training AUC: 0.9544
+Fold 68 Test Probability: 0.2332 (True Label: 0)
+LOOCV Fold 69/103
+[INFO] selected 7 principal components to retain 95.46% variance.
+[INFO] Early stopping at epoch 253
+Fold 69 Training AUC: 0.9544
+Fold 69 Test Probability: 0.1420 (True Label: 0)
+LOOCV Fold 70/103
+[INFO] selected 7 principal components to retain 95.55% variance.
+[INFO] Early stopping at epoch 200
+Fold 70 Training AUC: 0.9508
+Fold 70 Test Probability: 0.0489 (True Label: 0)
+LOOCV Fold 71/103
+[INFO] selected 7 principal components to retain 95.52% variance.
+[INFO] Early stopping at epoch 239
+Fold 71 Training AUC: 0.9504
+Fold 71 Test Probability: 0.0188 (True Label: 0)
+LOOCV Fold 72/103
+[INFO] selected 7 principal components to retain 95.52% variance.
+[INFO] Early stopping at epoch 268
+Fold 72 Training AUC: 0.9536
+Fold 72 Test Probability: 0.1592 (True Label: 0)
+LOOCV Fold 73/103
+[INFO] selected 7 principal components to retain 95.52% variance.
+[INFO] Early stopping at epoch 224
+Fold 73 Training AUC: 0.9548
+Fold 73 Test Probability: 0.3159 (True Label: 0)
+LOOCV Fold 74/103
+[INFO] selected 7 principal components to retain 95.54% variance.
+[INFO] Early stopping at epoch 222
+Fold 74 Training AUC: 0.9528
+Fold 74 Test Probability: 0.1435 (True Label: 0)
+LOOCV Fold 75/103
+[INFO] selected 7 principal components to retain 95.49% variance.
+[INFO] Early stopping at epoch 271
+Fold 75 Training AUC: 0.9581
+Fold 75 Test Probability: 0.1738 (True Label: 1)
+LOOCV Fold 76/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+[INFO] Early stopping at epoch 210
+Fold 76 Training AUC: 0.9524
+Fold 76 Test Probability: 0.0389 (True Label: 0)
+LOOCV Fold 77/103
+[INFO] selected 7 principal components to retain 95.52% variance.
+[INFO] Early stopping at epoch 249
+Fold 77 Training AUC: 0.9540
+Fold 77 Test Probability: 0.0162 (True Label: 0)
+LOOCV Fold 78/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+[INFO] Early stopping at epoch 220
+Fold 78 Training AUC: 0.9552
+Fold 78 Test Probability: 0.0314 (True Label: 0)
+LOOCV Fold 79/103
+[INFO] selected 7 principal components to retain 95.45% variance.
+[INFO] Early stopping at epoch 210
+Fold 79 Training AUC: 0.9536
+Fold 79 Test Probability: 0.9000 (True Label: 1)
+LOOCV Fold 80/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+[INFO] Early stopping at epoch 204
+Fold 80 Training AUC: 0.9544
+Fold 80 Test Probability: 0.9864 (True Label: 1)
+LOOCV Fold 81/103
+[INFO] selected 7 principal components to retain 95.51% variance.
+[INFO] Early stopping at epoch 234
+Fold 81 Training AUC: 0.9532
+Fold 81 Test Probability: 0.2445 (True Label: 0)
+LOOCV Fold 82/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+[INFO] Early stopping at epoch 182
+Fold 82 Training AUC: 0.9444
+Fold 82 Test Probability: 0.0513 (True Label: 0)
+LOOCV Fold 83/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+[INFO] Early stopping at epoch 242
+Fold 83 Training AUC: 0.9540
+Fold 83 Test Probability: 0.9295 (True Label: 1)
+LOOCV Fold 84/103
+[INFO] selected 7 principal components to retain 95.46% variance.
+[INFO] Early stopping at epoch 240
+Fold 84 Training AUC: 0.9532
+Fold 84 Test Probability: 0.9475 (True Label: 1)
+LOOCV Fold 85/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+[INFO] Early stopping at epoch 246
+Fold 85 Training AUC: 0.9540
+Fold 85 Test Probability: 0.9975 (True Label: 1)
+LOOCV Fold 86/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+[INFO] Early stopping at epoch 261
+Fold 86 Training AUC: 0.9512
+Fold 86 Test Probability: 0.8489 (True Label: 1)
+LOOCV Fold 87/103
+[INFO] selected 7 principal components to retain 95.54% variance.
+[INFO] Early stopping at epoch 191
+Fold 87 Training AUC: 0.9544
+Fold 87 Test Probability: 0.7522 (True Label: 1)
+LOOCV Fold 88/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+[INFO] Early stopping at epoch 210
+Fold 88 Training AUC: 0.9540
+Fold 88 Test Probability: 0.9898 (True Label: 1)
+LOOCV Fold 89/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+[INFO] Early stopping at epoch 219
+Fold 89 Training AUC: 0.9548
+Fold 89 Test Probability: 0.0563 (True Label: 0)
+LOOCV Fold 90/103
+[INFO] selected 7 principal components to retain 95.52% variance.
+[INFO] Early stopping at epoch 153
+Fold 90 Training AUC: 0.9572
+Fold 90 Test Probability: 0.9117 (True Label: 0)
+LOOCV Fold 91/103
+[INFO] selected 7 principal components to retain 95.49% variance.
+[INFO] Early stopping at epoch 249
+Fold 91 Training AUC: 0.9556
+Fold 91 Test Probability: 0.0364 (True Label: 0)
+LOOCV Fold 92/103
+[INFO] selected 7 principal components to retain 95.49% variance.
+[INFO] Early stopping at epoch 211
+Fold 92 Training AUC: 0.9452
+Fold 92 Test Probability: 0.9173 (True Label: 1)
+LOOCV Fold 93/103
+[INFO] selected 7 principal components to retain 95.44% variance.
+[INFO] Early stopping at epoch 170
+Fold 93 Training AUC: 0.9520
+Fold 93 Test Probability: 0.9992 (True Label: 1)
+LOOCV Fold 94/103
+[INFO] selected 7 principal components to retain 95.40% variance.
+[INFO] Early stopping at epoch 215
+Fold 94 Training AUC: 0.9516
+Fold 94 Test Probability: 0.9995 (True Label: 1)
+LOOCV Fold 95/103
+[INFO] selected 7 principal components to retain 95.41% variance.
+[INFO] Early stopping at epoch 179
+Fold 95 Training AUC: 0.9548
+Fold 95 Test Probability: 0.9999 (True Label: 1)
+LOOCV Fold 96/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+[INFO] Early stopping at epoch 288
+Fold 96 Training AUC: 0.9544
+Fold 96 Test Probability: 0.8059 (True Label: 1)
+LOOCV Fold 97/103
+[INFO] selected 7 principal components to retain 95.60% variance.
+[INFO] Early stopping at epoch 191
+Fold 97 Training AUC: 0.9532
+Fold 97 Test Probability: 0.4043 (True Label: 1)
+LOOCV Fold 98/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+[INFO] Early stopping at epoch 244
+Fold 98 Training AUC: 0.9520
+Fold 98 Test Probability: 0.4137 (True Label: 1)
+LOOCV Fold 99/103
+[INFO] selected 7 principal components to retain 95.47% variance.
+[INFO] Early stopping at epoch 224
+Fold 99 Training AUC: 0.9512
+Fold 99 Test Probability: 0.9840 (True Label: 1)
+LOOCV Fold 100/103
+[INFO] selected 7 principal components to retain 95.53% variance.
+[INFO] Early stopping at epoch 246
+Fold 100 Training AUC: 0.9516
+Fold 100 Test Probability: 0.8754 (True Label: 1)
+LOOCV Fold 101/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+[INFO] Early stopping at epoch 165
+Fold 101 Training AUC: 0.9532
+Fold 101 Test Probability: 0.9773 (True Label: 1)
+LOOCV Fold 102/103
+[INFO] selected 7 principal components to retain 95.53% variance.
+[INFO] Early stopping at epoch 196
+Fold 102 Training AUC: 0.9560
+Fold 102 Test Probability: 0.9277 (True Label: 1)
+LOOCV Fold 103/103
+[INFO] selected 7 principal components to retain 95.51% variance.
+[INFO] Early stopping at epoch 286
+Fold 103 Training AUC: 0.9738
+Fold 103 Test Probability: 0.0150 (True Label: 1)
+
+[INFO] LOOCV Finished
+
+- Overall Model Performance (from LOOCV posteriors)
+[INFO] ROC Curve is saved as roc_curve_ldf.png
+
+Metrics (using threshold = 0.5):
+    Accuracy:    0.8738 (90/103)
+    Sensitivity: 0.7805 (32/41)
+    Specificity: 0.9355 (58/62)
+Test AUC: 0.9284
+Train AUC: 0.9538
+\end{minted}
+
+\section{Train Logs of SVM}
+\label{lab:svm_log}
+\begin{minted}{text}
+[INFO] Data loaded successfully:
+   SeqNum  GroundTruth  Gender  ...    NoseSurfA      NoseW  NasoFacialA
+0       1            0       2  ...  3972.311567  34.479069    32.325195
+1       2            0       2  ...  4217.911999  38.170299    41.061411
+2       3            0       2  ...  4010.477059  36.962578    36.151195
+3       4            0       2  ...  3796.839953  38.330882    32.658731
+4       5            0       2  ...  4011.612497  35.772898    36.637580
+
+[5 rows x 22 columns]
+[INFO] Starting Leave-One-Out Cross-Validation...
+start with thresh=0.95
+LOOCV Fold 1/103
+[INFO] selected 7 principal components to retain 95.39% variance.
+Fold 1 Training AUC: 0.9992
+Fold 1 Test Score: -0.0406 (True Label: 0)
+LOOCV Fold 2/103
+[INFO] selected 7 principal components to retain 95.47% variance.
+Fold 2 Training AUC: 0.9992
+Fold 2 Test Score: 0.0677 (True Label: 0)
+LOOCV Fold 3/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+Fold 3 Training AUC: 0.9992
+Fold 3 Test Score: -0.8235 (True Label: 0)
+LOOCV Fold 4/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+Fold 4 Training AUC: 0.9992
+Fold 4 Test Score: -0.5338 (True Label: 0)
+LOOCV Fold 5/103
+[INFO] selected 7 principal components to retain 95.43% variance.
+Fold 5 Training AUC: 0.9992
+Fold 5 Test Score: -0.0312 (True Label: 0)
+LOOCV Fold 6/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+Fold 6 Training AUC: 0.9992
+Fold 6 Test Score: -0.3885 (True Label: 0)
+LOOCV Fold 7/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+Fold 7 Training AUC: 0.9992
+Fold 7 Test Score: -0.2422 (True Label: 0)
+LOOCV Fold 8/103
+[INFO] selected 7 principal components to retain 95.46% variance.
+Fold 8 Training AUC: 0.9992
+Fold 8 Test Score: -0.2012 (True Label: 0)
+LOOCV Fold 9/103
+[INFO] selected 7 principal components to retain 95.52% variance.
+Fold 9 Training AUC: 0.9992
+Fold 9 Test Score: -0.1302 (True Label: 0)
+LOOCV Fold 10/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+Fold 10 Training AUC: 0.9996
+Fold 10 Test Score: 0.6758 (True Label: 0)
+LOOCV Fold 11/103
+[INFO] selected 7 principal components to retain 95.49% variance.
+Fold 11 Training AUC: 0.9992
+Fold 11 Test Score: -0.0070 (True Label: 0)
+LOOCV Fold 12/103
+[INFO] selected 7 principal components to retain 95.51% variance.
+Fold 12 Training AUC: 0.9992
+Fold 12 Test Score: -0.0049 (True Label: 0)
+LOOCV Fold 13/103
+[INFO] selected 7 principal components to retain 95.52% variance.
+Fold 13 Training AUC: 0.9992
+Fold 13 Test Score: -0.1452 (True Label: 0)
+LOOCV Fold 14/103
+[INFO] selected 7 principal components to retain 95.51% variance.
+Fold 14 Training AUC: 0.9992
+Fold 14 Test Score: -0.7896 (True Label: 0)
+LOOCV Fold 15/103
+[INFO] selected 7 principal components to retain 95.47% variance.
+Fold 15 Training AUC: 0.9992
+Fold 15 Test Score: -0.1342 (True Label: 0)
+LOOCV Fold 16/103
+[INFO] selected 7 principal components to retain 95.53% variance.
+Fold 16 Training AUC: 0.9992
+Fold 16 Test Score: -0.9641 (True Label: 0)
+LOOCV Fold 17/103
+[INFO] selected 7 principal components to retain 95.49% variance.
+Fold 17 Training AUC: 0.9992
+Fold 17 Test Score: -0.3388 (True Label: 0)
+LOOCV Fold 18/103
+[INFO] selected 7 principal components to retain 95.49% variance.
+Fold 18 Training AUC: 0.9992
+Fold 18 Test Score: -0.2360 (True Label: 0)
+LOOCV Fold 19/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+Fold 19 Training AUC: 0.9992
+Fold 19 Test Score: -0.3663 (True Label: 0)
+LOOCV Fold 20/103
+[INFO] selected 7 principal components to retain 95.49% variance.
+Fold 20 Training AUC: 0.9992
+Fold 20 Test Score: -0.4682 (True Label: 0)
+LOOCV Fold 21/103
+[INFO] selected 7 principal components to retain 95.57% variance.
+Fold 21 Training AUC: 0.9992
+Fold 21 Test Score: -0.7286 (True Label: 0)
+LOOCV Fold 22/103
+[INFO] selected 7 principal components to retain 95.51% variance.
+Fold 22 Training AUC: 0.9992
+Fold 22 Test Score: -0.2457 (True Label: 0)
+LOOCV Fold 23/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+Fold 23 Training AUC: 0.9992
+Fold 23 Test Score: -0.5574 (True Label: 0)
+LOOCV Fold 24/103
+[INFO] selected 7 principal components to retain 95.51% variance.
+Fold 24 Training AUC: 0.9992
+Fold 24 Test Score: -0.4387 (True Label: 0)
+LOOCV Fold 25/103
+[INFO] selected 7 principal components to retain 95.54% variance.
+Fold 25 Training AUC: 0.9992
+Fold 25 Test Score: -0.2239 (True Label: 0)
+LOOCV Fold 26/103
+[INFO] selected 7 principal components to retain 95.51% variance.
+Fold 26 Training AUC: 0.9992
+Fold 26 Test Score: -0.8905 (True Label: 0)
+LOOCV Fold 27/103
+[INFO] selected 7 principal components to retain 95.58% variance.
+Fold 27 Training AUC: 0.9992
+Fold 27 Test Score: -0.2199 (True Label: 0)
+LOOCV Fold 28/103
+[INFO] selected 7 principal components to retain 95.53% variance.
+Fold 28 Training AUC: 0.9992
+Fold 28 Test Score: -0.9958 (True Label: 0)
+LOOCV Fold 29/103
+[INFO] selected 7 principal components to retain 95.52% variance.
+Fold 29 Training AUC: 0.9992
+Fold 29 Test Score: -1.2568 (True Label: 0)
+LOOCV Fold 30/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+Fold 30 Training AUC: 0.9992
+Fold 30 Test Score: -0.1156 (True Label: 0)
+LOOCV Fold 31/103
+[INFO] selected 7 principal components to retain 95.49% variance.
+Fold 31 Training AUC: 0.9992
+Fold 31 Test Score: -0.2388 (True Label: 0)
+LOOCV Fold 32/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+Fold 32 Training AUC: 0.9992
+Fold 32 Test Score: -0.1532 (True Label: 0)
+LOOCV Fold 33/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+Fold 33 Training AUC: 0.9992
+Fold 33 Test Score: -0.2210 (True Label: 0)
+LOOCV Fold 34/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+Fold 34 Training AUC: 0.9992
+Fold 34 Test Score: -0.1097 (True Label: 0)
+LOOCV Fold 35/103
+[INFO] selected 7 principal components to retain 95.61% variance.
+Fold 35 Training AUC: 0.9992
+Fold 35 Test Score: -0.4836 (True Label: 0)
+LOOCV Fold 36/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+Fold 36 Training AUC: 0.9992
+Fold 36 Test Score: -0.2592 (True Label: 0)
+LOOCV Fold 37/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+Fold 37 Training AUC: 0.9992
+Fold 37 Test Score: -0.3584 (True Label: 0)
+LOOCV Fold 38/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+Fold 38 Training AUC: 0.9992
+Fold 38 Test Score: -0.0196 (True Label: 1)
+LOOCV Fold 39/103
+[INFO] selected 7 principal components to retain 95.54% variance.
+Fold 39 Training AUC: 0.9992
+Fold 39 Test Score: 0.0532 (True Label: 1)
+LOOCV Fold 40/103
+[INFO] selected 7 principal components to retain 95.49% variance.
+Fold 40 Training AUC: 0.9992
+Fold 40 Test Score: -0.0408 (True Label: 1)
+LOOCV Fold 41/103
+[INFO] selected 7 principal components to retain 95.54% variance.
+Fold 41 Training AUC: 0.9992
+Fold 41 Test Score: -0.2046 (True Label: 1)
+LOOCV Fold 42/103
+[INFO] selected 7 principal components to retain 95.44% variance.
+Fold 42 Training AUC: 0.9992
+Fold 42 Test Score: 0.1923 (True Label: 1)
+LOOCV Fold 43/103
+[INFO] selected 7 principal components to retain 95.37% variance.
+Fold 43 Training AUC: 0.9992
+Fold 43 Test Score: 0.0786 (True Label: 1)
+LOOCV Fold 44/103
+[INFO] selected 7 principal components to retain 95.51% variance.
+Fold 44 Training AUC: 0.9992
+Fold 44 Test Score: -0.0163 (True Label: 1)
+LOOCV Fold 45/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+Fold 45 Training AUC: 0.9992
+Fold 45 Test Score: -0.0674 (True Label: 1)
+LOOCV Fold 46/103
+[INFO] selected 7 principal components to retain 95.47% variance.
+Fold 46 Training AUC: 0.9992
+Fold 46 Test Score: 0.0974 (True Label: 1)
+LOOCV Fold 47/103
+[INFO] selected 7 principal components to retain 95.53% variance.
+Fold 47 Training AUC: 0.9992
+Fold 47 Test Score: -0.0060 (True Label: 1)
+LOOCV Fold 48/103
+[INFO] selected 7 principal components to retain 95.55% variance.
+Fold 48 Training AUC: 0.9992
+Fold 48 Test Score: -0.0238 (True Label: 1)
+LOOCV Fold 49/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+Fold 49 Training AUC: 0.9992
+Fold 49 Test Score: 0.1197 (True Label: 1)
+LOOCV Fold 50/103
+[INFO] selected 7 principal components to retain 95.24% variance.
+Fold 50 Training AUC: 0.9992
+Fold 50 Test Score: -0.0635 (True Label: 1)
+LOOCV Fold 51/103
+[INFO] selected 7 principal components to retain 95.43% variance.
+Fold 51 Training AUC: 0.9992
+Fold 51 Test Score: -0.0588 (True Label: 1)
+LOOCV Fold 52/103
+[INFO] selected 7 principal components to retain 95.52% variance.
+Fold 52 Training AUC: 0.9992
+Fold 52 Test Score: -0.9616 (True Label: 0)
+LOOCV Fold 53/103
+[INFO] selected 7 principal components to retain 95.49% variance.
+Fold 53 Training AUC: 0.9992
+Fold 53 Test Score: -0.9535 (True Label: 0)
+LOOCV Fold 54/103
+[INFO] selected 7 principal components to retain 95.43% variance.
+Fold 54 Training AUC: 0.9992
+Fold 54 Test Score: 0.0925 (True Label: 1)
+LOOCV Fold 55/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+Fold 55 Training AUC: 0.9992
+Fold 55 Test Score: -0.2981 (True Label: 0)
+LOOCV Fold 56/103
+[INFO] selected 7 principal components to retain 95.55% variance.
+Fold 56 Training AUC: 0.9992
+Fold 56 Test Score: -0.3941 (True Label: 1)
+LOOCV Fold 57/103
+[INFO] selected 7 principal components to retain 95.49% variance.
+Fold 57 Training AUC: 0.9992
+Fold 57 Test Score: -0.0527 (True Label: 1)
+LOOCV Fold 58/103
+[INFO] selected 7 principal components to retain 95.59% variance.
+Fold 58 Training AUC: 0.9996
+Fold 58 Test Score: -0.6814 (True Label: 1)
+LOOCV Fold 59/103
+[INFO] selected 7 principal components to retain 95.40% variance.
+Fold 59 Training AUC: 0.9992
+Fold 59 Test Score: -0.0721 (True Label: 1)
+LOOCV Fold 60/103
+[INFO] selected 7 principal components to retain 95.45% variance.
+Fold 60 Training AUC: 0.9992
+Fold 60 Test Score: 0.0152 (True Label: 1)
+LOOCV Fold 61/103
+[INFO] selected 7 principal components to retain 95.49% variance.
+Fold 61 Training AUC: 0.9992
+Fold 61 Test Score: -0.5653 (True Label: 0)
+LOOCV Fold 62/103
+[INFO] selected 7 principal components to retain 95.54% variance.
+Fold 62 Training AUC: 0.9992
+Fold 62 Test Score: -0.8051 (True Label: 0)
+LOOCV Fold 63/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+Fold 63 Training AUC: 0.9992
+Fold 63 Test Score: -0.1374 (True Label: 0)
+LOOCV Fold 64/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+Fold 64 Training AUC: 0.9992
+Fold 64 Test Score: -0.0970 (True Label: 0)
+LOOCV Fold 65/103
+[INFO] selected 7 principal components to retain 95.49% variance.
+Fold 65 Training AUC: 0.9992
+Fold 65 Test Score: -0.2668 (True Label: 0)
+LOOCV Fold 66/103
+[INFO] selected 7 principal components to retain 95.53% variance.
+Fold 66 Training AUC: 0.9992
+Fold 66 Test Score: -0.4900 (True Label: 0)
+LOOCV Fold 67/103
+[INFO] selected 7 principal components to retain 95.52% variance.
+Fold 67 Training AUC: 0.9992
+Fold 67 Test Score: -0.0944 (True Label: 0)
+LOOCV Fold 68/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+Fold 68 Training AUC: 0.9992
+Fold 68 Test Score: -0.6893 (True Label: 0)
+LOOCV Fold 69/103
+[INFO] selected 7 principal components to retain 95.46% variance.
+Fold 69 Training AUC: 0.9992
+Fold 69 Test Score: -0.1977 (True Label: 0)
+LOOCV Fold 70/103
+[INFO] selected 7 principal components to retain 95.55% variance.
+Fold 70 Training AUC: 0.9992
+Fold 70 Test Score: -0.6227 (True Label: 0)
+LOOCV Fold 71/103
+[INFO] selected 7 principal components to retain 95.52% variance.
+Fold 71 Training AUC: 0.9992
+Fold 71 Test Score: -0.3707 (True Label: 0)
+LOOCV Fold 72/103
+[INFO] selected 7 principal components to retain 95.52% variance.
+Fold 72 Training AUC: 0.9992
+Fold 72 Test Score: -0.3025 (True Label: 0)
+LOOCV Fold 73/103
+[INFO] selected 7 principal components to retain 95.52% variance.
+Fold 73 Training AUC: 0.9992
+Fold 73 Test Score: -0.3760 (True Label: 0)
+LOOCV Fold 74/103
+[INFO] selected 7 principal components to retain 95.54% variance.
+Fold 74 Training AUC: 0.9992
+Fold 74 Test Score: -0.5257 (True Label: 0)
+LOOCV Fold 75/103
+[INFO] selected 7 principal components to retain 95.49% variance.
+Fold 75 Training AUC: 0.9992
+Fold 75 Test Score: 0.1101 (True Label: 1)
+LOOCV Fold 76/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+Fold 76 Training AUC: 0.9992
+Fold 76 Test Score: -1.1055 (True Label: 0)
+LOOCV Fold 77/103
+[INFO] selected 7 principal components to retain 95.52% variance.
+Fold 77 Training AUC: 0.9992
+Fold 77 Test Score: -0.4589 (True Label: 0)
+LOOCV Fold 78/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+Fold 78 Training AUC: 0.9992
+Fold 78 Test Score: -1.2687 (True Label: 0)
+LOOCV Fold 79/103
+[INFO] selected 7 principal components to retain 95.45% variance.
+Fold 79 Training AUC: 0.9992
+Fold 79 Test Score: -0.0725 (True Label: 1)
+LOOCV Fold 80/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+Fold 80 Training AUC: 0.9992
+Fold 80 Test Score: -0.0024 (True Label: 1)
+LOOCV Fold 81/103
+[INFO] selected 7 principal components to retain 95.51% variance.
+Fold 81 Training AUC: 0.9992
+Fold 81 Test Score: -0.2229 (True Label: 0)
+LOOCV Fold 82/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+Fold 82 Training AUC: 0.9992
+Fold 82 Test Score: -1.0062 (True Label: 0)
+LOOCV Fold 83/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+Fold 83 Training AUC: 0.9992
+Fold 83 Test Score: -0.0515 (True Label: 1)
+LOOCV Fold 84/103
+[INFO] selected 7 principal components to retain 95.46% variance.
+Fold 84 Training AUC: 0.9992
+Fold 84 Test Score: -0.0066 (True Label: 1)
+LOOCV Fold 85/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+Fold 85 Training AUC: 0.9992
+Fold 85 Test Score: 0.2166 (True Label: 1)
+LOOCV Fold 86/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+Fold 86 Training AUC: 0.9992
+Fold 86 Test Score: 0.0011 (True Label: 1)
+LOOCV Fold 87/103
+[INFO] selected 7 principal components to retain 95.54% variance.
+Fold 87 Training AUC: 0.9992
+Fold 87 Test Score: 0.4264 (True Label: 1)
+LOOCV Fold 88/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+Fold 88 Training AUC: 0.9992
+Fold 88 Test Score: 0.1245 (True Label: 1)
+LOOCV Fold 89/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+Fold 89 Training AUC: 0.9992
+Fold 89 Test Score: -0.2606 (True Label: 0)
+LOOCV Fold 90/103
+[INFO] selected 7 principal components to retain 95.52% variance.
+Fold 90 Training AUC: 0.9996
+Fold 90 Test Score: 0.6651 (True Label: 0)
+LOOCV Fold 91/103
+[INFO] selected 7 principal components to retain 95.49% variance.
+Fold 91 Training AUC: 0.9992
+Fold 91 Test Score: -0.6217 (True Label: 0)
+LOOCV Fold 92/103
+[INFO] selected 7 principal components to retain 95.49% variance.
+Fold 92 Training AUC: 0.9992
+Fold 92 Test Score: 0.4049 (True Label: 1)
+LOOCV Fold 93/103
+[INFO] selected 7 principal components to retain 95.44% variance.
+Fold 93 Training AUC: 0.9992
+Fold 93 Test Score: 0.0272 (True Label: 1)
+LOOCV Fold 94/103
+[INFO] selected 7 principal components to retain 95.40% variance.
+Fold 94 Training AUC: 0.9992
+Fold 94 Test Score: -0.0621 (True Label: 1)
+LOOCV Fold 95/103
+[INFO] selected 7 principal components to retain 95.41% variance.
+Fold 95 Training AUC: 0.9992
+Fold 95 Test Score: -0.0567 (True Label: 1)
+LOOCV Fold 96/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+Fold 96 Training AUC: 0.9992
+Fold 96 Test Score: -0.0004 (True Label: 1)
+LOOCV Fold 97/103
+[INFO] selected 7 principal components to retain 95.60% variance.
+Fold 97 Training AUC: 0.9992
+Fold 97 Test Score: -0.0844 (True Label: 1)
+LOOCV Fold 98/103
+[INFO] selected 7 principal components to retain 95.50% variance.
+Fold 98 Training AUC: 0.9992
+Fold 98 Test Score: -0.0622 (True Label: 1)
+LOOCV Fold 99/103
+[INFO] selected 7 principal components to retain 95.47% variance.
+Fold 99 Training AUC: 0.9992
+Fold 99 Test Score: 0.0365 (True Label: 1)
+LOOCV Fold 100/103
+[INFO] selected 7 principal components to retain 95.53% variance.
+Fold 100 Training AUC: 0.9992
+Fold 100 Test Score: 0.0196 (True Label: 1)
+LOOCV Fold 101/103
+[INFO] selected 7 principal components to retain 95.48% variance.
+Fold 101 Training AUC: 0.9992
+Fold 101 Test Score: -0.0525 (True Label: 1)
+LOOCV Fold 102/103
+[INFO] selected 7 principal components to retain 95.53% variance.
+Fold 102 Training AUC: 0.9992
+Fold 102 Test Score: -0.2064 (True Label: 1)
+LOOCV Fold 103/103
+[INFO] selected 7 principal components to retain 95.51% variance.
+Fold 103 Training AUC: 1.0000
+Fold 103 Test Score: -1.2055 (True Label: 1)
+
+[INFO] LOOCV Finished
+
+- Overall Model Performance (from LOOCV posteriors)
+[INFO] ROC Curve is saved as roc_curve_svm.png
+
+Metrics (using threshold = 0):
+    Accuracy:    0.7282 (75/103)
+    Sensitivity: 0.3902 (16/41)
+    Specificity: 0.9516 (59/62)
+Test AUC: 0.8666
+Train AUC: 0.9992
+\end{minted}
+
+\end{document}

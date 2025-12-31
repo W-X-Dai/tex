@@ -12,65 +12,85 @@ class Dataset:
     y_train: np.ndarray
     y_test: np.ndarray
 
-def Network(data: Dataset, LR=0.1, epochs=500, min_epochs=15, patience=10, min_delta=0.001) -> tuple[float, float]:
-    # N*k
+def rbf_kernel(X1, X2, gamma=0.5):
+    X1_sq = np.sum(X1**2, axis=1)[:, None]
+    X2_sq = np.sum(X2**2, axis=1)[None, :]
+    return np.exp(-gamma * (X1_sq + X2_sq - 2 * X1 @ X2.T))
+
+def SVM(data: Dataset, C=1.0, gamma=0.5) -> tuple[float, float]:
+    """train SVM with RBF kernel using simplified SMO algorithm"""
     X_train, X_test, y_train, y_test = get_data(data)
-    N, d = X_train.shape
-    best_loss = float('inf')
-    counter = 0
+    N = X_train.shape[0]
 
-    # model
-    ann=ANN(lr=LR)
-    ann.add_linear(d, 10)
-    ann.add_relu()
-    ann.add_linear(10, 5)
-    ann.add_relu()
-    ann.add_linear(5, 1)
-    ann.add_sigmoid()
+    y = np.where(y_train == 1, 1.0, -1.0)
 
-    for e in range(epochs):
-        epoch_loss = 0.0
+    K = rbf_kernel(X_train, X_train, gamma)
+
+    alpha = np.zeros(N)
+    b = 0.0
+
+    # outer SMO iteration with fixed number of iterations
+    for _ in range(100):
         for i in range(N):
-            x = X_train[i].astype(float)
-            y = float(y_train[i])
+            f_i = np.sum(alpha * y * K[:, i]) + b
+            E_i = f_i - y[i]
 
-            out = ann.forward(x)
-            y_pred = float(out[0])
+            # check if KKT is valid
+            if (y[i]*E_i < -1e-3 and alpha[i] < C) or (y[i]*E_i > 1e-3 and alpha[i] > 0):
+                
+                j = np.random.randint(0, N)
+                if j == i:
+                    continue
+                
 
-            loss = ann.bce(y, y_pred)
-            epoch_loss += loss
+                f_j = np.sum(alpha * y * K[:, j]) + b
+                E_j = f_j - y[j]
 
-            ann.backward(y, y_pred)
-            ann.update()
-        epoch_loss /= N
+                ai, aj = alpha[i], alpha[j]
 
-        # Early stopping check
-        if e >= min_epochs:
-            if (best_loss - epoch_loss) > min_delta:
-                best_loss = epoch_loss
-                counter = 0
-            else:
-                counter += 1
-                if counter >= patience:
-                    print(f"[INFO] Early stopping at epoch {e}")
-                    break
+                if y[i] != y[j]:
+                    L = max(0, aj - ai)
+                    H = min(C, C + aj - ai)
+                else:
+                    L = max(0, ai + aj - C)
+                    H = min(C, ai + aj)
 
-        # if(e==epochs-1):
-        #     print(f"[epoch {e}], Loss: {epoch_loss / N:.4f}")
+                if L == H:
+                    continue
 
-    train_scores = np.zeros(N, dtype=float)
-    for i in range(N):
-        x = X_train[i].astype(float)
-        out = ann.forward(x)
-        train_scores[i] = float(out[0])
+                eta = 2*K[i,j] - K[i,i] - K[j,j]
+                if eta >= 0:
+                    continue
 
-    train_auc = evaluation(x=train_scores, y=y_train)
+                # update alpha
+                alpha[j] -= y[j] * (E_i - E_j) / eta
+                alpha[j] = np.clip(alpha[j], L, H)
+                alpha[i] += y[i]*y[j]*(aj - alpha[j])
 
-    x_test = X_test[0].astype(float)
-    out_test = ann.forward(x_test)
-    test_prob = float(out_test[0])
+                # update bias
+                b1 = b - E_i \
+                     - y[i]*(alpha[i]-ai)*K[i,i] \
+                     - y[j]*(alpha[j]-aj)*K[i,j]
 
-    return train_auc, test_prob
+                b2 = b - E_j \
+                     - y[i]*(alpha[i]-ai)*K[i,j] \
+                     - y[j]*(alpha[j]-aj)*K[j,j]
+
+                if 0 < alpha[i] < C:
+                    b = b1
+                elif 0 < alpha[j] < C:
+                    b = b2
+                else:
+                    b = 0.5*(b1+b2)
+
+    train_scores = np.sum((alpha*y)[:,None] * K, axis=0) + b
+    train_auc = evaluation(train_scores, y_train)
+
+    K_test = rbf_kernel(X_train, X_test, gamma)
+    test_score = np.sum(alpha * y * K_test[:,0]) + b
+
+    return train_auc, float(test_score)
+
 
 def get_data(data: Dataset):
     return data.X_train, data.X_test, data.y_train, data.y_test
@@ -148,8 +168,8 @@ def evaluation(x, y, diagram=0) -> float:
         plt.ylabel('TPR')
         plt.title('ROC Curve')
         plt.grid()
-        plt.savefig('roc_curve_ann.png', dpi=400)
-        print("[INFO] ROC Curve is saved as roc_curve_ann.png")
+        plt.savefig('roc_curve_svm.png', dpi=400)
+        print("[INFO] ROC Curve is saved as roc_curve_svm.png")
     return float(auc)
 
 def loocv(data, thresh=0.95): 
@@ -194,14 +214,17 @@ def loocv(data, thresh=0.95):
             y_train = y_train, # N×1
             y_test = y_test # 1×1
         )
-        perf, pr = Network(data=fold_data, LR=0.005, epochs=1000)
+        
+        # best auc, mask, and prior of test data under the selected mask
+        perf, pr = SVM(data=fold_data, C=1.0, gamma=0.5)
+
 
         print(f"Fold {i+1} Training AUC: {perf:.4f}")
         train_auc += perf
 
         prior[i] = pr
         
-        print(f"Fold {i+1} Test Probability: {pr:.4f} (True Label: {y_test[0]})")
+        print(f"Fold {i+1} Test Score: {pr:.4f} (True Label: {y_test[0]})")
         
     # show the results
     print("\n[INFO] LOOCV Finished")
@@ -210,7 +233,7 @@ def loocv(data, thresh=0.95):
     # show the performance
     print("\n- Overall Model Performance (from LOOCV posteriors)")
     overall_auc = evaluation(x=prior, y=all_y, diagram=1)
-    thresh = 0.5
+    thresh = 0
     y_pred, y_true = (prior >= thresh).astype(int), all_y
     tp = np.sum((y_pred == 1) & (y_true == 1))
     tn = np.sum((y_pred == 0) & (y_true == 0))
@@ -230,6 +253,7 @@ def loocv(data, thresh=0.95):
     print(f"    Specificity: {specificity:.4f} ({tn}/{total_neg})")
     print(f"Test AUC: {overall_auc:.4f}")
     print(f"Train AUC: {train_auc/n_samples:.4f}")
+
 if __name__ == '__main__':
     df = pd.read_excel('AcromegalyFeatureSet.xlsx')
     print("[INFO] Data loaded successfully:")

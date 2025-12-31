@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from dataclasses import dataclass
-from myann import ANN # type: ignore
+from sklearn.svm import SVC
 
 @dataclass
 class Dataset:
@@ -12,65 +12,35 @@ class Dataset:
     y_train: np.ndarray
     y_test: np.ndarray
 
-def Network(data: Dataset, LR=0.1, epochs=500, min_epochs=15, patience=10, min_delta=0.001) -> tuple[float, float]:
-    # N*k
+def rbf_kernel(X1, X2, gamma=0.5):
+    X1_sq = np.sum(X1**2, axis=1)[:, None]
+    X2_sq = np.sum(X2**2, axis=1)[None, :]
+    return np.exp(-gamma * (X1_sq + X2_sq - 2 * X1 @ X2.T))
+
+def SVM_sklearn(data: Dataset, C=1.0, gamma=0.05) -> tuple[float, float]:
+    """train SVM with RBF kernel using sklearn, this function is helped by ChatGPT"""
     X_train, X_test, y_train, y_test = get_data(data)
-    N, d = X_train.shape
-    best_loss = float('inf')
-    counter = 0
 
-    # model
-    ann=ANN(lr=LR)
-    ann.add_linear(d, 10)
-    ann.add_relu()
-    ann.add_linear(10, 5)
-    ann.add_relu()
-    ann.add_linear(5, 1)
-    ann.add_sigmoid()
+    # sklearn SVM (libsvm)
+    clf = SVC(
+        C=C,
+        kernel="rbf",
+        gamma=gamma,
+        probability=False, 
+        class_weight=None
+    )
 
-    for e in range(epochs):
-        epoch_loss = 0.0
-        for i in range(N):
-            x = X_train[i].astype(float)
-            y = float(y_train[i])
+    clf.fit(X_train, y_train)
 
-            out = ann.forward(x)
-            y_pred = float(out[0])
+    # ---- training decision scores ----
+    train_scores = clf.decision_function(X_train)
+    train_auc = evaluation(train_scores, y_train)
 
-            loss = ann.bce(y, y_pred)
-            epoch_loss += loss
+    # ---- test decision score ----
+    test_score = clf.decision_function(X_test)[0]
 
-            ann.backward(y, y_pred)
-            ann.update()
-        epoch_loss /= N
+    return train_auc, float(test_score)
 
-        # Early stopping check
-        if e >= min_epochs:
-            if (best_loss - epoch_loss) > min_delta:
-                best_loss = epoch_loss
-                counter = 0
-            else:
-                counter += 1
-                if counter >= patience:
-                    print(f"[INFO] Early stopping at epoch {e}")
-                    break
-
-        # if(e==epochs-1):
-        #     print(f"[epoch {e}], Loss: {epoch_loss / N:.4f}")
-
-    train_scores = np.zeros(N, dtype=float)
-    for i in range(N):
-        x = X_train[i].astype(float)
-        out = ann.forward(x)
-        train_scores[i] = float(out[0])
-
-    train_auc = evaluation(x=train_scores, y=y_train)
-
-    x_test = X_test[0].astype(float)
-    out_test = ann.forward(x_test)
-    test_prob = float(out_test[0])
-
-    return train_auc, test_prob
 
 def get_data(data: Dataset):
     return data.X_train, data.X_test, data.y_train, data.y_test
@@ -148,8 +118,8 @@ def evaluation(x, y, diagram=0) -> float:
         plt.ylabel('TPR')
         plt.title('ROC Curve')
         plt.grid()
-        plt.savefig('roc_curve_ann.png', dpi=400)
-        print("[INFO] ROC Curve is saved as roc_curve_ann.png")
+        plt.savefig('roc_curve_svm_sk.png', dpi=400)
+        print("[INFO] ROC Curve is saved as roc_curve_svm_sk.png")
     return float(auc)
 
 def loocv(data, thresh=0.95): 
@@ -194,14 +164,17 @@ def loocv(data, thresh=0.95):
             y_train = y_train, # N×1
             y_test = y_test # 1×1
         )
-        perf, pr = Network(data=fold_data, LR=0.005, epochs=1000)
+        
+        # best auc, mask, and prior of test data under the selected mask
+        perf, pr = SVM_sklearn(data=fold_data, C=1.0, gamma=0.05)
+
 
         print(f"Fold {i+1} Training AUC: {perf:.4f}")
         train_auc += perf
 
         prior[i] = pr
         
-        print(f"Fold {i+1} Test Probability: {pr:.4f} (True Label: {y_test[0]})")
+        print(f"Fold {i+1} Test Score: {pr:.4f} (True Label: {y_test[0]})")
         
     # show the results
     print("\n[INFO] LOOCV Finished")
@@ -210,7 +183,7 @@ def loocv(data, thresh=0.95):
     # show the performance
     print("\n- Overall Model Performance (from LOOCV posteriors)")
     overall_auc = evaluation(x=prior, y=all_y, diagram=1)
-    thresh = 0.5
+    thresh = 0
     y_pred, y_true = (prior >= thresh).astype(int), all_y
     tp = np.sum((y_pred == 1) & (y_true == 1))
     tn = np.sum((y_pred == 0) & (y_true == 0))
@@ -230,6 +203,7 @@ def loocv(data, thresh=0.95):
     print(f"    Specificity: {specificity:.4f} ({tn}/{total_neg})")
     print(f"Test AUC: {overall_auc:.4f}")
     print(f"Train AUC: {train_auc/n_samples:.4f}")
+
 if __name__ == '__main__':
     df = pd.read_excel('AcromegalyFeatureSet.xlsx')
     print("[INFO] Data loaded successfully:")

@@ -111,8 +111,8 @@
       \strng{editorbibnamehash}{7a9ad5f6bac4583d52b34cb97bd801cb}
       \strng{editornamehash}{7a9ad5f6bac4583d52b34cb97bd801cb}
       \strng{editorfullhash}{7a9ad5f6bac4583d52b34cb97bd801cb}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{Proceedings of the Thirty-Third International Joint Conference on Artificial Intelligence, {IJCAI-24}}
@@ -181,8 +181,8 @@
       \strng{authorbibnamehash}{eac0ba4b452a6ce8b61d437f0b390702}
       \strng{authornamehash}{eac0ba4b452a6ce8b61d437f0b390702}
       \strng{authorfullhash}{e6dc736640220ce95acea056887cdc77}
-      \field{sortinit}{3}
-      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{Proceedings of the IEEE/CVF international conference on computer vision}
@@ -211,8 +211,8 @@
       \strng{authorbibnamehash}{33ce2184de7f631c18b79ea3c1f194f2}
       \strng{authornamehash}{33ce2184de7f631c18b79ea3c1f194f2}
       \strng{authorfullhash}{33ce2184de7f631c18b79ea3c1f194f2}
-      \field{sortinit}{4}
-      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{論文提出基於生成對抗網路（GAN）與 Gabor filter 的肺結節 3D CT 影像生成與紋理相似性評估方法，用於解決醫學影像訓練樣本不足問題。}
@@ -294,8 +294,8 @@
       \strng{authorbibnamehash}{1dec5b4d43deee6911f84fe0bfd16191}
       \strng{authornamehash}{1dec5b4d43deee6911f84fe0bfd16191}
       \strng{authorfullhash}{22e5e80fdc755481eb11604d72460316}
-      \field{sortinit}{5}
-      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{Lung cancer is the second most common cancer and the leading cause of cancer-related death worldwide. Screening with low-dose computed tomography is crucial to detect early-stage lung cancer. Computer-aided diagnosis (CAD) can help clinicians to make diagnosis more quickly and more accurately. CAD based on deep learning algorithms is gaining attention. These algorithms rely on large amount of training data, which are barely available in the field of medical imaging, therefore data augmentation becomes essential. Generative Adversarial Nets (GAN) is an emerging solution for data augmentation and has been successfully used to generate realistic pulmonary nodules. In this study, we developed Texture-embedded GAN, which took the texture of nodule into consideration by introducing a loss function based on Gabor filters. We trained Texture-embedded GAN with images of 1075 nodule from the LIDC-IDRI dataset. Visual Turing Test showed that Texture-embedded GAN could generate images realistic enough to deceive expert radiologists. Data augmentation with Texture-embedded GAN improved the performance of ResNet-based classifier, which could distinguish benign and malignant nodules with 0.883 accuracy and 0.950 AUC. It was concluded that Texture-embedded GAN could generate realistic pulmonary nodules with sufficient diversity and was useful for data augmentation.}
@@ -359,8 +359,8 @@
       \strng{authorbibnamehash}{dfd1c0e3240c608cd4b1a03387018e78}
       \strng{authornamehash}{dfd1c0e3240c608cd4b1a03387018e78}
       \strng{authorfullhash}{7050f4f99c95f0f3acc70dd5bc67ac84}
-      \field{sortinit}{6}
-      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Medical Physics}
@@ -395,8 +395,8 @@
       \strng{authorbibnamehash}{f5e58acf81e6b34ae45fb1f9b7e75e2a}
       \strng{authornamehash}{f5e58acf81e6b34ae45fb1f9b7e75e2a}
       \strng{authorfullhash}{f5e58acf81e6b34ae45fb1f9b7e75e2a}
-      \field{sortinit}{7}
-      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{arXiv preprint arXiv:2506.00433}
@@ -442,8 +442,8 @@
       \strng{authorbibnamehash}{e24d9bc3610fc7887242317f49ad07c2}
       \strng{authornamehash}{e24d9bc3610fc7887242317f49ad07c2}
       \strng{authorfullhash}{e9ade7216a1eb29ed0a8d05fe680477e}
-      \field{sortinit}{8}
-      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{arXiv preprint arXiv:2412.13059}
@@ -504,8 +504,8 @@
       \strng{authorbibnamehash}{ea8f331dbae01d5501bae58ef04225eb}
       \strng{authornamehash}{ea8f331dbae01d5501bae58ef04225eb}
       \strng{authorfullhash}{da00a272fbf846526b83e096605b41a2}
-      \field{sortinit}{9}
-      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{arXiv preprint arXiv:2411.01575}
@@ -595,8 +595,8 @@
       \strng{authorbibnamehash}{ac8ff43488f297a94dd7794a2a4ed844}
       \strng{authornamehash}{ac8ff43488f297a94dd7794a2a4ed844}
       \strng{authorfullhash}{ac8ff43488f297a94dd7794a2a4ed844}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{arXiv preprint arXiv:1511.05440}
@@ -622,8 +622,8 @@
       \strng{authorbibnamehash}{dbee9e2094cfe1a214f5455f6ecc7bba}
       \strng{authornamehash}{dbee9e2094cfe1a214f5455f6ecc7bba}
       \strng{authorfullhash}{dbee9e2094cfe1a214f5455f6ecc7bba}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{Proceedings of the IEEE conference on computer vision and pattern recognition}
@@ -684,8 +684,8 @@
       \strng{authorbibnamehash}{9da4ff5c16c96a7276e20d967deb609d}
       \strng{authornamehash}{9da4ff5c16c96a7276e20d967deb609d}
       \strng{authorfullhash}{1fac4512de9d78d322d57a7b5e9b0379}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{International conference on machine learning}
@@ -721,8 +721,8 @@
       \strng{authorbibnamehash}{641c7002b30142f73309cc7b705f5199}
       \strng{authornamehash}{641c7002b30142f73309cc7b705f5199}
       \strng{authorfullhash}{641c7002b30142f73309cc7b705f5199}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{2025 International Joint Conference on Neural Networks (IJCNN)}
@@ -755,8 +755,8 @@
       \strng{authorbibnamehash}{72716211f7e1edc9b841305489d8bd94}
       \strng{authornamehash}{72716211f7e1edc9b841305489d8bd94}
       \strng{authorfullhash}{72716211f7e1edc9b841305489d8bd94}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{eprintclass}{cs.CV}
@@ -837,8 +837,8 @@
       \strng{authorbibnamehash}{068e2a7bd26606ce8bbf0776495433a2}
       \strng{authornamehash}{068e2a7bd26606ce8bbf0776495433a2}
       \strng{authorfullhash}{75c732bcd7464beaf108c44b67e53fd7}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Medical Physics}
@@ -864,8 +864,8 @@
       \strng{authorbibnamehash}{2cd1feffd5a7e94e8f7285492f01b34b}
       \strng{authornamehash}{2cd1feffd5a7e94e8f7285492f01b34b}
       \strng{authorfullhash}{2cd1feffd5a7e94e8f7285492f01b34b}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{howpublished}{The Cancer Imaging Archive}
@@ -898,8 +898,8 @@
       \strng{authorbibnamehash}{f95398d5caac5f62adfbc7bd27d6dfba}
       \strng{authornamehash}{f95398d5caac5f62adfbc7bd27d6dfba}
       \strng{authorfullhash}{f95398d5caac5f62adfbc7bd27d6dfba}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{根據衛服部於民國106年統計，癌症高居台灣十大死因之首已達36年，其中又以肺癌為最常見之癌症死因…（略）}
@@ -944,8 +944,8 @@
       \strng{authorbibnamehash}{f23ccc5160c62c7866172335b2c76e11}
       \strng{authornamehash}{f23ccc5160c62c7866172335b2c76e11}
       \strng{authorfullhash}{f23ccc5160c62c7866172335b2c76e11}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{International Conference on Medical image computing and computer-assisted intervention}
@@ -976,8 +976,8 @@
       \strng{authorbibnamehash}{40e004b1d5a70b280a2d6129010c6e7a}
       \strng{authornamehash}{40e004b1d5a70b280a2d6129010c6e7a}
       \strng{authorfullhash}{40e004b1d5a70b280a2d6129010c6e7a}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{International conference on machine learning}
@@ -1020,8 +1020,8 @@
       \strng{authorbibnamehash}{e27a95b1212beb87546ed77c5ec8b570}
       \strng{authornamehash}{e27a95b1212beb87546ed77c5ec8b570}
       \strng{authorfullhash}{065643fd5ff6de724965239f8631e4f3}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{Proceedings of the AAAI conference on artificial intelligence}
@@ -1054,8 +1054,8 @@
       \strng{authorbibnamehash}{ad7ca9344d220338e46d70dee0ed52e1}
       \strng{authornamehash}{ad7ca9344d220338e46d70dee0ed52e1}
       \strng{authorfullhash}{ad7ca9344d220338e46d70dee0ed52e1}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{Proceedings of the IEEE conference on computer vision and pattern recognition}
@@ -1083,8 +1083,8 @@
       \strng{authorbibnamehash}{27457326b1c4c67eaf1df44984b752b0}
       \strng{authornamehash}{27457326b1c4c67eaf1df44984b752b0}
       \strng{authorfullhash}{27457326b1c4c67eaf1df44984b752b0}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{IEEE Transactions on Pattern Analysis and Machine Intelligence}
@@ -1118,8 +1118,8 @@
       \strng{authorbibnamehash}{9af8834b0236f871fe29d605f693f836}
       \strng{authornamehash}{9af8834b0236f871fe29d605f693f836}
       \strng{authorfullhash}{9af8834b0236f871fe29d605f693f836}
-      \field{sortinit}{3}
-      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{arXiv preprint arXiv:1904.06554}
@@ -1178,8 +1178,8 @@
       \strng{authorbibnamehash}{aeec57e1b4e5df875f13b69e04665bd2}
       \strng{authornamehash}{aeec57e1b4e5df875f13b69e04665bd2}
       \strng{authorfullhash}{50ae44459d3be6af617ad11d3ebb176b}
-      \field{sortinit}{3}
-      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{PeerJ}
@@ -1250,8 +1250,8 @@
       \strng{authorbibnamehash}{426201fb5cf84e965edc3d4c8a762f75}
       \strng{authornamehash}{426201fb5cf84e965edc3d4c8a762f75}
       \strng{authorfullhash}{83e3ee4c3070d534338d056acfd2819d}
-      \field{sortinit}{3}
-      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{Radiomics aims to quantify phenotypic characteristics on medical imaging through the use of automated algorithms. Radiomic artificial intelligence (AI) technology, either based on engineered hard-coded algorithms or deep learning methods, can be used to develop noninvasive imaging-based biomarkers. However, lack of standardized algorithm definitions and image processing severely hampers reproducibility and comparability of results. To address this issue, we developed PyRadiomics, a flexible open-source platform capable of extracting a large panel of engineered features from medical images. PyRadiomics is implemented in Python and can be used standalone or using 3D Slicer. Here, we discuss the workflow and architecture of PyRadiomics and demonstrate its application in characterizing lung lesions. Source code, documentation, and examples are publicly available at www.radiomics.io. With this platform, we aim to establish a reference standard for radiomic analyses, provide a tested and maintained resource, and to grow the community of radiomic developers addressing critical needs in cancer research. Cancer Res; 77(21); e104–7. ©2017 AACR.}
@@ -1354,8 +1354,8 @@
       \strng{editorbibnamehash}{7cffda9a379be8eb9063eee4eb0f58b3}
       \strng{editornamehash}{7cffda9a379be8eb9063eee4eb0f58b3}
       \strng{editorfullhash}{1564f811a39f09a7400a11284c987926}
-      \field{sortinit}{3}
-      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{Advances in Neural Information Processing Systems}
@@ -1390,8 +1390,8 @@
       \strng{authorbibnamehash}{07df37c1f29fdfb7765c821206be824a}
       \strng{authornamehash}{07df37c1f29fdfb7765c821206be824a}
       \strng{authorfullhash}{07df37c1f29fdfb7765c821206be824a}
-      \field{sortinit}{3}
-      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Journal of Machine Learning Research}

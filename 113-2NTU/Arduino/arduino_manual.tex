@@ -49,7 +49,7 @@
 \maketitle
 
 \lhead{\texttt{Arduino}教學手冊}
-\rhead{2025/07/05}
+\rhead{2026/07/11}
 \newpage
 \tableofcontents
 \newpage
@@ -205,6 +205,66 @@ $$
 而壓覺感測器的\texttt{SIG}腳位則連接到開發板的腳位，
 這樣就可以使用\texttt{digitalRead()}來讀取壓覺感測器的電壓訊號。
 壓覺感測器有內電阻，所以不需要額外加上電阻來保護它。
+
+\subsubsection{溫溼度模組}
+溫溼度模組是一個可以測量環境溫度和濕度的元件，但凡是模組的元件都要提供電源、信號輸出腳位、接地腳位，這個模組也不例外。將模組的\texttt{VCC}腳位連接到開發板的\texttt{5V}腳位，\texttt{GND}腳位連接到開發板的\texttt{GND}腳位，剩下的腳位（可能叫做\texttt{DATA}、\texttt{SIG}等）連接到開發板的腳位，最終可以使用以下的程式碼來讀取溫度和濕度的數值。
+
+\begin{lstlisting}[language=C++]
+#include <dht11.h>
+
+dht11 __flagDHT11;
+unsigned long __lastDHT11Time = 0;
+
+int __getDHT11Temp(int dataPin) {
+    if((millis() - __lastDHT11Time <= 150) && __lastDHT11Time > 0)
+        return __flagDHT11.temperature;
+
+    if(__flagDHT11.read(dataPin) == DHTLIB_OK) {
+        __lastDHT11Time = millis();
+        return __flagDHT11.temperature;
+    }
+    else
+        return -1;
+}
+
+int __getDHT11Humi(int dataPin) {
+    if((millis() - __lastDHT11Time <= 150) && __lastDHT11Time > 0)
+        return __flagDHT11.humidity;
+
+    if(__flagDHT11.read(dataPin) == DHTLIB_OK) {
+        __lastDHT11Time = millis();
+        return __flagDHT11.humidity;
+    }
+    else
+        return -1;
+}
+\end{lstlisting}
+
+不用擔心，以上程式碼會直接提供給各位的電腦
+
+\subsubsection{LCD 液晶螢幕}
+
+這個元件在連接電路上比較複雜，且涉及到\texttt{I2C}的位址，請一定要依照指示連接電路，如果發現仍然無法顯示，請把杜邦線拔掉重插一次。除了每個元件都有的\texttt{VCC}、\texttt{GND}腳位以外，這個元件還有\texttt{SDA}、\texttt{SCL}腳位，分別連接到開發板的腳位\texttt{A4}、\texttt{A5}腳位，此時你應該會看見螢幕有發光，但是沒有顯示文字。請參考以下程式碼以顯示文字：
+
+\begin{lstlisting}[language=C++]
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+// 引入 Wire 與 LiquidCrystal_I2C 函式庫
+
+LiquidCrystal_I2C __flagI2CLCD(0x27, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);  // 設定 LCD I2C 位址
+
+void setup() {
+    __flagI2CLCD.begin(16, 2);   // 初始化 LCD，一行 16 的字元，共 2 行
+}
+
+void loop() {
+
+    __flagI2CLCD.setCursor(0, 1);   // 設定游標位置在第二行行首
+    __flagI2CLCD.print("Hello World!");
+    delay(2000);
+
+}
+\end{lstlisting}
 
 \subsubsection{\texttt{Arduino Uno}開發板}
 就是你手上這一塊開發板，這是\texttt{Arduino}的入門款開發板，連接電腦後可以透過程式控制每個腳位的行為，

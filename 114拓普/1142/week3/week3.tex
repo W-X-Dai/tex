@@ -1,0 +1,201 @@
+\documentclass[xcolor=dvipsnames]{beamer}
+
+% ==== 主題 ====
+\usetheme{metropolis}
+\usefonttheme{professionalfonts}          % 不覆蓋你自訂的字型
+
+% ==== 字型 ====
+\usepackage{fontspec}
+\usepackage{xeCJK}
+\renewcommand{\familydefault}{\rmdefault} % 使用 serif 字體（重點）
+\usefonttheme{professionalfonts}
+
+% 西文字型：Times New Roman 的開源替代品
+\setmainfont{TeX Gyre Termes}[
+  Ligatures=TeX,
+  BoldFont={* Bold},
+  ItalicFont={* Italic}
+]
+
+% 中文字型（可改為思源宋體、標楷體等）
+\setCJKmainfont{Noto Serif CJK TC}
+\setCJKsansfont{Noto Sans CJK TC} % 有需要再用
+\setCJKmonofont{Noto Sans Mono CJK TC}
+
+% ==== 數學字型（與正文字體一致）====
+\usepackage{unicode-math}
+\setmathfont{TeX Gyre Termes Math}
+
+% ==== 套件 ====
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{minted}
+\usepackage{fvextra}
+\usepackage{xcolor}
+\usepackage{booktabs}
+
+% ==== 顏色設定（可選）====
+\definecolor{MyBlue}{RGB}{3, 55, 105}
+\setbeamercolor{structure}{fg=MyBlue}
+\setbeamercolor{block title}{bg=MyBlue,fg=white}
+\setbeamercolor{block body}{bg=blue!5}
+\setbeamertemplate{section in toc}{%
+  \inserttocsectionnumber.~\inserttocsection\par
+}
+
+\setminted{
+    linenos,                % 行號
+    frame=lines,            % 上下框線
+    framesep=5pt,           % 程式碼與邊框距離
+    numbersep=8pt,          % 行號與程式碼距離
+    fontsize=\scriptsize,   % 字體大小
+    breaklines,             % 自動換行
+    tabsize=4,              % tab 寬度
+    rulecolor=\color{black},% 框線顏色
+    xleftmargin=1.5em       % 左側縮排
+}
+
+\title{Sorting}
+\author{Tai, Wei Hsuan}
+\date{week 3}
+
+\begin{document}
+	\begin{frame}
+		\titlepage
+	\end{frame}
+
+    \begin{frame}
+        \frametitle{\href{https://drive.google.com/drive/folders/1IN7Dv6ozKHldRXJG6mI0DmjhBlwO6KWK?usp=sharing}{課程簡報}}
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.7\textwidth]{src/qrcode.png}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Outline}
+        \tableofcontents
+    \end{frame}
+
+    \section{Basic concept}
+    \begin{frame}
+        \frametitle{Why do we need sorting?}
+        Sorting algorithms are fundamental in computer science and have a wide range of applications. You need sorted data for efficient searching, data analysis, and many algorithms that require sorted input. Sorting is also a common task in everyday programming, making it essential to understand the various sorting techniques and their trade-offs.
+    \end{frame}
+    \begin{frame}
+        \frametitle{What do sorting algorithms do?}
+        The simplest definition of a sorting algorithm is: given $n$ numbers $a_b\sim a_n$, a sorting algorithm should rearrange the numbers such that $a_1\leq a_2\leq \cdots \leq a_n$.\\
+        In some cases, you may asked to sort some data in a specific order, for example, sort the data in descending order, or sort the data by some specific key.\\
+        In most common cases, the data would be tuples, for instance, a list of students with their name and score, and you may want to sort the students by their score in descending order, or sort the students by their name in ascending order. But we will only focus on the case where the data is a list of numbers.
+    \end{frame}
+
+    \section{Classic sorting algorithms}
+    \begin{frame}
+        \frametitle{Selection sort}
+        * In this section, out target is to sort the list in ascending order.\\
+        In each iteration, selection sort selects the smallest (or largest) element from the unsorted portion of the list and swaps it with the first unsorted element. This process is repeated until the entire list is sorted.\\
+    \end{frame}
+    \begin{frame}
+        \frametitle{Time complexity of selection sort}
+        Each iteration requires scanning the unsorted portion of the list to find the minimum (or maximum) element, which takes $O(n)$ time. Since there are $n$ iterations, the overall time complexity of selection sort is $O(n^2)$.\\
+    \end{frame}
+    \begin{frame}
+        \frametitle{Insertion sort}
+        Insertion sort builds the sorted list one element at a time by repeatedly taking the next unsorted element and inserting it into the correct position in the already sorted portion of the list.\\
+    \end{frame}
+    \begin{frame}
+        \frametitle{Time complexity of insertion sort}
+        In the worst case, when the list is sorted in reverse order, each element needs to be compared with all the previously sorted elements, resulting in a time complexity of $O(n^2)$. However, in the best case, when the list is already sorted, the time complexity is $O(n)$ because each element is compared only once. On average, the time complexity of insertion sort is $O(n^2)$.\\
+        It is an important concept that, we should always consider the worst case time complexity of an algorithm, because we want to ensure that our algorithm can handle any input efficiently.\\
+    \end{frame}
+    \begin{frame}
+        \frametitle{Bubble sort}
+        Bubble sort repeatedly steps through the list, compares adjacent elements and swaps them if they are in the wrong order. The process is repeated until the list is sorted.\\
+        The smaller elements "bubble" to the top of the list, while the larger elements sink to the bottom, this is why it is called bubble sort.\\
+    \end{frame}
+    \begin{frame}
+        \frametitle{Time complexity of bubble sort}
+        In the worst case, when the list is sorted in reverse order, bubble sort needs to make $n-1$ passes through the list, and on each pass, it compares adjacent elements. This results in a time complexity of $O(n^2)$. However, in the best case, when the list is already sorted, bubble sort can terminate early after a single pass, resulting in a time complexity of $O(n)$. On average, the time complexity of bubble sort is $O(n^2)$.\\
+    \end{frame}
+
+    \section{Efficient sorting algorithms}
+    \begin{frame}
+        \frametitle{Heap sort}
+        A heap is a specialized tree-based data structure that satisfies the heap property: in a max heap, for any given node $C$, if $P$ is a parent node of $C$, then the key (the value) of $P$ is greater than or equal to the key of $C$. In a min heap, the key of $P$ is less than or equal to the key of $C$.\\
+        Heap sort is a comparison-based sorting algorithm that uses a binary heap data structure to sort elements. The algorithm can be divided into two main phases: building a max heap from the input data, and then repeatedly extracting the maximum element from the heap and rebuilding the heap until it is empty.\\
+    \end{frame}
+    \begin{frame}
+        \frametitle{Time complexity of heap sort}
+        The height of a binary heap with $n$ elements is $O(\log n)$. Building the heap takes $O(n)$ time, and each of the $n$ elements is extracted from the heap, which takes $O(\log n)$ time. Therefore, the overall time complexity of heap sort is $O(n \log n)$.\\
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Merge sort}
+        Merge sort is a divide-and-conquer algorithm that divides the input list into two halves, recursively sorts each half, and then merges the sorted halves back together. The merging process involves comparing the elements of the two halves and arranging them in the correct order to produce a single sorted list.\\
+    \end{frame}
+    \begin{frame}
+        \frametitle{Time complexity of merge sort}
+        The time complexity of merge sort is $O(n \log n)$ in all cases (best, average, and worst). This is because the list is divided into two halves $\log n$ times, and each merge operation takes $O(n)$ time to combine the two halves.
+    \end{frame}
+    \begin{frame}
+        \frametitle{Quick sort}
+        Quick sort is a divide-and-conquer algorithm that selects a "pivot" element from the list and partitions the other elements into two sub-arrays, according to whether they are less than or greater than the pivot. The sub-arrays are then sorted recursively. This process continues until the base case of an empty or single-element array is reached, which is inherently sorted.\\
+    \end{frame}
+    \begin{frame}
+        \frametitle{Time complexity of quick sort}
+        The time complexity of quick sort depends on the choice of pivot and the distribution of the input data. In the best case, when the pivot is always the median, the time complexity is $O(n \log n)$. In the worst case, when the pivot is always the smallest or largest element, the time complexity is $O(n^2)$. On average, the time complexity is $O(n \log n)$.
+    \end{frame}
+
+    \section{Application of sorting}
+    \begin{frame}
+        \frametitle{How to use them}
+        In this class, I won't ask you to implement these sorting algorithms. C++ has a built-in sorting function called \texttt{std::sort} that is implemented using a highly optimized version of quick sort. You can use it to sort your data efficiently.\\
+        The \texttt{std::sort()} function is part of the C++ Standard Library and is defined in the \texttt{<algorithm>} header. It can be used to sort a range of elements in ascending order by default. You can also provide a custom comparison function to sort in a different order or based on specific criteria.\\
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{How to use \texttt{std::sort()}}
+        The \texttt{std::sort()} function takes two iterators as arguments, which define the range of elements to be sorted. For example, if you have an array of integers, you can sort it like this:
+        \begin{minted}{C++}
+            sort(arr, arr + n);
+        \end{minted}
+        In fact, what you provide to \texttt{std::sort()} are addresses of the first and one-past-the-last elements of the array. The function will sort the elements in place, meaning that it will rearrange the elements in the original array without using additional space for another array.
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{Example}
+        \begin{minted}{C++}
+            #include<bits/stdc++.h>
+            using namespace std;
+
+            int main(){
+                int arr[]={2, 8 ,1, 4, 7, 5};
+                sort(arr, arr+6);
+
+                for(int i=0;i<6;++i){
+                    cout<<arr[i];
+                }
+            }
+        \end{minted}
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{Example}
+        \begin{minted}{C++}
+            #include<bits/stdc++.h>
+            using namespace std;
+
+            int main(){
+                int n, arr[10005];
+
+                cin >>n;
+                sort(arr, arr+n);
+
+                for(int i=0;i<n;++i){
+                    cout<<arr[i];
+                }
+            }
+        \end{minted}
+    \end{frame}
+
+
+
+\end{document}  

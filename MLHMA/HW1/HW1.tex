@@ -1,0 +1,136 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage{xeCJK}
+\usepackage{fontspec}
+\setCJKmainfont{Noto Serif CJK TC}[Script=CJK]
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\setlength{\headheight}{14.5pt}
+\addtolength{\topmargin}{-2.5pt}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{caption}
+\usepackage{indentfirst}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{float}
+\usepackage{minted}
+\usepackage{xcolor}
+\setlength{\parindent}{2em}
+\pagestyle{fancy}
+\fancyhf{}
+\cfoot{\thepage}
+\linespread{1.3}
+\setminted{
+    linenos,                % 行號
+    frame=lines,            % 上下框線
+    framesep=5pt,           % 程式碼與邊框距離
+    numbersep=8pt,          % 行號與程式碼距離
+    fontsize=\scriptsize,   % 字體大小
+    breaklines,             % 自動換行
+    tabsize=4,              % tab 寬度
+    rulecolor=\color{black},% 框線顏色
+    xleftmargin=1.5em       % 左側縮排
+}
+
+\title{Machine Learning in Human Motion Analysis HW 1}
+\author{B12508026戴偉璿}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\lhead{Machine Learning in Human Motion Analysis HW 1}
+\rhead{B12508026戴偉璿}
+
+\begin{enumerate}
+    \item Find the extrema of the Matyas function using the optimality criteria method.
+    
+    {\color{blue}
+    Solution:
+
+    The Matyas function is defined as:
+    $$f(x) = 0.26(x_1^2 + x_2^2) - 0.48x_1x_2$$
+
+    To find the first order necessary condition, compute the gradient of the function:
+    $$\nabla f(x) = \begin{bmatrix}0.52x_1 - 0.48x_2 \\ 0.52x_2 - 0.48x_1\end{bmatrix}$$
+
+    Setting the gradient to zero gives the first-order necessary condition:
+    \begin{align*}
+    0.52x_1 - 0.48x_2 &= 0 \\
+    0.52x_2 - 0.48x_1 &= 0
+    \end{align*}
+
+    Solving the above equations, we get:
+    \begin{align*}
+    x_1 &= 0 \\
+    x_2 &= 0
+    \end{align*}
+
+    Check the second order sufficient condition by computing the Hessian matrix:
+    $$H = \begin{bmatrix}0.52 & -0.48 \\ -0.48 & 0.52\end{bmatrix}$$
+
+    Check the positive definiteness:
+    \begin{align*}
+    H_{11} & > 0 \\
+    \text{det}(H) &= (0.52)(0.52) - (-0.48)(-0.48)  > 0
+    \end{align*}
+
+    Thus, $H$ is positive definite, and the second order sufficient condition is satisfied. Therefore, the point $(0, 0)$ is a local minimum of the Matyas function.
+    }
+
+    \item Find the extrema of the Himmelblau's function using the optimality criteria method.
+
+    {\color{blue}
+    Solution:
+
+    The Himmelblau's function is defined as:
+    $$f(x) = (x_1^2 + x_2 - 11)^2 + (x_1 + x_2^2 - 7)^2$$
+    
+    To find the first order necessary condition, compute the gradient of the function:
+    \begin{align*}
+    \nabla f(x) &= \begin{bmatrix}4x_1(x_1^2 + x_2 - 11) + 2(x_1 + x_2^2 - 7) \\ 2(x_1^2 + x_2 - 11) + 4x_2(x_1 + x_2^2 - 7)\end{bmatrix}
+    \end{align*}
+
+    Setting the gradient to zero gives the first-order necessary condition:
+    \begin{align*}
+    4(x_1^2 + x_2 - 11)x_1 + 2(x_1 + x_2^2 - 7) &= 0 \\
+    2(x_1^2 + x_2 - 11) + 4(x_1 + x_2^2 - 7)x_2 &= 0
+    \end{align*}
+
+    Solving the above equations, we find the following critical points:
+    \begin{align*}
+    (3.0, 2.0), \quad (-2.805, 3.131), \quad (-3.779, -3.283), \quad (3.584, -1.848), \quad (−0.271,−0.923)\\
+    (-0.128,-1.954),\quad (0.087,2.884),\quad (3.385,0.0739),\quad (-3.073,-0.081).
+    \end{align*}
+    
+    Check the second order sufficient condition by computing the Hessian matrix:
+    \begin{align*}
+    H = \begin{bmatrix}12x_1^2 + 4x_2 - 42 & 4x_1 + 4x_2 \\ 4x_1 + 4x_2 & 4x_1 + 12x_2^2 - 26\end{bmatrix}
+    \end{align*}
+    \begin{align*}
+    \text{det}(H) =& (12x_1^2 + 4x_2 - 42)(4x_1 + 12x_2^2 - 26) - (4x_1 + 4x_2)^2\\
+        =& 48x_1^3 + 144x_1^2x_2^2 - 328x_1^2 -16x_1x_2 + 48x_2^3 - 104x_2 - 168x_1 - 520x_2^2 + 1092
+    \end{align*}
+
+
+    Apply each critical point into the Hessian matrix to check the second order sufficient condition:
+
+    For points $(3.0, 2.0)$, $(-2.805, 3.131)$, $(-3.779, -3.283)$, and $(3.584, -1.848)$, their $H_{11}$ values are positive and their determinants are positive, thus they are local minima of the Himmelblau's function.
+
+    For $(-0.271, -0.923)$, its $H_{11}$ value is negative and its determinant is positive, thus it is a local maximum of the Himmelblau's function.
+
+    For points $(-0.128,-1.954)$, $(0.087,2.884)$, $(3.385,0.0739)$, and $(-3.073,-0.081)$, their $H_{11}$ values are negative and their determinants are negative, thus they are saddle points of the Himmelblau's function.
+
+
+    }
+\end{enumerate}
+
+\end{document}

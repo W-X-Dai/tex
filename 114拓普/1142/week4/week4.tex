@@ -78,6 +78,106 @@
         \tableofcontents
     \end{frame}
 
+    \section{Introduction}
+    \begin{frame}
+        \frametitle{What is Binary Search}
+        Let's play a game. I will think of a number between 1 and 100, and you have to guess it. After each guess, I will tell you whether your guess is too high, too low, or correct. How many guesses do you need to find the number?\\
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Basic Concept}
+        The main idea of binary search is "split into half". When we guess a number, we can eliminate half of the remaining possibilities based on whether our guess is too high or too low. This way, we can quickly narrow down our search and find the correct number in a logarithmic number of guesses.\\
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Logarithm}
+        We know that $a^n$ represents the number $a$ multiplied by itself $n$ times. For example, $2^3 = 2 \times 2 \times 2 = 8$. But what if we want to find out how many times we need to multiply $a$ by itself to get a certain number $x$? This is where logarithms come in.\\
+
+        The logarithm of a number $x$ to the base $a$ is denoted as $\log_a(x)$ and is defined as the exponent $n$ such that $a^n = x$. \\
+
+        In computer science, logarithmic time complexity is a strong indicator. For instance, $\log(10^5)\approx 15$, $\log(10^9)\approx 27$
+    \end{frame}
 
 
+    \section{Basic Binary Search}
+
+    \begin{frame}
+        \frametitle{Compositions of Binary Search}
+        \begin{itemize}
+            \item Main loop
+            \item Boundary control
+            \item Termination conditions
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Procedure of Binary Search}
+        \begin{enumerate}
+            \item Set the initial search range
+            \item Check the middle element of the current search range
+            \item If the middle element is the target, return its index
+            \item If the middle element is less than the target, update the search range to the right half
+            \item If the middle element is greater than the target, update the search range to the left half
+            \item Repeat steps 2-5 until the search range is empty
+        \end{enumerate}
+    \end{frame}
+    \begin{frame}
+        \frametitle{Example}
+        Find 4 in the array [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].\\
+    \end{frame}
+
+    \begin{frame}[fragile]
+        \frametitle{Code Implementation}
+        \begin{minted}{c++}
+int bs(int l, int r, int target){
+    while(true){
+        int mid=(l+r)/2;
+        if(arr[mid]==target) return mid;
+        if(l==r)return -1;
+        
+        if(arr[mid]>target) r=mid;
+        else l=mid+1;
+    }
+    return -1;
+}            
+        \end{minted}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Example}
+        Given an array with $N$ elements $A_1\sim A_N$ and a target value $T$. Find a range $[L, R]$ such that $\displaystyle\sum_{i=L}^{R} A_i = T$.\\
+    \end{frame}
+    \begin{frame}
+        \frametitle{Solution 1: Plain Solution}
+        Enumerate all possible ranges and check if the sum equals $T$. We have to enumerate $O(N^2)$ ranges, and each range takes $O(N)$ time to calculate the sum, resulting in a total time complexity of $O(N^3)$.\\
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Solution 2: Prefix Sum}
+        We can use prefix sums to optimize the calculation of subarray sums. By precomputing the prefix sums, we can calculate the sum of any subarray in constant time. This reduces the overall time complexity to $O(N^2)$ for enumerating all possible ranges.\\
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Solution 3: Binary Search + Prefix Sum}
+        We can further optimize the solution by using binary search to find the right endpoint of the range. For each left endpoint $L$, we can use binary search to find the smallest right endpoint $R$ such that the sum from $L$ to $R$ is at least $T$. This way, we can reduce the time complexity to $O(N \log N)$.\\
+    \end{frame}
+
+    \section{Range Binary Search}
+    \begin{frame}
+        Sometimes, the problem is to complex to solve. But it can verify the solution in a sufficient time. In this case, we can enumerate the answer and check if it is correct. This is called range search.\\
+        However, the range may be too large (e.g. $10^9$), so we can use binary search to find the answer.\\
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Example: Wood Cutting}
+        Given $N$ woods $A_1\sim A_N$ and a number $k$, we want to cut the woods into pieces of length $x$ such that we can get at least $k$ pieces. Find the maximum value of $x$. Note that each wood should be cut into the same length.\\
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Wood Cutting}
+        It is hard to find the answer directly, but we can check if a given length $x$ is valid by counting how many pieces we can get from the woods. If we can get at least $k$ pieces, then $x$ is a valid length. We can use binary search to find the maximum valid length.\\
+    \end{frame}
+
+
+    
 \end{document}  

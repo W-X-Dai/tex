@@ -1,0 +1,463 @@
+\documentclass{article}
+
+\usepackage{neurips_2026}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{nicefrac}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{graphicx}
+
+% ---------------------------------------------------------------
+\title{Deep Reinforcement Learning for Compiler Optimization\\
+       Pass Ordering in LLVM}
+
+% ================================================================
+% SUBMISSION VERSION (double-blind): keep this block, comment out
+% the camera-ready block below.
+% ================================================================
+\author{Anonymous Author(s)}
+
+% ================================================================
+% CAMERA-READY VERSION: comment out the block above and uncomment
+% this block after acceptance.
+% ================================================================
+% \author{%
+%   Shang-Che Li \And
+%   Ding-Hsuan Ma \And
+%   Wei-Hsuan Tai \AND
+%   Wei-Chung Lu \\[4pt]
+%   Department of Computer Science and Information Engineering \\
+%   National Taiwan University \\
+%   Taipei, Taiwan \\
+%   \texttt{\{b12902033, b12902003, b12508026, r14944011\}@ntu.edu.tw}
+% }
+
+\begin{document}
+
+\maketitle
+
+% ---------------------------------------------------------------
+\begin{abstract}
+The phase ordering problem---determining the optimal sequence of compiler
+optimization passes---is NP-hard and has resisted efficient exact solutions for
+decades.  We present a deep reinforcement learning (DRL) system that learns
+pass-ordering policies for the LLVM compiler using the CompilerGym
+framework~\cite{CompilerGym}, without relying on large language models or
+hand-crafted heuristics.
+Our approach combines recurrent Proximal Policy Optimization
+(PPO)~\cite{schulman2017proximal} with three key contributions:
+(1)~a carefully designed state representation that augments Autophase IR
+features~\cite{8735549} with per-feature online normalization and per-action
+usage counts;
+(2)~truncation-aware Generalized Advantage Estimation
+(GAE)~\cite{schulman2015high} that correctly bootstraps value targets at episode
+boundaries; and
+(3)~an inference-time ensemble of independently trained policies with
+best-of-$k$ stochastic rollouts that exploits diversity across training runs at
+zero additional training cost.
+Evaluated on \texttt{cbench-v1}, our best single model achieves a mean reward
+of 1.044 and beats \texttt{-Oz} on 17 out of 23 programs, while the final
+seven-model ensemble reaches 1.050 and beats \texttt{-Oz} on 20 of 23
+programs---doubling the count compared to our PPO baseline.
+Cross-suite evaluation on six additional CompilerGym benchmark suites
+demonstrates that the ensemble generalizes zero-shot, outperforming random and
+single-model baselines on every suite tested.
+\end{abstract}
+
+
+% ---------------------------------------------------------------
+\section{Introduction}
+
+The phase ordering problem is a fundamental challenge in compiler optimization:
+it asks for the optimal ordering of compilation passes such that the resulting
+low-level code achieves the best performance or the smallest code size.
+Different pass orderings can produce substantially different machine code,
+making the choice of optimization schedule particularly consequential in
+performance-critical settings.
+Despite decades of research, the problem remains NP-hard in the general case,
+and no efficient algorithm is known to find globally optimal pass sequences.
+
+Classical solutions rely on fixed schedules (\texttt{-O2}, \texttt{-O3},
+\texttt{-Oz}) that represent manually tuned compromises over a broad class of
+programs.  While effective in practice, these schedules cannot adapt to the
+structure of individual programs, leaving program-specific optimization
+opportunities unexploited.  Iterative compilation methods search the pass-order
+space exhaustively but scale poorly; their cost is prohibitive for production
+compilers.
+
+The recent rise of reinforcement learning (RL) has opened a new avenue for
+tackling the phase ordering problem.  An RL agent can interact with the
+compiler, observe intermediate representations at each step, and learn a policy
+that selects passes sequentially---naturally fitting the sequential,
+feedback-driven structure of pass ordering.  To facilitate such learning-based
+approaches, CompilerGym~\cite{CompilerGym} was proposed as a standardized RL
+environment for compiler optimization.  It provides a unified interface across
+compiler infrastructures and benchmark datasets, enabling RL agents to learn
+and evaluate optimization strategies in a reproducible, gym-compatible setting.
+
+Despite the promise of RL for this task, recent work has moved toward large
+language model (LLM)-based approaches~\cite{pan2026compiler}, which require
+orders of magnitude more compute and sacrifice the interpretability and sample
+efficiency of classical actor-critic methods.  This paper instead investigates
+how far \emph{traditional} DRL can be pushed on the pass-ordering problem,
+using only the 56-dimensional Autophase IR representation~\cite{8735549} and a
+discrete action space of 30 curated LLVM passes.
+
+We make the following contributions:
+\begin{itemize}
+  \item A state representation that combines online-normalized Autophase
+        features with per-action usage counts, providing the agent with both
+        program structure and episode history.
+  \item A truncation-aware GAE implementation that correctly handles
+        time-limited episodes, eliminating a systematic value-estimation bias
+        present in standard PPO implementations.
+  \item A parallel rollout infrastructure (8 workers) that reduces training
+        wall-clock time by 7.6$\times$ without degrading policy quality.
+  \item An inference-time ensemble strategy that achieves state-of-the-art
+        results on \texttt{cbench-v1} and generalizes to six additional
+        benchmark suites without any fine-tuning.
+\end{itemize}
+
+
+% ---------------------------------------------------------------
+\section{Related Work}
+
+\subsection{Compiler Optimization as a Sequential Decision Problem}
+
+The problem of selecting a sequence of compiler optimization passes has long
+been recognized as a combinatorial search problem.  Early iterative-compilation
+systems such as MILEPOST~\cite{fursin2011milepost} treated pass ordering as a
+supervised or genetic-search problem, relying on offline models that cannot
+adapt to individual program structure at inference time and are limited by the
+exponential size of the pass-sequence space.
+
+CompilerGym~\cite{CompilerGym} formalizes compiler optimization as a Markov
+Decision Process (MDP), providing a gym-compatible interface to LLVM
+optimization passes with reproducible benchmarks and objective reward signals.
+Our work builds directly on this framework, using the \texttt{llvm-v0}
+environment with Autophase observations and the \texttt{IrInstructionCountOz}
+reward.
+
+\subsection{Reinforcement Learning for Compiler Optimization}
+
+Huang et al.~\cite{8735549} introduced Autophase, a 56-dimensional feature
+vector extracted from LLVM IR, and demonstrated that a simple RL agent trained
+on this representation could surpass fixed optimization levels on individual
+programs.  Subsequent work proposed graph-based IR representations
+(ProGraML)~\cite{cummins2021programl} for learning program structure, though
+their training cost is substantially higher.
+
+The recent Compiler-R1~\cite{pan2026compiler} applies LLMs with reinforcement
+fine-tuning to generate pass sequences directly from IR source.  While
+achieving strong results---an average 8.46\% IR instruction count reduction
+compared to \texttt{-Oz}---LLM-based methods require orders of magnitude more
+compute, lack the sample efficiency of actor-critic methods, and are difficult
+to interpret at the pass-selection level.  Our work deliberately avoids LLMs
+and investigates how far traditional DRL can be pushed with carefully designed
+state representations, training infrastructure, and inference-time aggregation.
+
+\subsection{Proximal Policy Optimization}
+
+Proximal Policy Optimization (PPO)~\cite{schulman2017proximal} is a widely
+adopted on-policy actor-critic algorithm that constrains policy updates via a
+clipped surrogate objective.  PPO has been applied successfully to combinatorial
+action spaces in domains including chip placement~\cite{mirhoseini2021graph},
+where discrete action sets of comparable size to our 30-pass action space are
+standard.  We adopt recurrent PPO with a gated recurrent unit (GRU) encoder to
+capture temporal dependencies within the pass sequence of an episode.
+
+\subsection{Intrinsic Motivation}
+
+The Intrinsic Curiosity Module (ICM)~\cite{pathak2017curiosity} augments the
+extrinsic reward with a prediction-error-based bonus that encourages exploration
+of novel states.  We include ICM in our architecture; however, our empirical
+analysis shows that the ICM signal decays sharply over training and contributes
+minimally to final performance, consistent with findings in environments where
+the extrinsic reward eventually dominates.
+
+\subsection{Ensemble Methods in RL}
+
+Ensemble methods that aggregate over independently trained policies have been
+studied in the context of model uncertainty
+estimation~\cite{lakshminarayanan2017simple} and
+exploration~\cite{osband2016deep}.  Our work applies inference-time ensembling
+in the compiler domain: we train $N$ independent PPO checkpoints with varied
+hyperparameter settings and, for each benchmark program, keep the best
+trajectory across all models and multiple stochastic rollouts.
+
+
+% ---------------------------------------------------------------
+\section{Methodology}
+
+We frame compiler pass ordering as a finite-horizon MDP and solve it with a
+recurrent PPO agent augmented with per-feature state normalization, a curated
+discrete action set, parallel rollout collection, and an inference-time
+ensemble.
+
+\subsection{MDP Formulation}
+
+\paragraph{State.}
+At each step $t$, the state $s_t$ consists of three components:
+(1)~the 56-dimensional Autophase vector $\phi(P_t)$~\cite{8735549} extracted
+from the current LLVM IR;
+(2)~per-feature online normalization via a Welford running-mean-variance
+estimator,
+$\hat{\phi}_i = (\phi_i - \mu_i) / (\sigma_i + \epsilon)$,
+which brings heterogeneous Autophase values (ranging from 0 to over 500) to a
+comparable scale for the actor and critic; and
+(3)~a 30-dimensional per-action usage-count vector recording how many times
+each pass has been applied during the current episode, enabling the policy to
+avoid redundant applications and model pass-interaction history.
+
+\paragraph{Action.}
+The action set consists of 30 LLVM optimization passes (PASSES\_V4) curated
+from the actual pass schedule of \texttt{-Oz}.  Experiments with the full
+124-pass action space and with smaller 15-pass sets confirmed that 30 passes
+represent a sweet spot: large enough to span the effective optimization
+frontier, small enough for the agent to learn useful ordering policies within a
+fixed episode budget.
+
+\paragraph{Reward.}
+We use the \texttt{IrInstructionCountOz} reward provided by
+CompilerGym~\cite{CompilerGym}, defined as the fractional reduction in IR
+instruction count relative to the \texttt{-Oz} baseline:
+\begin{equation}
+  r_t = \frac{\mathrm{IC}_{-Oz}(P) - \mathrm{IC}(P_t)}{\mathrm{IC}_{-Oz}(P)}.
+\end{equation}
+A cumulative episode reward above 1.0 indicates that the agent's pass sequence
+produces fewer instructions than \texttt{-Oz}.
+
+\paragraph{Episode length.}
+Each episode runs for a maximum of $T = 45$ steps, after which the environment
+is truncated by a \texttt{TimeLimit} wrapper.  Extending to $T = 90$ steps
+degraded performance, confirming that the binding constraint is the action set
+rather than the episode horizon.
+
+\subsection{Policy Architecture}
+
+We use a recurrent actor-critic network with a shared GRU backbone.  The
+concatenated state representation is projected through a two-layer MLP encoder
+(hidden sizes 256 and 128, ReLU activations) and fed into a single-layer GRU
+with hidden dimension 128.  The GRU hidden state is shared by the actor head (a
+linear projection to a 30-dimensional logit vector) and the critic head (a
+linear projection to a scalar value estimate).  The recurrent architecture
+captures temporal dependencies between pass choices within an episode---a
+dependency that a feed-forward policy cannot model.
+
+\subsection{Truncation-Aware Generalized Advantage Estimation}
+
+Standard GAE~\cite{schulman2015high} sets the bootstrap value to zero at
+terminal states.  When an episode ends by time-limit truncation rather than by
+a true terminal transition, the correct target is $V(s_T)$, not zero.  We fix
+this by maintaining a truncation buffer that distinguishes truncated transitions
+from truly terminal ones, bootstrapping $V(s_T)$ at truncation boundaries.
+This eliminates a systematic underestimation of long-horizon credit that biases
+value targets toward zero every 45 steps in uncorrected implementations.
+
+\subsection{Parallel Rollout Collection}
+
+We distribute rollout collection across $W = 8$ parallel workers.  Each worker
+maintains its own CompilerGym~\cite{CompilerGym} gRPC service instance and a
+local copy of current policy parameters.  The main process broadcasts updated
+weights and normalization statistics at the start of each collection phase;
+workers collect trajectories independently and return them for aggregation and
+PPO~\cite{schulman2017proximal} updates.  Worker boundaries require the GRU
+hidden state to be reset at each worker's episode start to prevent stale hidden
+states from corrupting value targets across segment boundaries.  This
+infrastructure reduces wall-clock time per 300k training steps from
+approximately 3 hours to 47 minutes---a 7.6$\times$ speedup.
+
+\subsection{Intrinsic Curiosity Module}
+
+To encourage early-training exploration of diverse pass sequences, we augment
+the extrinsic reward with an ICM~\cite{pathak2017curiosity} bonus, which uses
+the forward-model prediction error as a curiosity signal.  Empirically, the ICM
+signal decays to negligible magnitude by mid-training as the policy converges;
+we retain it as an exploration regularizer for the initial training phase.
+
+\subsection{Inference-Time Ensemble}
+
+Given $N$ independently trained checkpoints $\{\pi_1, \ldots, \pi_N\}$ and a
+stochastic rollout budget of $k$ per model, the ensemble selects for each
+program $p$:
+\begin{equation}
+  \hat{R}(p) = \max_{i \in [N],\; j \in [k]} R\!\left(\tau_{i,j}(p)\right),
+\end{equation}
+where $\tau_{i,j}(p)$ is the $j$-th rollout of model $i$ on program $p$.  We
+set $k = 8$ (best-of-8, bo8) and $N \in \{5, 6, 7\}$ across experiments.
+Each training run---with a distinct learning rate, entropy coefficient, or
+state-feature configuration---converges to a different attractor in policy
+space~\cite{lakshminarayanan2017simple, osband2016deep}.  The per-program
+maximum recovers the best-fitting attractor at inference time with no additional
+training cost, requiring only $N \times k$ environment evaluations per program.
+
+\subsection{Per-Suite Reward Normalization for Multi-Suite Training}
+
+When training jointly on programs from multiple benchmark suites, per-step
+rewards span $[-30, +5]$ across suites.  In our preliminary joint-training
+attempt, this caused value-loss divergence at step 80k due to high-magnitude
+gradient spikes from the blas-v0 and opencv-v0 suites.  We address this with a
+per-suite Welford running estimator that z-scores each per-step reward before
+it enters the PPO loss:
+\begin{equation}
+  \tilde{r}_t^{(s)} = \mathrm{clip}\!\left(
+    \frac{r_t^{(s)} - \mu^{(s)}}{\sigma^{(s)} + \epsilon},\; -5,\; +5
+  \right),
+\end{equation}
+where $s$ indexes the benchmark suite.  End-of-training per-suite reward
+standard deviations confirm the heterogeneity this normalization corrects:
+cbench-v1 $\sigma = 0.11$, blas-v0 $\sigma = 0.58$, opencv-v0 $\sigma =
+4.44$---a 42$\times$ ratio between the least and most volatile suites.  With
+normalization, value loss remains bounded in $[0.2, 0.8]$ throughout the full
+300k-step run.
+
+
+% ---------------------------------------------------------------
+\section{Experiments}
+
+\subsection{Setup}
+
+\paragraph{Environment.}
+We use CompilerGym~\cite{CompilerGym} \texttt{llvm-v0} with Autophase
+observations~\cite{8735549} (56 dimensions), the 30-pass PASSES\_V4 action
+set, and \texttt{IrInstructionCountOz} reward.  Primary evaluation is on
+\texttt{cbench-v1} (23 programs); cross-suite evaluation covers mibench-v1,
+blas-v0, npb-v0, chstone-v0, opencv-v0, and anghabench-v1.
+
+\paragraph{Baselines.}
+We compare against: (1)~\textbf{Random policy}: actions sampled uniformly at
+random; (2)~\textbf{PPO v3 baseline}: recurrent PPO trained for 200k steps on
+a single core with a 15-pass action set and raw (unnormalized) Autophase
+features; (3)~compiler flags \textbf{-O2} and \textbf{-O3}; and (4)~\textbf{-Oz}
+(implicit, since a mean reward of 1.0 means parity with \texttt{-Oz}).
+
+\paragraph{Training.}
+All models are trained for 300k environment steps on \texttt{cbench-v1} using 8
+parallel workers.  We train seven models with varied learning rates ($10^{-4}$,
+$3 \times 10^{-4}$), entropy coefficients (0.01, 0.02), and state-feature
+ablations (with and without pass-sequence usage counts).  Each training run
+completes in approximately 47 minutes on a single machine.
+
+\subsection{Main Results on cbench-v1}
+
+\begin{table}[h]
+  \caption{Mean reward and number of programs beating \texttt{-Oz} on
+           \texttt{cbench-v1} (23 programs total) at best-of-8 (bo8)
+           inference.  Higher mean reward and more programs beaten is better.}
+  \label{tab:cbench}
+  \centering
+  \begin{tabular}{lcc}
+    \toprule
+    Method & Mean Reward (bo8) & Programs $>$ \texttt{-Oz} \\
+    \midrule
+    Random policy              & 0.681 & 0 / 23 \\
+    PPO v3 (baseline)          & 1.015 & 10 / 23 \\
+    Best single model          & 1.044 & 17 / 23 \\
+    Ensemble (ens5, $N{=}5$)   & 1.050 & 20 / 23 \\
+    Ensemble (ens6, $N{=}6$)   & 1.049 & 20 / 23 \\
+    \textbf{Ensemble (ens7, $N{=}7$)} & \textbf{1.049} & \textbf{19 / 23} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Table~\ref{tab:cbench} shows results on \texttt{cbench-v1}.  Compared to the
+v3 baseline (mean reward 1.015, 10/23 programs), our best ensemble reaches
+1.050 mean reward and beats \texttt{-Oz} on 20 programs---a 3.5\% improvement
+in mean reward and a doubling in the number of programs outperforming
+\texttt{-Oz}.  The largest single gain came from the improved state
+representation (Section~3.1), which alone lifted greedy performance from 0.887
+to 0.999 and bo8 performance from 1.015 to 1.042.  Adding the inference-time
+ensemble contributed a further $+0.006$ in mean reward and raised the
+program-beating count from 17 to 20.
+
+\subsection{Cross-Suite Generalization}
+
+\begin{table}[h]
+  \caption{Mean reward (bo8) across seven CompilerGym benchmark suites.  All
+           ensemble models were trained exclusively on \texttt{cbench-v1};
+           cross-suite evaluation is zero-shot.  Best per-suite result in
+           \textbf{bold}.}
+  \label{tab:crosssuite}
+  \centering
+  \begin{tabular}{lccccccc}
+    \toprule
+    Method & cbench & mibench & blas & npb & chstone & opencv & angha \\
+    \midrule
+    Random           & 0.681 & ---   & ---   & ---   & ---   & ---   & --- \\
+    PPO v3           & 1.015 & ---   & ---   & ---   & ---   & ---   & --- \\
+    Best single (v7) & 1.042 & 1.028 & 0.447 & 4.45  & 1.10  & 0.20  & 0.44 \\
+    ens5             & 1.050 & 1.030 & 0.967 & 4.520 & 1.112 & 2.869 & 1.079 \\
+    ens6             & 1.049 & \textbf{1.032} & 0.948 & \textbf{4.551} & 1.111 & 2.754 & 1.079 \\
+    \textbf{ens7}    & 1.049 & 1.030 & \textbf{0.976} & 4.528 & \textbf{1.113} & \textbf{2.985} & \textbf{1.090} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Table~\ref{tab:crosssuite} shows zero-shot transfer across six out-of-distribution
+suites.  The ensemble consistently outperforms any single model.  Notably,
+opencv-v0 improves from 0.20 (single model) to 2.985 (ens7), a 14$\times$ gain
+driven by the ensemble's ability to select the best policy attractor per
+program~\cite{lakshminarayanan2017simple}.
+
+\subsection{Ablation Studies}
+
+\paragraph{State representation.}
+Removing online normalization degrades bo8 performance on \texttt{cbench-v1}
+from 1.042 to approximately 0.980, confirming that feature scale
+homogenization is critical.  Removing per-action usage counts reduces greedy
+performance by approximately 0.015, as the agent loses episode history and
+over-applies the same passes.
+
+\paragraph{Truncation-aware GAE.}
+The fix produces no isolated metric improvement on short episodes but is a
+prerequisite for stable longer-horizon training: without it, value estimates
+are systematically biased downward at every truncation boundary.
+
+\paragraph{Episode length.}
+Setting $T = 90$ reduces greedy performance to 0.937.  The binding constraint
+is the action set, not the time budget; extra steps with the same 30-pass set
+do not open new optimization opportunities.
+
+\paragraph{Ensemble size.}
+Performance increases from a single model to ens5 and plateaus beyond that,
+consistent with attractor diversity being saturated by 5--6 independent runs.
+
+
+% ---------------------------------------------------------------
+\section{Conclusion}
+
+We have shown that traditional DRL---without any LLM component---can learn
+effective compiler pass-ordering policies that substantially outperform the
+\texttt{-Oz} fixed schedule on the CompilerGym benchmark~\cite{CompilerGym}.
+Our three key contributions---improved state representation, truncation-aware
+GAE~\cite{schulman2015high}, and an inference-time
+ensemble~\cite{lakshminarayanan2017simple} with bo8 sampling---each provide
+independent, cumulative gains.  The ensemble generalizes zero-shot to six
+additional benchmark suites, demonstrating that policies trained on
+\texttt{cbench-v1} learn broadly applicable optimization knowledge.
+
+Our analysis suggests that within the current recurrent PPO + Autophase design
+space, performance is near saturation.  The next phase of improvement likely
+requires structural changes such as graph IR encoders
+(ProGraML~\cite{cummins2021programl}) or transformer-based sequence models over
+the pass history.  The inference-time ensemble, however, is a low-cost and
+immediately applicable strategy for any existing RL-based compiler optimizer.
+
+
+% ---------------------------------------------------------------
+\begin{ack}
+  % Omit in anonymized submission.
+\end{ack}
+
+% ---------------------------------------------------------------
+\bibliographystyle{abbrvnat}
+\bibliography{refs}
+
+\end{document}

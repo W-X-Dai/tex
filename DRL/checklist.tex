@@ -6,11 +6,11 @@
     \item[] Question: Do the main claims made in the abstract and introduction accurately reflect the paper's contributions and scope?
     \item[] Answer: \answerYes{}
     \item[] Justification: The abstract and introduction clearly state the three main contributions (state representation design, truncation-aware GAE, inference-time ensemble) and report the corresponding quantitative results (mean reward, programs beating \texttt{-Oz}). All claims are directly supported by experiments in Section~4, including a cross-architecture evaluation (Section~4.5) where the proposed \texttt{pass\_sequence} feature is integrated into a recurrent GRU baseline, demonstrating its architectural robustness and independently replicating the ablation finding across two systems developed in parallel.
-
+    
 \item {\bf Limitations}
     \item[] Question: Does the paper discuss the limitations of the work performed by the authors?
     \item[] Answer: \answerYes{}
-    \item[] Justification: Section~5 (Conclusion) includes a dedicated Limitations paragraph discussing the absence of GA/SA baselines under controlled compute budget, the untested combination of curated action set with stochastic inference, the linux-v0 structural failure, and the saturation of the current design space.
+    \item[] Justification: Section~5 (Conclusion) includes a dedicated Limitations paragraph discussing the absence of GA/SA/MCTS baselines under controlled compute budget, the structural failure of the 30-pass action set on \texttt{linux-v0} kernel code, and the saturation of the current PPO design space.
 
 \item {\bf Theory assumptions and proofs}
     \item[] Question: For each theoretical result, does the paper provide the full set of assumptions and a complete (and correct) proof?

@@ -32,7 +32,7 @@
 %   Wei-Hsuan Tai$^1$ \And
 %   Ting-Xuan Ma$^2$ \And
 %   Yu-Siang Deng$^2$ \And
-%   Shang-Che Li$^2$ \And
+%   Shang-Jhe Li$^2$ \And
 %   Wei-Chung Lu$^3$ \\[4pt]
 %   $^1$Department of Biomedical Engineering,
 %   National Taiwan University \\
@@ -58,23 +58,7 @@ hand-crafted heuristics, using the CompilerGym~\cite{CompilerGym} LLVM
 environment as our testbed.
 
 Our work makes three contributions.
-First, through a systematic ablation of six state representations, we identify
-\emph{pass\_sequence}---encoding the ordered history of the $k$ most recent
-optimization passes as concatenated one-hot vectors---as the strongest representation in our evaluated design space, outperforming IR-feature-based (Autophase) and count-based
-alternatives by a large margin.
-Second, we develop a scalable training infrastructure with truncation-aware
-Generalized Advantage Estimation~\cite{schulman2015high}, 8-worker parallel
-rollout collection (7.6$\times$ speedup), and per-suite reward normalization
-for stable multi-suite joint training.
-Third, an inference-time ensemble of seven independently trained policies with
-best-of-8 stochastic rollouts achieves mean reward 1.050 on \texttt{cbench-v1}
-and beats \texttt{-Oz} on 20 out of 23 programs---doubling the count compared
-to our recurrent PPO baseline (10/23).  A single-model best-of-16 policy
-reaches mean reward 1.060 and beats \texttt{-Oz} on 21 out of 23 programs
-using only 16 rollouts, outperforming a random best-of-56 baseline (0.992
-mean reward, 5/23 programs) under a controlled compute budget.  Cross-suite
-evaluation across six additional benchmark suites demonstrates zero-shot
-generalization.
+First, through a systematic ablation study of multiple state representations, we find that encoding the ordered history of recent optimization passes is the most effective representation, outperforming IR-based and count-based alternatives. Second, we propose a scalable training framework that improves stability and efficiency through truncation-aware  Generalized Advantage Estimation~\cite{schulman2015high}, parallel rollout collection, and reward normalization across benchmark suites. Third, we introduce an inference-time ensemble and stochastic evaluation strategy that consistently improves performance over strong baselines and generalizes across multiple benchmark suites.
 \end{abstract}
 
 
@@ -231,17 +215,10 @@ surpasses $\texttt{-Oz}$; $R < 0$ means the agent performs worse than
 the unoptimized $\texttt{-O0}$ baseline.
 
 \paragraph{POMDP structure.}
-Compiler pass ordering is a POMDP: Autophase provides only a partial observation,
-causing state aliasing---identical observations may require different actions
-depending on transformation history.  \texttt{pass\_sequence} approximates the
-belief state $b_t{=}P(s_t{\mid}o_1,a_1,\ldots,o_t)$ by supplying the last $k$
-actions as an explicit history signal, explaining the gap between
-autophase\_norm (avg 0.510) and pass\_sequence (avg 0.937).
+This process is modeled as a partially observable Markov decision process (POMDP), since the agent only has access to an extracted Autophase feature vector, which provides a partial observation of the full program state.
 
 \paragraph{Episode length.}
-$T = 45$ steps maximum (TimeLimit wrapper).  Extending to $T = 90$ degraded
-performance, confirming that the binding constraint is the action set, not
-the time budget.
+To reduce optimization difficulty and improve training stability, we use a maximum episode length of $T=45$.
 
 \subsection{Phase 1: Feed-Forward MLP Policy}
 
@@ -254,8 +231,9 @@ the effect of the state representation.
 \subsection{Phase 2: Recurrent GRU Policy with ICM}
 \label{sec:phase2}
 
+\paragraph{Recurrent GRU Policy.}
 For ensemble training, we use a recurrent actor-critic with a GRU backbone.
-The state $s'_t$ is encoded by an MLP with LayerNorm and GELU activations:
+The state $s'_t$, which consists of Autophase features, execution metadata, and optional history-based augmentations, is encoded by an MLP with LayerNorm and GELU activations:
 $\phi_t = f^{\mathrm{enc}}_{\theta}(s'_t)$.
 The GRU conditions on both the latent state and the previous action,
 $h_t = \mathrm{GRU}([\phi_t \| a_{t-1}^{\mathrm{onehot}}],\, h_{t-1})$,
@@ -339,22 +317,14 @@ opencv $\sigma{=}4.44$).
 \subsection{Setup}
 
 \paragraph{Environment.}
-We use CompilerGym~\cite{CompilerGym} \texttt{llvm-v0} with the
-\texttt{IrInstructionCountOz} reward.
-\texttt{cbench-v1} is a standard compiler benchmark suite comprising 23~C
-programs spanning embedded workloads (cryptography, image processing, data
-compression, string search, and networking).
-All models are \textbf{trained exclusively on cbench-v1} and evaluated both
-in-distribution (cbench-v1) and zero-shot on six held-out suites: mibench-v1,
-blas-v0, npb-v0, chstone-v0, opencv-v0, and anghabench-v1, covering linear
-algebra kernels, HPC benchmarks, and large open-source C codebases.
+We use CompilerGym~\cite{CompilerGym} \texttt{llvm-v0} with the \texttt{IrInstructionCountOz} reward. We use cbench-v1 as the primary training benchmark and evaluate zero-shot generalization on six held-out suites: mibench-v1, blas-v0, npb-v0, chstone-v0, opencv-v0, and anghabench-v1. In Sections~4.6--4.7, we additionally include opencv-v0 and blas-v0 in the training set for extended experiments.
 
 \paragraph{Algorithm.}
 PPO~\cite{schulman2017proximal}: clip $\varepsilon{=}0.2$, $\gamma{=}0.99$,
 GAE $\lambda{=}0.95$~\cite{schulman2015high}, $n\_\text{steps}{=}512$,
 entropy\_coef$=0.01$, value\_coef$=0.5$, lr$=3\times10^{-4}$.
 
-\paragraph{Hardware.}
+\paragraph{Hardware and Procedure.}
 Phase~1: NVIDIA RTX 5070 Ti (500 ep/benchmark).
 Phase~2: Apple Mac mini M4 Pro, 24\,GB, 8 CPU workers, $\approx$47 min/300k steps.
 
@@ -367,55 +337,31 @@ Phase~2: Apple Mac mini M4 Pro, 24\,GB, 8 CPU workers, $\approx$47 min/300k step
 \subsection{State Representation Ablation}
 \label{sec:ablation}
 
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.85\linewidth]{figures/state_ablation.png}
-  \caption{Average reward (left axis, blue bars) and number of programs
-           beating \texttt{-Oz} (right axis, green line) for each state
-           representation (23 \texttt{cbench-v1} benchmarks, greedy rollout).
-           \texttt{pass\_sequence} ($k{=}10$) substantially outperforms all
-           alternatives; the red dashed line marks the \texttt{-Oz} parity
-           level ($R{=}1.0$).}
-  \label{fig:state_ablation}
-\end{figure}
-
 \begin{table}[h]
-  \caption{State representation ablation (256$\times$256 MLP, 500 episodes,
-           greedy rollout, all 23 \texttt{cbench-v1} benchmarks).}
-  \label{tab:state}
-  \centering
-  \begin{tabular}{lcrcc}
-    \toprule
-    Representation & Dim & Avg Reward & $\geq$Oz & $\geq$O3 \\
-    \midrule
-    autophase (raw)          & 56   & 0.084 & 0/23 & 2/23  \\
-    autophase\_norm (log1p)  & 56   & 0.510 & 0/23 & 9/23  \\
-    pass\_binary             & 124  & 0.613 & 1/23 & 14/23 \\
-    pass\_history            & 124  & 0.649 & 1/23 & 11/23 \\
-    autophase\_norm+sequence & 1296 & 0.484 & 1/23 & 8/23  \\
-    \textbf{pass\_sequence ($k{=}10$)} & \textbf{1240} &
-      \textbf{0.937} & \textbf{7/23} & \textbf{22/23} \\
-    \bottomrule
-  \end{tabular}
+\centering
+\caption{Average reward, input dimensions, and number of programs beating \texttt{-Oz} and \texttt{-O3} for each state representation on cbench-v1 (23 benchmarks, greedy rollout). \textbf{pass\_sequence} ($k{=}10$) achieves the best performance among all alternatives. pass\_binary and pass\_history represent applied passes without preserving ordering information.}
+\label{tab:state}
+
+\begin{tabular}{lcrcc}
+\toprule
+Representation & Dim & Avg Reward & $\geq$Oz & $\geq$O3 \\
+\midrule
+autophase (raw)          & 56   & 0.084 & 0/23 & 2/23  \\
+autophase\_norm (log1p)  & 56   & 0.510 & 0/23 & 9/23  \\
+pass\_binary             & 124  & 0.613 & 1/23 & 14/23 \\
+pass\_history            & 124  & 0.649 & 1/23 & 11/23 \\
+autophase\_norm$+$sequence & 1296 & 0.484 & 1/23 & 8/23  \\
+\textbf{pass\_sequence ($k{=}10$)} & \textbf{1240} & \textbf{0.937} & \textbf{7/23} & \textbf{22/23} \\
+\bottomrule
+\end{tabular}
 \end{table}
 
-Table~\ref{tab:state} reveals a decisive hierarchy.
-\textbf{autophase (raw)} collapses to near-zero: raw IR values reach 89,000+,
-causing gradient overflow (avg 0.084 across 23 benchmarks).  \textbf{autophase\_norm} recovers learning but
-lacks action-history context.  \textbf{pass\_binary} and
-\textbf{pass\_history} encode which passes were applied but discard ordering
-information.  \textbf{autophase\_norm+sequence} (1296-dim combined, avg 0.484) hurts
-relative to sequence alone: the high-dimensional input exceeds the 500-episode
-sample budget.  \textbf{pass\_sequence} ($k{=}10$, 1240-dim), encoding the
-ordered history of the most recent $k$ passes as concatenated one-hot vectors,
-outperforms all alternatives---7/23 programs beat \texttt{-Oz} and 22/23 beat
-\texttt{-O3}.  The key insight is that \emph{pass order}, not just IR state or
-pass membership, is the critical information for the agent.
+Table~\ref{tab:state} compares different state representations and reveals clear performance differences. Raw Autophase features perform poorly due to large-scale value magnitudes, while normalization improves stability but lacks historical context. Methods that encode only pass identity without ordering information (pass\_binary, pass\_history) underperform, indicating that action ordering is important. Combining normalized Autophase with pass sequences does not improve performance, likely due to increased input dimensionality and limited training budget. Overall, \textbf{pass\_sequence} consistently achieves the strongest performance across benchmarks, suggesting that optimization history is critical for effective policy learning.
 
 % ----------
 \subsection{Sequence Window, Architecture, and Hyperparameter Ablations}
 
-\begin{table}[h]
+\begin{table}[ht]
   \caption{Ablations on window $k$, network size, and PPO hyperparameters
            (all 23 \texttt{cbench-v1} benchmarks).
            Base config: pass\_sequence, 256$\times$256 MLP, $k{=}10$,
@@ -444,32 +390,20 @@ pass membership, is the critical information for the agent.
   \end{tabular}
 \end{table}
 
-$k{=}10$ is optimal: shorter windows lack ordering context; $k{=}20$ (2480-dim)
-exceeds the 500-episode sample budget.  Larger networks hurt for the same
-reason---256$\times$256 ($\sim$1.1M params) balances capacity and efficiency.
-Increasing n\_steps to 2048 reduces PPO updates from $\sim$43 to $\sim$11 per
-run, severely limiting learning.  High entropy (0.05) over-explores and
-prevents exploitation.
-
-\paragraph{Reward alignment.}
-Training with \texttt{IrInstructionCountO3} instead of \texttt{IrInstructionCountOz}
-yields avg 0.715 on the \texttt{-Oz} evaluation metric (vs.\ 0.937 for Oz-trained),
-confirming that training and evaluation objectives must match.
+We find that a window size of $k=10$ performs best, as shorter windows lose ordering context, while larger windows ($k=20$, 2480-dimensional) are harder to optimize under the limited training budget. Similarly, a 256$\times$256 MLP ($\sim$1.1M parameters) provides a better trade-off between capacity and efficiency compared to larger architectures. Increasing n\_steps to 2048 reduces the number of PPO updates per run, which may limit learning effectiveness. Finally, a higher entropy coefficient (0.05) leads to excessive exploration and reduced exploitation.
 
 % ----------
 \subsection{Cross-Architecture Validation of pass\_sequence}
 \label{sec:crossarch}
 
-To verify that pass\_sequence is broadly beneficial and not an artifact of our
+To verify that pass\_sequence is broadly beneficial rather than specific to 
 MLP architecture, we evaluate it in the GRU-based policy (Phase~2) by
-comparing GRU-Base (GRU + 30-pass, no sequence feature) against GRU-Seq (GRU + 30-pass
-+ pass\_sequence $k{=}10$) and GRU-Seq-Full (GRU + full 124-pass + pass\_sequence
+comparing GRU-Base (30-pass and no sequence feature) against GRU-Seq (30-pass
++ pass\_sequence $k{=}10$) and GRU-Seq-Full (full 124-pass + pass\_sequence
 $k{=}10$).
 
 \begin{table}[h]
-  \caption{Cross-architecture comparison on all 23 \texttt{cbench-v1}
-           benchmarks (greedy unless noted).  GRU-Base/GRU-Seq/GRU-Seq-Full use the GRU + ICM
-           Phase~2 architecture; ours uses the MLP Phase~1 architecture.}
+  \caption{Cross-architecture comparison on cbench-v1.}
   \label{tab:crossarch}
   \centering
   \begin{tabular}{llccc}
@@ -477,37 +411,24 @@ $k{=}10$).
     Method & Action Set & State Dim & Avg & $\geq$Oz \\
     \midrule
     GRU-Base          & 30-pass       & 87   & 0.999 &  9/23 \\
-    GRU-Seq   & 30-pass       & 387  & 1.038 & 12/23 \\
-    GRU-Seq (bo16)                   & 30-pass       & 387  & 1.050 & 18/23 \\
+    \textbf{GRU-Seq}   & \textbf{30-pass}       & \textbf{387}  & \textbf{1.038} & \textbf{12/23} \\
     GRU-Seq-Full   & 124-pass      & 1421 & 0.956 &  2/23 \\
     \midrule
-    MLP-Seq-Full & 124-pass      & 1240 & 0.937 &  7/23 \\
-    \textbf{MLP-Seq-Full (bo16)}        & \textbf{124-pass} & \textbf{1240} &
-      \textbf{1.060} & \textbf{21/23} \\
+    MLP-Seq-Full  & 124-pass      & 1240 & 0.937 &  7/23 \\
     \bottomrule
   \end{tabular}
 \end{table}
 
-Table~\ref{tab:crossarch} and Figure~\ref{fig:perbench} yield three insights.
-(1)~\textbf{pass\_sequence generalizes across architectures}: GRU-Base$\to$GRU-Seq gains
-$+3.9$pp greedy avg and $+3$~$\geq$Oz purely from adding the sequence feature,
-confirming the ablation result is architecture-independent.
-(2)~\textbf{Curated action set enables strong greedy}: both GRU-Seq-Full (GRU, 124-pass,
-0.956) and ours (MLP, 124-pass, 0.937) underperform GRU-Seq (1.038);
-the full 124-pass space contains useless passes that destabilize greedy selection.
-(3)~\textbf{Stochastic inference gains depend on action-space size}:
-GRU-Seq (bo16) gains only $+1.2$pp ($1.038\to1.050$, $+6$~$\geq$Oz) over
-greedy because the curated set already finds strong sequences.
-MLP-Seq-Full (bo16) gains $+12.3$pp ($0.937\to1.060$, $+14$~$\geq$Oz)
-because the larger 124-pass space provides diversity to recover hard benchmarks.
-MLP-Seq-Full (bo16, 21/23~$\geq$Oz) thus outperforms GRU-Seq (bo16, 18/23)
-despite its weaker greedy baseline---the action-space breadth is the decisive factor.
+Table~\ref{tab:crossarch} and Figure~\ref{fig:perbench} yield two insights.
+(1)~\textbf{pass\_sequence generalizes across architectures}: GRU-Seq improves over GRU-Base by $+3.9$pp and $+3$ in $\geq$Oz coverage, achieved solely by adding the sequence feature, consistent with the ablation results and suggesting that the effect is architecture-independent.
+(2)~\textbf{Curated action set enables strong greedy}: both GRU-Seq-Full (0.956) and MLP-Seq-Full (0.937) underperform GRU-Seq (1.038);
+the full 124-pass space may include less informative passes, making selection more challenging.
 
 % ----------
 \subsection{Best-of-$N$ Inference and Compute-Budget Comparison}
 
 \begin{table}[h]
-  \caption{Full results on \texttt{cbench-v1} (23 benchmarks).
+  \caption{Full results on cbench-v1 (23 benchmarks).
            Rollouts: inference-time compiler invocations per program.
            Random best-of-56 is the compute-budget-matched baseline for
            ens7 ($7{\times}8{=}56$).  Phase~1: MLP; Phase~2: GRU+ICM.}
@@ -517,7 +438,7 @@ despite its weaker greedy baseline---the action-space breadth is the decisive fa
     \toprule
     Method & Rollouts & Avg Reward & $\geq$Oz \\
     \midrule
-    Random (greedy)                    &  1 & 0.681 &  0/23 \\
+    Random                  &  1 & 0.681 &  0/23 \\
     Random best-of-56                  & 56 & 0.992 &  5/23 \\
     PPO-Baseline                  &  1 & 1.015 & 10/23 \\
     \midrule
@@ -535,21 +456,11 @@ despite its weaker greedy baseline---the action-space breadth is the decisive fa
   \end{tabular}
 \end{table}
 
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=\linewidth, height=5.5cm, keepaspectratio=false]{figures/benchmark_comparison.png}
-  \caption{Per-benchmark \texttt{IrInstructionCountOz} reward for four
-           configurations on all 23 \texttt{cbench-v1} benchmarks.
-           The dashed line marks \texttt{-Oz} parity ($R{=}1.0$).
-           Our best-of-16 (green) recovers ghostscript from greedy 0.236 to
-           1.007; GRU-Seq (greedy) (red) excels on programs where the curated 30-pass
-           set already contains strong optimizations.}
-  \label{fig:perbench}
-\end{figure}
-
 Table~\ref{tab:main} unifies all results.
 MLP-Seq-Full (bo16) (21/23) surpasses both the ensemble (ens5: 20/23) and GRU-Seq (bo16)
 (18/23) on \texttt{-Oz} count, while using the same or fewer rollouts.
+
+\textbf{Inference strategies comparison.} Stochastic inference gains vary across model families and action spaces. GRU-Seq shows consistent improvements from greedy to best-of-16 ($1.038 \rightarrow 1.050$, $+6$ $\geq$Oz), and further gains are observed with ensemble scaling (up to 20/23 $\geq$Oz), indicating that additional sampling provides moderate but stable benefits under the curated 30-pass action space. In contrast, MLP-Seq-Full achieves a larger improvement under best-of-16 ($0.937 \rightarrow 1.060$, $+14$ $\geq$Oz), outperforming both GRU-based models and the random best-of-56 baseline despite using fewer rollouts. 
 
 \textbf{Compute-budget-controlled comparison.}
 MLP-Seq-Full (bo16) (16 rollouts, avg 1.060, 21/23~$\geq$Oz) substantially
@@ -590,8 +501,28 @@ step 80k; with it, value loss stays in $[0.2, 0.8]$ throughout 300k steps.
 % ----------
 \subsection{Cross-Suite Generalization}
 
-We evaluate zero-shot transfer across six additional CompilerGym benchmark
-suites (full results in Appendix Table~\ref{tab:crosssuite}).
+\begin{table}[h]
+  \caption{Mean reward (bo8) across seven CompilerGym benchmark suites (zero-shot).
+           Phase~1/2 models trained on \texttt{cbench-v1}; GRU-MultiSuite additionally on
+           blas-v0 and opencv-v0.  \textbf{Bold}: best per suite.}
+  \label{tab:crosssuite}
+  \centering
+  \begin{tabular}{lccccccc}
+    \toprule
+    Method & cbench & mibench & blas & npb & chstone & opencv & angha \\
+    \midrule
+    Random           & 0.681 & ---   & ---   & ---   & ---   & ---   & ---  \\
+    PPO-Baseline           & 1.015 & ---   & ---   & ---   & ---   & ---   & ---  \\
+    Best single (GRU-Seq) & 1.042 & 1.028 & 0.447 & 4.45  & 1.10  & 0.20  & 0.44 \\
+    GRU-MultiSuite (bo8)        & 1.040 & 1.020 & 0.690 & 4.14  & 1.11  & 1.73  & 1.08 \\
+    ens5             & \textbf{1.050} & \textbf{1.030} & 0.967 & 4.520 & 1.112 & 2.869 & 1.079 \\
+    \textbf{ens7}    & 1.049 & \textbf{1.030} & \textbf{0.976} & \textbf{4.528} &
+      \textbf{1.113} & \textbf{2.985} & \textbf{1.090} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+We evaluate zero-shot transfer performance across six additional CompilerGym benchmark suites, as shown in Table~\ref{tab:crosssuite}.
 The ensemble (ens7) outperforms any single model on every suite; opencv-v0
 improves from 0.20 (single model) to 2.985 (ens7), a 14$\times$
 gain~\cite{lakshminarayanan2017simple}.  mibench-v1 and npb-v0 transfer
@@ -605,28 +536,11 @@ linux-v0 fails structurally: all models produce reward $-9.218$ because the
 % ---------------------------------------------------------------
 \section{Conclusion}
 
-We have shown that traditional DRL can learn effective compiler pass-ordering
-policies that substantially outperform \texttt{-Oz} without any LLM component.
-Our systematic ablation establishes that \texttt{pass\_sequence}---encoding the
-ordered history of recent passes---is the dominant design choice, outperforming
-IR-feature-based alternatives by a large margin.  Crucially, this finding is
-\emph{architecture-independent}: adding pass\_sequence to the GRU-based policy
-(GRU-Base$\to$GRU-Seq) produces the same pattern of improvement (+3.9pp greedy, +3 more
-programs beating \texttt{-Oz}), independently replicating the ablation result
-across two systems developed in parallel.
+We show that traditional DRL is sufficient to learn effective compiler pass-ordering policies that substantially outperform \texttt{-Oz} without requiring LLM-based components. Across a systematic ablation study, we identify \texttt{pass\_sequence}, which encodes the ordered history of recent compiler passes, as the most critical design choice, consistently outperforming IR-feature-based representations.
 
-A cross-architecture analysis further reveals two \emph{complementary}
-strengths: the curated 30-pass action set enables reliable greedy performance
-(GRU-Seq: 1.038, 12/23), while stochastic inference over the full 124-pass space
-recovers hard programs like ghostscript (our bo16: 1.060, 21/23).  Combining
-curated passes with stochastic inference is a direct target for future work.
+We further find that action-space design and inference strategy play complementary roles. Curated action sets improve greedy performance, while stochastic inference over larger action spaces helps recover harder benchmarks, suggesting a trade-off between controllability and exploration.
 
-Scaling with parallel rollouts, truncation-aware GAE, and an inference-time
-ensemble further doubles the programs beating \texttt{-Oz} versus the PPO
-baseline (10$\to$20/23) and generalizes zero-shot across six OOD suites.  A
-budget-controlled comparison (PPO bo16 vs.\ random bo56) confirms all gains
-stem from policy quality: our policy wins on all 23 benchmarks with 3.5$\times$
-fewer rollouts.
+Finally, our approach generalizes across architectures and unseen benchmark suites, achieving consistent improvements over strong baselines under controlled compute budgets. Overall, the results indicate that performance gains primarily arise from representation and policy design rather than increased model complexity or sampling variance.
 
 \paragraph{Limitations.}
 Due to computational constraints, we do not compare against classical heuristic
@@ -657,11 +571,15 @@ saturation; future work should explore graph IR encoders
 % conducted the full 23-benchmark evaluation.  He also wrote the Related
 % Work, Methodology, and Experiments sections of this paper.
 %
-% \textbf{B12902003 馬定璿 (Ting-Xuan Ma)} [describe contribution].
+% \textbf{B12902003 馬定璿 (Ting-Xuan Ma)} assisted with literature review and 
+% data collection, contributed to the drafting of the manuscript, and 
+% participated in the final review and editing process.
 %
-% \textbf{B12902004 鄧育翔 (Yu-Siang Deng)} [describe contribution].
+% \textbf{B12902004 鄧育翔 (Yu-Siang Deng)} aided in benchmark data collection, 
+% supported the preparation of the manuscript, and assisted with cross-checking 
+% and proofreading the paper.
 %
-% \textbf{B12902033 李尚哲 (Shang-Che Li)} developed the Phase~2 training
+% \textbf{B12902033 李尚哲 (Shang-Jhe Li)} developed the Phase~2 training
 % infrastructure and ensemble system (Sections~3.3--3.7), including
 % truncation-aware GAE, 8-worker parallel rollout collection (7.6$\times$
 % speedup), the 30-pass PASSES\_V4 action set, ICM exploration, per-suite
@@ -671,7 +589,9 @@ saturation; future work should explore graph IR encoders
 % experiments, running on an Apple Mac mini M4 Pro (24\,GB unified memory).
 % He also wrote the Introduction.
 %
-% \textbf{R14944011 盧韋仲 (Wei-Chung Lu)} [describe contribution].
+% \textbf{R14944011 盧韋仲 (Wei-Chung Lu)} contributed to data collection and 
+% preprocessing, assisted in writing sections of the manuscript, and provided 
+% critical feedback and edits during the paper review phase.
 
 % ---------------------------------------------------------------
 \begin{ack}
@@ -686,29 +606,21 @@ saturation; future work should explore graph IR encoders
 \input{checklist.tex}
 
 % ---------------------------------------------------------------
+\newpage
 \appendix
 
-\section{Cross-Suite Generalization Results}
-
-\begin{table}[h]
-  \caption{Mean reward (bo8) across seven CompilerGym benchmark suites (zero-shot).
-           Phase~1/2 models trained on \texttt{cbench-v1}; GRU-MultiSuite additionally on
-           blas-v0 and opencv-v0.  \textbf{Bold}: best per suite.}
-  \label{tab:crosssuite}
+\section{Per-benchmark inference comparison on \texttt{cbench-v1}}
+\begin{figure}[ht]
   \centering
-  \begin{tabular}{lccccccc}
-    \toprule
-    Method & cbench & mibench & blas & npb & chstone & opencv & angha \\
-    \midrule
-    Random           & 0.681 & ---   & ---   & ---   & ---   & ---   & ---  \\
-    PPO-Baseline           & 1.015 & ---   & ---   & ---   & ---   & ---   & ---  \\
-    Best single (GRU-Seq) & 1.042 & 1.028 & 0.447 & 4.45  & 1.10  & 0.20  & 0.44 \\
-    GRU-MultiSuite (bo8)        & 1.040 & 1.020 & 0.690 & 4.14  & 1.11  & 1.73  & 1.08 \\
-    ens5             & 1.050 & 1.030 & 0.967 & 4.520 & 1.112 & 2.869 & 1.079 \\
-    \textbf{ens7}    & 1.049 & 1.030 & \textbf{0.976} & 4.528 &
-      \textbf{1.113} & \textbf{2.985} & \textbf{1.090} \\
-    \bottomrule
-  \end{tabular}
-\end{table}
+  \includegraphics[width=\linewidth, height=5.5cm, keepaspectratio=false]{figures/benchmark_comparison.png}
+  \caption{Per-benchmark \texttt{IrInstructionCountOz} reward for four
+           configurations on all 23 \texttt{cbench-v1} benchmarks.
+           The dashed line marks \texttt{-Oz} parity ($R{=}1.0$).
+           Our best-of-16 (green) recovers ghostscript from greedy 0.236 to
+           1.007; GRU-Seq (greedy) (red) excels on programs where the curated 30-pass
+           set already contains strong optimizations.}
+  \label{fig:perbench}
+\end{figure}
+
 
 \end{document}

@@ -1,0 +1,142 @@
+\documentclass[xcolor=dvipsnames]{beamer}
+
+% ==== 主題 ====
+\usetheme{metropolis}
+\usefonttheme{professionalfonts}          % 不覆蓋你自訂的字型
+
+% ==== 字型 ====
+\usepackage{fontspec}
+\usepackage{xeCJK}
+\renewcommand{\familydefault}{\rmdefault} % 使用 serif 字體（重點）
+\usefonttheme{professionalfonts}
+
+% 西文字型：Times New Roman 的開源替代品
+\setmainfont{TeX Gyre Termes}[
+  Ligatures=TeX,
+  BoldFont={* Bold},
+  ItalicFont={* Italic}
+]
+
+% 中文字型（可改為思源宋體、標楷體等）
+\setCJKmainfont{Noto Serif CJK TC}
+\setCJKsansfont{Noto Sans CJK TC} % 有需要再用
+\setCJKmonofont{Noto Sans Mono CJK TC}
+
+% ==== 數學字型（與正文字體一致）====
+\usepackage{unicode-math}
+\setmathfont{TeX Gyre Termes Math}
+
+% ==== 套件 ====
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{minted}
+\usepackage{fvextra}
+\usepackage{xcolor}
+\usepackage{booktabs}
+
+% ==== 顏色設定（可選）====
+\definecolor{MyBlue}{RGB}{3, 55, 105}
+\setbeamercolor{structure}{fg=MyBlue}
+\setbeamercolor{block title}{bg=MyBlue,fg=white}
+\setbeamercolor{block body}{bg=blue!5}
+\setbeamertemplate{section in toc}{%
+  \inserttocsectionnumber.~\inserttocsection\par
+}
+
+\setminted{
+    linenos,                % 行號
+    frame=lines,            % 上下框線
+    framesep=5pt,           % 程式碼與邊框距離
+    numbersep=8pt,          % 行號與程式碼距離
+    fontsize=\scriptsize,   % 字體大小
+    breaklines,             % 自動換行
+    tabsize=4,              % tab 寬度
+    rulecolor=\color{black},% 框線顏色
+    xleftmargin=1.5em       % 左側縮排
+}
+
+\title{Vector}
+\author{Tai, Wei Hsuan}
+\date{week 7}
+
+\begin{document}
+	\begin{frame}
+		\titlepage
+	\end{frame}
+
+    \begin{frame}
+        \frametitle{\href{https://drive.google.com/drive/folders/1IN7Dv6ozKHldRXJG6mI0DmjhBlwO6KWK?usp=sharing}{課程簡報}}
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.7\textwidth]{src/qrcode.png}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Outline}
+        \tableofcontents
+    \end{frame}
+    \section{Recap Problems}
+    \section{Vector}
+    \begin{frame}
+        \frametitle{What is Vector?}
+        In mathamatics, a vector is an object that has both magnitude and direction. But in programming, a vector is a dynamic array that can resize itself automatically when elements are added or removed. It provides random access to its elements and is implemented as a contiguous block of memory.
+
+        You can consider vector as a flexible array that can grow or shrink in size as needed. It is a part of the C++ Standard Template Library (STL) and is widely used for storing and manipulating collections of data.
+    \end{frame}
+
+    \begin{frame}[fragile]
+        \frametitle{Declaration of vector}
+        \begin{minted}{cpp}
+            // declaration:
+            vector<TYPE> name;
+            // declaration with size:
+            vector<TYPE> name(SIZE);
+            // declaration a multidimensional vector:
+            vector<TYPE> name[SIZE];
+        \end{minted}
+        Note that if you declare a vector w/ \texttt{vector<TYPE> name}, it will be initially empty.
+    \end{frame}
+
+    \begin{frame}[fragile]
+        \frametitle{Usage of vector}
+        \begin{minted}{cpp}
+            // access elements:
+            name[index];
+            // add elements:
+            name.push_back(value);
+            name.emplace_back(value);
+            // remove elements:
+            name.pop_back();
+        \end{minted}
+    \end{frame}
+
+    \begin{frame}[fragile]
+        \frametitle{Usage of vector}
+        \begin{minted}{cpp}
+            // access elements:
+            name[index];
+            // access it's size:
+            name.size();
+            // remove all elements:
+            name.clear();
+        \end{minted}
+    \end{frame}
+
+    \begin{frame}[fragile]
+        \frametitle{Example}
+        \begin{minted}{cpp}
+            vector<int> v;
+            v.push_back(1);
+            v.push_back(2);
+            v.push_back(3);
+            for(int i=0;i<v.size();++i){
+                cout<<v[i]<<" ";
+           }
+        \end{minted}
+    \end{frame}
+
+    \section{Practice Problems}
+
+\end{document}

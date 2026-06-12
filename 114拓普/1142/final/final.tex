@@ -1,0 +1,98 @@
+\documentclass[xcolor=dvipsnames]{beamer}
+
+% ==== 主題 ====
+\usetheme{metropolis}
+\usefonttheme{professionalfonts}          % 不覆蓋你自訂的字型
+
+% ==== 字型 ====
+\usepackage{fontspec}
+\usepackage{xeCJK}
+\renewcommand{\familydefault}{\rmdefault} % 使用 serif 字體（重點）
+\usefonttheme{professionalfonts}
+
+% 西文字型：Times New Roman 的開源替代品
+\setmainfont{TeX Gyre Termes}[
+  Ligatures=TeX,
+  BoldFont={* Bold},
+  ItalicFont={* Italic}
+]
+
+% 中文字型（可改為思源宋體、標楷體等）
+\setCJKmainfont{Noto Serif CJK TC}
+\setCJKsansfont{Noto Sans CJK TC} % 有需要再用
+\setCJKmonofont{Noto Sans Mono CJK TC}
+
+% ==== 數學字型（與正文字體一致）====
+\usepackage{unicode-math}
+\setmathfont{TeX Gyre Termes Math}
+
+% ==== 套件 ====
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{minted}
+\usepackage{fvextra}
+\usepackage{xcolor}
+\usepackage{booktabs}
+
+% ==== 顏色設定（可選）====
+\definecolor{MyBlue}{RGB}{3, 55, 105}
+\definecolor{DarkGreen}{RGB}{0, 100, 0}
+\setbeamercolor{structure}{fg=MyBlue}
+\setbeamercolor{block title}{bg=MyBlue,fg=white}
+\setbeamercolor{block body}{bg=blue!5}
+\setbeamertemplate{section in toc}{%
+  \inserttocsectionnumber.~\inserttocsection\par
+}
+
+\setminted{
+    linenos,                % 行號
+    frame=lines,            % 上下框線
+    framesep=5pt,           % 程式碼與邊框距離
+    numbersep=8pt,          % 行號與程式碼距離
+    fontsize=\scriptsize,   % 字體大小
+    breaklines,             % 自動換行
+    tabsize=4,              % tab 寬度
+    rulecolor=\color{black},% 框線顏色
+    xleftmargin=1.5em       % 左側縮排
+}
+
+\title{Final Exam}
+\author{KCIS IOI Class}
+\date{Grade 7}
+
+\begin{document}
+	\begin{frame}
+		\titlepage
+	\end{frame}
+
+    \begin{frame}
+        \frametitle{Exam Rules}
+        \begin{itemize}
+            \item Exam Date: 2026/06/12 (Fri)
+            \item Exam Time: 18:25 $\sim$ 20:15 GMT+8 (110 minutes)
+            \item For 18:25 $\sim$ 19:10, AI tools are NOT ALLOWED.
+            \item For 19:10 $\sim$ 20:15, AI tools are ALLOWED.
+            \item Do not chat, do not copy solution from the internet or from others, do not share your solution with others.(We'll check the similarity of code.)
+            \item Feel free to ask any questions, including hints, clarifications, etc. during the exam. But I will NOT debug your code.
+            \item Any violation of the above rules will result in a zero score, and we will report it to the school.
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Problems Overview}
+        \centering
+        \begin{tabular}{lcc}
+            \toprule
+            Problem & Concept & Difficulty \\
+            \midrule
+            1. 哈囉 & std IO& \textcolor{DarkGreen}{Easy}\\
+            2. queue 練習 & queue & \textcolor{DarkGreen}{Easy}\\
+            3. 104北二2.括號問題  & stack & \textcolor{orange}{Medium} \\
+            4. Bubblesort & sorting & \textcolor{red}{Hard} \\
+            5. 計算區間和 & prefix sum & \textcolor{orange}{Medium} \\
+            6. 別再插隊了 & vector & \textcolor{red}{Hard} \\
+            \bottomrule
+        \end{tabular}
+    \end{frame}
+\end{document}

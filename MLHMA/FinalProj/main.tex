@@ -1,0 +1,1074 @@
+% !TEX program = pdflatex
+\documentclass[preprint,12pt]{elsarticle}
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{mathptmx}           % Times New Roman font
+\usepackage{float}              % [H] placement for tables/figures at end
+\usepackage[hidelinks]{hyperref}% remove coloured hyperlinks
+\usepackage{xcolor}
+\usepackage{setspace}
+\usepackage[explicit]{titlesec}
+\usepackage[top=2.54cm, bottom=2.54cm, left=2.54cm, right=2.54cm]{geometry}
+\usepackage{textcomp}
+
+%% Remove section numbering
+\setcounter{secnumdepth}{0}
+
+%% Section: bold, centred (template style)
+\titleformat{\section}[block]{\normalfont\large\bfseries\centering}{}{0em}{#1}
+\titlespacing*{\section}{0pt}{18pt}{6pt}
+
+%% Subsection: italic, left-aligned (template style)
+\titleformat{\subsection}[block]{\normalfont\normalsize\itshape}{}{0em}{#1}
+\titlespacing*{\subsection}{0pt}{12pt}{4pt}
+
+%% Subsubsection: italic, left-aligned
+\titleformat{\subsubsection}[block]{\normalfont\normalsize\itshape}{}{0em}{#1}
+\titlespacing*{\subsubsection}{0pt}{8pt}{2pt}
+
+%% Double spacing throughout (manuscript submission style)
+\doublespacing
+
+%% Patch pprintMaketitle (preprint mode): remove hrules and author block
+%% (authors and abstract are typeset manually after \end{frontmatter})
+\makeatletter
+\long\def\pprintMaketitle{\clearpage
+  \iflongmktitle\if@twocolumn\let\columnwidth=\textwidth\fi\fi
+  \resetTitleCounters
+  \def\baselinestretch{1}%
+  \printFirstPageNotes
+  \begin{\elsarticletitlealign}%
+    \thispagestyle{pprintTitle}%
+    \def\baselinestretch{1}%
+    \Large\@title\par\vskip18pt
+  \end{\elsarticletitlealign}%
+  \gdef\thefootnote{\arabic{footnote}}%
+}
+\makeatother
+
+%% Point to the figure directory
+\graphicspath{{/home/josh/NTU/114-2/MLHMA/final_proj/}}
+
+\journal{Final Project of Machine Learning in Human Motion Analysis}
+
+\begin{document}
+
+\begin{frontmatter}
+
+\title{Is Ground Reaction Force Alone Sufficient for Clinical Balance Assessment?
+       A Subject-Independent Benchmark of Deep Learning Architectures for
+       COM-COP Relative Motion Prediction}
+
+\end{frontmatter}
+
+%%-------------------------------------------------------------
+%% Cover page: authors, affiliations, word count, date, email
+%%-------------------------------------------------------------
+\begin{center}
+b10404022 \quad Hung-Lin Chang$^{1}$ \\[6pt]
+b12508010 \quad Yu-I Lin$^{2}$ \\[6pt]
+b12508016 \quad Yu-Chieh Ho$^{2}$ \\[6pt]
+b12508026 \quad Wei-Hsuan Tai$^{2}$
+\end{center}
+
+\vspace{1em}
+\begin{center}
+{\small\itshape
+$^{1}$Department of Clinical Laboratory Sciences and Medical Biotechnology, Taipei, Taiwan \\[4pt]
+$^{2}$Department of Biomedical Engineering, Taipei, Taiwan}
+\end{center}
+
+\vspace{3em}
+\begin{center}
+Word Count: $\sim$6{,}000
+\end{center}
+
+\vspace{2em}
+\begin{center}
+June 21, 2026
+\end{center}
+
+\vspace{2em}
+\begin{center}
+E-mail: \{b10404022, b12508010, b12508016, b12508026\}@ntu.edu.tw
+\end{center}
+
+%%-------------------------------------------------------------
+%% Abstract page (manual, so \clearpage works)
+%%-------------------------------------------------------------
+\clearpage
+\begin{center}
+  {\normalfont\large\bfseries Abstract}
+\end{center}
+
+\noindent\textit{Background:}
+Accurate assessment of postural balance requires measuring the displacement of the
+centre of mass (COM) relative to the centre of pressure (COP), yet the optical
+motion capture systems conventionally used for this purpose are expensive,
+laboratory-bound, and operationally demanding.
+Ground reaction force (GRF) signals from a single force plate represent a widely
+available alternative, but whether they are sufficient for motion-capture-free
+balance assessment under subject-independent conditions has not been systematically
+established.
+
+\bigskip
+\noindent\textit{Research Question:}
+This study addresses four specific questions: (1)~Can GRF signals alone predict
+COM-COP relative displacement within a clinically useful accuracy range under strict
+subject-independent evaluation?
+(2)~Which deep learning architectural family performs best, and are performance
+differences statistically significant?
+(3)~Can real-time causal inference match the offline upper bound without meaningful
+accuracy loss?
+(4)~How many additional subjects are required to reach a clinical accuracy milestone?
+
+\bigskip
+\noindent\textit{Methods:}
+Eight established deep learning architectures and three real-time causal adaptation
+strategies were benchmarked on 106 walking trials from 12 healthy subjects under
+strict leave-one-subject-out cross-validation (12 folds), ensuring no subject
+information leaks into model selection or evaluation.
+
+\bigskip
+\noindent\textit{Results:}
+The best offline model (BiLSTM with attention) achieved 8.68~mm mediolateral RMSE
+and Pearson $r = 0.990$ under subject-independent evaluation.
+Five of six pairwise comparisons among the top four architectures were not
+statistically significant (Wilcoxon $p = 0.20$ to $0.97$), indicating the task's
+information ceiling at current data scale.
+CausalCNN was not significantly different from BiLSTM\_Attn in the
+anterior-posterior direction ($p = 0.677$) at zero latency with only 75K
+parameters, though it remains significantly behind the AP-best offline model
+CNN1D ($p = 0.005$).
+Power-law extrapolation indicates approximately 61 subjects may be needed for
+BiLSTM\_Attn to reach 8~mm mediolateral RMSE.
+
+\bigskip
+\noindent\textit{Significance:}
+GRF signals alone are sufficient for motion-capture-free dynamic balance assessment.
+Architecture choice is a secondary concern at current data scale; the primary
+bottleneck is dataset size.
+These findings provide a concrete roadmap and recruitment target for clinical
+translation.
+
+\bigskip
+\noindent\textit{Keywords:} ground reaction force; centre of mass; centre of
+pressure; deep learning; gait analysis; balance assessment; real-time prediction
+
+%%-------------------------------------------------------------
+%% Highlights page
+%%-------------------------------------------------------------
+\clearpage
+\begin{center}
+  {\normalfont\large\bfseries Highlights}
+\end{center}
+\renewcommand{\labelitemi}{\textbullet}
+\begin{itemize}
+  \item GRF signals alone achieve sub-9~mm mediolateral RMSE for COM-COP prediction under strict subject-independent evaluation
+  \item Five of six pairwise comparisons among the top four architectures are not statistically significant ($p = 0.20$ to $0.97$), indicating the information ceiling at current data scale
+  \item CausalCNN is not significantly different from BiLSTM\_Attn (the ML-best offline model) in the anterior-posterior direction ($p = 0.677$) at zero latency with only 75K parameters, though it remains significantly behind the AP-best offline model CNN1D ($p = 0.005$)
+  \item Power-law extrapolation of summary means provides an indicative recruitment target of approximately 61 subjects for clinical-grade accuracy
+\end{itemize}
+\clearpage
+
+%%=============================================================
+\section{Introduction}
+\label{sec:intro}
+%%=============================================================
+
+\subsection{Background and Motivation}
+
+In the fields of human biomechanics and neural control, accurate assessment of
+postural balance and locomotor stability is fundamental for fall prevention in
+older adults, diagnosis of neurological disorders, and optimization of
+rehabilitation training.
+However, obtaining precise dynamic balance measurements in clinical practice
+remains technically challenging.
+Currently, the gold standard for measuring the trajectory of the body's center of
+mass (COM) is the Optical Motion Capture System.
+Although this technique provides high measurement accuracy, its clinical
+application is limited by several factors, including high equipment costs, strict
+laboratory space requirements, and the time-consuming procedures involved in
+placing reflective markers and performing subsequent data processing.
+Furthermore, optical motion capture systems generally confine subjects to
+controlled laboratory environments, making it difficult to capture natural
+movements during daily activities or in home settings.
+These limitations hinder the widespread implementation of balance assessment
+technologies in clinical and real-world applications~\cite{s23104933}.
+
+To overcome the limitations of conventional measurement systems, understanding
+the dynamic relationship between the center of mass (COM) and the center of
+pressure (COP) has become a major focus in biomechanical studies of postural
+control.
+During quiet standing, the human body is commonly modeled as an inverted pendulum.
+Within this framework, the COM represents the center of the body's mass
+distribution, and its position and velocity can be regarded as important state
+variables describing postural stability.
+In contrast, the COP is defined as the effective point of application of the
+ground reaction force (GRF) on the support surface and can be considered an
+external manifestation of the neural control strategy resulting from neuromuscular
+regulation of ankle joint moments.
+Under conditions of quiet standing or small-amplitude body sway, the COM
+trajectory is typically smooth and dominated by low-frequency components because
+of the body's inertia, whereas the COP exhibits larger amplitudes and
+higher-frequency fluctuations, reflecting the nervous system's rapid adjustments
+to postural deviations~\cite{s23104933,labrozzi2024center}.
+
+The primary objective of this study is to investigate the dynamic interaction
+between COM and COP, whose physical significance lies in quantifying the
+restorative torque required to maintain postural stability.
+Under the small-angle approximation of the inverted pendulum model, the restorative
+torque can be expressed as $\tau = mg(\mathrm{COM} - \mathrm{COP})$, where the
+horizontal distance between COM and COP serves as the moment arm through which
+the ground reaction force generates a restoring effect.
+When the COM deviates from its equilibrium position, the central nervous system
+modulates neuromuscular activity to adjust the COP location, thereby producing
+restorative torque that regulates the acceleration and direction of COM motion and
+helps maintain dynamic stability~\cite{labrozzi2024center}.
+
+Therefore, the relative motion between COM and COP reflects the dynamic process
+by which the neural control system maintains balance through adjustments in plantar
+pressure distribution.
+By integrating GRF measurements with inverted pendulum dynamics, it may be
+possible to accurately estimate COM-COP relative motion using only a limited set
+of anthropometric parameters, thereby reducing reliance on large-scale optical
+motion capture systems.
+Compared with approaches based on multi-segment body models and anthropometric
+regression tables, physics-based estimation methods may also mitigate errors
+arising from inter-individual differences in mass distribution.
+Consequently, such methods have the potential to provide a more cost-effective and
+real-time solution for dynamic balance assessment in clinical
+settings~\cite{s23104933,labrozzi2024center}.
+
+\subsection{Research Gap}
+
+Despite the clinical appeal of GRF-based balance assessment, prior work has not
+addressed this question with the rigour required for clinical translation.
+Existing studies either rely on within-subject evaluation (which conflates
+memorisation of individual gait patterns with generalisation), compare a single
+architecture without systematic ablation, or do not isolate the performance gap
+between offline and real-time deployment.
+This study addresses all three gaps in a unified experimental framework.
+
+\subsection{Research Questions}
+
+This study addresses the question through a systematic benchmark with four
+specific research questions:
+
+\begin{description}
+  \item[RQ1 (Feasibility)] Can triaxial GRF signals alone predict COM-COP
+        relative displacement within a clinically useful accuracy range under
+        strict subject-independent evaluation?
+  \item[RQ2 (Architecture)] Which deep learning architectural family performs
+        best, and is the performance difference between architectures statistically
+        significant or masked by inter-subject variability?
+  \item[RQ3 (Real-Time Deployment)] Can non-causal offline models be adapted
+        to zero-latency causal inference without significant accuracy loss, and
+        what drives performance in the causal setting?
+  \item[RQ4 (Data Requirements)] How many additional subjects would be needed
+        to reach a clinically meaningful accuracy milestone?
+\end{description}
+
+\subsection{Summary of Findings}
+
+Our analysis of 12 subjects (106 trials) under leave-one-subject-out (LOSO)
+cross-validation yields the following answers:
+
+\begin{description}
+  \item[RQ1] \textbf{Yes.} The best offline model achieves 8.68~mm ML RMSE and
+        Pearson $r = 0.990$, confirming that GRF alone is sufficient for
+        motion-capture-free balance assessment.
+  \item[RQ2] Five of six pairwise comparisons among the top four architectures
+        (BiLSTM\_Attn, CNN1D, BiLSTM, TCN\_LSTM) are \textbf{not statistically
+        significant} ($p = 0.20$ to $0.97$); the one significant pair (CNN1D vs
+        TCN\_LSTM, $p = 0.034$) reflects CNN1D's dilated-receptive-field advantage.
+        Architecture choice is a secondary concern until more data become available.
+  \item[RQ3] CausalCNN achieves AP performance \textbf{not significantly different}
+        from BiLSTM\_Attn ($p = 0.677$) at zero latency with only 75K parameters,
+        though it remains significantly worse than CNN1D (the AP-best offline model,
+        $p = 0.005$). Architecture design, not offline knowledge transfer, is the
+        decisive factor.
+  \item[RQ4] Power-law extrapolation of summary means indicates ${\sim}61$ subjects
+        may be needed for BiLSTM\_Attn to reach 8~mm ML RMSE; this serves as an
+        indicative recruitment target subject to the uncertainty of extrapolation
+        well beyond the observed range.
+\end{description}
+
+%%=============================================================
+\section{Related Work}
+\label{sec:related}
+%%=============================================================
+
+\subsection{Physics-Based COM Estimation}
+
+The classical approach to recovering COM kinematics from a force plate is to
+double-integrate the GRF vector using Newton's second law
+($\mathbf{F} = m\ddot{\mathbf{r}}_\mathrm{COM}$).
+This approach is straightforward in principle but requires force moments
+($M_x$, $M_y$) to compute the COP ($\mathrm{COP}_x = -M_y / F_z$); without
+them, the COP cannot be separated from the COM trajectory.
+Standard force plates do report moments, but insole-based systems typically do not,
+making physics-based COP estimation infeasible in portable settings.
+Furthermore, double integration accumulates drift: small constant errors in
+measured forces grow quadratically over time, making the method unreliable even
+over a single gait cycle~\cite{labrozzi2024center}.
+The baseline comparison below confirms errors exceeding 60~mm when moments are unavailable.
+
+\subsection{Data-Driven Balance and Gait Analysis}
+
+Machine learning has been applied to balance and gait analysis across a range of
+sensor modalities~\cite{s23104933,labrozzi2024center}.
+Recurrent architectures (LSTM, GRU) are the dominant choice for sequential
+biomechanical signals, with demonstrated utility in COM trajectory
+estimation~\cite{labrozzi2024center}, gait phase detection, and fall risk
+scoring~\cite{s23104933}.
+Convolutional approaches based on temporal convolutional networks (TCN) have shown
+competitive performance on similar sequence-to-sequence biosignal
+tasks~\cite{bai2018empirical}, with the advantage of parallelisable training.
+Transformers have more recently been applied to gait and biosignal modelling,
+but their data requirements are larger by a considerable margin~\cite{vaswani2017attention},
+and their advantage over recurrent models on small clinical datasets ($n < 50$)
+has not been consistently demonstrated, motivating the recurrent-first architecture
+choices evaluated in this study.
+
+\subsection{Gaps Motivating This Benchmark}
+
+Despite this activity, three gaps remain unaddressed in the existing literature:
+
+\begin{enumerate}
+  \item \textbf{Subject-independent evaluation.}
+        Most GRF-based COM/COP prediction studies report within-subject or
+        random-split validation, which conflates memorisation of individual gait
+        patterns with generalisation.
+        Leave-one-subject-out evaluation, required for clinical deployment, has not
+        been systematically applied in this task.
+  \item \textbf{Architecture comparison under identical conditions.}
+        No prior work compares more than two or three architectures on the same
+        COM-COP prediction task with identical preprocessing, training, and
+        evaluation protocols, making cross-study comparisons unreliable.
+  \item \textbf{Real-time deployment analysis.}
+        The gap between offline (non-causal) accuracy and zero-latency causal
+        deployment has not been quantified, nor have the relative contributions of
+        architectural design versus offline knowledge transfer been isolated.
+\end{enumerate}
+
+This study addresses all three gaps in a unified experimental framework.
+
+%%=============================================================
+\section{Materials and Methods}
+\label{sec:methods}
+%%=============================================================
+
+\subsection{Participants and Data Acquisition}
+\label{subsec:data}
+
+Gait data were obtained from a dataset of 13 healthy adults who performed level
+walking on a single force plate.
+Each trial recorded triaxial GRF together with the corresponding COM and COP
+trajectories for one gait cycle.
+Each subject's data file also included the recording sampling frequency (200 or
+240~Hz, varying by subject; see Table~\ref{tab:dataset}) and body weight, which
+were used to time-normalise the gait cycle and to scale the GRF signals,
+respectively.
+All trials were resampled to a uniform 100-timestep representation to eliminate
+the effect of sampling rate differences.
+
+Of the 13 subjects, one was excluded because one of the recorded trials contained
+NaN values; since the cause of the missing data could not be confirmed and the
+remaining trials for that subject could not be independently verified, all trials
+from that subject were removed.
+The final dataset comprised \textbf{12 subjects}, each contributing 8 to 9 trials,
+for a total of \textbf{106 trials}.
+
+Detailed demographic information beyond body weight (i.e., age, sex, and
+height) was not provided with the dataset.
+Body height was instead estimated from the mean vertical COM position during gait,
+based on the anthropometric relationship reported by Dempster~\cite{dempster1955},
+and used only to compute a height-normalised error metric for evaluating
+subject-independent prediction accuracy.
+
+\subsection{Signal Processing and Preprocessing}
+\label{subsec:preproc}
+
+Raw \texttt{.mat} files contained the following fields (Table~\ref{tab:fields}).
+The following preprocessing steps were applied:
+\begin{enumerate}
+  \item \textbf{GRF normalisation}: $\mathbf{g} = \mathbf{GRF} / (m \cdot g_0)$,
+        where $m$ is body mass (kg) and $g_0 = 9.81$~m\,s$^{-2}$, removing
+        inter-subject force scaling.
+  \item \textbf{COM-COP displacement}: $\boldsymbol{\delta} =
+        (\mathbf{COM}_{xy} - \mathbf{COP}) / 1000$, converting mm to metres.
+  \item \textbf{Temporal normalisation}: each trial was resampled from its native
+        length (159 to 263 frames) to exactly 100 timesteps via linear interpolation,
+        aligning all trials to 0 to 100\% of the gait cycle regardless of sampling
+        rate.
+  \item Any trial containing NaN values caused the entire subject to be excluded
+        at load time.
+\end{enumerate}
+
+Table~\ref{tab:dataset} summarises the final dataset statistics after exclusion.
+
+\subsection{Model Architectures}
+\label{subsec:archs}
+
+Eight architectures were evaluated with shared base hyperparameters
+(\texttt{hidden\_size}~=~64, \texttt{num\_layers}~=~2, \texttt{dropout}~=~0.2).
+All models map a normalised GRF sequence of shape $(T=100, 3)$ to a COM-COP
+displacement sequence of shape $(T=100, 2)$.
+Table~\ref{tab:archs} provides an overview.
+
+\noindent\textbf{ANN} applies a two-hidden-layer MLP independently at each
+timestep, serving as a lower-bound baseline with no temporal context.
+
+\noindent\textbf{RNN and LSTM} are unidirectional recurrent networks.
+LSTM's input, forget, and output gates enable long-range dependency modelling that
+vanilla RNN lacks.
+
+\noindent\textbf{BiLSTM} runs forward and backward passes simultaneously; each
+timestep can attend to the full gait cycle, rendering the model non-causal.
+
+\noindent\textbf{BiLSTM\_Attn} adds a multi-head self-attention layer~\cite{vaswani2017attention}
+(4 heads, embed dim 128) with residual connection and LayerNorm on top of BiLSTM,
+allowing the model to learn which timesteps are most informative:
+\begin{equation}
+  \mathbf{h} = \mathrm{LayerNorm}\!\left(\mathbf{h}_\mathrm{BiLSTM}
+              + \mathrm{MHA}(\mathbf{h}_\mathrm{BiLSTM})\right).
+\end{equation}
+
+\noindent\textbf{Transformer} uses Pre-LN encoder layers~\cite{vaswani2017attention}
+(2 layers, 4 heads, FFN dim 256) preceded by a linear input projection and
+sinusoidal positional encoding.
+
+\noindent\textbf{CNN1D} is a six-block dilated temporal convolutional network
+(TCN)~\cite{bai2018empirical} with dilation rates $\{1, 2, 4, 8, 16, 32\}$ and
+Pre-LN residual connections, yielding a total receptive field of 253 timesteps
+(2.5$\times$ the gait cycle length).
+
+\noindent\textbf{TCN\_LSTM} stacks four TCN blocks (local feature extraction)
+followed by a BiLSTM (global temporal integration), combining complementary
+inductive biases in a single architecture.
+
+\subsection{Real-Time Adaptation Strategies}
+\label{subsec:realtime}
+
+The four best offline models are all non-causal, requiring the complete gait cycle
+before any prediction.
+Three strategies adapt this knowledge to zero-latency causal deployment:
+
+\begin{enumerate}
+  \item \textbf{CausalCNN}: CNN1D with \emph{symmetric} padding replaced by
+        \emph{left-only} (causal) padding; all other weights are identical to the
+        offline CNN1D.
+        Each timestep sees only past and current GRF, with a receptive field of
+        253 steps (75K params).
+  \item \textbf{CausalAttn}: Unidirectional LSTM backbone (hidden~=~128) with a
+        causally-masked self-attention layer.
+        The hidden dimension is doubled relative to each direction of the teacher's
+        BiLSTM (64 per direction) so that the output width stays 128 and the
+        attention/norm/fc weights can be transferred directly from the offline
+        BiLSTM\_Attn teacher (201K params); the LSTM weights are randomly initialised
+        because the shapes differ.
+        The wider single-direction LSTM actually has \emph{more} parameters than the
+        two narrower halves of the teacher's BiLSTM, giving CausalAttn ${\sim}267$K
+        parameters in total.
+  \item \textbf{KD\_LSTM (h128)}: A standard LSTM (hidden~=~128) trained with
+        knowledge distillation~\cite{hinton2015distilling} using a composite loss:
+        \begin{equation}
+          \mathcal{L} = (1-\alpha)\,\mathrm{MSE}(\hat{y}, y)
+                       + \alpha\,\mathrm{MSE}(\hat{y},\,\hat{y}_\mathrm{teacher}),
+                       \quad \alpha = 0.5,
+        \end{equation}
+        where $\hat{y}_\mathrm{teacher}$ are soft labels from the offline
+        BiLSTM\_Attn (200K params).
+\end{enumerate}
+
+\subsection{Training Protocol}
+\label{subsec:training}
+
+All models were optimised with AdamW (lr~=~0.001, weight decay~=~$10^{-4}$) and
+mean-squared-error (MSE) loss.
+Gradient norms were clipped to 1.0.
+Learning rate followed a cosine annealing schedule from 0.001 to $10^{-5}$ over a
+maximum of 200 epochs, with early stopping (patience~=~20 on internal validation
+MSE).
+
+\noindent\textbf{Normalisation.}
+Both inputs and targets were independently z-scored per fold, per channel, using
+statistics computed from the training set only.
+Target normalisation is critical: the AP range is approximately $3\times$ the ML
+range, and without it AP gradients dominate training.
+BiLSTM\_Attn improved from 11.74~mm (worst) to 8.68~mm (best) in ML RMSE after
+target normalisation was introduced.
+
+\noindent\textbf{Data augmentation} (applied only to the training set, $4\times$
+original volume):
+\begin{itemize}
+  \item \textbf{Left-to-right flip}: negate $F_x$ and $\delta_x$ simultaneously to
+        simulate mirror-symmetric gait.
+  \item \textbf{Gaussian noise}: $\sigma = 0.01$ in normalised space, simulating
+        sensor measurement error.
+  \item \textbf{Time warping}: $\pm 10\%$ stretch/compress via linear
+        interpolation, increasing temporal diversity.
+\end{itemize}
+MixUp regularisation ($\lambda \sim \mathrm{Beta}(0.4, 0.4)$, applied with
+probability 0.5 per batch) further reduced overfitting.
+
+\subsection{Cross-Validation and Evaluation Metrics}
+\label{subsec:eval}
+
+All models were evaluated under \textbf{leave-one-subject-out cross-validation
+(LOSO, 12 folds)}: each subject serves as the held-out test set exactly once,
+with the remaining 11 subjects used for training (80\%) and internal validation
+(20\%).
+The test set was never seen during training or model selection.
+
+Statistical significance between models was assessed using the Wilcoxon
+signed-rank test across the 12 per-fold RMSE values.
+
+The following metrics were computed on each test fold:
+\begin{itemize}
+  \item \textbf{RMSE X / Y (mm)}: root mean squared error in the ML and AP
+        directions.
+  \item \textbf{Pearson $r$ X / Y}: linear correlation between predicted and
+        ground-truth trajectories.
+  \item \textbf{Angular error ($^\circ$)}: mean absolute angular deviation of the
+        predicted 2-D displacement vector from the ground-truth vector.
+  \item \textbf{Height-normalised RMSE (\% height)}: RMSE / estimated body
+        height $\times 100$, a dimensionless cross-subject metric.
+\end{itemize}
+
+%%=============================================================
+\section{Results}
+\label{sec:results}
+%%=============================================================
+
+\subsection{Non-DL Baselines}
+\label{subsec:baselines}
+
+To contextualise the need for deep learning, three non-DL methods were evaluated
+under the same LOSO protocol as a separate preliminary analysis
+(Table~\ref{tab:baselines}).
+
+Physics-based double-integration fails (X~=~62.9~mm) because the input contains
+only GRF magnitudes, not moments ($M_x$, $M_y$).
+COP recovery requires force moments (i.e., $\mathrm{COP}_x = -M_y / F_z$);
+without them, any model must implicitly learn the COP trajectory from GRF temporal
+patterns, a task that is beyond the scope of physics-only methods.
+Pointwise linear regression captures a strong linear component (17.5~mm), but the
+remaining gap to the best DL models ($\sim$8.7~mm) represents the non-linear,
+temporally global gait structure that only deep sequence models can learn.
+
+\subsection{Offline Deep Learning Models}
+\label{subsec:offline}
+
+Table~\ref{tab:offline} summarises LOSO performance across all eight offline
+architectures, ordered by ML RMSE.
+
+The top four models (BiLSTM\_Attn, CNN1D, BiLSTM, TCN\_LSTM, ordered by ML RMSE)
+show five of six pairwise ML comparisons that are not statistically significant
+(Wilcoxon $p = 0.20$ to $0.97$), indicating that the information ceiling of the
+current dataset has been approached.
+The one significant pair is CNN1D versus TCN\_LSTM ($p = 0.034$), reflecting
+CNN1D's dilated-receptive-field advantage in the ML direction.
+CNN1D also leads convincingly in the AP direction (15.21~mm versus 17.15~mm for
+BiLSTM\_Attn; $p = 0.002$), demonstrating that its large receptive field captures
+the propulsion-braking dynamics that unfold over longer temporal windows.
+Performance across all models and subjects is further illustrated in
+Figures~\ref{fig:offline} and~\ref{fig:heatmap}.
+
+\subsection{Real-Time Adaptation}
+\label{subsec:rt_results}
+
+Table~\ref{tab:realtime} compares the three causal adaptation strategies against
+the LSTM baseline (best causal offline model) and the offline upper bound in ML
+(BiLSTM\_Attn, 8.68~mm).
+Note that for the AP direction CNN1D (15.21~mm) outperforms BiLSTM\_Attn
+(17.15~mm), making CNN1D the stricter AP reference.
+
+\noindent\textbf{CausalCNN achieves the best AP performance among causal models}
+(16.81~mm), which is not significantly different from BiLSTM\_Attn's AP
+($p = 0.677$) but remains significantly worse than CNN1D's AP ($p = 0.005$),
+reflecting the irreducible information gap between causal and offline inference.
+CausalAttn leads in the ML direction at 9.55~mm, a margin of only 0.87~mm below
+the offline best.
+A combined comparison of all offline and real-time models is shown in
+Figure~\ref{fig:allmodels}.
+
+\subsection{Data Scaling Analysis}
+\label{subsec:scaling}
+
+To quantify how additional data would benefit each architecture, we subsampled the
+training pool to $k \in \{1, 2, 3, 5, 7, 9, 11\}$ subjects (3 repeats each) and
+fitted power-law learning curves $\mathrm{RMSE} = a \cdot k^{-b} + c$ to the
+per-$k$ summary means (Table~\ref{tab:scaling}; Figure~\ref{fig:scaling}).
+Extrapolated values beyond $k = 11$ are inherently uncertain and should be
+interpreted as indicative recruitment targets rather than precise predictions.
+
+Most models have not plateaued at $k = 11$, confirming that additional subjects
+would improve performance.
+CNN1D is the exception: it saturates near $k = 2$ (its dilated inductive bias
+captures local patterns from few subjects but reaches a cross-subject ceiling of
+${\sim}9.1$~mm early; k=7 to 11: 9.43 to 9.08~mm, floor extrapolation 9.12~mm).
+BiLSTM\_Attn shows the largest remaining headroom (2.1~mm gap to its floor) and
+the highest long-term scaling potential.
+
+%%=============================================================
+\section{Discussion}
+\label{sec:discussion}
+%%=============================================================
+
+\subsection{Answer to RQ1: Clinical Feasibility}
+
+The benchmark establishes that GRF alone achieves sub-9~mm ML RMSE and
+$r \geq 0.988$ under strict subject-independent evaluation.
+For context, the typical COM-COP displacement in the ML direction is
+approximately 52~mm, measured as the standard deviation of ML displacement across
+all trials in this dataset; a prediction error of 8.7~mm corresponds
+to 17\% of this typical amplitude, which is within the accuracy typically accepted
+for clinical gait analysis instruments~\cite{s23104933}.
+This result provides a clear answer to RQ1: \textbf{GRF-only balance assessment is clinically
+feasible for laboratory walking in healthy adults, and optical motion capture may be
+replaceable for this specific task under these conditions.}
+
+\subsection{Answer to RQ2: Architecture Choice}
+\label{subsec:disc_offline}
+
+Five of six pairwise comparisons among the top four models ($p = 0.20$ to $0.97$)
+are not statistically significant, indicating that for most pairs the expected
+accuracy difference is smaller than the trial-to-trial variability across subjects.
+\textbf{Architecture choice is therefore a secondary concern at this data scale;
+the primary bottleneck is dataset size.}
+The one significant pair (CNN1D versus TCN\_LSTM, $p = 0.034$) reflects CNN1D's
+dilated-receptive-field advantage rather than a general architectural hierarchy.
+
+CNN1D is the strongest architecture in the AP direction: its mean AP RMSE
+(15.21~mm) is 1.94~mm lower than BiLSTM\_Attn's (17.15~mm, $p = 0.002$),
+and it also leads TCN\_LSTM ($p = 0.339$, not significant) and BiLSTM
+($p = 0.052$, borderline).
+The 253-step receptive field of CNN1D spans 2.5 gait cycles, enabling it to
+capture the full propulsion-braking dynamics that recurrent models with limited
+effective context cannot match.
+
+One training design choice had larger impact than any architecture selection:
+\textbf{target normalisation.}
+Because the AP range is approximately $3\times$ larger than the ML range,
+unnormalised training allows AP gradients to dominate, collapsing ML accuracy.
+BiLSTM\_Attn went from 11.74~mm (worst among all models) to 8.68~mm (best in ML)
+after per-channel z-score normalisation of targets, a result that underscores how
+training protocol choices can outweigh architecture selection on small clinical
+datasets.
+
+\subsection{Answer to RQ3: Real-Time Deployment}
+\label{subsec:disc_rt}
+
+\textbf{Architecture design dominates over knowledge transfer.}
+Ablation experiments isolate the contribution of offline model knowledge by
+comparing paired models with and without transfer:
+CausalAttn with weight transfer versus trained from scratch: $\Delta = 0.13$~mm
+($p = 0.733$, not significant);
+KD\_LSTM h128 versus LSTM h128 trained from scratch: $\Delta = 0.56$~mm
+($p = 0.064$, not significant).
+In both cases, switching from the LSTM baseline architecture to a richer causal
+architecture accounts for 94\% and 76\% of the total gain, respectively.
+
+This result can be understood from an information-theoretic perspective.
+KD trains the student on teacher soft labels computed from the \emph{full} GRF
+sequence, yet at test time the causal student has access only to GRF$[0{:}t]$.
+There is an irreducible information gap:
+\begin{equation}
+  I\!\left(\mathbf{g}_{t{+}1:T};\;\boldsymbol{\delta}_t \mid \mathbf{g}_{0:t}\right) > 0,
+\end{equation}
+meaning the teacher's predictions depend on information the student can never
+access.
+The marginal 0.56~mm benefit from KD arises from label smoothing (softer targets
+reduce overconfidence), not from genuine knowledge transfer of temporal context.
+
+\textbf{KD requires sufficient student capacity.}
+h64 (51K params) yielded zero improvement ($p = 0.970$) over the LSTM baseline;
+h128 (200K params) yielded 8\% improvement; h256 (794K params) provided
+negligible additional gain.
+Capacity saturates near hidden~=~128, and the KD benefit is marginal regardless
+of capacity.
+
+\subsection{Answer to RQ4: Data Requirements}
+
+The power-law learning curves confirm that most models have not plateaued at
+11 training subjects; CNN1D is the exception, approaching saturation near $k=2$.
+BiLSTM\_Attn, the architecture with the deepest extrapolated floor (7.01~mm),
+is estimated to require approximately 61 subjects to reach 8~mm ML RMSE,
+based on power-law extrapolation of the per-$k$ summary means.
+This extrapolation is sensitive to the small number of data points and should be
+treated as an indicative recruitment target rather than a precise threshold.
+CNN1D saturates near $k = 2$ due to its strong local inductive bias; it is the
+architecture of choice when data are scarce, but its cross-subject ceiling of
+${\sim}9.1$~mm limits long-term scalability.
+\textbf{Future data collection efforts should therefore prioritise BiLSTM\_Attn
+as the primary model, targeting 30 subjects as an intermediate milestone
+(predicted ${\sim}8.4$~mm ML RMSE).}
+
+\subsection{Clinical Applications}
+\label{subsec:applications}
+
+\subsubsection{Rehabilitation Tracking and Fall Risk Assessment}
+\label{subsubsec:rehab}
+
+Based on the framework proposed in this study, the primary application of
+predicting COM-COP relative motion from Ground Reaction Forces (GRF) is
+longitudinal rehabilitation tracking for Total Knee Arthroplasty (TKA) patients.
+Effective post-operative recovery strictly relies on ``restoring bilateral
+symmetry'' as a core indicator~\cite{tka2025}.
+By utilizing our prediction model, clinicians can efficiently evaluate patients at
+fixed post-surgery intervals during gait analysis.
+The trajectory mismatch in COM-COP relative motion between the healthy and
+affected sides can serve as a highly sensitive, objective symmetry indicator, with
+the ultimate therapeutic goal of minimizing this discrepancy.
+Crucially, rather than benchmarked against a generic healthy database, which often
+introduces confounding variables such as lifelong gait habits and subtle anatomical
+variations, rehabilitation progress is evaluated using the patient's own
+contralateral side as a personalized baseline.
+
+The second proposed application of this predictive framework is fall risk
+assessment in older adults.
+Age-related degradation in dynamic balance control significantly elevates fall
+risks within this population.
+Although conventional clinical assessment tools such as the Berg Balance Scale
+and the Timed Up and Go (TUG) test are widely utilized, they rely predominantly
+on subjective scoring and time duration, failing to capture underlying, real-time
+biomechanical data.
+To bridge this clinical gap, the methodology developed in this study utilizes
+predicted Ground Reaction Forces (GRF) to calculate advanced dynamic stability
+metrics, specifically moving from the Center of Mass (COM) to the Extrapolated
+Center of Mass (XCoM), defined as $\mathrm{XCoM} = \mathrm{COM} + \dot{\mathrm{COM}} / \sqrt{g/l}$,
+and ultimately determining the Margin of Stability (MoS).
+By calculating XCoM (which accounts for both COM position and velocity) and
+quantifying its distance from the Base of Support boundary (BoS), this approach
+offers an objective, high-precision, and quantitative diagnostic tool for proactive
+fall risk screening in geriatric care.
+
+\subsubsection{Real-Time Device Control and Veterinary Settings}
+\label{subsubsec:device}
+
+A third application direction is real-time device control.
+Plantar-pressure smart insoles already provide a practical means of acquiring
+GRF-like signals outside the laboratory~\cite{s22249725}, and the zero-latency
+causal models evaluated in this study, which process only past GRF
+($\mathbf{g}_{0:t}$) at each timestep, demonstrate that the prediction task is
+feasible without access to future measurements, suggesting the architecture could
+operate under similar real-time constraints.
+This is relevant for applications such as exoskeletons and powered orthoses, where
+maintaining the user's COM within a stable region is a recognised balance control
+objective~\cite{10.3389/fnbot.2021.751642}, and for powered lower-limb prostheses, which
+already rely on real-time GRF thresholds to switch between control
+states~\cite{10342504}.
+
+A fourth application, suggested during course discussion, extends this approach
+beyond human gait to zoo and veterinary settings.
+Force plates are already an established tool for quantifying limb loading and
+detecting lameness in animals such as horses, dogs, and
+elephants~\cite{veterinary2022}, but full marker-based motion capture is often
+impractical in these settings, since markers cannot be reliably attached to large,
+free-ranging, or non-cooperative animals.
+A model that estimates COM-COP relative motion directly from GRF, without
+requiring marker tracking, could therefore support lameness and welfare monitoring
+in zoo environments where a force plate can be embedded into an existing walkway.
+Applying the present approach to non-human species would require retraining on
+species-specific gait data, as body proportions, limb number, and locomotor
+patterns differ substantially from human bipedal walking.
+
+These applications would require further validation before clinical or commercial
+use.
+The present dataset was limited to 12 healthy adults walking under controlled
+laboratory conditions, and the model has not been tested on wearable hardware, on
+populations with gait impairment, or on tasks beyond level walking.
+Extending the training data to include pathological gait patterns and validating
+the model against pressure-insole hardware are necessary next steps before this
+approach can be considered for the applications discussed above.
+
+\subsection{Limitations}
+\label{subsec:limits}
+
+\textbf{Small and homogeneous sample.}
+The dataset comprises 12 healthy adults performing controlled level walking, which
+is a narrow sample relative to the diversity of clinical populations.
+Data scaling analysis confirms that most models continue to improve at $k = 11$
+(CNN1D approaches saturation near $k = 2$), and BiLSTM\_Attn is projected to
+reach ${\sim}8.4$~mm with ${\sim}30$ subjects.
+Generalisability to older adults, patients with gait pathology, or individuals
+with substantial weight variation remains to be established.
+
+\textbf{Causal versus non-causal models.}
+The four best offline models are non-causal, requiring the complete gait cycle
+before prediction.
+For post-trial clinical gait analysis (e.g., TKA rehabilitation assessment or
+laboratory-based fall risk screening), this is acceptable since data are processed
+after each recording.
+For streaming applications (e.g., exoskeleton control or wearable monitoring),
+CausalCNN and CausalAttn are the recommended deployment choices based on the
+results in Table~\ref{tab:realtime}.
+
+%%=============================================================
+\section{Conclusions}
+\label{sec:conclusion}
+%%=============================================================
+
+To our knowledge, we present one of the first subject-independent benchmarks
+for predicting COM-COP relative motion from GRF signals alone.
+Answering the four research questions in turn:
+\textbf{(RQ1)} GRF alone achieves sub-9~mm ML RMSE ($r \geq 0.988$) under
+strict leave-one-subject-out (LOSO) evaluation, confirming that motion-capture-free
+dynamic balance assessment is clinically feasible.
+\textbf{(RQ2)} Five of six pairwise comparisons among the top four offline
+architectures are not statistically significant; dataset size, not architecture
+design, is the current bottleneck.
+\textbf{(RQ3)} CausalCNN achieves AP performance not significantly different from
+BiLSTM\_Attn ($p = 0.677$) at zero latency with only 75K parameters, though it
+remains significantly behind the AP-best offline model CNN1D ($p = 0.005$);
+ablation experiments confirm that architectural design outweighs offline knowledge
+transfer as the performance driver for causal models.
+\textbf{(RQ4)} Power-law extrapolation indicates that approximately 61 subjects may
+be needed for BiLSTM\_Attn to reach the 8~mm clinical milestone, with 30 subjects
+as an indicative intermediate target (${\sim}8.4$~mm); these figures are subject to
+the uncertainty of extrapolation well beyond the observed range.
+
+Together, these findings define a clear research roadmap: the GRF-to-COM-COP
+prediction is approaching the ceiling of what current data permit, and the
+next step is expanding the dataset (e.g., to pathological gait and older adults)
+rather than exploring new architectures.
+
+%%=============================================================
+\bibliographystyle{elsarticle-num}
+\bibliography{refs}
+%%=============================================================
+
+%%=============================================================
+%% TABLES
+%%=============================================================
+\clearpage
+\begin{center}
+{\normalfont\large\bfseries TABLES}
+\end{center}
+
+\begin{table}[H]
+\centering
+\caption{Raw data fields recorded per trial.}
+\label{tab:fields}
+\begin{tabular}{llll}
+\toprule
+Field & Shape & Unit & Description \\
+\midrule
+\texttt{GRF} & $(T, 3)$ & N   & Triaxial ground reaction force: $F_x$ (ML), $F_y$ (AP), $F_z$ (vertical) \\
+\texttt{COM} & $(T, 3)$ & mm  & Centre of mass position: X (ML), Y (AP), Z (vertical) \\
+\texttt{COP} & $(T, 2)$ & mm  & Centre of pressure: X (ML), Y (AP) \\
+\texttt{BodyWeight} & $(1,1)$ & kg & Subject body mass \\
+\texttt{frame\_rate} & $(1,1)$ & Hz & Sampling rate (200 or 240) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Final dataset statistics after exclusion.}
+\label{tab:dataset}
+\begin{tabular}{ll}
+\toprule
+Property & Value \\
+\midrule
+Subjects (original / final) & 13 / 12 \\
+Trials per subject & 8 to 9 \\
+Total trials & 106 \\
+Sampling rate & 240~Hz (subjects 1 to 2); 200~Hz (subjects 3 to 13, original IDs) \\
+Excluded subject & Subject 10 (NaN values; all trials removed; original IDs retained) \\
+Raw sequence length & 159 to 263 frames per trial \\
+Normalised sequence length & 100 timesteps \\
+Input channels & 3 ($F_x$, $F_y$, $F_z$) \\
+Output channels & 2 (ML and AP COM-COP displacement, m) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Overview of the eight offline deep learning architectures.}
+\label{tab:archs}
+\begin{tabular}{llrl}
+\toprule
+Model & Temporal modelling & Params & Causal \\
+\midrule
+ANN          & Pointwise MLP (no context)              &   4,546 & Yes \\
+RNN          & Vanilla recurrent (no gates)            &  12,866 & Yes \\
+LSTM         & Gated recurrent (3 gates)               &  51,074 & Yes \\
+BiLSTM       & Bidirectional LSTM                      & 134,914 & No  \\
+BiLSTM\_Attn & BiLSTM + multi-head self-attention      & 201,218 & No  \\
+Transformer  & Full-sequence self-attention (Pre-LN)   & 100,482 & No  \\
+CNN1D        & 6-block dilated TCN (RF = 253 steps)    &  75,394 & No  \\
+TCN\_LSTM    & 4-block TCN $\rightarrow$ BiLSTM        &  75,522 & No  \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Comparison of non-DL baselines and DL models (mean $\pm$ std, 12 folds).}
+\label{tab:baselines}
+\begin{tabular}{lcc}
+\toprule
+Method & RMSE X (mm) & RMSE Y (mm) \\
+\midrule
+Physics: double-integrate GRF   & $62.9 \pm 12.0$ & $271.5 \pm 15.4$ \\
+Pointwise linear regression     & $17.5 \pm 2.9$  & $40.5 \pm 5.0$   \\
+Linear regression + $\pm 2$-step window & $13.7 \pm 2.7$ & $29.7 \pm 4.3$ \\
+ANN (DL, no temporal context)   & $13.0 \pm 2.5$  & $32.7 \pm 4.4$   \\
+LSTM (DL, causal)               & $10.8 \pm 2.2$  & $18.3 \pm 5.0$   \\
+\textbf{BiLSTM\_Attn (DL, full context)} & $\mathbf{8.7 \pm 2.2}$ & $17.2 \pm 4.7$ \\
+\textbf{CNN1D (DL, full context)}        & $8.7 \pm 2.7$ & $\mathbf{15.2 \pm 4.2}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{LOSO performance of offline models (mean $\pm$ std, 12 folds).
+         Bold indicates the best value per column.}
+\label{tab:offline}
+\begin{tabular}{lcccccc}
+\toprule
+Model & RMSE X (mm) & RMSE Y (mm) & $r_X$ & $r_Y$ & Angle ($^\circ$) & norm X (\%) \\
+\midrule
+\textbf{BiLSTM\_Attn}
+      & $\mathbf{8.68 \pm 2.16}$ & $17.15 \pm 4.74$
+      & $\mathbf{0.990}$ & $0.976$ & $9.63$ & $\mathbf{0.520}$ \\
+CNN1D & $8.73 \pm 2.69$ & $\mathbf{15.21 \pm 4.20}$
+      & $0.989$ & $\mathbf{0.981}$ & $\mathbf{8.53}$ & $0.525$ \\
+BiLSTM & $9.22 \pm 2.37$ & $16.34 \pm 4.76$
+      & $0.988$ & $0.978$ & $8.90$ & $0.553$ \\
+TCN\_LSTM
+      & $9.30 \pm 2.47$ & $15.87 \pm 4.26$
+      & $0.988$ & $0.979$ & $9.19$ & $0.559$ \\
+Transformer & $9.77 \pm 2.17$ & $18.51 \pm 4.54$
+      & $0.985$ & $0.973$ & $10.30$ & $0.586$ \\
+LSTM  & $10.81 \pm 2.21$ & $18.34 \pm 5.02$
+      & $0.982$ & $0.971$ & $10.18$ & $0.647$ \\
+RNN   & $11.19 \pm 2.34$ & $18.81 \pm 4.43$
+      & $0.982$ & $0.970$ & $10.22$ & $0.670$ \\
+ANN   & $13.01 \pm 2.47$ & $32.70 \pm 4.41$
+      & $0.975$ & $0.907$ & $18.44$ & $0.774$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Real-time adaptation results (mean $\pm$ std, 12 folds).
+         $p$-values from Wilcoxon signed-rank test vs LSTM baseline and
+         vs offline upper bound (BiLSTM\_Attn) in the ML direction (X).
+         $\ast$~$p<0.05$, $\ast\ast$~$p<0.01$, $\ast\ast\ast$~$p<0.001$.}
+\label{tab:realtime}
+\begin{tabular}{lccccc}
+\toprule
+Method & RMSE X (mm) & RMSE Y (mm) & $r_X$ & vs LSTM & vs Offline \\
+\midrule
+BiLSTM\_Attn (offline UB) & $8.68 \pm 2.16$ & $17.15 \pm 4.74$ & $0.990$ & \textemdash & \textemdash \\
+\midrule
+\textbf{CausalAttn} & $\mathbf{9.55 \pm 2.44}$ & $18.46 \pm 4.87$ & $\mathbf{0.986}$
+                    & $p<0.001^{***}$ & $p=0.021^{*}$ \\
+\textbf{CausalCNN}  & $9.57 \pm 2.31$ & $\mathbf{16.81 \pm 4.27}$ & $0.987$
+                    & $p<0.001^{***}$ & $p=0.007^{**}$ \\
+KD\_LSTM h128       & $9.79 \pm 2.09$ & $17.56 \pm 4.37$ & $0.986$
+                    & $p=0.001^{**}$  & $p=0.002^{**}$ \\
+LSTM (causal baseline) & $10.81 \pm 2.21$ & $18.34 \pm 5.02$ & $0.982$ & \textemdash & \textemdash \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{ML RMSE learning curve (mean $\pm$ std over 12 folds $\times$ 3 repeats)
+         and power-law extrapolation.
+         Representative values shown; the full sweep used $k \in \{1,2,3,5,7,9,11\}$.}
+\label{tab:scaling}
+\begin{tabular}{lcccc}
+\toprule
+$k$ (training subjects) & LSTM & BiLSTM\_Attn & CNN1D & \\
+\midrule
+1  & $17.43 \pm 3.34$ & $13.66 \pm 3.98$ & $12.75 \pm 3.66$ & \\
+3  & $14.44 \pm 2.47$ & $11.18 \pm 2.62$ & $10.18 \pm 2.66$ & \\
+7  & $13.06 \pm 2.44$ & $9.78  \pm 2.30$ & $9.43  \pm 2.75$ & \\
+\textbf{11 (current)} & $\mathbf{11.94 \pm 2.34}$ & $\mathbf{9.11 \pm 2.13}$
+                      & $\mathbf{9.08 \pm 2.69}$ & \\
+\midrule
+Extrapolated floor    & 8.42~mm & \textbf{7.01~mm} & 9.12~mm & \\
+Subjects to reach 8.0~mm & unreachable & ${\sim}61$ & unreachable & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+%%=============================================================
+%% FIGURE CAPTIONS
+%%=============================================================
+\clearpage
+\begin{center}
+{\normalfont\large\bfseries FIGURE CAPTIONS}
+\end{center}
+
+\noindent Figure~1: LOSO performance of the eight offline models across all
+evaluation metrics.  Error bars indicate $\pm 1$ standard deviation over 12 folds.
+
+\bigskip
+\noindent Figure~2: Per-subject RMSE heatmap for all eight offline models.
+Each cell corresponds to one LOSO test fold.
+
+\bigskip
+\noindent Figure~3: Combined comparison of all offline and real-time models.
+The dashed line marks the offline upper bound (BiLSTM\_Attn).
+CausalCNN's AP bar is not significantly different from the upper bound ($p = 0.677$).
+
+\bigskip
+\noindent Figure~4: Learning curves for LSTM, BiLSTM\_Attn, and CNN1D as a
+function of the number of training subjects.  Shaded areas indicate $\pm 1$
+standard deviation; dashed lines show power-law extrapolations.
+
+%%=============================================================
+%% FIGURES
+%%=============================================================
+\clearpage
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{compare_results.png}
+\caption{LOSO performance of the eight offline models across all evaluation
+         metrics. Error bars indicate $\pm 1$ standard deviation over 12 folds.}
+\label{fig:offline}
+\end{figure}
+
+\clearpage
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{compare_subject_heatmap.png}
+\caption{Per-subject RMSE heatmap for all eight offline models. Each cell
+         corresponds to one LOSO test fold.}
+\label{fig:heatmap}
+\end{figure}
+
+\clearpage
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{compare_all_methods.png}
+\caption{Combined comparison of all offline and real-time models. The dashed line
+         marks the offline upper bound (BiLSTM\_Attn). CausalCNN's AP bar is
+         not significantly different from the offline upper bound (BiLSTM\_Attn, $p = 0.677$).}
+\label{fig:allmodels}
+\end{figure}
+
+\clearpage
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{data_scaling.png}
+\caption{Learning curves for LSTM, BiLSTM\_Attn, and CNN1D as a function of
+         the number of training subjects. Shaded areas indicate $\pm 1$ standard
+         deviation; dashed lines show power-law extrapolations.}
+\label{fig:scaling}
+\end{figure}
+
+\end{document}

@@ -1,0 +1,36 @@
+mkdir src
+cd src
+touch file1
+touch file2
+mkdir sub
+cd sub
+touch deep
+cd ..
+cd ..
+mkdir dst
+cd dst
+cd ..
+mv src/file1 src/renamed
+cd src
+ls
+cd /
+mv /src/renamed /dst/moved
+cd /dst
+ls
+mv /src/sub /dst
+cd /dst
+ls
+cd sub
+ls
+pwd
+mv /dst /top
+cd /top
+ls
+pwd
+cd /top/sub
+pwd
+mv /src/file2 ./f2
+ls
+cd /
+ls
+^C

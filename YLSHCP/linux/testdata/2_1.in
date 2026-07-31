@@ -1,0 +1,32 @@
+mkdir a
+cd a
+mkdir b
+cd b
+mkdir c
+cd c
+pwd
+cd ..
+pwd
+cd ../..
+pwd
+cd ..
+pwd
+cd a/b/c
+pwd
+cd ../../..
+pwd
+cd a
+cd ./b
+pwd
+cd ./../b/.
+pwd
+touch file
+rm ./file
+ls
+cd c
+mkdir d
+cd d
+pwd
+cd ../../../..
+pwd
+^C

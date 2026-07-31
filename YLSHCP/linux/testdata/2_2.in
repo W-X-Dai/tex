@@ -1,0 +1,31 @@
+mkdir p
+cd p
+mkdir q
+cd q
+mkdir r
+cd r
+mkdir s
+cd s
+touch leaf
+cd ..
+cd ..
+touch extra
+cd ..
+cd ..
+cd p/q/r/s
+pwd
+touch a
+touch b
+rm ./a
+rm ../s/b
+ls
+cd ../../..
+pwd
+rm q/r/s/leaf
+ls
+cd ..
+ls
+rm p/q/extra
+touch .dot
+la
+^C

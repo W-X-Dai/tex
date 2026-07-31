@@ -1,0 +1,29 @@
+pwd
+mkdir apple
+mkdir banana
+mkdir cherry
+touch zebra
+touch .env
+touch .gitignore
+ls
+la
+cd apple
+pwd
+mkdir x
+mkdir y
+touch f1
+touch f2
+touch .hidden
+ls
+la
+cd y
+pwd
+cd ..
+rm f1
+rm f2
+ls
+la
+cd ..
+pwd
+ls
+^C

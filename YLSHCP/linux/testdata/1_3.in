@@ -1,0 +1,15 @@
+ls
+la
+mkdir a
+cd a
+ls
+la
+cd ..
+mkdir b
+touch b_file
+cd b
+pwd
+ls
+la
+cd ..
+^C

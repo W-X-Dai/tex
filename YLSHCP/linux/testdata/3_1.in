@@ -1,0 +1,38 @@
+mkdir x
+cd x
+mkdir a
+cd a
+mkdir b
+cd b
+touch f
+cd ..
+cd ..
+cd ..
+mkdir y
+cd y
+mkdir z
+cd z
+touch g
+cd ..
+cd ..
+cd /x/a/b
+pwd
+ls
+cd /y/z
+pwd
+ls
+cd /x/a
+pwd
+rm -r /y
+cd /
+ls
+cd /x/a/b
+pwd
+rm -r /x/a
+pwd
+ls
+cd /
+ls
+rm -r /x
+ls
+^C

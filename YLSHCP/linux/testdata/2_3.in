@@ -1,0 +1,169 @@
+mkdir 9ob
+cd 9ob
+mkdir dv7h
+cd dv7h
+mkdir qc
+cd qc
+mkdir uc
+cd uc
+mkdir eix9
+cd eix9
+mkdir vbiu
+cd vbiu
+mkdir kf
+cd kf
+pwd
+cd ..
+pwd
+cd kf
+pwd
+cd ../../../../../..
+pwd
+cd ./dv7h
+pwd
+cd ..
+pwd
+cd ./dv7h/qc
+pwd
+cd ../../..
+pwd
+cd 9ob
+pwd
+cd ..
+pwd
+cd 9ob/dv7h/qc/uc/eix9/vbiu/kf
+pwd
+cd ../../../..
+pwd
+cd uc/eix9
+pwd
+cd ../../../..
+pwd
+cd ./dv7h/qc
+pwd
+cd ..
+pwd
+cd qc/uc/eix9/vbiu/kf
+pwd
+cd ..
+pwd
+cd kf
+pwd
+cd ../../..
+pwd
+cd ./eix9/vbiu/kf
+pwd
+cd ..
+pwd
+pwd
+cd ../../../../..
+pwd
+cd ./dv7h/qc/uc
+pwd
+cd ../../..
+pwd
+cd dv7h
+pwd
+cd ../..
+pwd
+pwd
+cd 9ob/dv7h/qc/uc/eix9/vbiu
+pwd
+cd ..
+pwd
+cd vbiu/kf
+pwd
+cd ../../../../../../..
+pwd
+cd 9ob/dv7h/qc/uc/eix9
+pwd
+cd ../../..
+pwd
+cd qc/uc/eix9/vbiu
+pwd
+cd ../../../..
+pwd
+pwd
+cd ..
+pwd
+cd dv7h/qc
+pwd
+cd ../../..
+pwd
+cd ./9ob
+pwd
+cd ..
+pwd
+cd ./9ob/dv7h/qc/uc/eix9/vbiu/kf
+pwd
+cd ../../../..
+pwd
+cd ./uc/eix9
+pwd
+cd ../../../..
+pwd
+cd ./dv7h/qc
+pwd
+cd ..
+pwd
+cd ./qc/uc/eix9
+pwd
+cd ../../..
+pwd
+cd qc
+pwd
+cd ../..
+pwd
+cd dv7h/qc/uc
+pwd
+cd ../../../..
+pwd
+cd ./9ob
+pwd
+cd ..
+pwd
+cd 9ob/dv7h/qc/uc
+pwd
+cd ../../../..
+pwd
+cd 9ob/dv7h/qc/uc
+pwd
+cd ../../..
+pwd
+cd dv7h/qc/uc/eix9/vbiu
+pwd
+cd ../..
+pwd
+cd ./eix9
+pwd
+cd ../..
+pwd
+cd uc
+pwd
+cd ..
+pwd
+cd uc/eix9/vbiu
+pwd
+cd ../..
+pwd
+cd ./eix9/vbiu
+pwd
+cd ../..
+pwd
+cd eix9/vbiu/kf
+pwd
+cd ../../../../..
+pwd
+cd qc/uc/eix9/vbiu
+pwd
+cd ../..
+pwd
+pwd
+cd ../../../..
+pwd
+cd 9ob/dv7h/qc/uc/eix9/vbiu
+pwd
+cd ../../../..
+pwd
+pwd
+^C

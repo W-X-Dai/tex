@@ -1,0 +1,21 @@
+mkdir box
+cd box
+touch coin
+cd ..
+mkdir trap
+cd trap
+cd ..
+touch gem
+mv box trap
+cd trap
+ls
+cd /trap/box
+ls
+pwd
+mv /trap/box /trap/renamed
+cd /trap
+ls
+mv /trap/renamed /basket
+cd /
+ls
+^C

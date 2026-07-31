@@ -1,0 +1,71 @@
+mkdir n0
+cd n0
+touch fn00
+touch fn01
+touch fn02
+cd ..
+mkdir n1
+cd n1
+touch fn10
+touch fn11
+touch fn12
+cd ..
+mkdir n2
+cd n2
+touch fn20
+touch fn21
+touch fn22
+cd ..
+mkdir n3
+cd n3
+touch fn30
+touch fn31
+touch fn32
+cd ..
+mkdir n4
+cd n4
+touch fn40
+touch fn41
+touch fn42
+cd ..
+mkdir n5
+cd n5
+touch fn50
+touch fn51
+touch fn52
+cd ..
+mkdir n6
+cd n6
+touch fn60
+touch fn61
+touch fn62
+cd ..
+mkdir n7
+cd n7
+touch fn70
+touch fn71
+touch fn72
+cd ..
+ls
+mv /n0 /rdpd
+mv /rdpd /rtm5
+mv /n2 /rmm
+mv /n3 /raq
+mv /n1 /rclq
+mv /rtm5 /rye
+mv /rye /r7vj
+mv /r7vj /rm3h
+ls
+mv /rclq /rm3h
+mv /rmm /rm3h
+mv /raq /rm3h
+cd /rm3h
+ls
+pwd
+rm -r /n4
+rm -r /n5
+rm -r /n6
+rm -r /n7
+cd /
+ls
+^C

@@ -1,0 +1,29 @@
+pwd
+mkdir foo
+mkdir bar
+touch baz
+ls
+cd foo
+pwd
+mkdir sub
+touch .hide
+la
+cd ..
+cd ..
+cd /foo/sub
+pwd
+touch file
+cd /
+rm baz
+rm -r foo
+ls
+mv bar renamed
+ls
+mkdir dir
+mv renamed dir
+cd dir
+ls
+pwd
+cd /dir/renamed
+pwd
+^C

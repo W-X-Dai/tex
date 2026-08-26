@@ -1,0 +1,235 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{fontspec}
+\usepackage{xeCJK}
+\setmainfont{TeX Gyre Termes}
+\setCJKmainfont{Noto Serif CJK TC}
+\setCJKmonofont{Noto Sans Mono CJK TC}
+\usepackage{array}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage{xurl}
+\usepackage[hidelinks,unicode]{hyperref}
+\usepackage{indentfirst}
+
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.4em}
+\linespread{1.25}
+\setcounter{secnumdepth}{0}
+\setlist[itemize]{leftmargin=2em,itemsep=0.4em}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+\newcommand{\yes}{\(\bigcirc\)}
+\newcommand{\no}{\(\times\)}
+\renewcommand{\tablename}{表}
+\renewcommand{\figurename}{圖}
+
+\begin{document}
+
+\section{一、摘要}
+
+（請簡介團隊作品，並分析目前市場上是否有此設備或技術？若有，是如何發現其缺失？有哪裡可以改進？若無，為何會有此構想？）
+
+本作品的發想源自團隊成員家人的實際復健經驗。有組員的家人曾因職業傷害，需要定期前往診所接受頸部牽引治療，反覆往返醫療院所造成的不便，以及多人共用設備所帶來的衛生疑慮，讓我們開始思考是否能設計一套適合居家使用的頸部復健工具。
+
+Carrera 等人的回顧指出，頸椎椎間盤突出可能無症狀，也可能造成頸神經根病或脊髓病變；多數未出現進行性神經缺損或其他手術適應症的患者，可先接受藥物、物理治療與活動調整等非手術照護\cite{carrera2026}。另有針對成人頸神經根病的系統性回顧顯示，其年發生率約為每千人年 0.8-1.8 例，點盛行率則因研究族群與診斷標準而異，約為每千人 1.2-5.8 例\cite{mansfield2020}。上述數據顯示，頸椎相關神經症狀於成人族群中並不罕見，且多數患者屬於適合非手術復健介入之族群，顯示此類居家復健輔具具有相當規模之潛在應用族群。而在既有的非手術治療選項中，頸椎牽引長期被用於緩解神經根壓迫症狀，惟傳統設備多於固定方向施力，且需於醫療院所由專人操作\cite{abi-aad2023}。以每週 168 小時計算，患者若每週回診一至兩次、每次約一小時，於專業監督下進行復健的時間不足全週的 2\%；復健是否確實落實，主要仍取決於診所以外逾 98\% 的自主執行時間。
+
+市面上目前具有居家頸椎復健功能的產品大致可以歸為以下三類：護頸圈、居家牽引器、姿勢提醒器，本團隊各取一項代表性產品進行初步比較\cite{aspen-vista,saunders-traction,upright-go2}。傳統護頸圈與居家牽引器，各自具備限制患者頸部角度以及引導復健之功效，但並沒有附加其他功能。而姿勢提醒器缺少了角度限制與精準引導患者進行復健的功能；其雖具備 App 紀錄，惟資料僅供使用者自行檢視，並未提供醫療端存取介面，因此治療師仍無法據以追蹤患者的復健執行狀況。我們觀察到，這些商品在功能上各有所長，然而沒有一個商品有包含完整的功能，並且最重要的是缺少了可以讓治療師進行追蹤的部分。為此，我們提出整合上述全部功能的 CerviSmart。
+
+\begin{table}[htbp]
+    \centering
+    \caption{居家頸椎復健產品功能比較}
+    \label{tab:product-comparison}
+    \renewcommand{\arraystretch}{1.25}
+    \begin{tabularx}{\textwidth}{>{\bfseries}lYYYY}
+        \toprule
+        功能 & 護頸圈 & 居家牽引器 & 姿勢提醒器 & CerviSmart \\
+             & \small (Aspen Vista) & \small (Saunders) & \small (UPRIGHT GO 2) & \small (本團隊作品) \\
+        \midrule
+        角度限制   & \yes & \no  & \no  & \yes \\
+        姿勢監測   & \no  & \no  & \yes & \yes \\
+        精準引導   & \no  & \yes & \no  & \yes \\
+        治療師追蹤 & \no  & \no  & \no  & \yes \\
+        App 紀錄   & \no  & \no  & \yes & \yes \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+最初我們曾嘗試以繩索牽引作為設計方向，但進一步分析後發現，若將設備縮小至接近硬式頸圈的尺寸以維持居家使用的便利性，繩索固定點與展開空間會受到限制，使可控制的牽引方向與角度有限；若增加滑輪、支架或外部固定點以實現多角度牽引，又會增加設備體積、降低機動性，失去「居家、方便」的原始目的。因此我們決定捨棄由外部繩索拉動頭部的方式，改以緊湊的機械結構直接支撐並控制頭頸。考量頸部運動範圍相對受限，本團隊採用可支撐多軸姿態調整之並聯機構 Stewart Platform\cite{stewart1965}，並簡化為四軸架構，以兼顧控制精度與居家使用之輕便性。後續與指導老師討論時，我們進一步得知已有商品化之骨科設備採用類似的「影像導引結合並聯機構」概念（詳見第二節可行性評估），支持了我們將此概念延伸應用於個人化頸部復健的方向。
+
+基於上述構想，我們提出智慧頸部復健輔具 CerviSmart，希望將醫師與物理治療師的專業復健規劃延伸至診所以外。系統可由醫療人員預先建立標準復健動作，依患者當下狀態提供主動、被動、助力或阻力等不同訓練模式；對於適合接受頸椎牽引的患者，亦可利用 X 光影像取得個人化頸椎排列資訊，規劃適合的牽引姿態、方向與力量配置。此外，CerviSmart 可記錄患者的活動範圍、主動出力、致動器輔助力量與動作完成程度，搭配 App 與醫療端系統形成可量化、可追蹤的遠距復健流程。相較於現有姿勢提醒器、護頸圈及固定方向的居家牽引設備，CerviSmart 不僅提供被動支撐或單方向施力，更希望整合多方向復健、個人化牽引與療程量化追蹤，成為可由專業人員設定並延伸至居家使用的智慧頸部復健平台。
+
+本團隊預期它能夠達成以下三個效果：
+
+\begin{itemize}
+    \item \textbf{智慧化頸部復健與訓練：}CerviSmart 提供可程式化的多方向施力與運動控制。醫師或是物理治療師可預先設計復健動作，並依患者能力提供主動、被動、助力或阻力等不同復健模式，使患者能在標準化且安全的條件下進行頸部復健。此外，醫師或是物理治療師也能設定安全範圍，若患者復健時的姿態超過最大安全角度，CerviSmart 將主動施加拮抗的力量，避免復健造成之二次傷害。
+
+    \item \textbf{影像輔助的個人化牽引：}針對傳統頸椎牽引（俗稱：拉脖子）之角度與力量限制，CerviSmart 可利用患者 X 光影像取得頸椎排列資訊，建立個人化的頸椎幾何與生物力學模型，依據預期的頸椎排列與目標節段計算適合的牽引方向、姿態及力量配置，再透過四軸機構執行個人化的多方向頸椎牽引，精準將力量集中於目標椎體。
+
+    \item \textbf{復健量化與遠距追蹤：}CerviSmart 可記錄患者每次復健過程中的活動範圍、主動出力、致動器輔助力量及動作完成程度等資訊，將漫長的復健歷程轉換為可量化與追蹤之客觀資料；搭配 App 與醫療端系統，患者可掌握每日復健成果，醫師與物理治療師亦能遠端追蹤復健進度，並依患者恢復情況調整後續療程。
+\end{itemize}
+
+\section{二、可能運用技術}
+
+（請依循團隊的構想、搜尋文獻，思考哪些技術可以運用，以及如何運用，使團隊的作品能有條理且合理地說服眾人。）
+
+CerviSmart 的技術核心可歸納為兩個問題：第一，如何決定患者在復健過程中應達到的正確頸部姿態與位置；第二，如何透過機械系統協助患者實際達到該目標。因此，本團隊將整體技術架構分為「目標姿態建立」與「四軸機構控制」兩個核心。
+
+\subsection{目標姿態建立}
+
+CerviSmart 首先需要知道患者在不同復健任務下「應該做到什麼位置」，才能進一步判斷患者目前動作是否正確並提供適當輔助。本團隊預計依照不同復健目的，採用「專業人員動作預錄」與「醫學影像導引」兩種方式建立目標。本團隊將平台姿態定義為以下四軸目標向量：
+
+\begin{equation}
+\mathbf{q} = \begin{bmatrix} z \\ \theta_{pitch} \\ \theta_{roll} \\ \theta_{yaw} \end{bmatrix}
+\label{eq:dof}
+\end{equation}
+
+其中 $z$ 為沿頸椎軸向之牽引位移，$\theta_{pitch}$、$\theta_{roll}$、$\theta_{yaw}$ 分別為屈伸、側彎與旋轉角度，為頸部復健所需之主要姿態調整方向。「專業人員動作預錄」與「醫學影像導引」兩種方式，最終皆輸出同一組目標軌跡 $\mathbf{q}_{target}(t)$，供下節之四軸機構直接執行。
+
+對於一般頸部復健動作，可由復健科醫師或物理治療師預先操作 CerviSmart，將臨床上正確的復健動作轉換為平台隨時間變化之目標軌跡 $\mathbf{q}_{target}(t)$ 並儲存於系統中。患者進行復健時，系統將患者當下姿態 $\mathbf{q}_{current}(t)$ 與預錄之標準軌跡即時比對，定義追蹤誤差：
+
+\begin{equation}
+e(t) = \mathbf{q}_{target}(t) - \mathbf{q}_{current}(t)
+\label{eq:tracking_error}
+\end{equation}
+
+作為後續輔助施力之依據。如此可將醫療人員的專業操作轉換為可重複執行的數位化復健處方。
+
+對於頸椎牽引等需要考量患者個別解剖結構的療程，則可利用 X 光影像，建立患者目前的頸椎幾何模型。設第 $i$ 節頸椎（C1-C7）中心點座標為 $v_i$，依臨床參考曲度規劃出目標排列 $v_i^{target}$，系統即可透過下式評估當前排列與目標排列之差異：
+
+\begin{equation}
+E(\text{alignment}) = \sum_{i=1}^{7} w_i \left\| v_i - v_i^{target} \right\|^2
+\label{eq:alignment}
+\end{equation}
+
+其中 $w_i$ 為各節權重，目標節段可給予較高權重。系統透過演算法分析患者的影像資料、頸椎排列與復健需求，以最小化 $E(\text{alignment})$ 為目標，求解出最佳牽引方向與力量，並將其換算為對應之牽引軸位移與姿態角，寫入同一組目標姿態 $\mathbf{q}_{target}(t)$，交由下節之四軸機構執行。
+
+\subsection{四軸機構控制}
+
+在確立患者應達到的目標姿態 $\mathbf{q}_{target}(t)$ 後，下一個問題即為如何透過機械系統協助患者到達該位置。我們參考飛行模擬器常使用之 Stewart Platform\cite{stewart1965}。CerviSmart 並非追求頭部完整六自由度定位，而是針對頸部復健所需的主要牽引與姿態調整自由度，因此我們將其轉換為四軸，以機構簡化換取重量、成本與控制複雜度降低，前後及左右平移分量因臨床意義較小予以省略。CerviSmart 採用此改良式四軸 Stewart Platform 作為主要機構，利用四支可獨立控制的致動器共同改變頭頸支撐平台的位置、角度與受力方向。
+
+對於執行復健動作，系統將前節所得之目標姿態 $\mathbf{q}_{target}(t)$ 與患者目前姿態 $\mathbf{q}_{current}(t)$ 之差異，透過下列阻抗控制律，轉換為四支致動器各自應產生的位移與力量：
+
+\begin{equation}
+\mathbf{F}_{assist}(t) = K_p\big(\mathbf{q}_{target}(t) - \mathbf{q}_{current}(t)\big) + K_d\big(\dot{\mathbf{q}}_{target}(t) - \dot{\mathbf{q}}_{current}(t)\big)
+\label{eq:impedance}
+\end{equation}
+
+當患者能自行完成動作時，系統可降低增益 $K_p$、$K_d$ 並記錄患者主動出力；當患者無法到達目標姿態時，則提高增益，由不同致動器共同產生所需的合力與力矩，協助患者沿預定方向完成動作；當患者的動作超過最大安全閾值時，系統則會施加額外拮抗的力量，避免由復健產生的二次傷害。
+
+對於靜態頸椎牽引，相較於傳統頸椎牽引設備主要沿固定方向提供拉力\cite{abi-aad2023}，四軸 Stewart Platform 可透過不同致動器的組合控制改變牽引方向及頭部姿態，因此能配合前述由醫師預錄或 X 光影像建立的不同目標，執行多方向且個人化的頸部復健。
+
+\subsection{可行性評估}
+
+本團隊在提出上述「利用 X 光建立患者骨骼幾何模型，再將影像資訊轉換為機構控制參數」的構想後，經與指導老師討論，進一步了解到 Smith+Nephew 的 SMART TSF 系統\cite{smith-nephew2022}。該系統為一應用於四肢骨骼矯正之六足並聯機構（hexapod），其機構原理與本團隊所採用之 Stewart Platform 相同；臨床上先透過 X 光影像取得骨骼排列與外固定架的幾何資訊，再由軟體規劃各連桿應調整之參數，將影像所得之矯正目標轉換為機構可執行的控制量。
+
+此一已商品化之骨科設備，同時佐證了 CerviSmart 技術架構的兩個核心。其一，於「目標姿態建立」層面，證實「以醫學影像取得患者個人化幾何資訊，再轉換為空間機構控制參數」的流程具有實際臨床應用基礎；其二，於「四軸機構控制」層面，證實以並聯機構承載人體、並依規劃參數精準調整骨骼相對位置，在臨床上為可行且已通過實務驗證之做法。雖然其治療部位與臨床目的與 CerviSmart 不同，SMART TSF 並非 CerviSmart 的設計來源，而可視為本團隊構想在其他骨科領域中的可行性佐證。
+
+\section{三、應用潛能分析}
+
+（假設團隊的作品能商品化，它可以如何被應用？可能對當今社會有什麼影響？）
+
+\subsection{商品化後應用}
+
+我們預期 CerviSmart 商品化後，可針對臺灣為數眾多、以保守治療為主的頸部復健族群，透過角度偵測、力道回饋與復健數據紀錄，提供比傳統護頸圈更主動、更可量化的復健引導，協助患者安全復健，並提升醫師與治療師追蹤成效的效率。CerviSmart 以自費設備形式，瞄準全臺逾 600 家物理治療所，幫助治療師掌握原本落在診所以外、無從得知的居家復健執行狀況，將過去的服務空窗轉化為診所的差異化競爭優勢。
+
+我們預期採用 B2B2C 的商業模式，目標客戶是復健診所與物理治療所，而終端使用者是以保守治療為主之居家頸部復健患者。CerviSmart 的適用對象涵蓋頸椎椎間盤突出、姿勢性頸痛、頸部術後復健等需要長期居家復健之族群。以其中可量化之次族群為例，本團隊依據頸神經根病之流行病學數據\cite{mansfield2020}，以臺灣成人人口約 2,000 萬人推估：依點盛行率每千人 1.2-5.8 例計算，現有患者約 2.4 萬至 11.6 萬人；依年發生率每千人年 0.8-1.8 例計算，每年新增約 1.6 萬至 3.6 萬人。而依 Carrera 等人之回顧，其中多數未出現手術適應症之患者，可先以藥物、物理治療與活動調整等非手術方式處理\cite{carrera2026}，正是 CerviSmart 的核心服務對象。此外，頸椎椎間盤突出之盛行率隨年齡增加，診斷高峰集中於 51-60 歲\cite{carrera2026}，隨臺灣人口高齡化持續加深，長期復健與居家照護需求可望同步成長。CerviSmart 切入的，是一個既有長期復健需求、又持續有新患者進入的市場。
+
+在目標客戶部分，全臺物理治療所已逾 600 家。依健保署統計，其中與健保特約者僅占少數\cite{nhi2026}，絕大多數以自費服務為主要營運模式，與 CerviSmart 的自費設備定位高度契合。
+
+\subsection{法規與銷售策略}
+
+未來若 CerviSmart 上市，在法規途徑部分，CerviSmart 之個別功能雖可對應現有分類——動力牽引功能可參考動力式牽引設備（產品代碼 ITH，第二類器材）\cite{fda-ith}，生物回饋功能則可參考生物回饋裝置（產品代碼 HCC）\cite{fda-hcc}——但目前並無單一前例產品，能涵蓋「影像導引個人化多軸牽引，結合主動與被動機械輔助訓練」之複合式預期用途，故本團隊評估此創新組合較適合透過創新分類（De Novo）途徑取得美國上市許可\cite{fda-denovo}。於臺灣申請上市時，則可參考現行醫療器材分類分級中之動力式牽引設備（O.5900，列屬第二等級）作為國內法規評估之基礎\cite{tfda-o5900}。
+
+至於銷售策略層面，我們預計不與現行之居家頸部復健產品進行低價競爭，而是採取「智慧復健數據化」的差異化策略。對醫療端，我們強調患者追蹤、復健數據化；對患者端，強調安全復健、看見進步；對診所端，強調增加自費復健服務項目。關於通路策略，我們希望第一階段可以先導入物理治療所，之後再進一步提升至第二階段的基層診所，乃至於第三階段的地區醫院以上醫療院所。其中在第一階段的物理治療所，我們規劃先導入 20 家治療所進行初步試驗，再逐年提升至 200 家的目標，平均每家導入數量則是 5 臺。
+
+\subsection{對社會的影響}
+
+\begin{itemize}
+    \item \textbf{醫療人員端：}復健診所與物理治療所能夠以此輔具來協助有頸部復健需求之患者，減輕復健醫師或物理治療師協助復健之負擔。
+    \item \textbf{復健病患端：}復健病患不需時常前往醫療院所復健，而是能使用此款復健輔具，其內建由醫師或專業物理治療師設定好之復健程序，讓病患能夠以正確且安全之方式居家復健。
+    \item \textbf{復健家屬端：}照護上更加方便，不需時常陪同前往復健，也不需擔憂病患居家復健時可能出現姿勢錯誤導致的二次傷害；此裝置操作簡單，若需要協助病患也可以輕鬆幫忙。
+\end{itemize}
+
+\section{四、作品圖說}
+
+% 圖片由團隊自行置入。
+
+\renewcommand{\refname}{五、參考資料}
+
+\begin{thebibliography}{99}
+
+    \bibitem{carrera2026}
+    Carrera, C. X., Achilova, F., Rozenfeld, S., \& Daniels, A. H. (2026).
+    Pathophysiology, diagnosis, and management of cervical disc herniation.
+    \emph{The American Journal of Medicine, 139}(8), 979-987.
+    \url{https://doi.org/10.1016/j.amjmed.2026.03.009}
+
+    \bibitem{mansfield2020}
+    Mansfield, M., Smith, T., Spahr, N., \& Thacker, M. (2020).
+    Cervical spine radiculopathy epidemiology: A systematic review.
+    \emph{Musculoskeletal Care, 18}(4), 555-567.
+    \url{https://doi.org/10.1002/msc.1498}
+
+    \bibitem{abi-aad2023}
+    Abi-Aad, K. R., \& Derian, A. (2023). \emph{Cervical traction}.
+    In \emph{StatPearls}. StatPearls Publishing.
+    \url{https://www.ncbi.nlm.nih.gov/books/NBK470412/}
+
+    \bibitem{aspen-vista}
+    Aspen Medical Products. (n.d.). \emph{Vista cervical collar} [Product page].
+    Retrieved August 26, 2026, from \url{https://vistacollar.aspenmp.com/}
+
+    \bibitem{saunders-traction}
+    Enovis. (n.d.). \emph{Saunders cervical home traction device} [Product page].
+    Retrieved August 26, 2026, from
+    \url{https://enovis.com/products/saunders/saunders-cervical-home-traction-device}
+
+    \bibitem{upright-go2}
+    UPRIGHT. (n.d.). \emph{UPRIGHT GO 2: Smart posture trainer} [Product page].
+    Retrieved August 26, 2026, from \url{https://www.uprightpose.com/upright-go2/}
+
+    \bibitem{stewart1965}
+    Stewart, D. (1965). A platform with six degrees of freedom.
+    \emph{Proceedings of the Institution of Mechanical Engineers, 180}(1), 371-386.
+    \url{https://doi.org/10.1243/PIME_PROC_1965_180_029_02}
+
+    \bibitem{smith-nephew2022}
+    Smith+Nephew. (2022). \emph{SMART TSF circular fixator} [Product page].
+    \url{https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/smart-tsf}
+
+    \bibitem{nhi2026}
+    National Health Insurance Administration, Ministry of Health and Welfare. (2026, July).
+    全民健康保險特約醫事服務機構家數表——按分區業務組別（115 年 7 月）
+    [Number of National Health Insurance-contracted medical service institutions by regional division (July 2026)].
+    \url{https://www.nhi.gov.tw/ch/dl-17690-5fabcc3fff484f649d7d076fa336c89a-1.pdf}
+
+    \bibitem{fda-ith}
+    U.S. Food and Drug Administration. (n.d.). \emph{Product classification: ITH}.
+    Retrieved August 26, 2026, from
+    \url{https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpcd/classification.cfm?ID=ITH}
+
+    \bibitem{fda-hcc}
+    U.S. Food and Drug Administration. (n.d.). \emph{Product classification: HCC}.
+    Retrieved August 26, 2026, from
+    \url{https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpcd/classification.cfm?ID=HCC}
+
+    \bibitem{fda-denovo}
+    U.S. Food and Drug Administration. (n.d.). \emph{De Novo classification request}.
+    Retrieved August 26, 2026, from
+    \url{https://www.fda.gov/medical-devices/premarket-submissions-selecting-and-preparing-correct-submission/de-novo-classification-request}
+
+    \bibitem{tfda-o5900}
+    Taiwan Food and Drug Administration, Ministry of Health and Welfare. (n.d.).
+    醫療器材分類分級管理辦法：O.5900 動力式牽引設備
+    [Regulations governing the classification of medical devices: O.5900 powered traction equipment].
+    Retrieved August 26, 2026, from
+    \url{https://www.fda.gov.tw/tc/includes/GetFile.ashx?id=f637553751347579902&type=1}
+
+\end{thebibliography}
+
+\end{document}

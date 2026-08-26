@@ -107,16 +107,22 @@ E(\text{alignment}) = \sum_{i=1}^{7} w_i \left\| v_i - v_i^{target} \right\|^2
 \end{equation}
 
 其中 $w_i$ 為各節權重，目標節段可給予較高權重。系統透過演算法分析患者的影像資料、頸椎排列與復健需求，以最小化 $E(\text{alignment})$ 為目標，求解出最佳牽引方向與力量，並將其換算為對應之牽引軸位移與姿態角，寫入同一組目標姿態 $\mathbf{q}_{target}(t)$，交由下節之四軸機構執行。
-
 \subsection{四軸機構控制}
 
 在確立患者應達到的目標姿態 $\mathbf{q}_{target}(t)$ 後，下一個問題即為如何透過機械系統協助患者到達該位置。我們參考飛行模擬器常使用之 Stewart Platform\cite{stewart1965}。CerviSmart 並非追求頭部完整六自由度定位，而是針對頸部復健所需的主要牽引與姿態調整自由度，因此我們將其轉換為四軸，以機構簡化換取重量、成本與控制複雜度降低，前後及左右平移分量因臨床意義較小予以省略。CerviSmart 採用此改良式四軸 Stewart Platform 作為主要機構，利用四支可獨立控制的致動器共同改變頭頸支撐平台的位置、角度與受力方向。
 
-對於執行復健動作，系統將前節所得之目標姿態 $\mathbf{q}_{target}(t)$ 與患者目前姿態 $\mathbf{q}_{current}(t)$ 之差異，透過下列阻抗控制律，轉換為四支致動器各自應產生的位移與力量：
+對於執行復健動作，系統將前節所得之目標姿態 $\mathbf{q}_{target}(t)$ 與患者目前姿態 $\mathbf{q}_{current}(t)$ 之差異，透過下列阻抗控制律換算為平台所需之合力與力矩：
 
 \begin{equation}
 \mathbf{F}_{assist}(t) = K_p\big(\mathbf{q}_{target}(t) - \mathbf{q}_{current}(t)\big) + K_d\big(\dot{\mathbf{q}}_{target}(t) - \dot{\mathbf{q}}_{current}(t)\big)
 \label{eq:impedance}
+\end{equation}
+
+再經由機構之 Jacobian 矩陣 $J$，分配至四支致動器各自應輸出之作動力 $\mathbf{f} = [f_1\ f_2\ f_3\ f_4]^{T}$：
+
+\begin{equation}
+\mathbf{f} = \big(J^{T}\big)^{+}\,\mathbf{F}_{assist}(t)
+\label{eq:force_alloc}
 \end{equation}
 
 當患者能自行完成動作時，系統可降低增益 $K_p$、$K_d$ 並記錄患者主動出力；當患者無法到達目標姿態時，則提高增益，由不同致動器共同產生所需的合力與力矩，協助患者沿預定方向完成動作；當患者的動作超過最大安全閾值時，系統則會施加額外拮抗的力量，避免由復健產生的二次傷害。

@@ -16,6 +16,7 @@
 \usepackage{xurl}
 \usepackage[hidelinks,unicode]{hyperref}
 \usepackage{indentfirst}
+\usepackage{float}
 
 \setlength{\parindent}{2em}
 \setlength{\parskip}{0.4em}
@@ -31,8 +32,6 @@
 \begin{document}
 
 \section{一、摘要}
-
-（請簡介團隊作品，並分析目前市場上是否有此設備或技術？若有，是如何發現其缺失？有哪裡可以改進？若無，為何會有此構想？）
 
 本作品的發想源自團隊成員家人的實際復健經驗。有組員的家人曾因職業傷害，需要定期前往診所接受頸部牽引治療，反覆往返醫療院所造成的不便，以及多人共用設備所帶來的衛生疑慮，讓我們開始思考是否能設計一套適合居家使用的頸部復健工具。
 
@@ -74,8 +73,6 @@ Carrera 等人的回顧指出，頸椎椎間盤突出可能無症狀，也可能
 \end{itemize}
 
 \section{二、可能運用技術}
-
-（請依循團隊的構想、搜尋文獻，思考哪些技術可以運用，以及如何運用，使團隊的作品能有條理且合理地說服眾人。）
 
 CerviSmart 的技術核心可歸納為兩個問題：第一，如何決定患者在復健過程中應達到的正確頸部姿態與位置；第二，如何透過機械系統協助患者實際達到該目標。因此，本團隊將整體技術架構分為「目標姿態建立」與「四軸機構控制」兩個核心。
 
@@ -131,8 +128,6 @@ E(\text{alignment}) = \sum_{i=1}^{7} w_i \left\| v_i - v_i^{target} \right\|^2
 
 \section{三、應用潛能分析}
 
-（假設團隊的作品能商品化，它可以如何被應用？可能對當今社會有什麼影響？）
-
 \subsection{商品化後應用}
 
 我們預期 CerviSmart 商品化後，可針對臺灣為數眾多、以保守治療為主的頸部復健族群，透過角度偵測、力道回饋與復健數據紀錄，提供比傳統護頸圈更主動、更可量化的復健引導，協助患者安全復健，並提升醫師與治療師追蹤成效的效率。CerviSmart 以自費設備形式，瞄準全臺逾 600 家物理治療所，幫助治療師掌握原本落在診所以外、無從得知的居家復健執行狀況，將過去的服務空窗轉化為診所的差異化競爭優勢。
@@ -157,7 +152,31 @@ E(\text{alignment}) = \sum_{i=1}^{7} w_i \left\| v_i - v_i^{target} \right\|^2
 
 \section{四、作品圖說}
 
-% 圖片由團隊自行置入。
+CerviSmart 的外觀類似傳統的硬式頸圈，上、下支撐結構分別貼合頭頸與肩部，並在接觸面配置軟墊材質，以兼顧支撐穩定性與配戴舒適度。上下結構之間設置四組致動器，透過各致動器的獨立伸縮調整頭頸姿態；前側則以金屬扣環固定，使使用者能方便穿戴，並避免復健過程中裝置鬆脫。具體結構圖請參考圖~\ref{fig:cervismart-structure}。
+
+圖~\ref{fig:cervismart-traction}以及圖~\ref{fig:cervismart-flexion-extension}顯示 CerviSmart 的復健方式，當我們知道「目標姿態」後，將由內部演算法計算四軸致動器之拉伸或是收縮，藉此達成復健的效果。
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.88\textwidth]{src/fig1.jpg}
+    \caption{CerviSmart 整體結構與主要元件示意圖}
+    \label{fig:cervismart-structure}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.88\textwidth]{src/fig2.jpg}
+    \caption{四組線性致動器同步伸長所形成之頸部軸向牽引模式}
+    \label{fig:cervismart-traction}
+\end{figure}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.88\textwidth]{src/fig3.jpg}
+    \caption{四組致動器差動伸縮所形成之頸部前傾與後仰模式}
+    \label{fig:cervismart-flexion-extension}
+\end{figure}
 
 \renewcommand{\refname}{五、參考資料}
 

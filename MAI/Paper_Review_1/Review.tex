@@ -33,75 +33,67 @@
 \appendix
 
 %%%%%%%%% BODY TEXT - ENTER YOUR RESPONSE BELOW
+
 \section{Summary}
-% Summarize in your own words the paper, its key ideas, its contributions and their significance. This summary helps the AC and the authors understand the rest of your review and be confident that you understand the paper.
-This paper proposes SwAV (Swapping Assignments between Views), an online clustering-based self-supervised method for visual representation learning. 
-Instead of comparing features of different views directly as in contrastive learning, it assigns each view to learnable prototypes and predicts the cluster assignment of one view from the feature of another view of the same image. 
+This paper proposes SwAV (Swapping Assignments between Views), an online clustering-based self-supervised method for visual representation learning.
+Instead of comparing features of different views directly as in contrastive learning, it assigns each view to learnable prototypes and predicts the cluster assignment of one view from the feature of another view of the same image.
 Together with multi-crop, a data augmentation strategy that adds low-resolution crops at little extra cost, SwAV achieves 75.3\% top-1 accuracy on ImageNet linear evaluation with ResNet-50 and surpasses supervised pretraining on all considered transfer tasks.
 
 \section{Strengths}
 \begin{enumerate}
-    \item Memory efficient and flexible in batch size. SwAV avoids pairwise feature comparisons and requires neither a large memory bank nor a momentum encoder. It stores only about 3.8K features and works well with both large (4096) and small (256) batches, making it usable on GPUs with small VRAM.
-    \item Effective multi-crop augmentation. Adding several low-resolution crops to the two standard views increases the number of views at little extra memory cost, and consistently improves SimCLR, DeepCluster, and SeLa by 2-4\% top-1 accuracy.
-    \item Truly online method. Unlike DeepCluster and SeLa, SwAV computes codes within each mini-batch. This allows it to scale to unlimited data, as shown by pretraining on 1B uncurated Instagram images.
-    \item Comprehensive experiments. SwAV is evaluated on ImageNet and multiple downstream tasks, surpassing supervised pretraining on all of them, with a fair ablation against contrastive methods.
+    \item Memory efficient and flexible in batch size. Without a memory bank or momentum encoder, SwAV stores only 3{,}840 features (vs.\ 65{,}536 for MoCov2) and reaches 72.0\% with a batch size of 256 on 4 GPUs (Table~3).
+    \item Effective multi-crop augmentation. Low-resolution crops add views at little extra cost and improve SimCLR, DeepCluster-v2, and SeLa-v2 by 2.4--4.6\% top-1 accuracy (Fig.~3).
+    \item Truly online method. Codes are computed within each mini-batch, which enables pretraining on 1B uncurated Instagram images (Sec.~5.4).
+    \item Comprehensive experiments. SwAV surpasses supervised pretraining on all five transfer tasks, with a best-effort fair comparison with SimCLR under identical settings (Fig.~3).
 \end{enumerate}
 
 \section{Major Weaknesses}
 \begin{enumerate}
-    \item The benefit of the swapped mechanism is not isolated, and its claimed online advantage is not quantified. The headline result (75.3\%, +4.2\% over MoCov2) combines the SwAV loss with multi-crop, while most compared methods use two standard crops and different epochs/batch sizes. Under identical settings (Fig.~3), SwAV improves over SimCLR by 1.9\%, but is on par with DeepCluster-v2 (70.1 vs.\ 70.2; 74.1 vs.\ 74.3; 75.3 vs.\ 75.2 in the best setting). Since the paper itself interprets DeepCluster-v2 as a special case of swapping, the remaining argument for SwAV is that it is online. However, this advantage is argued only by construction and never measured: in the 1B uncurated experiment (Sec.~5.4), the only self-supervised baseline pretrained on the same data is SimCLR (the MoCo number is taken from [20] under a curated setting), and neither the wall-clock/memory overhead of DeepCluster-v2's offline clustering step nor a large-scale comparison with it is reported.
+    \item The benefit of swapping is not isolated, and the online advantage is not quantified. Under identical settings (Fig.~3), SwAV is on par with DeepCluster-v2 (70.1 vs.\ 70.2; 75.3 vs.\ 75.2 in the best setting), which the paper itself views as a special case of swapping. No variant without swapping (e.g., predicting a view's own code) is reported, and the online advantage over DeepCluster-v2 is argued only by construction, without any cost or large-scale comparison.
 
-    \item Key design choices ($K$ and equipartition) are not analyzed in the main text. The number of prototypes is fixed ($\sim$3K) without a stated principle, although it also determines the queue size in the small-batch setting ($\sim$3.8K features, since the partitioned set must be at least as large as $K$) and thus the claimed memory advantage. Equipartition prevents code collapse by construction, but the paper itself notes that collapse still occurs with a large $\varepsilon$ (Sec.~3.1), so the constraint alone is not sufficient; yet no ablation (removing the constraint, varying $\varepsilon$ or $K$) is shown. Moreover, equipartition forces uniform prototype usage over each batch (plus the feature queue), implicitly assuming a balanced concept distribution. Sec.~5.4 shows good aggregate accuracy on uncurated data, but reports no analysis of prototype usage or performance on rare concepts, so whether equipartition hurts long-tailed data remains unclear.
+    \item $K$, $\varepsilon$, and equipartition are not analyzed. $K$ ($\sim$3K) is fixed without justification, although it also sets the queue size and thus the claimed memory advantage. The value of $\varepsilon$ is not reported, although a large $\varepsilon$ leads to collapse (Sec.~3.1), and none of these is ablated in the main text. Equipartition also assumes balanced concepts, yet Sec.~5.4 gives no analysis of prototype usage on long-tailed uncurated data.
 
-    \item Compute claims are inconsistent, and the headline setting lacks a cost comparison. The abstract and introduction state that multi-crop adds no compute or memory overhead, whereas Sec.~3.2 acknowledges ``a small increase in the compute cost''. The former holds for 2$\times$160+4$\times$96 ($\sim$0.88$\times$ the pixels of 2$\times$224), but the headline 2$\times$224+6$\times$96 setting processes $\sim$1.55$\times$ the pixels. Relative runtimes (1.2$\times$ SimCLR, 1.4$\times$ MoCov2, attributed to ``the additional back-propagation'') are reported only for the small-batch 2$\times$160+4$\times$96 setting (Sec.~4.3). For the headline 800-epoch, 2$\times$224+6$\times$96 setting (Fig.~2), no cost comparison with baselines is given. A comparison at equal GPU-hours for this setting is needed to support the efficiency motivation.
+    \item (2026) Limited novelty and outdated baselines. Multi-crop is now standard in DINO~\cite{caron2021dino}, iBOT~\cite{zhou2022ibot}, and DINOv2~\cite{oquab2024dinov2}, and DINOv2 adopts Sinkhorn-Knopp centering. The paper compares only with 2019--2020 methods, not with these, MAE~\cite{he2022mae}, or CLIP~\cite{radford2021clip}. DINO, iBOT, DINOv2, and CLIP exceed 80\% top-1 with frozen ViT features, whereas DINO with the same ResNet-50 also reaches 75.3\%, so the gap lies in architecture and scale, which the paper does not explore.
 
-    \item (2026) Limited novelty and outdated baselines. Both technical contributions have since become standard components: multi-crop is used in DINO, iBOT, and DINOv2, and Sinkhorn-Knopp-based balancing is used as the centering step in DINOv2. This adoption confirms the value of the ideas, but it also means that, submitted today, the paper would need to show what it adds beyond these frameworks. Yet it compares only with 2019--2020 methods, with no comparison against self-distillation (DINO, DINOv2), masked image modeling (MAE, iBOT), or language-supervised pretraining (CLIP), whose frozen features now far exceed 75.3\% on ImageNet linear probing. Its main practical selling point, avoiding a momentum encoder and a large memory bank, is also less relevant, since the leading frameworks adopt a momentum teacher and still scale well on modern hardware.
-
-    \item (2026) Image-level objective and narrow evaluation. Codes are computed only from the globally pooled feature of each view, so the objective learns no patch-level or dense representation. Later work (e.g., iBOT and DINOv2) shows that adding patch-level objectives substantially improves localization-heavy tasks. The evaluation matches this limitation: it covers ImageNet linear probing and semi-supervised finetuning, three linear classification transfers, and two finetuned detection benchmarks, but no frozen-feature semantic segmentation, depth estimation, retrieval, or robustness benchmarks, which are now standard for evaluating general-purpose visual features.
-
-    \item (2026) Convolutional backbones and modest scale only. All results use the ResNet family (up to $\sim$586M parameters and 1B images), whereas Vision Transformers are now the default backbone and self-supervised models are routinely scaled to billion-parameter ViTs. Although later work (DINO) shows that multi-crop can be adapted to ViTs via positional-embedding interpolation, this paper provides no evidence that the SwAV objective itself transfers to transformer backbones. Results on at least one transformer backbone, and scaling behavior beyond the ResNet family, would be necessary to support the method's relevance today.
+    \item (2026) Image-level objective, CNN-only, and narrow evaluation. There is no patch-level objective as in iBOT or DINOv2, and all results use ResNets rather than ViTs. Frozen-feature segmentation, depth, retrieval, and robustness benchmarks, now standard for general-purpose visual features, are also missing.
 \end{enumerate}
 
 \section{Minor Weaknesses}
 \begin{enumerate}
-    \item Mention the weaknesses that are easy to fix in a revision of the paper. For example:
-    \item Missing references that should be discussed but do not really change the novelty of the paper.
-    \item Occasional typographic errors.
-    \item Minor unclear points.
-    \item Mention here any minor suggestions, questions, corrections, etc. that can help the authors improve their paper.
-    \item (2026) Suppose this paper was submitted in 2026, what would be its minor weaknesses from today’s point of view?
-    \item (2026) In other words, this comment is based on current technological progress, not the time when the paper was originally published.
+    \item Inconsistent compute claims. The abstract claims multi-crop adds no compute, while Sec.~3.2 admits ``only a small increase''. The 2$\times$224+6$\times$96 setting processes $\sim$1.55$\times$ the pixels of 2$\times$224, and no equal-budget comparison is given for the headline result.
+
+    \item Clarity and typos. Below Eq.~(4), ``on average at least $B/K$ times'' should be exactly $B/K$ of the assignment mass, and the stop-gradient on $\mathbf{Q}$ is not stated. $\mathbf{z}_i$ before Eq.~(2) should be $\mathbf{z}_t$, and $\mathbf{c}_k$ should be $\mathbf{c}_K$ (Sec.~3.1). Published works (e.g., SimCLR, MoCo, PIRL) are cited as arXiv preprints. Typos: ``backpropragation'' (Fig.~1), ``uniformely'' and ``an unique'' (Sec.~3.1), ``this is line with'' (Sec.~4.2), ``correspondance'' and ``implementating'' (Sec.~5.1), ``accucary'' (Fig.~3).
+
+    \item Missing settings. The value of $\varepsilon$, the crop scales, and when the queue starts to be used are not given, and the claim that 3 Sinkhorn iterations are ``sufficient'' is not supported by numbers.
+
+    \item No variance over seeds. Given the 0.1--0.2\% gaps with DeepCluster-v2 and the $\sim$1.3-point detection margins over supervised pretraining, mean and standard deviation over a few seeds are needed.
+
+    \item (2026) Reproducibility and domain shift. The 1B Instagram dataset is neither released nor documented, and total compute (about 3{,}200 V100 GPU-hours for the 800-epoch model) is not reported. The Broader Impact section cites medical imaging, but no such experiment is given; under equipartition (Major~2), data dominated by ``normal'' images is where the method is most uncertain.
 \end{enumerate}
 
 \section{Justification}
-Balance the strengths and the weaknesses to explain why the paper should be accepted or not. Does the paper present sufficient knowledge advancement?  Use your best judgment.
+Although SwAV is only on par with DeepCluster-v2, it outperforms contrastive methods under identical settings, works online, and remains effective with small batches (Table~3). Major~1 and~2 concern analysis rather than the core results, so I suggest Weak Accept. A no-swap ablation and an analysis of $K$, $\varepsilon$, and equipartition in the rebuttal could raise my rating.
 
-(2026) Suppose this paper was submitted in 2026, on what grounds would you recommend accepting or rejecting it from today’s point of view? In other words, this comment is based on current technological progress, not the time when the paper was originally published.
+(2026) Its main ideas are now standard components of later methods (Major~3), and its ResNet-50 results are far below current ViT-based models. Since the lack of novelty cannot be addressed by additional experiments, I suggest Weak Reject from today's point of view.
 
 \section{Final Rating}
-5: Strong Accept
-
 4: Weak Accept
 
-3: Borderline
-
-2: Weak Reject
-
-1: Strong Reject
-
-Provide (2026) final rating as well.
-
-This template follows the review format of CVPR 2025 \cite{web} and \cite{slides}.
+(2026) 2: Weak Reject
 
 \section{Reflections}
-Share your reflections on this paper. What did you learn (technologies, writing, etc.)? How did it inspire you? Is it useful for your project or research? How might you apply it to your research? Just examples. Feel free to connect the paper to yourself in other ways.
+At first I was skeptical of this paper: the results seemed to come from single runs, the benchmarks felt narrow, and the gain over DeepCluster-v2 was negligible. Looking into the 2020 context, I realized I was judging it by today's standards. One 800-epoch run already costs about 3{,}200 GPU-hours, and SwAV clearly beats contrastive methods under the same settings.
 
+My main lesson came from seeing multi-crop adopted by DINO and Sinkhorn-Knopp centering by DINOv2. A paper's value lies less in its headline number than in whether its ideas survive in later methods. ResNet~\cite{he2016resnet} is a clear example, its ImageNet accuracy has long been surpassed, yet residual connections remain in almost every modern architecture, including Transformers~\cite{vaswani2017attention}.
 
+For my own research, medical imaging tasks often suffer from limited data. I once doubted whether it is worth training a model for a disease too rare to have enough images. Yet SwAV, built for no particular downstream task, learned features from unlabeled images that transfer to tasks its authors never targeted. What a model learns can matter more than the task it was designed for.
 
 %%%%%%%%% REFERENCES
 {\small
 \bibliographystyle{ieee_fullname}
 \bibliography{egbib}
+
+
 }
 
 \end{document}

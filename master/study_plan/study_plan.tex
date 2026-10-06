@@ -1,0 +1,161 @@
+\documentclass[11pt]{article}
+
+\usepackage[a4paper,margin=1in]{geometry}   % 超過兩頁時可改 margin=2cm
+\usepackage[hidelinks]{hyperref}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{indentfirst}
+
+% ---------- 中文 ----------
+\usepackage{xeCJK}
+% Overleaf / Linux
+\setCJKmainfont{Noto Serif CJK TC}[BoldFont=Noto Sans CJK TC Bold]
+% Windows：\setCJKmainfont{PMingLiU}[BoldFont=Microsoft JhengHei Bold]
+% macOS  ：\setCJKmainfont{Songti TC}[BoldFont=PingFang TC Semibold]
+
+\linespread{1.15}               % 塞不下時改 1.1
+\setlength{\parindent}{2em}
+\setlength{\parskip}{2pt}
+
+% ---------- 與 CV 相同的樣式 ----------
+\setlist[itemize]{noitemsep, topsep=2pt}
+
+\titleformat{\section}
+  {\large\bfseries}
+  {}
+  {0em}
+  {}[\titlerule]
+\titlespacing*{\section}{0pt}{10pt}{6pt}
+
+% 經歷標題列：左邊粗體標題、右邊時間（同 CV 的 tabularx Xr）
+\newcommand{\entry}[2]{%
+  \par\noindent
+  \begin{tabularx}{\textwidth}{@{}X r@{}}
+    \textbf{#1} & #2
+  \end{tabularx}\par}
+
+% 待填文字（定稿前搜尋 \TODO 全部刪掉）
+\newcommand{\TODO}[1]{\leavevmode{\color{gray}【#1】}}
+
+\begin{document}
+
+%====================
+% Header
+%====================
+\begin{center}
+{\Large \textbf{就學計畫書}} \\
+\vspace{4pt}
+戴偉璿（Tai, Wei-Hsuan）\quad 國立臺灣大學 醫學工程學系 \\
+\vspace{2pt}
+\href{mailto:joshdai930908@gmail.com}{joshdai930908@gmail.com} \quad
+\href{https://github.com/W-X-Dai}{github.com/W-X-Dai}
+\end{center}
+
+%====================
+\section*{一、申請動機}
+%====================
+% 約 250 字：具體轉折點 → 核心問題 → 為何選臺大醫工丙組
+
+\TODO{起點：一個具體的轉折經驗，例如第一次在真實胸部 CT 上訓練模型，發現醫學影像與一般電腦視覺的根本差異（資料稀少、標註昂貴、需要可解釋性）。}
+
+\TODO{核心問題意識（一句話）：例如「如何利用多模態影像之間的互補資訊，以深度生成模型在更低輻射劑量或更少掃描下，仍得到可信的診斷影像」。}
+
+\TODO{為何選擇程子翔老師的多模態醫學影像優化實驗室：老師的研究聚焦於 PET/MRI 與醫學影像深度學習，例如以多對比 MRI 搭配深度學習增強超低劑量 PET、由 MRI 預測 FDG-PET、不同類澱粉蛋白示蹤劑之間的影像轉換。這與我在 GAN 資料增強（PD-L1 研究）、病灶紋理生成（專題）累積的生成式模型經驗直接相關。寫出一個你讀過的老師論文，並說明它哪裡吸引你。}
+
+%====================
+\section*{二、學術背景與能力}
+%====================
+% 約 400 字：成績單整理成能力主軸，不要逐科列
+
+\TODO{一段總述：建立「程式／演算法 → 機器學習 → 醫學影像」的能力主軸；進入專業課程後學期 GPA 由 3.13 提升至 3.84，並維持 3.7 左右。}
+
+\begin{itemize}
+  \item \textbf{程式與演算法：}程式語言（A+）、資料結構（A+）、演算法（A$-$）、資料庫管理（A+）；C++（Codeforces rating 1400）、Python。
+  \item \textbf{機器學習：}機器學習（A+）、機器學習在人體動作分析之應用（A+）、深度強化學習（A$-$）；本學期修習多模態人工智慧。
+  \item \textbf{醫學影像：}醫學影像系統原理（A）、基礎生醫影像處理技術（A）、進階顯微影像技術（A）、生醫光電導論（A+）。
+  \item \textbf{技術工具：}PyTorch、Diffusion Models、Self-Supervised Learning；Linux、Docker、Git。
+  \item \textbf{英語能力：}修畢 25 學分全英語授課（EMI）課程，取得 E1 認證。
+\end{itemize}
+
+%====================
+\section*{三、研究與專題經驗}
+%====================
+% 約 600 字，全文最重要。每項：問題 → 我做了什麼 → 結果（數字）→ 學到什麼
+
+\entry{以多任務 Masked Autoencoder 與 GAN 資料增強預測胸部 CT 之 PD-L1 表現}{2025 -- 2026}
+\begin{itemize}
+  \item 論文發表於 \textit{Scientific Reports}（2026，第四作者）（\href{https://www.nature.com/articles/s41598-026-49064-3}{全文連結}）
+  \item 研究內容：以多任務 masked autoencoder 搭配 ViT 進行遷移學習，並以 GAN 生成影像擴充訓練資料。\TODO{補上與 baseline 相比的關鍵數字}
+  \item 我的貢獻：負責後期實驗並提供 AUC 結果；於審稿回覆階段補做 ROC、AUPR 曲線與 Wilcoxon signed-rank test。\TODO{收穫：統計檢定的嚴謹性、回應審稿意見的經驗}
+\end{itemize}
+
+\entry{學士專題：肺部病灶 CT 紋理生成（陳中明教授實驗室）}{2025 -- Present}
+\begin{itemize}
+  \item \TODO{問題與動機}
+  \item \TODO{方法路線：嘗試過哪些方法}
+  \item \TODO{困難與失敗歸因：如何診斷問題——最能展現研究思維}
+  \item \TODO{目前成果（盡量給數字）}
+\end{itemize}
+
+\entry{以知識蒸餾實現輕量化腦腫瘤 MRI 分割（基礎生醫影像處理技術 期末專題）}{2025 Fall}
+\begin{itemize}
+  \item 以 BraTS 資料集為基礎，目標是在降低運算成本下維持分割表現。
+  \item 我負責蒸餾方法：將訓練完成的 nnU-Net 蒸餾至 2.5D MobileNet-based U-Net，在模型更小、推論更快的前提下達到相近表現。\TODO{補上 Dice、參數量、推論時間的數字}
+\end{itemize}
+
+\entry{以去噪 U-Net 進行文字影像復原}{2025 Fall}
+\begin{itemize}
+  \item 原作業要求以 CLAHE 增強文字清晰度；因效果有限，改以合成雜訊資料訓練去噪 U-Net，並可泛化至真實雜訊影像。\TODO{一句話：主動超越作業要求所學到的事}
+\end{itemize}
+
+% ----- 篇幅夠再放，否則刪除 -----
+% \entry{以地面反作用力預測 COM-COP 位移（機器學習在人體動作分析之應用）}{2026 Spring}
+% \begin{itemize}
+%   \item \TODO{任務、方法、結果；展示非影像生理訊號處理能力}
+% \end{itemize}
+%
+% \entry{政府數位醫療平台 實習}{\TODO{期間}}
+% \begin{itemize}
+%   \item \TODO{負責內容，以及對臨床資料流、隱私或部署限制的體會}
+% \end{itemize}
+
+%====================
+\section*{四、學習計畫}
+%====================
+% 約 400 字。就學計畫不是研究計畫：研究只寫到「方向」，不寫方法與指標。
+% 重點是「我缺什麼 → 系所有什麼資源 → 我怎麼用它補上」
+
+\TODO{研究興趣（一到兩句，只寫方向）：希望加入程子翔老師的多模態醫學影像優化實驗室，投入以深度學習進行多模態醫學影像（PET/MRI）增強與轉換的研究；說明這延續了自己在生成式模型與醫學影像上的經驗。具體題目入學後與老師討論。}
+
+\TODO{能力缺口（一句）：目前具備深度學習與影像處理基礎，但缺乏 PET 成像物理與核醫影像的知識。}
+
+\vspace{4pt}
+\noindent
+\begin{tabularx}{\textwidth}{@{}l X@{}}
+\toprule
+\textbf{階段} & \textbf{規劃} \\
+\midrule
+入學前 & \TODO{完成學士專題並整理成果；精讀老師近年論文；自學 PET 成像原理與核醫影像基礎} \\
+碩一 & 修習核子醫學原理、生醫信號影像處理，補足 PET 成像物理；\TODO{查系所課程地圖，補 1--2 門與影像重建或統計相關的課程}；熟悉實驗室資料與研究流程，與老師確立論文方向 \\
+碩二 & 專注論文研究；\TODO{參與國際研討會（如 MICCAI、ISBI）或醫學影像競賽}；完成並發表學位論文 \\
+\bottomrule
+\end{tabularx}
+
+\vspace{4pt}
+\TODO{資源運用（一句，選填）：例如與臺大醫院的跨領域合作、系上講座、校內 GPU 資源等；寫你確認過真的存在的資源。}
+
+%====================
+\section*{五、未來規劃與結語}
+%====================
+% 約 200 字。以終為始：先寫目標，再說碩士訓練如何通往它
+
+\TODO{長期目標（一句）：例如投入醫學影像 AI 的研發，或繼續攻讀博士。}
+
+\TODO{連結：碩士階段的哪些訓練（PET/MRI 領域知識、研究方法、論文發表）會如何支撐這個目標。}
+
+\TODO{結語（一到兩句）：呼應第一段的問題意識，重申自己已做好準備、與實驗室方向契合。}
+
+\end{document}

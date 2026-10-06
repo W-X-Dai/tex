@@ -1,2 +1,7 @@
-\backcite {web}{{2}{F}{appendix.F}}
-\backcite {slides}{{2}{F}{appendix.F}}
+\backcite {caron2021dino}{{1}{3}{Item.7}}
+\backcite {zhou2022ibot}{{1}{3}{Item.7}}
+\backcite {oquab2024dinov2}{{1}{3}{Item.7}}
+\backcite {he2022mae}{{1}{3}{Item.7}}
+\backcite {radford2021clip}{{1}{3}{Item.7}}
+\backcite {he2016resnet}{{2}{G}{appendix.G}}
+\backcite {vaswani2017attention}{{2}{G}{appendix.G}}

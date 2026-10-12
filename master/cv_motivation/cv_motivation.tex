@@ -1,0 +1,130 @@
+\documentclass[10pt]{article}
+
+\usepackage[a4paper,margin=0.6in]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{tabularx}
+
+\setlist[itemize]{noitemsep, topsep=0pt, partopsep=0pt, leftmargin=1.2em}
+\setlength{\parindent}{0pt}
+\pagestyle{empty}
+
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+\titlespacing*{\section}{0pt}{4pt}{2pt}
+
+% entry: title (left) + date (right)
+\newcommand{\entry}[2]{\par\vspace{3pt}\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}X r@{}}\textbf{#1} & #2\end{tabularx}\\[-9pt]}
+
+\begin{document}
+
+%====================
+% Header
+%====================
+\begin{center}
+{\LARGE \textbf{Tai, Wei-Hsuan}} \\[3pt]
+\href{mailto:joshdai930908@gmail.com}{joshdai930908@gmail.com} \quad $\cdot$ \quad
+\href{https://github.com/W-X-Dai}{github.com/W-X-Dai}
+\end{center}
+
+%====================
+% Education
+%====================
+\section*{Education}
+\vspace{2pt}\textbf{National Taiwan University (NTU)} \hfill Sep 2023 -- Jun 2027 (expected) \\
+B.S. in Biomedical Engineering \hfill GPA: 3.56/4.30 \;(last 3 semesters: 3.76/4.30)
+% TODO: 若名次證明有排名，可加在上一行，例如 "Rank: xx/yy"
+\begin{itemize}
+  \item \textbf{Relevant coursework:} Machine Learning (A+), ML for Human Motion Analysis (A+), Deep Reinforcement Learning (A-),
+        Data Structures (A+), Algorithms (A-), Programming Languages (A+), Database Management (A+),
+        Fundamentals of Biomedical Image Processing (A), Principles of Medical Imaging Systems (A), Engineering Mathematics (A/A)
+  \item \textbf{In progress (Fall 2026):} Multimodal Artificial Intelligence; Time-Frequency Analysis and Wavelet Transform
+  \item Completed 25 credits of English-taught (EMI) courses
+\end{itemize}
+
+%====================
+% Publication
+%====================
+\section*{Publication}
+\textbf{A multi-task masked autoencoder with GAN-based augmentation for PD-L1 prediction from chest CT images.} \\
+% TODO: 補上完整作者列表，例如 "A. Author, B. Author, C. Author, \textbf{W.-H. Tai}, ..., C.-M. Chen"
+\textit{Scientific Reports}, 2026. (4th author) \quad
+\href{https://www.nature.com/articles/s41598-026-49064-3}{doi:10.1038/s41598-026-49064-3}
+
+%====================
+% Experience
+%====================
+\section*{Research \& Work Experience}
+
+\entry{Undergraduate Researcher, MIRAGE Lab, NTU \textmd{(Advisor: Prof. Chung-Ming Chen)}}{Jul 2025 -- Present}
+\begin{itemize}
+    \item \textbf{PD-L1 prediction from chest CT (published above):} reproduced the proposed MAE+ViT pipeline with 9-fold fine-tuning;
+        produced ROC/PR curves, AUC/AUPRC results and Wilcoxon signed-rank tests for the rebuttal.
+    \item \textbf{Lesion CT texture synthesis (undergraduate thesis project):} explored improved DDPM-based methods
+        for generating realistic lung-lesion textures on CT images.
+\end{itemize}
+
+\entry{Intern, Next-Gen Digital Healthcare Platform Project Office (MOHW)}{Jul 2026 -- Present}
+\begin{itemize}
+  \item Researching and building an LLM-based clinical assistant that retrieves patient data from FHIR servers and supports
+        differential diagnosis, missed-diagnosis prevention, examination recommendations, and draft medical-record generation.
+\end{itemize}
+%====================
+% Projects
+%====================
+\section*{Selected Projects}
+
+\entry{Deep Reinforcement Learning for Compiler Optimization Pass Ordering in LLVM}{2026 Spring}
+\begin{itemize}
+  \item DRL course paper (OpenReview-style peer review + poster). Showed via ablation that pass-history state encoding beats IR-based
+        features; built a multi-suite PPO pipeline (truncation-aware GAE, parallel rollouts) with an inference-time policy ensemble
+        that matches or beats \texttt{-Oz} on 20/23 cBench programs.
+\end{itemize}
+
+\entry{Gait Biomechanics: Predicting COM-COP Displacement from Ground Reaction Forces}{2026 Spring}
+\begin{itemize}
+  \item Compared BiLSTM, TCN and causal CNN with knowledge distillation under leave-one-subject-out CV; designed the preprocessing pipeline.
+\end{itemize}
+
+\entry{Lightweight Brain Tumor Segmentation via Knowledge Distillation}{2025 Fall}
+\begin{itemize}
+    \item Distilled a trained nnU-Net into a lightweight 2.5D MobileNet-based U-Net on BraTS; distillation raised the student's
+        mean Dice from 0.848 to 0.912 (5-fold CV, WT/TC/ET).
+    \item \href{https://bit.ly/4lwuwQy}{https://bit.ly/4lwuwQy}
+\end{itemize}
+
+\entry{Document Text Recovery with a Denoising U-Net}{2025 Fall}
+\begin{itemize}
+  \item Replaced the assigned CLAHE baseline with a denoising U-Net trained on synthetically degraded images.
+        
+  \item \href{https://github.com/W-X-Dai/text_recovery}{https://github.com/W-X-Dai/text\_recovery}
+\end{itemize}
+
+\entry{Uniconnect -- University--Industry Resource Platform (DBMS course)}{2025 Fall}
+\begin{itemize}
+  \item Led backend: NestJS + PostgreSQL schema design, Redis caching, API integration, Docker deployment.
+  \item \href{https://github.com/W-X-Dai/DBMS_FinalProj}{https://github.com/W-X-Dai/DBMS\_FinalProj}
+\end{itemize}
+
+%====================
+% Teaching
+%====================
+\section*{Leadership \& Teaching}
+\entry{Vice President \& Director of Events, NTU Biomedical Engineering Student Association}{[Term]}
+\begin{itemize}
+  \item Hosted department events including the graduation (tassel-turning) ceremony, freshman welcome party, and BBQ.
+\end{itemize}
+\entry{Instructor, NTU BME Camp for high-school students}{2026 Summer}
+\begin{itemize}
+  \item Taught a 1-hour online lecture + Colab lab on deep learning for medical imaging (GAN augmentation, MAE, transfer learning).
+\end{itemize}
+
+%====================
+% Skills
+%====================
+\section*{Technical Skills}
+\textbf{Programming:} Python, C++ (Codeforces rating 1400), TypeScript/JavaScript, SQL \\
+\textbf{ML / DL:} PyTorch, diffusion models, self-supervised learning, LLM agents (LangGraph), statistical evaluation \\
+\textbf{Backend / Tools:} FastAPI, NestJS, PostgreSQL, Redis, FHIR, Vue, Linux, Docker, Git
+
+\end{document}

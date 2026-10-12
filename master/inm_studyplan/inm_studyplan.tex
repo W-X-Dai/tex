@@ -1,0 +1,139 @@
+% !TEX program = xelatex
+\documentclass[11pt]{article}
+
+\usepackage[a4paper,margin=2.2cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{indentfirst}
+
+% ---------- 中文 ----------
+\usepackage{xeCJK}
+% Overleaf / Linux
+\setCJKmainfont{Noto Serif CJK TC}[BoldFont=Noto Sans CJK TC Bold]
+% Windows：\setCJKmainfont{PMingLiU}[BoldFont=Microsoft JhengHei Bold]
+% macOS  ：\setCJKmainfont{Songti TC}[BoldFont=PingFang TC Semibold]
+
+\linespread{1.15}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{2pt}
+
+\setlist[itemize]{noitemsep, topsep=2pt}
+
+\titleformat{\section}
+  {\large\bfseries}
+  {}
+  {0em}
+  {}[\titlerule]
+\titlespacing*{\section}{0pt}{10pt}{6pt}
+
+\newcommand{\entry}[2]{%
+  \par\noindent
+  \begin{tabularx}{\textwidth}{@{}X r@{}}
+    \textbf{#1} & #2
+  \end{tabularx}\par}
+
+% 待確認文字（定稿前搜尋 \TODO 全部處理掉）
+\newcommand{\TODO}[1]{\leavevmode{\color{gray}【#1】}}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries 就學計畫書}\\[4pt]
+  臺灣大學資訊網路與多媒體研究所 碩士班甄試 \quad 戴偉璿
+\end{center}
+
+%====================
+\section*{一、學術背景與能力}
+%====================
+我的訓練來自醫學工程，但修課與研究重心一直落在資訊與影像。以下依能力主軸整理：
+\begin{itemize}
+  \item \textbf{程式與演算法：}程式語言（A+）、資料結構（A+）、演算法（A$-$）、資料庫管理（A+）；熟悉 C++（Codeforces rating 1400）與 Python。
+  \item \textbf{機器學習：}機器學習（A+）、機器學習在人體動作分析之應用（A+）、深度強化學習（A$-$）；本學期修習資工系多模態人工智慧。
+  \item \textbf{影像與訊號：}醫學影像系統原理（A）、基礎生醫影像處理技術（A）、進階顯微影像技術（A）、生醫光電導論（A+）；本學期修習時頻分析和小波轉換。
+  \item \textbf{數學基礎：}微積分、工程數學上下（A、A）、離散數學。
+  \item \textbf{工具：}PyTorch、Diffusion Models、Self-Supervised Learning；Linux、Docker、Git。
+\end{itemize}
+
+我也清楚自己的不足：相較於資工本科生，我在機率統計與最佳化的系統性訓練較少，電腦視覺也多從醫學影像切入，缺乏對自然影像與多媒體方法的完整認識。這兩點是碩士階段首先要補強的部分，也反映在第三節的修課規劃中。
+
+%====================
+\section*{二、研究與實作經驗}
+%====================
+% 每項：問題 → 我做了什麼 → 與網媒所研究的關聯
+
+\entry{胸部 CT 預測 PD-L1 表現（\textit{Scientific Reports}, 2026，第四作者）}{2025 -- 2026}
+\begin{itemize}
+  \item 以 Multi-Task Masked Autoencoder 搭配 ViT 進行遷移學習，並以 GAN 生成影像擴充資料。
+  \item 我負責重現與延伸實驗；審稿階段以 9-fold fine-tuning 還原結果，補充 ROC、AUPRC 曲線與 Wilcoxon signed-rank test。
+  \item DOI: 10.1038/s41598-026-49064-3
+\end{itemize}
+
+\entry{學士專題：3D 肺結節 CT 紋理生成（陳中明教授實驗室）}{2025 -- Present}
+\begin{itemize}
+  \item 目標是以擴散模型生成紋理保真的 3D 肺結節。
+  \item 初期以 MSE 與 DoG 損失組合直接調整模型，未能改善；後續改為先以實驗分析紋理的空間特性，區分組織結構與影像重建的影響，再據此設計模型約束。
+  \item 這個問題本質上是「生成模型如何保留高頻紋理」，與自然影像的紋理合成、超解析度同屬一類問題，也是我希望在網媒所深入的方向。
+\end{itemize}
+
+\entry{以知識蒸餾實現輕量化腦腫瘤 MRI 分割（基礎生醫影像處理技術 期末專題）}{2025 Fall}
+\begin{itemize}
+  \item 以 BraTS 資料集為基礎，將 nnU-Net 蒸餾至 2.5D MobileNet-based U-Net，在模型更小、推論更快的前提下維持相近的分割表現。
+\end{itemize}
+
+\entry{強化學習應用於編譯器優化（李濬屹教授 深度強化學習 期末論文）}{2026 Spring}
+\begin{itemize}
+  \item 以 NeurIPS 格式撰寫論文，完整經歷 OpenReview 投稿、Rebuttal、同儕審查與 Poster Session。
+\end{itemize}
+
+\entry{衛福部次世代智慧醫療平台辦公室 實習}{2026 Summer -- Present}
+\begin{itemize}
+  \item 建置 AI ChatBot：自動從 FHIR Server 取得病人過往病歷，並依問診結果提供初步鑑別診斷、防漏診提示與建議檢查。
+  \item 正在統整第一階段成果，預計投稿 JMS Brief Report。
+  \item 這段經驗讓我實際處理「影像以外」的病人資料，也看見多模態整合在系統層面的挑戰。
+\end{itemize}
+
+%====================
+\section*{三、碩士班學習計畫}
+%====================
+
+\noindent\textbf{1. 研究方向}
+
+我希望以「具物理一致性的影像生成與表徵學習」為研究主軸。具體而言，我想探討兩個問題：
+\begin{itemize}
+  \item \textbf{紋理保真的生成：}擴散模型在資料有限時，如何保留具有意義的高頻紋理，而不只是生成平滑、看似合理的影像。
+  \item \textbf{影像與文字的多模態表徵：}如何讓影像特徵與病歷、報告等文字資訊對齊，並應用於輔助診斷。
+\end{itemize}
+
+醫學影像是我主要的驗證場域，因為它資料稀少、雜訊來源明確、錯誤代價高，能嚴格檢驗方法是否真正有效。但我希望研究的核心是方法本身，使成果也能延伸到一般影像與多媒體問題。
+
+\vspace{4pt}
+\noindent\textbf{2. 希望加入的實驗室}
+
+網媒所在電腦視覺與醫學影像方向有完整的師資。舉例而言，陳祝嵩教授的研究橫跨深度學習、電腦視覺與醫學影像，與我「以方法為核心、以醫學影像為場域」的規劃最為契合；張瑞峰教授長期投入醫學影像電腦輔助診斷，也與我在多模態輔助診斷上的興趣相關。
+
+\vspace{6pt}
+\noindent\textbf{4. 時程規劃}
+
+\vspace{4pt}
+\noindent
+\begin{tabularx}{\textwidth}{@{}l X@{}}
+\toprule
+\textbf{階段} & \textbf{規劃} \\
+\midrule
+大四至入學前 &
+完成紋理生成專題並整理成 workshop 論文；自學 Convex Optimization（Stanford EE364A）與 Probabilistic Systems Analysis（MIT 6.041），補強數學基礎；閱讀指導老師近年論文，提前熟悉實驗室研究。 \\
+碩一 & 修習必修課程，優先滿足畢業門檻；參與國際研討會（如 MICCAI 2027），了解醫學影像領域的前沿研究與社群；與老師討論並確立研究方向\\
+碩二 & 專注論文研究，完成學位論文，並將成果投稿至 MICCAI 或 IEEE NSS/MIC 等研討會 \\
+\bottomrule
+\end{tabularx}
+
+%====================
+\section*{四、畢業後規劃}
+%====================
+畢業後，我計畫投入電腦視覺或醫療 AI 的研發工作，將生成模型與多模態方法應用到實際產品中；若碩士期間的研究累積足夠，也會考慮繼續攻讀博士。
+
+\end{document}

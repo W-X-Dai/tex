@@ -1,0 +1,213 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage{xeCJK}
+\usepackage{fontspec}
+\setCJKmainfont{Noto Serif CJK TC}[Script=CJK]
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\setlength{\headheight}{14.5pt}
+\addtolength{\topmargin}{-2.5pt}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{caption}
+\usepackage{indentfirst}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{float}
+\usepackage{minted}
+\setlength{\parindent}{2em}
+\pagestyle{fancy}
+\fancyhf{}
+\cfoot{\thepage}
+\linespread{1.3}
+\setminted{
+    linenos,                % 行號
+    frame=lines,            % 上下框線
+    framesep=5pt,           % 程式碼與邊框距離
+    numbersep=8pt,          % 行號與程式碼距離
+    fontsize=\scriptsize,   % 字體大小
+    breaklines,             % 自動換行
+    tabsize=4,              % tab 寬度
+    rulecolor=\color{black},% 框線顏色
+    xleftmargin=1.5em       % 左側縮排
+}
+
+\title{Time Frequency Analysis and Wavelet Transforms Homework 1}
+\author{B12508026戴偉璿}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\lhead{TFW HW 1}
+\rhead{B12508026戴偉璿}
+
+\begin{enumerate}
+
+\item We have $N=\frac{T}{\Delta_t}\ge TF$, i.e., the minimum number of sampling points equals the area of the time-frequency distribution.
+
+Suppose $x(t)$ has time duration $T$ and bandwidth $F$.
+
+\begin{enumerate}[label=(\alph*)]
+  \item $x(t-2)$: shifting only, $\mathcal{F}\{x(t-2)\}=e^{-j4\pi f}X(f)$.
+  Duration $T$, bandwidth $F$, area $TF$. 
+
+  \item $x^2(t)$: $\mathcal{F}\{x^2(t)\}=X(f)*X(f)$, the bandwidth doubles.
+  Duration $T$, bandwidth $2F$, area $2TF$. 
+
+  \item $x(2t)$: $\mathcal{F}\{x(2t)\}=\frac{1}{2}X\!\left(\frac{f}{2}\right)$.
+  Duration $\frac{T}{2}$, bandwidth $2F$, area $TF$.
+
+  \item $2x(-t)$: $\mathcal{F}\{2x(-t)\}=2X(-f)$, only flipped and scaled in amplitude.
+  Duration $T$, bandwidth $F$, area $TF$. 
+\end{enumerate}
+
+Therefore, (a), (c), (d) have the same sampling points with $x(t)$.
+
+
+\item The STFT is proper when we need to know how the frequency of a signal varies with time.
+\begin{enumerate}[label=(\alph*)]
+  \item \textbf{Yes.} The minimum number of sampling points equals to the area of the time-frequency distribution, thus the STFT can determine the local bandwidth of each time interval. We can use a larger sampling interval where the bandwidth is narrow (adaptive sampling), which reduces the total number of sampling points.
+
+  \item \textbf{No.} Convolution can be computed directly by FT, since $x*h \leftrightarrow X(f)H(f)$, and implemented efficiently with the FFT. It is a global operation and doesn't require time localization. Therefore, the STFT only adds unnecessary computation.
+
+  \item \textbf{No.} An image is a 2D spatial signal without the time axis, so there is no frequency variation with time to analyze. Image identification usually uses the 2D FT, feature extraction, or CNN instead.
+
+  \item \textbf{Yes.} The pitch of animal voices (e.g. bird songs, whale calls) varies with time. The FT only shows which frequencies appear in the whole signal, while the STFT shows how the instantaneous frequency changes with time.
+\end{enumerate}
+
+\item
+  \begin{enumerate}[label=(\alph*)]
+    \item The FT of the rectangular function $x(t)=1$ for $|t|<1$ is
+    \[
+    X(f)=\int_{-1}^{1}e^{-j2\pi ft}\,dt=\frac{\sin 2\pi f}{\pi f}=2\,\mathrm{sinc}(2f).
+    \]
+    It decays at a rate of only $1/f$ and extends to infinite frequencies, as if the signal always contained high-frequency components. However, the instantaneous frequency of a rectangular function varies with time: the signal is constant within $(-1,1)$, so its local frequency is $0$; the high-frequency components only arise from the discontinuity at $t=\pm1$. Since the FT integrates over the entire time axis, it loses time information and cannot display this time-varying frequency distribution.
+
+    \item With $B=1$, we have
+    \[
+    X(t,f)=\int_{t-1}^{t+1}x(\tau)e^{-j2\pi f\tau}\,d\tau .
+    \]
+    The integral is nonzero only on $(t-1,t+1)\cap(-1,1)$, if:
+
+    \begin{itemize}
+      \item $|t|\ge 2$: no overlap, $X(t,f)=0$.
+      \item $-2<t<0$: interval $(-1,\,t+1)$.
+      \item $0\le t<2$: interval $(t-1,\,1)$.
+    \end{itemize}
+    In both nonzero cases, the interval has length $L=2-|t|$ and center $c=t/2$. For an interval $(c-\frac{L}{2},\,c+\frac{L}{2})$,
+    \[
+    \int_{c-L/2}^{c+L/2}e^{-j2\pi f\tau}\,d\tau
+    =e^{-j2\pi fc}\,\frac{e^{j\pi fL}-e^{-j\pi fL}}{j2\pi f}
+    =e^{-j2\pi fc}\,\frac{\sin(\pi fL)}{\pi f}.
+    \]
+    Therefore,
+    \[
+    X(t,f)=
+    \begin{cases}
+      e^{-j\pi ft}\,\dfrac{\sin\!\big(\pi f(2-|t|)\big)}{\pi f}, & |t|<2,\\[3mm]
+      0, & |t|\ge 2.
+    \end{cases}
+    \]
+    When $f=0$, $X(t,0)=2-|t|$. At $t=0$, the result reduces to $\frac{\sin 2\pi f}{\pi f}$, the same as the FT in (a).
+  \end{enumerate}
+
+
+
+\item
+  \begin{enumerate}[label=(\alph*)]
+    \item The window size of the scaled Gabor transform is $w(\tau)=e^{-\sigma\pi\tau^2}$.
+    \begin{itemize}
+      \item Time width: $w$ decays to $e^{-\pi}$ when $\sigma\tau^2=1$, i.e., $\tau=1/\sqrt{\sigma}$, so the time width is proportional to $1/\sqrt{\sigma}$.
+      \item Frequency width: since $\mathcal{F}\{e^{-\sigma\pi\tau^2}\}=\frac{1}{\sqrt{\sigma}}e^{-\pi f^2/\sigma}$, the frequency width is proportional to $\sqrt{\sigma}$.
+    \end{itemize}
+    The product $\frac{1}{\sqrt{\sigma}}\cdot\sqrt{\sigma}=1$ is a constant, so that the two resolutions cannot be improved at the same time. Therefore, if we have a larger $\sigma$, we'll get narrower window, higher time resolution but lower frequency resolution; if we have a smaler $\sigma$, we'll get wider window, higher frequency resolution but lower time resolution.
+
+    \item \textbf{A larger $\sigma$ should be used.} With units of seconds and Hz, a vocal signal lasts only a few seconds, while its frequency ranges over hundreds to thousands of Hz, and a phoneme changes every $10\sim30$ ms. With $\sigma=1$, the window width is about $1$ s, which mixes several phonemes together. Thus the vocal signal is more sensitive to time resolution, and a larger $\sigma$ is required. For example, a window width of about $0.03$ s gives $1/\sqrt{\sigma}\approx0.03$, i.e., $\sigma\approx1000$, while the frequency width $\sqrt{\sigma}\approx30$ Hz is still fine enough for speech.
+
+    Equivalently, we can change the units, e.g., $t$ in $0.1$ s and $f$ in $10$ Hz. Letting $\tau'=10\tau$, the window $e^{-\pi\tau'^2}=e^{-100\pi\tau^2}$ is the same as using $\sigma=100$ in the original units.
+  \end{enumerate}
+
+
+
+\item
+  \begin{enumerate}[label=(\alph*)]
+    \item Both of them can be used as the window of the STFT: the rectangular window gives the rec-STFT, and the Gaussian window gives the Gabor transform. They are also related as follows:
+    
+    \begin{itemize}
+      \item Convolving a rectangular function with itself repeatedly approaches a Gaussian function by the central limit theorem. In the frequency domain, $n$-fold convolution corresponds to $\mathrm{sinc}^n(f)$, and near the main lobe $\mathrm{sinc}(f)\approx 1-\frac{\pi^2f^2}{6}\approx e^{-\pi^2f^2/6}$. Thus, $\mathrm{sinc}^n(f)\approx e^{-n\pi^2f^2/6}$, which is a Gaussian.
+      \item Both belong to the hyper-Laplacian family $e^{-|t|^p}$. When $p=2$, it is the Gaussian function; when $p\to\infty$, it tends to $1$ for $|t|<1$ and $0$ for $|t|>1$. Thus, the rectangular function is the limiting case of this family as $p\to\infty$.
+    \end{itemize}
+    \newpage
+    \item There are three reasons:
+    \begin{enumerate}[label=\arabic*.]
+      \item The FT of the rectangular window is a sinc function, whose sidelobes leak energy into other frequencies, while the FT of a Gaussian function is still Gaussian (an eigenfunction of the FT), which is smooth and decays monotonically without sidelobes. Thus, the Gaussian window avoids the artificial stripes in the time-frequency plane that appear with the rectangular window.
+      \item By the uncertainty principle $\sigma_t\sigma_f\ge\frac{1}{4\pi}$, only the Gaussian function achieves the equality, whereas for the rectangular window $\sigma_f^2\propto\int f^2\,\mathrm{sinc}^2(f)\,df$ diverges since $f^2\,\mathrm{sinc}^2(f)$ does not decay. Thus, the Gaussian window has the minimal time-frequency area and gives the best time and frequency resolutions simultaneously.
+      \item The Gaussian window gives larger weights to the signal near the analysis time and decays smoothly, instead of truncating abruptly at the boundary as the rectangular window does. Thus, it better reflects the local characteristics of the signal around the analysis time.
+    \end{enumerate}
+    Although the Gaussian window has infinite length, $e^{-\pi a^2}<10^{-5}$ when $|a|>1.9143$, so it can be truncated in implementation with acceptable computation.
+  \end{enumerate}
+
+  
+
+\item We have the scaled Gabor transform:
+  \[
+  G_x(t,f)=\sqrt[4]{\sigma}\int_{-\infty}^{\infty}e^{-\sigma\pi(\tau-t)^2}e^{-j2\pi f\tau}x(\tau)\,d\tau ,
+  \]
+  and we use $\int_{-\infty}^{\infty}e^{-(a\tau^2+b\tau)}\,d\tau=\sqrt{\frac{\pi}{a}}\,e^{b^2/(4a)}$.
+  \begin{enumerate}[label=(\alph*)]
+    \item For $x(t)=\delta(t)$, by the sifting property, substituting $\tau=0$, we have
+    \[
+    G_x(t,f)=\sqrt[4]{\sigma}\,e^{-\sigma\pi t^2}.
+    \]
+
+    \item For $x(t)=1$, the exponent is
+    \[
+    -\sigma\pi(\tau-t)^2-j2\pi f\tau=-\big[\sigma\pi\tau^2+(-2\sigma\pi t+j2\pi f)\tau\big]-\sigma\pi t^2 .
+    \]
+    With $a=\sigma\pi$ and $b=-2\pi(\sigma t-jf)$, we have $\sqrt{\pi/a}=1/\sqrt{\sigma}$ and $\frac{b^2}{4a}=\sigma\pi t^2-j2\pi tf-\frac{\pi f^2}{\sigma}$. Therefore,
+    \[
+    G_x(t,f)=\sigma^{-1/4}\,e^{-\pi f^2/\sigma}\,e^{-j2\pi ft}.
+    \]
+
+    \item For $x(t)=e^{-\pi t^2}$, the exponent is
+    \[
+    -\sigma\pi(\tau-t)^2-\pi\tau^2-j2\pi f\tau=-\big[(\sigma+1)\pi\tau^2-2\pi(\sigma t-jf)\tau\big]-\sigma\pi t^2 .
+    \]
+    With $a=(\sigma+1)\pi$ and $b=-2\pi(\sigma t-jf)$, we have $\sqrt{\pi/a}=1/\sqrt{\sigma+1}$ and
+    \[
+    \frac{b^2}{4a}-\sigma\pi t^2=\frac{\pi(\sigma^2t^2-2j\sigma tf-f^2)-\sigma\pi t^2(\sigma+1)}{\sigma+1}=-\pi\frac{\sigma t^2+f^2+2j\sigma tf}{\sigma+1}.
+    \]
+    Therefore,
+    \[
+    G_x(t,f)=\frac{\sqrt[4]{\sigma}}{\sqrt{\sigma+1}}\exp\!\left(-\pi\frac{\sigma t^2+f^2}{\sigma+1}\right)\exp\!\left(-j\frac{2\pi\sigma tf}{\sigma+1}\right).
+    \]
+    When $\sigma=1$, $|G_x(t,f)|=\frac{1}{\sqrt{2}}e^{-\pi(t^2+f^2)/2}$, which is circular in the time-frequency plane.
+\end{enumerate}
+
+\item Please refer to the file uploaded to NTU Cool.
+
+\item (extra) Let $\phi(t)=12\pi t-0.1\pi t^2$. By Euler's formula: 
+  \[
+  x_2(t)=\cos\phi(t)=\frac{e^{j\phi(t)}+e^{-j\phi(t)}}{2}.
+  \]
+  The instantaneous frequency is the derivative of the phase divided by $2\pi$:
+  \[
+  \frac{\phi'(t)}{2\pi}=\frac{12\pi-0.2\pi t}{2\pi}=6-0.1t ,
+  \]
+  where $e^{j\phi(t)}$ gives $+(6-0.1t)$ and $e^{-j\phi(t)}$ gives $-(6-0.1t)$. Thus, the instantaneous frequency of $x_2(t)$ is
+  \[
+  \pm(6-0.1t)\ \text{Hz}.
+  \]
+  At $t=-10$, $0$, and $10$, it is $\pm7$, $\pm6$, and $\pm5$ Hz, respectively, which matches the two lines in the Gabor transform of $x_2(t)$.
+
+\end{enumerate}
+
+\end{document}

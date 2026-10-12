@@ -17,7 +17,7 @@
 %% to print line numbers in the margin use lineno option %%
 %%=======================================================%%
 
-%%\documentclass[lineno,pdflatex,sn-basic]{sn-jnl}% Basic Springer Nature Reference Style/Chemistry Reference Style
+\documentclass[lineno,pdflatex,sn-basic]{sn-jnl}% Basic Springer Nature Reference Style/Chemistry Reference Style
 
 %%=========================================================================================%%
 %% the documentclass is set to pdflatex as default. You can delete it if not appropriate.  %%
@@ -25,12 +25,12 @@
 
 %%\documentclass[sn-basic]{sn-jnl}% Basic Springer Nature Reference Style/Chemistry Reference Style
 
-%%Note: the following reference styles support Namedate and Numbered referencing. By default the style follows the most common style. To switch between the options you can add or remove “Numbered” in the optional parenthesis. 
+%%Note: the following reference styles support Namedate and Numbered referencing. By default the style follows the most common style. To switch between the options you can add or remove ï¿½Numberedï¿½ in the optional parenthesis. 
 %%The option is available for: sn-basic.bst, sn-chicago.bst%  
  
 %%\documentclass[pdflatex,sn-nature]{sn-jnl}% Style for submissions to Nature Portfolio journals
 %%\documentclass[pdflatex,sn-basic]{sn-jnl}% Basic Springer Nature Reference Style/Chemistry Reference Style
-\documentclass[pdflatex,sn-mathphys-num]{sn-jnl}% Math and Physical Sciences Numbered Reference Style
+% \documentclass[pdflatex,sn-mathphys-num]{sn-jnl}% Math and Physical Sciences Numbered Reference Style
 %%\documentclass[pdflatex,sn-mathphys-ay]{sn-jnl}% Math and Physical Sciences Author Year Reference Style
 %%\documentclass[pdflatex,sn-aps]{sn-jnl}% American Physical Society (APS) Reference Style
 %%\documentclass[pdflatex,sn-vancouver-num]{sn-jnl}% Vancouver Numbered Reference Style
@@ -90,7 +90,7 @@
 
 \begin{document}
 
-\title[Article Title]{Article Title}
+\title[Article Title]{A Modular, FHIR-Integrated Framework for LLM-Assisted Pre-Consultation}
 
 %%=============================================================%%
 %% GivenName	-> \fnm{Joergen W.}
@@ -101,25 +101,39 @@
 %%  \sfx{IV}}\email{iauthor@gmail.com}
 %%=============================================================%%
 
-\author*[1,2]{\fnm{First} \sur{Author}}\email{iauthor@gmail.com}
+\author[1,2,3]{\fnm{Wei-Hsuan} \sur{Tai}}\email{b12508026@ntu.edu.tw}\equalcont{These authors contributed equally to this work.}
 
-\author[2,3]{\fnm{Second} \sur{Author}}\email{iiauthor@gmail.com}
-\equalcont{These authors contributed equally to this work.}
 
-\author[1,2]{\fnm{Third} \sur{Author}}\email{iiiauthor@gmail.com}
-\equalcont{These authors contributed equally to this work.}
+\author[2,3]{\fnm{Chun-Yi} \sur{Chen}}\email{TODO}\equalcont{These authors contributed equally to this work.}
 
-\affil*[1]{\orgdiv{Department}, \orgname{Organization}, \orgaddress{\street{Street}, \city{City}, \postcode{100190}, \state{State}, \country{Country}}}
 
-\affil[2]{\orgdiv{Department}, \orgname{Organization}, \orgaddress{\street{Street}, \city{City}, \postcode{10587}, \state{State}, \country{Country}}}
+\author[4]{\fnm{Guan-Ying} \sur{Huang}}\email{TODO}\equalcont{These authors contributed equally to this work.}
 
-\affil[3]{\orgdiv{Department}, \orgname{Organization}, \orgaddress{\street{Street}, \city{City}, \postcode{610101}, \state{State}, \country{Country}}}
+
+\author*[4,5,6]{\fnm{Chien-Chang} \sur{Lee}}\email{cclee100@gmail.com}
+
+\affil[1]{\orgdiv{Department of Biomedical Engineering}, \orgname{National Taiwan University}, \orgaddress{\city{Taipei}, \country{Taiwan}}}
+
+% TODO: confirm ISTI's official English name and city (Hsinchu HQ or Taipei office)
+\affil[2]{\orgdiv{Industry, Science and Technology International Strategy Center}, \orgname{Industrial Technology Research Institute}, \orgaddress{\city{Hsinchu}, \country{Taiwan}}}
+
+% TODO: official English name of the office; or use Dept. of Information Management (same as affil 6)
+\affil[3]{\orgdiv{Next-Generation Digital Health Platform Office}, \orgname{Ministry of Health and Welfare}, \orgaddress{\city{Taipei}, \country{Taiwan}}}
+
+\affil*[4]{\orgdiv{Department of Emergency Medicine}, \orgname{National Taiwan University Hospital}, \orgaddress{\city{Taipei}, \country{Taiwan}}}
+
+\affil[5]{\orgdiv{Department of Emergency Medicine, College of Medicine}, \orgname{National Taiwan University}, \orgaddress{\city{Taipei}, \country{Taiwan}}}
+
+\affil[6]{\orgdiv{Department of Information Management}, \orgname{Ministry of Health and Welfare}, \orgaddress{\city{Taipei}, \country{Taiwan}}}
+
 
 %%==================================%%
 %% Sample for unstructured abstract %%
 %%==================================%%
 
-\abstract{The abstract serves both as a general introduction to the topic and as a brief, non-technical summary of the main results and their implications. Authors are advised to check the author instructions for the journal they are submitting to for word limits and if structural elements like subheadings, citations, or equations are permitted.}
+\abstract{We developed an AI-assisted pre-consultation system that integrates patient information retrieved through Fast Healthcare Interoperability Resources (FHIR) with information collected through a conversational chatbot. The system generates a structured summary of the chief complaint and relevant clinical history, along with potential differential diagnoses and suggested diagnostic evaluations for physician review. It also produces draft clinical documentation to support subsequent consultations. This prototype aims to streamline pre-consultation information gathering and reduce physicians'3 documentation burden.}
+
+
 
 %%================================%%
 %% Sample for structured abstract %%
@@ -133,7 +147,7 @@
 % 
 % \textbf{Conclusion:} The abstract serves both as a general introduction to the topic and as a brief, non-technical summary of the main results and their implications. The abstract must not include subheadings (unless expressly permitted in the journal's Instructions to Authors), equations or citations. As a guide the abstract should not exceed 200 words. Most journals do not set a hard limit however authors are advised to check the author instructions for the journal they are submitting to.}
 
-\keywords{keyword1, Keyword2, Keyword3, Keyword4}
+\keywords{FHIR, Pre-consultation, Conversational AI, Clinical Documentation}
 
 %%\pacs[JEL Classification]{D8, H51}
 
@@ -143,9 +157,13 @@
 
 \section{Introduction}\label{sec1}
 
-The Introduction section, of referenced text \cite{bib1} expands on the background of the work (some overlap with the Abstract is acceptable). The introduction should not include subheadings.
+Low-acuity visits place a growing burden on unscheduled care worldwide.\cite{pinesInternationalPerspectivesEmergency2011} In Taiwan, despite low-cost access under National Health Insurance, its emergency departments remain chronically crowded, and about one-third of visits are non-emergent.\cite{huangCharacteristicsNonEmergentVisits2019} This crowding prolongs waits, worsens outcomes, and drives clinician burnout.\cite{morleyEmergencyDepartmentCrowding2018, ghaseminejadOrganisationalFactorsAssociated2025}
 
-Springer Nature does not impose a strict layout as standard however authors are advised to check the individual requirements for the journal they are planning to submit to as there may be journal-level preferences. When preparing your text please also be aware that some stylistic choices are not supported in full text XML (publication version), including coloured font. These will not be replicated in the typeset article if it is accepted. 
+Large language models (LLMs) now support numerous clinical tasks, including ambient scribing, EHR documentation, and clinical decision support.\cite{nairCurrentStateDigital2026} Agentic systems extend these capabilities through planning, tool use, and multi-step action, enabling closer integration with health-system workflows and conversational diagnosis.\cite{tuConversationalDiagnosticArtificial2025} However, although various benchmarks now evaluate LLMs on realistic tasks and interactive encounters, most agentic systems remain confined to simulated settings.\cite{liuBenchmarkingLargeLanguage2026}
+
+Here, we present XXX, an LLM-based agent for adults presenting in Taiwanese urgent care centers. XXX conducts structured history-taking by text or voice, drafts a clinician-ready note, and supports decision-making with a ranked differential and not-to-miss conditions, alongside suggested examinations and imaging. To limit hallucination, the LLM only extracts clinical facts linked to the patient's own words, while safety screening, question selection, and diagnostic ranking follow auditable rules. XXX connects to EHRs via SMART on FHIR and was evaluated on benchmark.
+
+
 
 \section{Results}\label{sec2}
 
@@ -506,22 +524,83 @@ convallis neque. Sed dolor orci, scelerisque ac, dapibus nec, ultricies ut, mi. 
 
 Sample body text. Sample body text. Sample body text. Sample body text. Sample body text (refer Figure~\ref{fig1}). Sample body text. Sample body text. Sample body text (refer Table~\ref{tab3}). 
 
-\section{Methods}\label{sec11}
+\section{Methods}
 
-Topical subheadings are allowed. Authors must ensure that their Methods section includes adequate experimental and characterization data necessary for others in the field to reproduce their work. Authors are encouraged to include RIIDs where appropriate. 
+\subsection{System Architecture and Workflow}
 
-\textbf{Ethical approval declarations} (only required where applicable) Any article reporting experiment/s carried out on (i)~live vertebrate (or higher invertebrates), (ii)~humans or (iii)~human samples must include an unambiguous statement within the methods section that meets the following requirements: 
+The AI-ChatBot consists of a backend deployed at a centralized computing
+center and two web-based frontends (Fig.~\ref{fig:architecture}). The
+\textit{patient frontend} renders a virtual doctor avatar and captures the
+patient's speech; it can run as a standalone website, on waiting-area
+terminals, or on physical self-service kiosks, the latter planned for
+deployment under an initiative of the Department of Information Management,
+Ministry of Health and Welfare (MOHW), Taiwan. The \textit{clinician frontend}
+is embedded in the hospital information system (HIS) or accessed as a
+website. The backend performs speech recognition, avatar and voice synthesis,
+red-flag screening, and LLM-based record and DDx generation. Clinical data are
+exchanged through HL7 FHIR under SMART on FHIR authorization. Component
+details and data protection measures are given in Online Resource 1.
 
-\begin{enumerate}[1.]
-\item Approval: a statement which confirms that all experimental protocols were approved by a named institutional and/or licensing committee. Please identify the approving body in the methods section
-
-\item Accordance: a statement explicitly saying that the methods were carried out in accordance with the relevant guidelines and regulations
-
-\item Informed consent (for experiments involving humans or human tissue samples): include a statement confirming that informed consent was obtained from all participants and/or their legal guardian/s
+The workflow comprises six steps (Fig.~\ref{fig:pipeline}):
+\begin{enumerate}
+    \item \textbf{Authorization:} the patient scans a QR code issued by the
+          HIS, which launches a SMART on FHIR session scoped to that patient.
+    \item \textbf{Context retrieval:} prior conditions, medications,
+          allergies, and observations are retrieved as FHIR resources.
+    \item \textbf{Interview:} the avatar asks chief-complaint-specific
+          questions (FHIR \texttt{Questionnaire}); answers are transcribed by
+          ASR and screened in real time by a rule base and an LLM for
+          red-flag symptoms, which trigger immediate alerts on the clinician
+          frontend.
+    \item \textbf{Record generation:} the LLM [TODO: model] summarizes the
+          responses and prior records into a structured draft record.
+    \item \textbf{DDx generation:} knowledge retrieved from [TODO: knowledge
+          source] is supplied to the LLM, which returns the top-5 DDx,
+          not-to-miss DDx (critical conditions to rule out regardless of
+          likelihood), and recommended examinations, each with a rationale
+          (prompts and output schema in Online Resource 1).
+    \item \textbf{Review and write-back:} clinicians review and edit the
+          outputs, and approved content is written back to the FHIR server
+          (Table~\ref{tab:fhir}), with a \texttt{Provenance} resource marking
+          it as AI-generated.
 \end{enumerate}
 
-If your manuscript includes potentially identifying patient/participant information, or if it describes human transplantation research, or if it reports results of a clinical trial then  additional information will be required. Please visit (\url{https://www.nature.com/nature-research/editorial-policies}) for Nature Portfolio journals, (\url{https://www.springer.com/gp/authors-editors/journal-author/journal-author-helpdesk/publishing-ethics/14214}) for Springer Nature journals, or (\url{https://www.biomedcentral.com/getpublished/editorial-policies\#ethics+and+consent}) for BMC.
+\begin{table}[t]
+\caption{Mapping of system outputs to FHIR resources}
+\label{tab:fhir}
+\centering
+\begin{tabular}{ll}
+\hline
+Output & FHIR resource \\
+\hline
+Interview responses      & \texttt{QuestionnaireResponse} \\
+Draft medical record     & \texttt{Composition} \\
+Top-5 / not-to-miss DDx  & \texttt{Condition} (differential) \\
+Examination recommendations & \texttt{ServiceRequest} (draft) \\
+Red-flag alerts          & \texttt{Flag} \\
+AI-generated content     & \texttt{Provenance} \\
+\hline
+\end{tabular}
+\end{table}
 
+\subsection{Evaluation}
+
+DDx performance was evaluated on ER-Reason \cite{erreason}, a credentialed
+PhysioNet dataset of emergency department encounters with final ICD-10
+diagnoses and expert-authored differential rationales for a subset of cases
+[TODO: number of cases]. Each case was converted into simulated questionnaire
+responses using only triage and history information; assessment, plan, and
+diagnostic content were removed to prevent label leakage (Online
+Resource 1). Following
+PhysioNet's policy on LLM use, inference was run [TODO: locally / via a
+zero-retention service].
+
+We report \textit{top-5 DDx coverage}, the proportion of cases whose final
+diagnosis appears among the five predicted DDx, and \textit{not-to-miss
+coverage}, the mean proportion of expert-listed must-rule-out diagnoses
+captured by the predicted not-to-miss list. Diagnosis matching was performed
+by an LLM judge and verified by physicians on a random sample. We compared the LLM with and without retrieval augmentation, with
+95\% bootstrap confidence intervals.
 \section{Discussion}\label{sec12}
 
 Discussions should be brief and focused. In some disciplines use of Discussion or `Conclusion' is interchangeable. It is not mandatory to use both. Some journals prefer a section `Results and Discussion' followed by a section `Conclusion'. Please refer to Journal-level guidance for any specific requirements. 

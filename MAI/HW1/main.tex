@@ -34,7 +34,8 @@ We re-implement SimSiam~\cite{chen2021simsiam} with a ResNet-18 backbone and pre
 With only 1,000 labeled images, a linear probe on the frozen SimSiam encoder reaches $80.98\pm0.35\%$ test accuracy (200 epochs, 3 pretraining seeds), while the same network trained from scratch reaches only $47.74\pm1.17\%$.
 We also reproduce the complete collapse reported in the original paper: removing either the stop-gradient or the predictor drops the linear probe to exactly chance level (10.00\%).
 As a new ablation, we remove one family of augmentations at a time and find that the model degrades most severely without cropping.
-We further conduct extended experiments to understand why cropping plays such an important role, including cropping without rescaling, random masking and random patch shuffling.
+Without cropping, SimSiam does not collapse to a point but suffers \emph{dimensional collapse}: the backbone's effective rank falls from 318 to 6.7, and accuracy \emph{drops} with longer training.
+Replacing the crop with simpler operations shows that the key is the \emph{difference between the two views}: sharing one random crop between both views is as bad as no cropping, while independent random masking recovers two thirds of the gap.
 \end{abstract}
 
 %%%%%%%%% BODY TEXT
@@ -53,6 +54,7 @@ Our contributions are:
 \item We show that SimSiam pretraining on 100k unlabeled images beats training from scratch by 33.2 points when only 1,000 labels are available (\cref{sec:exp_cls}).
 \item We reproduce the complete collapse caused by removing the stop-gradient or the predictor (\cref{sec:exp_arch}).
 \item We ablate the augmentations and show that without cropping, SimSiam does not collapse to a point but suffers \emph{dimensional collapse}, which worsens with longer training (\cref{sec:exp_aug}).
+\item We decompose the crop and find that what matters is a content difference between the two views, not data diversity (\cref{sec:exp_crop}).
 \item We show that neither the loss value nor the output std detects this failure, while the effective rank and a properly scaled linear probe do (\cref{sec:exp_pretrain,sec:exp_aug,sec:exp_length}).
 \end{itemize}
 
@@ -104,8 +106,15 @@ If the augmentations are too weak, this expectation becomes trivial.
 To test this, we remove one family of augmentations at a time:
 \textbf{no\_color} drops color jitter and grayscale, and \textbf{no\_crop} drops RandomResizedCrop, so that both views show the full image and differ only in flip and color.
 
-% TODO: describe the extended augmentation experiments here
-% (cropping without rescaling, random masking, random patch shuffling).
+\paragraph{Decomposing the crop.}
+RandomResizedCrop changes two things at once: each view shows only \emph{part} of the content, and that part is \emph{rescaled and shifted} to fill the frame. It also makes the two views of an image differ, while adding diversity across epochs.
+To separate these factors, we replace the crop in the full pipeline (flip and color are kept) with:
+\textbf{crop\_in\_place} keeps the crop region at its original position and scale and fills the rest with the dataset mean (partial content only);
+\textbf{zoom\_out} shrinks the whole image and pastes it at a random position (rescaling and shifting only);
+\textbf{mask} drops random 16-pixel patches, keeping the same area fraction as the crop (partial content, scattered, no rescaling);
+\textbf{same\_crop} applies one random crop to \emph{both} views, so the data diversity matches the baseline but the views no longer differ in crop.
+
+% TODO: random patch shuffling (shuffle / shuffle_shared), still running.
 
 \subsection{Measuring Collapse}
 Besides the std of the $\ell_2$-normalized output, which approaches $1/\sqrt{d}$ for outputs spread over the unit sphere and $0$ under complete collapse, we measure the effective rank (erank)~\cite{roy2007erank}.
@@ -136,6 +145,7 @@ Every reported test accuracy uses the checkpoint with the best validation accura
 \paragraph{Statistics.}
 For the 200-epoch comparisons we pretrain with seeds 123/456/789, and linear-probe each model with 5 finetuning seeds (12/34/56/78/90).
 The \emph{pretraining seed} is the unit of replication: we report the mean $\pm$ std over the 3 per-model means and compare settings with two-sided Welch $t$-tests.
+We also compute macro one-vs-rest AUROC and macro F1 for every probe, and check every comparison under all three metrics with Holm correction.
 When a setting has only one pretraining run, its $\pm$ reflects finetuning noise only, and we say so.
 
 \paragraph{Implementation.}
@@ -318,20 +328,58 @@ It also explains why the standard probe failed: a few informative directions wit
 In terms of \cref{eq:em}, a crop-free pair differs only in color and flip. Averaging over such augmentations gives an $\eta_x$ that a few color-invariant directions can match, and the objective keeps shrinking the representation onto those directions.
 \textbf{Stop-gradient and the predictor prevent complete collapse, but not dimensional collapse.}
 
-% TODO: add results of the extended augmentation experiments here
-% (cropping without rescaling, random masking, random patch shuffling).
+\paragraph{Not overfitting.}
+no\_crop does not memorize its training images: its SimSiam loss on 8,000 unseen images differs from that on 8,000 training images by at most 0.001, with the same backbone erank (\eg 9.0 vs.\ 9.1).
+All comparisons above also remain significant after Holm correction under accuracy, macro AUROC and macro F1 ($p_\text{Holm}\le0.035$).
+
+\subsection{What Does the Crop Contribute?}
+\label{sec:exp_crop}
+
+\begin{table}[t]
+\centering
+\small
+\setlength\tabcolsep{3pt}
+\begin{tabular}{lcccc}
+\toprule
+Crop replacement & Loss & kNN & BN probe & AUROC \\
+\midrule
+Full crop (baseline) & $-0.909$ & 77.8 & \textbf{82.36}\pmstd{0.64} & 98.00 \\
+mask & $-0.953$ & 53.2 & 63.41\pmstd{0.64} & 93.95 \\
+crop\_in\_place & $-0.947$ & 38.6 & 49.81\pmstd{0.88} & 88.71 \\
+zoom\_out & $-0.989$ & 35.8 & 39.00\pmstd{1.00} & 83.26 \\
+same\_crop & $-0.997$ & 21.2 & 22.20\pmstd{0.55} & 75.93 \\
+No crop & $-0.995$ & 21.2 & 25.41\pmstd{1.38} & 72.25 \\
+\bottomrule
+\end{tabular}
+\caption{Replacing RandomResizedCrop (200 epochs, pretraining seed 123 only, so $\pm$ covers 5 finetuning seeds). Loss and kNN are final-epoch values; AUROC is macro one-vs-rest for the BN probe.}
+\label{tab:crop}
+\end{table}
+
+\Cref{tab:crop} reports the variants of \cref{sec:method}, each pretrained once (seed 123) for 200 epochs.
+Measured as the fraction of the no\_crop$\to$baseline gap they recover under the BN probe, masking recovers 67\%, crop\_in\_place 43\% and zoom\_out 24\%.
+
+\paragraph{The views must differ, not just the data.}
+same\_crop sees exactly as many distinct crops over training as the baseline, yet it is as poor as no\_crop (22.2\% vs.\ 25.4\%) with the same near-minimal loss ($-0.997$) and the same kNN accuracy (21.2\%).
+Data diversity and sample count therefore do not explain the no\_crop failure. What matters is that the two views of one image differ in \emph{which content} they show.
+
+\paragraph{Partial content and rescaling are complementary.}
+Each component alone recovers only part of the gap: hiding content (crop\_in\_place) helps more than rescaling and shifting (zoom\_out), but neither comes close to the full crop, which combines both.
+Scattered masking is the strongest single replacement, probably because it hides different parts of the whole object in each view instead of one contiguous region.
+
+% TODO: random patch shuffling (shuffle / shuffle_shared) results.
 
 \subsection{Effect of Training Length}
 \label{sec:exp_length}
 
-\begin{figure*}[t]
-\centering
-\includegraphics[width=\linewidth]{figures/convergence_e1000.png}
-\caption{A 1000-epoch baseline run (dotted: relative LR). Right: linear probes on snapshots taken every 50 epochs (mean $\pm$ std over 5 probe seeds; green: final accuracy of complete 100/200/1000-epoch schedules).}
-\label{fig:e1000}
-\end{figure*}
+% Removed to stay within 6 pages; uncomment to restore.
+% \begin{figure*}[t]
+% \centering
+% \includegraphics[width=\linewidth]{figures/convergence_e1000.png}
+% \caption{A 1000-epoch baseline run (dotted: relative LR). Right: linear probes on snapshots taken every 50 epochs (mean $\pm$ std over 5 probe seeds; green: final accuracy of complete 100/200/1000-epoch schedules).}
+% \label{fig:e1000}
+% \end{figure*}
 
-Longer schedules keep helping, with diminishing returns: 75.8\% (100 epochs), 81.0\% (200) and 86.7\% (1000), matching the trend in Tab.~4 of the original paper (\cref{fig:e1000}).
+Longer schedules keep helping, with diminishing returns: 75.8\% (100 epochs), 81.0\% (200) and 86.7\% (1000), matching the trend in Tab.~4 of the original paper.
 Within the 1000-epoch run, the loss and kNN accuracy plateau from epoch 300 to 500 while the LR is still above half its peak.
 A saturation rule (less than 1 point gained per 100 epochs) would stop training at epoch 436, yet the linear probe accuracy keeps rising from 80\% to 87\% as the LR anneals.
 The plateau is therefore limited by the LR, not by the representation; real saturation happens only in the last 100 epochs ($+0.07$ points from epoch 950 to 1000).
@@ -344,6 +392,7 @@ Snapshot accuracy also fluctuates: epoch 700 is 2.0 points \emph{below} epoch 65
 (i) Erank is not a quality measure across settings. For no\_color, erank \emph{decreases} from 100 to 200 epochs ($224\rightarrow184$) while accuracy increases ($43.9\rightarrow50.4$). Our evidence for no\_crop is strong only because rank and accuracy fall together, and by large amounts.
 (ii) A falling std is not a sign of collapse either. The 1000-epoch baseline's std halves to 0.0100, yet its backbone erank (392) and accuracy (86.7\%) are the highest of all our models.
 (iii) We use $n{=}3$ pretraining seeds, so the Welch df is only 2--4 and the CIs are wide. Even so, every effect above is many standard deviations in size.
+(iv) The crop-decomposition variants (\cref{sec:exp_crop}) have a single pretraining seed, so their ranking is only indicative, although the gaps between adjacent variants (11--17 points) far exceed the baseline's seed-to-seed std (0.35).
 
 %-------------------------------------------------------------------------
 \section{Conclusion}
@@ -352,6 +401,7 @@ SimSiam on STL-10 turns 100k unlabeled images into features that beat training f
 We confirmed that removing the stop-gradient or the predictor causes complete collapse.
 Our augmentation ablation reveals a second failure mode: when the views are too similar (no cropping), SimSiam keeps a nonzero std and a lower loss, yet its features collapse onto a few dimensions and degrade with more training.
 Neither the loss value nor the output std detects this; the effective rank and a properly scaled linear probe do.
+Decomposing the crop shows that the views must differ in the content they show: a crop shared by both views is as harmful as no crop at all.
 
 %%%%%%%%% REFERENCES
 {

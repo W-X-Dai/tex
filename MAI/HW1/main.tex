@@ -30,10 +30,10 @@
 
 %%%%%%%%% ABSTRACT
 \begin{abstract}
-In this homework, I re-implement SimSiam~\cite{chen2021simsiam} with a ResNet-18 backbone and pretrain it on the 100k unlabeled STL-10 images.
-With only 1,000 labeled images, a linear probe on the frozen SimSiam encoder reaches $80.98\pm0.35\%$ test accuracy (200 epochs, 3 pretraining seeds), compared with $47.74\pm1.17\%$ for the same network trained from scratch.
-Removing the stop-gradient or the predictor reproduces the complete collapse reported in the paper: the linear probe drops to exactly chance level (10.00\%).
-As a new ablation, we remove one family of augmentations at a time.
+In this homework, I re-implemented SimSiam~\cite{chen2021simsiam} with a ResNet-18 backbone and pretrained it on the 100k unlabeled STL-10 images.
+With only 1,000 labeled images, a linear probe on the frozen SimSiam encoder reaches $80.98\pm0.35\%$ test accuracy (200 epochs, 3 pretraining seeds), while the same network trained from scratch only reaches $47.74\pm1.17\%$.
+Besides, I also reproduces the complete collapse reported in the paper by removing the stop-gradient or the predictor, the linear probe drops to exactly chance level (10.00\%).
+As a new ablation, I remove one family of augmentations at a time.
 Without cropping, SimSiam does not collapse to a single point. Instead it suffers \emph{dimensional collapse}: the effective rank of the backbone features falls from 318 to 6.7, and the representation gets \emph{worse} with longer training ($38.2\%\rightarrow24.8\%$, $p=0.002$).
 This shows that stop-gradient and the predictor prevent complete collapse but not dimensional collapse.
 \end{abstract}
@@ -50,7 +50,7 @@ One SimSiam pretraining epoch takes about 45\,s, so 100 epochs take about 75\,mi
 \begin{figure}[t]
 \centering
 \includegraphics[width=\linewidth]{figures/screenshot.png}
-\caption{Environment screenshot: Python, PyTorch and GPU information (\code{nvidia-smi}).}
+\caption{Environment screenshot}
 \label{fig:env}
 \end{figure}
 

@@ -1,0 +1,27 @@
+{
+  "original_source_sha256": "428a697b1c9d5399617126dc37144d2e8272b0be4c999316b80e34a864e69cb2",
+  "introduction_preserved": true,
+  "outputs_sha256": {
+    "sn-article.tex": "2489cb67550ff100e7faa1b252a53d9c15b87a2ae4e14cf42a6f39c0171615e4",
+    "body.tex": "ecf4493ef78f70448b4becc42cb75080eb9d730695e25c72368b649f58a624bd",
+    "sn-bibliography.bib": "80507fa638a8092b3ecb352b981e89e2eae5e75afe4329a3fa5af74284055fd9",
+    "sn-article.pdf": "f39a1a55e1ee53c89225c6f631328b8eecd0524313f8169c9e0074f0e45af318",
+    "tables/asset_provenance.json": "5497f6bbe4e83add204b18987a7fe13fe15cf7563b65486088e585e753a24bab",
+    "tables/completion_reanalysis.json": "54f38ab6680a2d802b32f36d771b45500c11600c4800d71d07b94d9e6b4f5256",
+    "tables/numbers.tex": "a27a15b9cfc0cd618e339443a4c01b8b1d261f8871c9b7ab8063ce8c2c02928d",
+    "tables/tab_e1_interop.tex": "56fa4b9ef16671f8608c6c51054f2dbdc6f188ef7b3533c73d67d5ff9479caef",
+    "tables/tab_e1_warnings.tex": "eecbffc24ee549e8880feb9b4c92cc14a365423e572b389152dfde819ddab2a3",
+    "tables/tab_e1_workflow.tex": "dee2cba1eabad27f1f73562baf98eed3afda0a1f29e98bc92227cbce813e5e26",
+    "tables/tab_e2_feasibility.tex": "3f2c90a8b0a3de10c3beea11eac7d7a63e0b5abf7481a08ce0bf8dd0e06f1cba",
+    "tables/tab_e2_safety_cost.tex": "37095762d16c1b9b8e9043f88a1a1c6b67190957c2334d22233fd24349ffd3c2",
+    "tables/tab_e2_validated.tex": "fb6bc36af470d732052547a0f3fa9dfa8173b2089ac59500e556a2014f3574ad",
+    "tables/tab_e3_swap.tex": "510f209ba53fd0084c4d42d2159685b3cb69fd5e8d844a0e03af724fbc03100d",
+    "tables/tab_versions.tex": "bdbbca3c3bad3ac2923f5fa94761e63608be6e25012ba50ebcdeaff673732540",
+    "figures/fig1_architecture.pdf": "aa506f809eefb5dd12127ac06c1b333d73816946fe5904eccc5a1e4f5e6ef761",
+    "figures/fig2_walkthrough/README.md": "c96ae59ffb22c18d9c61c09104ab9b3c31aad15dbc400178670f814f28d2ad00",
+    "figures/fig_e4_load.pdf": "bf06c50ba807088c811bd9b6616b12a226dc315c90e43786dfc0279578c6fd61",
+    "figures/load_data.json": "7afb12a6163788c4170b66bdf5ff0d3113841a032b3a0b819c2ae67e5995def0"
+  },
+  "source": "/home/user/medical-consultation-chatbot-v1/paper/manuscript",
+  "destination": "/home/user/tex/itri_paper/stage1"
+}

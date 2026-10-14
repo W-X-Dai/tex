@@ -629,11 +629,17 @@ These verification activities exercise text-channel HTTP APIs, not browser/OAuth
 voice input. Isolated verification databases and an explicit loopback development
 authorization bypass separate the runs from production services.
 
-\begin{figure}[t]\centering
+\begin{figure}[p]\centering
 \includegraphics[width=\textwidth]{figures/fig1_architecture.pdf}
-\caption{Implemented modules and data boundaries. Source JSON controls the
-questionnaire engine; a corresponding FHIR Questionnaire is exported. Internal
-APIs use application JSON, while FHIR defines the EHR boundary.}
+\caption{Implemented modules, contracts and verification points. Workflow steps:
+(1) the clinician launcher reads EHR history and issues an invitation with prefill;
+(2) chief-complaint screening and questionnaire routing; (3) deterministic
+questionnaire turns; (4) report drafting; (5) clinician review and confirmation;
+(6) one FHIR write-back transaction. Source JSON drives the questionnaire engine and
+an equivalent FHIR Questionnaire is exported. Internal APIs use application JSON;
+FHIR defines the EHR boundary. Model-dependent components reach models only through
+the replaceable LLM adapter. Tags mark where requirements R0--R9
+(Table~\ref{tab:requirements}) are checked; grey components were not evaluated.}
 \label{fig:architecture}
 \end{figure}
 

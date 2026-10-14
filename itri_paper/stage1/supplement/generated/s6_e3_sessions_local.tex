@@ -1,0 +1,42 @@
+% Generated from selected immutable runs; provisional, pending physician review.
+\begingroup\small\setlength{\tabcolsep}{3pt}\renewcommand{\arraystretch}{1.15}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.08\linewidth}>{\raggedright\arraybackslash}p{0.16\linewidth}>{\raggedright\arraybackslash}p{0.06\linewidth}>{\raggedright\arraybackslash}p{0.08\linewidth}>{\raggedright\arraybackslash}p{0.17\linewidth}>{\raggedright\arraybackslash}p{0.08\linewidth}>{\raggedright\arraybackslash}p{0.23\linewidth}}
+\caption{E3 Local Gemma 3: every provisional session. Path lists observed/expected field counts; screening is an exact-rule functional test, independent of path agreement. Timeout counts are bounded-operation events.}\label{sup:e3sessionslocal}\\\hline
+Script & Path / lengths & Facts & Screening & Workflow & Timeouts & Fired rule IDs \\ \hline
+\endfirsthead
+\hline
+Script & Path / lengths & Facts & Screening & Workflow & Timeouts & Fired rule IDs \\ \hline
+\endhead
+\hline\endfoot
+\hline\endlastfoot
+AP-\allowbreak{}01 & Exact; 15/\allowbreak{}15 & 0 & Pass & completed & 1 & None \\
+AP-\allowbreak{}02 & Exact; 15/\allowbreak{}15 & 0 & Pass & completed & 1 & None \\
+AP-\allowbreak{}03 & Mismatch; 1/\allowbreak{}12 & 0 & Pass & manual\_\allowbreak{}handoff & 1 & None \\
+AP-\allowbreak{}04 & Mismatch; 1/\allowbreak{}15 & 0 & Pass & manual\_\allowbreak{}handoff & 1 & None \\
+AP-\allowbreak{}05 & Exact; 14/\allowbreak{}14 & 0 & Pass & completed & 0 & None \\
+AP-\allowbreak{}06 & Exact; 15/\allowbreak{}15 & 0 & Pass & completed & 0 & None \\
+AP-\allowbreak{}07 & Exact; 13/\allowbreak{}13 & 0 & Fail & completed & 1 & None \\
+AP-\allowbreak{}08 & Excluded; 1/\allowbreak{}15 & 0 & Pass & summary\_\allowbreak{}ready & 0 & pregnancy\_\allowbreak{}bleeding \\
+AP-\allowbreak{}09 & Excluded; 1/\allowbreak{}13 & 0 & Pass & summary\_\allowbreak{}ready & 0 & peritonism \\
+AP-\allowbreak{}10 & Exact; 12/\allowbreak{}12 & 0 & Fail & completed & 1 & None \\
+CP-\allowbreak{}01 & Exact; 15/\allowbreak{}15 & 0 & Pass & completed & 1 & None \\
+CP-\allowbreak{}02 & Exact; 16/\allowbreak{}16 & 0 & Pass & completed & 0 & None \\
+CP-\allowbreak{}03 & Exact; 16/\allowbreak{}16 & 0 & Pass & completed & 1 & None \\
+CP-\allowbreak{}04 & Exact; 15/\allowbreak{}15 & 0 & Pass & completed & 1 & None \\
+CP-\allowbreak{}05 & Exact; 17/\allowbreak{}17 & 0 & Pass & completed & 0 & None \\
+CP-\allowbreak{}06 & Exact; 18/\allowbreak{}18 & 0 & Pass & completed & 0 & None \\
+CP-\allowbreak{}07 & Excluded; 1/\allowbreak{}15 & 0 & Pass & summary\_\allowbreak{}ready & 0 & chest\_\allowbreak{}diaphoresis \\
+CP-\allowbreak{}08 & Excluded; 1/\allowbreak{}15 & 0 & Pass & summary\_\allowbreak{}ready & 0 & tearing\_\allowbreak{}chest\_\allowbreak{}pain \\
+CP-\allowbreak{}09 & Exact; 17/\allowbreak{}17 & 0 & Fail & completed & 1 & None \\
+CP-\allowbreak{}10 & Excluded; 1/\allowbreak{}15 & 0 & Pass & summary\_\allowbreak{}ready & 0 & chest\_\allowbreak{}syncope \\
+HA-\allowbreak{}01 & Exact; 17/\allowbreak{}17 & 1 & Pass & completed & 0 & None \\
+HA-\allowbreak{}02 & Exact; 14/\allowbreak{}14 & 1 & Pass & completed & 0 & None \\
+HA-\allowbreak{}03 & Exact; 15/\allowbreak{}15 & 1 & Pass & completed & 0 & None \\
+HA-\allowbreak{}04 & Exact; 15/\allowbreak{}15 & 1 & Pass & completed & 1 & None \\
+HA-\allowbreak{}05 & Exact; 17/\allowbreak{}17 & 1 & Pass & completed & 1 & None \\
+HA-\allowbreak{}06 & Exact; 15/\allowbreak{}15 & 0 & Pass & completed & 0 & None \\
+HA-\allowbreak{}07 & Excluded; 1/\allowbreak{}17 & 0 & Pass & summary\_\allowbreak{}ready & 0 & thunderclap\_\allowbreak{}headache \\
+HA-\allowbreak{}08 & Exact; 16/\allowbreak{}16 & 1 & Fail & completed & 0 & None \\
+HA-\allowbreak{}09 & Excluded; 1/\allowbreak{}15 & 0 & Pass & summary\_\allowbreak{}ready & 0 & focal\_\allowbreak{}neurologic\_\allowbreak{}deficit \\
+HA-\allowbreak{}10 & Excluded; 1/\allowbreak{}15 & 0 & Pass & summary\_\allowbreak{}ready & 0 & altered\_\allowbreak{}consciousness \\
+\end{longtable}\endgroup

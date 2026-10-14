@@ -1,0 +1,266 @@
+{
+  "clinical_facts": [
+    {
+      "code": "movement_trigger",
+      "evidence": "轉身或抬手的時候比較痛",
+      "route": "",
+      "source": "chief_semantic_extraction",
+      "status": "present",
+      "turn": 1
+    },
+    {
+      "code": "reproducible_tenderness",
+      "evidence": "按下去也會痛",
+      "route": "",
+      "source": "chief_semantic_extraction",
+      "status": "present",
+      "turn": 1
+    },
+    {
+      "code": "symptom_chest_pain",
+      "evidence": "胸痛",
+      "route": "",
+      "source": "chief_semantic_extraction",
+      "status": "present",
+      "turn": 1
+    },
+    {
+      "code": "unilateral_chest_pain",
+      "evidence": "左邊胸痛",
+      "route": "",
+      "source": "chief_semantic_extraction",
+      "status": "present",
+      "turn": 1
+    }
+  ],
+  "dialogue_excerpt": [
+    {
+      "answer": "左邊胸痛三天，轉身或抬手的時候比較痛，按下去也會痛",
+      "field": "reason",
+      "question": "請自由描述今天最不舒服的症狀、部位，以及發生的情況。"
+    },
+    {
+      "answer": "沒有，從未抽菸",
+      "field": "smoke",
+      "question": "平時是否有抽菸習慣？"
+    },
+    {
+      "answer": "其他：不知道",
+      "field": "past_meds",
+      "question": "之前是否曾接受過以下藥物治療？"
+    },
+    {
+      "answer": "沒有",
+      "field": "allergy",
+      "question": "是否有特殊藥物或食物過敏？"
+    }
+  ],
+  "dialogue_omission": "Only the first four questionnaire turns are shown; remaining turns and raw model outputs are omitted.",
+  "resource_excerpts": {
+    "Composition": {
+      "encounter": {
+        "reference": "Encounter/exp-20261013t141553z-default--cp-01--r1-enc"
+      },
+      "id": "495365",
+      "resourceType": "Composition",
+      "section": [
+        {
+          "text": {
+            "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>A 61-year-old male patient presents with Left-sided chest pain for three days.</p></div>",
+            "status": "additional"
+          },
+          "title": "Chief Complaint"
+        },
+        {
+          "text": {
+            "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>The patient is a male with a history of hypertension presenting with mild, sharp left-sided chest pain of gradually progressive onset lasting for three days. The pain is localized and fixed, with associated tenderness to palpation. Symptoms are aggravated by turning or raising the arm and are relieved by rest. There are no associated symptoms.</p></div>",
+            "status": "additional"
+          },
+          "title": "Present Illness"
+        }
+      ],
+      "status": "preliminary",
+      "subject": {
+        "reference": "Patient/syn-6d30c8d2-ee90-9108-f102-e635914928cf"
+      },
+      "title": "AI pre-consultation clinician-reviewed summary",
+      "type": {
+        "coding": [
+          {
+            "code": "11503-0",
+            "display": "Medical records",
+            "system": "http://loinc.org"
+          }
+        ]
+      }
+    },
+    "Observation": {
+      "code": {
+        "coding": [
+          {
+            "code": "72166-2",
+            "display": "Tobacco smoking status",
+            "system": "http://loinc.org"
+          }
+        ]
+      },
+      "derivedFrom": [
+        {
+          "reference": "QuestionnaireResponse/495363"
+        }
+      ],
+      "encounter": {
+        "reference": "Encounter/exp-20261013t141553z-default--cp-01--r1-enc"
+      },
+      "id": "495364",
+      "resourceType": "Observation",
+      "status": "final",
+      "subject": {
+        "reference": "Patient/syn-6d30c8d2-ee90-9108-f102-e635914928cf"
+      },
+      "valueCodeableConcept": {
+        "coding": [
+          {
+            "code": "266919005",
+            "display": "Never smoked tobacco",
+            "system": "http://snomed.info/sct"
+          }
+        ],
+        "text": "沒有，從未抽菸"
+      }
+    },
+    "Provenance": {
+      "activity": {
+        "coding": [
+          {
+            "code": "CREATE",
+            "display": "create",
+            "system": "http://terminology.hl7.org/CodeSystem/v3-DataOperation"
+          }
+        ]
+      },
+      "agent": [
+        {
+          "onBehalfOf": {
+            "identifier": {
+              "system": "https://medical-consultation.local/fhir/institutions",
+              "value": "local-development"
+            },
+            "type": "Organization"
+          },
+          "type": {
+            "coding": [
+              {
+                "code": "author",
+                "system": "http://terminology.hl7.org/CodeSystem/provenance-participant-type"
+              }
+            ]
+          },
+          "who": {
+            "display": "Local development clinician",
+            "identifier": {
+              "system": "https://medical-consultation.local/fhir/clinicians",
+              "value": "local-developer"
+            },
+            "type": "Practitioner"
+          }
+        },
+        {
+          "onBehalfOf": {
+            "identifier": {
+              "system": "https://medical-consultation.local/fhir/institutions",
+              "value": "local-development"
+            },
+            "type": "Organization"
+          },
+          "type": {
+            "coding": [
+              {
+                "code": "verifier",
+                "system": "http://terminology.hl7.org/CodeSystem/provenance-participant-type"
+              }
+            ]
+          },
+          "who": {
+            "display": "Local development clinician",
+            "identifier": {
+              "system": "https://medical-consultation.local/fhir/clinicians",
+              "value": "local-developer"
+            },
+            "type": "Practitioner"
+          }
+        }
+      ],
+      "entity": [
+        {
+          "role": "source",
+          "what": {
+            "reference": "QuestionnaireResponse/495363"
+          }
+        }
+      ],
+      "id": "495366",
+      "resourceType": "Provenance",
+      "target": [
+        {
+          "reference": "QuestionnaireResponse/495363"
+        },
+        {
+          "reference": "Observation/495364"
+        }
+      ]
+    },
+    "QuestionnaireResponse": {
+      "encounter": {
+        "reference": "Encounter/exp-20261013t141553z-default--cp-01--r1-enc"
+      },
+      "id": "495363",
+      "item": [
+        {
+          "answer": [
+            {
+              "valueString": "左邊胸痛三天，轉身或抬手的時候比較痛，按下去也會痛"
+            }
+          ],
+          "extension": [
+            {
+              "url": "https://medical-consultation.local/fhir/StructureDefinition/preconsult-answer-source",
+              "valueCode": "patient-reported"
+            }
+          ],
+          "linkId": "reason",
+          "text": "請自由描述今天最不舒服的症狀、部位，以及發生的情況。"
+        },
+        {
+          "answer": [
+            {
+              "valueString": "蕭柏宇"
+            }
+          ],
+          "extension": [
+            {
+              "url": "https://medical-consultation.local/fhir/StructureDefinition/preconsult-answer-source",
+              "valueCode": "ehr-prefill"
+            }
+          ],
+          "linkId": "name",
+          "text": "請輸入您的姓名。"
+        }
+      ],
+      "questionnaire": "https://medical-consultation.local/fhir/Questionnaire/preconsult-chest|b6887d96ce6231f8",
+      "resourceType": "QuestionnaireResponse",
+      "status": "completed",
+      "subject": {
+        "reference": "Patient/syn-6d30c8d2-ee90-9108-f102-e635914928cf"
+      }
+    }
+  },
+  "script_id": "CP-01",
+  "selection_rule": "Lexicographically first chest session with all four written resource types in the selected E2 run.",
+  "session_key": "default__CP-01__r1",
+  "source": {
+    "path": "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-01__r1/session.json",
+    "sha256": "5235049ce5c17d1ebd9cb33aee0d262b5721329078ac0d1d67665ccc39660152"
+  },
+  "status": "provisional: pending physician review; not clinically validated"
+}

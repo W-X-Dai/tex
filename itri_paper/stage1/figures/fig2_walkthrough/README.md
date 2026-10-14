@@ -1,17 +1,9 @@
-# Walkthrough acceptance dependency
+# Provisional synthetic walkthrough
 
-The experiment brief requires a **validated chest-pain script** for Figure 2.
-No current script has the required physician approvals. Therefore no dialogue,
-FHIR snippet, or clinician screenshot is labelled validated or publication-ready.
+Script pending physician review; not clinically validated.
 
-After both reviewers approve the current script hash and its expected path:
+Selected session: `default__CP-01__r1`. Full source paths and SHA-256 values are in walkthrough.json and Online Resource 2 MANIFEST.json.
 
-1. Run that exact script through E2 and retain its session/source hashes.
-2. Export the synthetic dialogue excerpt, extracted facts/evidence, and captured
-   QuestionnaireResponse, eligible Observation, and Composition.
-3. Capture the actual clinician view against the same isolated synthetic record.
-4. Include the run identifier and review hashes alongside the separate files.
+walkthrough.json contains four dialogue turns, all retained chief-extraction facts/evidence, and explicitly trimmed FHIR examples. Complete corresponding resources are in Online Resource 2 fhir/examples/. No retrieval source text or raw model outputs are included.
 
-Do not substitute a generated interface mockup or an unreviewed smoke session for
-the requested clinical walkthrough. The source experiment artifacts remain under
-the immutable `experiments/results/` run directories.
+TODO_SCREENSHOT: author to capture the clinician interface. No frontend was started. Author assembles formal Fig. 2; these assets do not replace the manuscript's existing load figure.

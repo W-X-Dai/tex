@@ -1,0 +1,39 @@
+% Generated wrapper; narrative source is content.tex.
+\documentclass[10pt,a4paper]{article}
+\usepackage[margin=18mm]{geometry}
+\usepackage{fontspec}
+\usepackage{xeCJK}
+\setmainfont{Liberation Serif}
+\setmonofont{Liberation Mono}
+\setCJKmainfont{Noto Sans CJK TC}
+\setCJKmonofont{Noto Sans Mono CJK TC}
+\usepackage{longtable,booktabs,array,graphicx,caption}
+\usepackage{fvextra,xurl,needspace}
+\usepackage[authoryear,round]{natbib}
+\usepackage[hidelinks,hypertexnames=false]{hyperref}
+\setlength{\emergencystretch}{2em}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\renewcommand{\arraystretch}{1.25}
+\renewcommand{\thesection}{S\arabic{section}}
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\thefigure}{S\arabic{figure}}
+\captionsetup{font=small,labelfont=bf}
+\DefineVerbatimEnvironment{SourceText}{Verbatim}{breaklines=true,breakanywhere=true,fontsize=\small}
+\newcommand{\SupplementTable}[3]{\par\noindent\begin{minipage}{\linewidth}\begin{center}\captionof{table}{#1}\label{#2}\small\input{#3}\end{center}\end{minipage}\par}
+\input{generated/paper_tables/numbers.tex}
+\input{generated/numbers_supplement.tex}
+\begin{document}
+\begin{center}
+{\LARGE Online Resource 1}\par
+{\large Supplementary methods and complete software-verification results}\par
+\end{center}
+All scenario-based results and examples are provisional (pending physician review).
+Only synthetic research data are included. Online Resource 2 is the corresponding
+machine-readable archive, with file-level hashes and source paths.
+\tableofcontents
+\clearpage
+\input{content.tex}
+\bibliographystyle{plainnat}
+\bibliography{sn-bibliography}
+\end{document}

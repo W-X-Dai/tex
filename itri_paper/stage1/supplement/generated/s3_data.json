@@ -1,0 +1,374 @@
+{
+  "generation": {
+    "version": "v4.0.0",
+    "git_commit": "0185c09ea9d10a822c6f5f3ef9bdcbcbe960c813",
+    "jar": "/home/user/tools/synthea/build/libs/synthea-with-dependencies.jar",
+    "jar_sha256": "8dfa29a506f04f035bc3774a1ae6465624a78f11ceed93331de7431d3bc7488d",
+    "properties_override": "experiments/data/synthea/synthea-twcore.properties",
+    "properties_sha256": "9e4f8b9c4a66be671a5338a321fcfe890eef6ac79f6472f151dff885894d443d",
+    "command": "java -jar /home/user/tools/synthea/build/libs/synthea-with-dependencies.jar -s 20261013 -cs 20261013 -r 20261001 -e 20261001 -p 1000 -a 20-90 -c experiments/data/synthea/synthea-twcore.properties --generate.thread_pool_size=1 Massachusetts",
+    "working_directory": "repository root",
+    "seed": 20261013,
+    "clinician_seed": 20261013,
+    "reference_date": "20261001",
+    "end_date": "20261001",
+    "population": 1000,
+    "age_range": "20-90",
+    "geography": "Massachusetts (US; demographics are localised during conversion)",
+    "run_metadata": {
+      "runID": "7fce4c49-163c-4e41-8d26-13e051d67921",
+      "seed": 20261013,
+      "clinicianSeed": 20261013,
+      "referenceTime": "20261001",
+      "endTime": "20261001",
+      "version": "v4.0.0\n",
+      "patientCount": 1000,
+      "providerCount": 1327,
+      "payerCount": 9,
+      "javaVersion": "21.0.12.1",
+      "generate.thread_pool_size": 1,
+      "generatorThreads": 1,
+      "runStartTime": "2026-10-13T06:16:53Z",
+      "runTimeInSeconds": 132,
+      "exporter.years_of_history": "5",
+      "age": "20-90",
+      "state": "Massachusetts",
+      "modules": "*"
+    },
+    "output": {
+      "directory": "experiments/data/synthea_raw/fhir",
+      "files": 1000,
+      "bytes": 642410561,
+      "dataset_sha256": "8b5b2fee26ef4265001bd8249b99f25da9cc8fb63f70d245d1e635c893431368"
+    }
+  },
+  "conversion": {
+    "seed": 20261013,
+    "reference_date": "2026-10-01",
+    "min_age": 20,
+    "synthea_bundles": 1000,
+    "patients_converted": 1000,
+    "patients_skipped_under_min_age": 0,
+    "age_min": 20,
+    "age_max": 89,
+    "input_resources": {
+      "AllergyIntolerance": 768,
+      "Condition": 28464,
+      "Encounter": 37401,
+      "MedicationRequest": 33250,
+      "Observation": 329134,
+      "Patient": 1000
+    },
+    "converted": {
+      "AllergyIntolerance": 768,
+      "Condition": 28464,
+      "Encounter": 37401,
+      "MedicationRequest": 33250,
+      "Observation": 329134,
+      "Patient": 1000
+    },
+    "dropped": {},
+    "profiles": {
+      "AllergyIntolerance-twcore": 768,
+      "Condition-twcore": 28464,
+      "Encounter-twcore": 37401,
+      "MedicationRequest-twcore": 33250,
+      "Observation-bloodPressure-twcore": 7662,
+      "Observation-bmi-twcore": 7170,
+      "Observation-body-height-twcore": 7170,
+      "Observation-body-temperature-twcore": 389,
+      "Observation-body-weight-twcore": 7248,
+      "Observation-clinical-result-twcore": 2836,
+      "Observation-heart-rate-twcore": 7185,
+      "Observation-laboratoryResult-twcore": 229478,
+      "Observation-pediatric-bmi-age-twcore": 181,
+      "Observation-pregnancy-status-twcore": 228,
+      "Observation-pulse-oximetry-twcore": 251,
+      "Observation-respiratory-rate-twcore": 7185,
+      "Observation-screening-assessment-twcore": 28110,
+      "Observation-sexual-orientation-twcore": 13,
+      "Observation-simple-twcore": 16854,
+      "Observation-smoking-status-twcore": 7170,
+      "Observation-vitalSigns-twcore": 4,
+      "Patient-twcore": 1000
+    },
+    "elements": {
+      "Condition.category added = encounter-diagnosis (absent in Synthea; TW Core 1..1)": 28464,
+      "Condition.code: SNOMED CT kept (sct slice); no ICD-10-CM TW coding (no offline map)": 28464,
+      "Encounter.participant removed (Practitioner conditional reference; practitioners not exported)": 37401,
+      "Encounter.serviceProvider removed (Organization conditional reference; organizations not exported)": 37401,
+      "Encounter.serviceType not populated (no Synthea source for NHI department codes)": 37401,
+      "MedicationRequest.medication: RxNorm only (no TW FDA/NHI/ATC coding; no offline crosswalk)": 33250,
+      "MedicationRequest.requester removed (Practitioner not exported)": 33250,
+      "Observation.code: LOINC 57905-2 display updated from validator terminology response": 46,
+      "Observation.code: Synthea placeholder code X9999-0 moved from LOINC to synthetic local system": 58,
+      "Observation.code: coding with SNOMED id mislabelled as LOINC removed": 942,
+      "Observation.code: secondary coding removed for Observation-body-temperature-twcore (coding 1..1): 8331-1 Oral temperature": 389,
+      "Observation.component.code: Synthea placeholder code X9999-1 moved from LOINC to synthetic local system": 58,
+      "Observation.component.code: Synthea placeholder code X9999-2 moved from LOINC to synthetic local system": 58,
+      "Patient.address: Synthea US address (incl. geolocation) replaced by synthetic TW address": 1000,
+      "Patient.communication: language replaced by zh-TW": 1000,
+      "Patient.extension removed: http://hl7.org/fhir/StructureDefinition/patient-birthPlace": 1000,
+      "Patient.extension removed: http://hl7.org/fhir/StructureDefinition/patient-mothersMaidenName": 1000,
+      "Patient.extension removed: http://synthetichealth.github.io/synthea/disability-adjusted-life-years": 1000,
+      "Patient.extension removed: http://synthetichealth.github.io/synthea/quality-adjusted-life-years": 1000,
+      "Patient.identifier removed (US identifier: Driver's license number)": 1000,
+      "Patient.identifier removed (US identifier: Medical Record Number)": 1000,
+      "Patient.identifier removed (US identifier: Passport Number)": 999,
+      "Patient.identifier removed (US identifier: Social Security Number)": 1000,
+      "Patient.identifier removed (US identifier: https://github.com/synthetichealth/synthea)": 1000,
+      "Patient.identifier: synthetic MRN (medicalRecord slice) added": 1000,
+      "Patient.name: Synthea US names replaced by synthetic zh-TW name": 1000,
+      "Patient.name: additional Synthea names (e.g. maiden) removed": 381,
+      "Patient.telecom removed (US 555 numbers; no synthetic TW phone generated)": 1000,
+      "Patient.text removed (Synthea narrative contains US name/seed)": 1000
+    }
+  },
+  "validation_rows": [
+    [
+      "Base cohort: corrected structural/profile pass",
+      1000,
+      430017,
+      0,
+      1058802
+    ],
+    [
+      "Base cohort: terminology-enabled sample",
+      50,
+      13877,
+      0,
+      24240
+    ],
+    [
+      "Separate scenario-v2 cohort",
+      30,
+      521,
+      0,
+      780
+    ]
+  ],
+  "scenario_rows": [
+    [
+      "AP-01",
+      "experiments/data/synthea/scenario-v2/AP-01/fixture_ap-01.json",
+      "syn-6d540260-5154-cb49-e41e-ade28f1f70b0",
+      "consistent_with_authored_source"
+    ],
+    [
+      "AP-02",
+      "experiments/data/synthea/scenario-v2/AP-02/fixture_ap-02.json",
+      "syn-6d4e2372-9634-16e9-ce88-89e062563bb4",
+      "consistent_with_authored_source"
+    ],
+    [
+      "AP-03",
+      "experiments/data/synthea/scenario-v2/AP-03/fixture_ap-03.json",
+      "syn-6d5fc039-c796-3409-9cea-7d52ded81b36",
+      "consistent_with_authored_source"
+    ],
+    [
+      "AP-04",
+      "experiments/data/synthea/scenario-v2/AP-04/fixture_ap-04.json",
+      "syn-6d59e14d-0c75-7fa9-cbd8-afbea1892918",
+      "consistent_with_authored_source"
+    ],
+    [
+      "AP-05",
+      "experiments/data/synthea/scenario-v2/AP-05/fixture_ap-05.json",
+      "syn-6d3c86ad-64d1-f9c8-316b-534f3443dd63",
+      "consistent_with_authored_source"
+    ],
+    [
+      "AP-06",
+      "experiments/data/synthea/scenario-v2/AP-06/fixture_ap-06.json",
+      "syn-6d36a7bf-a9b1-4568-c500-51b6dcad385b",
+      "consistent_with_authored_source"
+    ],
+    [
+      "AP-07",
+      "experiments/data/synthea/scenario-v2/AP-07/fixture_ap-07.json",
+      "syn-6d484485-db13-6289-62d8-73716a173da4",
+      "consistent_with_authored_source"
+    ],
+    [
+      "AP-08",
+      "experiments/data/synthea/scenario-v2/AP-08/fixture_ap-08.json",
+      "syn-6d426599-1ff2-ae29-7504-6cc43097ca45",
+      "consistent_with_authored_source"
+    ],
+    [
+      "AP-09",
+      "experiments/data/synthea/scenario-v2/AP-09/fixture_ap-09.json",
+      "syn-6d250af9-784f-2848-4163-285dbb09b6d3",
+      "consistent_with_authored_source"
+    ],
+    [
+      "AP-10",
+      "experiments/data/synthea/scenario-v2/AP-10/fixture_ap-10.json",
+      "syn-6d1f2c0b-bd2e-73e8-3313-aeca71f088b5",
+      "consistent_with_authored_source"
+    ],
+    [
+      "CP-01",
+      "experiments/data/synthea/scenario-v2/CP-01/fixture_cp-01.json",
+      "syn-6d30c8d2-ee90-9108-f102-e635914928cf",
+      "consistent_with_authored_source"
+    ],
+    [
+      "CP-02",
+      "experiments/data/synthea/scenario-v2/CP-02/fixture_cp-02.json",
+      "syn-6d2ae9e6-336f-dca8-5618-f190810692d9",
+      "consistent_with_authored_source"
+    ],
+    [
+      "CP-03",
+      "experiments/data/synthea/scenario-v2/CP-03/fixture_cp-03.json",
+      "syn-6c51b1a9-27b5-cac7-9d38-d8494062ad6e",
+      "consistent_with_authored_source"
+    ],
+    [
+      "CP-04",
+      "experiments/data/synthea/scenario-v2/CP-04/fixture_cp-04.json",
+      "syn-6c4bd2bc-6c95-1667-a7f9-b44602a47871",
+      "consistent_with_authored_source"
+    ],
+    [
+      "CP-05",
+      "experiments/data/synthea/scenario-v2/CP-05/fixture_cp-05.json",
+      "syn-6c5d6f81-9df7-3387-de63-4ad29d20fb34",
+      "consistent_with_authored_source"
+    ],
+    [
+      "CP-06",
+      "experiments/data/synthea/scenario-v2/CP-06/fixture_cp-06.json",
+      "syn-6c579094-e2d6-7f27-4b47-da2622fd65d6",
+      "consistent_with_authored_source"
+    ],
+    [
+      "CP-07",
+      "experiments/data/synthea/scenario-v2/CP-07/fixture_cp-07.json",
+      "syn-6c3a35f5-3b32-f947-9d14-fffcd9b003e8",
+      "consistent_with_authored_source"
+    ],
+    [
+      "CP-08",
+      "experiments/data/synthea/scenario-v2/CP-08/fixture_cp-08.json",
+      "syn-6c345707-8012-44e7-1bfb-6a646acc5ae0",
+      "consistent_with_authored_source"
+    ],
+    [
+      "CP-09",
+      "experiments/data/synthea/scenario-v2/CP-09/fixture_cp-09.json",
+      "syn-6c45f3ce-b174-6207-f780-6b2f9a57f8da",
+      "consistent_with_authored_source"
+    ],
+    [
+      "CP-10",
+      "experiments/data/synthea/scenario-v2/CP-10/fixture_cp-10.json",
+      "syn-6c4014e1-f653-ada7-b030-d043e11b8844",
+      "consistent_with_authored_source"
+    ],
+    [
+      "HA-01",
+      "experiments/data/synthea/scenario-v2/HA-01/fixture_ha-01.json",
+      "syn-6c22ba41-4eb0-27c7-e860-d9b7ad7a162e",
+      "consistent_with_authored_source"
+    ],
+    [
+      "HA-02",
+      "experiments/data/synthea/scenario-v2/HA-02/fixture_ha-02.json",
+      "syn-6c1cdb53-938f-7366-4f58-59308b4c4573",
+      "consistent_with_authored_source"
+    ],
+    [
+      "HA-03",
+      "experiments/data/synthea/scenario-v2/HA-03/fixture_ha-03.json",
+      "syn-6c2e781a-c4f1-9087-b98a-a8e29108ad54",
+      "consistent_with_authored_source"
+    ],
+    [
+      "HA-04",
+      "experiments/data/synthea/scenario-v2/HA-04/fixture_ha-04.json",
+      "syn-6c28992e-09d0-dc27-d7f3-4c35c6199bf6",
+      "consistent_with_authored_source"
+    ],
+    [
+      "HA-05",
+      "experiments/data/synthea/scenario-v2/HA-05/fixture_ha-05.json",
+      "syn-6c0b3e8e-622d-5646-d5d6-7b6a8d07fb80",
+      "consistent_with_authored_source"
+    ],
+    [
+      "HA-06",
+      "experiments/data/synthea/scenario-v2/HA-06/fixture_ha-06.json",
+      "syn-6c055fa0-a70c-a1e6-8ebc-5ca77aec2659",
+      "consistent_with_authored_source"
+    ],
+    [
+      "HA-07",
+      "experiments/data/synthea/scenario-v2/HA-07/fixture_ha-07.json",
+      "syn-6c16fc67-d86e-bf06-813a-6149a923a8e4",
+      "consistent_with_authored_source"
+    ],
+    [
+      "HA-08",
+      "experiments/data/synthea/scenario-v2/HA-08/fixture_ha-08.json",
+      "syn-6c111d7b-1d4e-0aa6-68f1-ec17072b90df",
+      "consistent_with_authored_source"
+    ],
+    [
+      "HA-09",
+      "experiments/data/synthea/scenario-v2/HA-09/fixture_ha-09.json",
+      "syn-6cafa076-d9c1-10c7-5ee5-342b8a446749",
+      "consistent_with_authored_source"
+    ],
+    [
+      "HA-10",
+      "experiments/data/synthea/scenario-v2/HA-10/fixture_ha-10.json",
+      "syn-6ca9c18a-1ea0-5c67-ff84-837edf2491ea",
+      "consistent_with_authored_source"
+    ]
+  ],
+  "sources_sha256": {
+    "experiments/config/paper_runs.json": "b1c5af617606f914d220ed8b762d62af98c5f5de7eb4f8e2b39bbd545c5442f3",
+    "experiments/data/generation_manifest.json": "3dc91bc9038150de2906aa22e5bb7bb93913375110140d94b892641cdf8ee44e",
+    "experiments/data/conversion_stats_v2.json": "54295313dc5b8adff99155fa9c85fa017c01b927ae0e4e27bc903f41c6361763",
+    "experiments/data/scenario_cohort_scenario_v2.json": "47eb594450f26f92cce29c3fcef07deccc538730bd60f26a352301a1e9a9078e",
+    "experiments/data/scenario_consistency_report_v2.json": "60ecc863ea296867abfdf44b395ee20e208409d906972c461429b30bcbdc2594",
+    "experiments/data/input_validation_summary_scenarios_v2.json": "617bb88428bdcdd3f7d85c4c8b94cd74c757ee39ead3a50ab01999f750e43086",
+    "experiments/data/input_validation_summary_v2.json": "89476ab3ec5a5da18db71924ec4b1932f0da12e9d3cfd28532016fcf9c2ec15f",
+    "experiments/data/input_validation_summary_tx_v2.json": "414c8a23600cd4577d23151d2269499dc89cddb78ca27578699e73e0d277c017",
+    "experiments/data/MAPPING_NOTES.md": "85d14cb4a47bc0285611bb847420f1026248d5b54fa127e25cf67aa1e463b190",
+    "experiments/supplement/data_sources.py": "e0a867bb0c681984709d4afd82bfc280007dc0707b15ffa3f9ab65335136814a",
+    "experiments/data/synthea/scenario-v2/AP-01/fixture_ap-01.json": "1c145e755a940186cc784b343e33b553d8c7ce945250d6daea5151ece80570d6",
+    "experiments/data/synthea/scenario-v2/AP-02/fixture_ap-02.json": "6885decb5c01e487e5f532b8a45e6128c47b52b43b64a263ec44756a14f17daa",
+    "experiments/data/synthea/scenario-v2/AP-03/fixture_ap-03.json": "28a4d77133c221681749a39af870af71ad2496eef2c527306946fa1eb25ae0f4",
+    "experiments/data/synthea/scenario-v2/AP-04/fixture_ap-04.json": "300ac3bf794ffa4a63462d1fe8ca7ec73a110ad5790ee21e708ab2de75f433d0",
+    "experiments/data/synthea/scenario-v2/AP-05/fixture_ap-05.json": "1b4539e7368d1e4afc11da7e3f8a16e0da150f3b9e30c8cd50fd0e085110f183",
+    "experiments/data/synthea/scenario-v2/AP-06/fixture_ap-06.json": "992a065c86a2774cc8c00173163f34be98d45977446943abf608fff0d5b1d6fd",
+    "experiments/data/synthea/scenario-v2/AP-07/fixture_ap-07.json": "77b9965af2c540bff04d39fab8e2acbfa68ad907c3732c3a53386beecfd183e5",
+    "experiments/data/synthea/scenario-v2/AP-08/fixture_ap-08.json": "4f38273472a8e20b07068266696be4052ed928a15809a6f11cbe6d39bc1925f5",
+    "experiments/data/synthea/scenario-v2/AP-09/fixture_ap-09.json": "5c03d33e0c290367ecaf9cbe00670e168cb79bb715968664fe023dc301b7fd4f",
+    "experiments/data/synthea/scenario-v2/AP-10/fixture_ap-10.json": "779969ace4e5ae3d04da1fac85b69f40e3773fc49826be5b035eb7f59b8c6b7b",
+    "experiments/data/synthea/scenario-v2/CP-01/fixture_cp-01.json": "b76d9fb4ab889e57f8d50e99a086ef8d947b463df4114e097fc6a570f7ec52fb",
+    "experiments/data/synthea/scenario-v2/CP-02/fixture_cp-02.json": "f723723213ea12ed5702baa681d19974bf946599331afdb41235227184e4caca",
+    "experiments/data/synthea/scenario-v2/CP-03/fixture_cp-03.json": "99ebac9f040973c6001b851608c115d7e971d1ef0eb4d7645705a07a34a7c2d3",
+    "experiments/data/synthea/scenario-v2/CP-04/fixture_cp-04.json": "6f471fdc2d27b797489c8c9e7aa7eb782bf819b44024de29f5edd6ac9378cea0",
+    "experiments/data/synthea/scenario-v2/CP-05/fixture_cp-05.json": "901c17a05c2b1b4c6c4181b9d5bf411da11f64ca8f3e7445a2cdc2d4b0d5986f",
+    "experiments/data/synthea/scenario-v2/CP-06/fixture_cp-06.json": "74de4fa3bbc5a47738fdef2b9b92cd57659b9c6c90546733fee83841efdb8ee9",
+    "experiments/data/synthea/scenario-v2/CP-07/fixture_cp-07.json": "e55a07b55f15638e99c2c7e05808b5e2ef6160f7ba571ac9c655c59aba42f542",
+    "experiments/data/synthea/scenario-v2/CP-08/fixture_cp-08.json": "6372190cafdc8b85c190d404295861bb3b65ce571aa81be816ee6381b92f0fe3",
+    "experiments/data/synthea/scenario-v2/CP-09/fixture_cp-09.json": "8cd500327c2811f5717a3aeac8c660ae4523a02fad5318c29213f74c7a4cd575",
+    "experiments/data/synthea/scenario-v2/CP-10/fixture_cp-10.json": "aa8c256f60cb74ab4da18fa9ecabec6233abfc9a8b3bbfcd07a12c2c95b9e2e9",
+    "experiments/data/synthea/scenario-v2/HA-01/fixture_ha-01.json": "69becec99e74a217cd1d8ad8d115425dfdef7d54867fa1e41869b13b4264670b",
+    "experiments/data/synthea/scenario-v2/HA-02/fixture_ha-02.json": "a6e234066e0d9e0e21306f54d43972d112dd422f3a338f2aa2dda7b1f4339d91",
+    "experiments/data/synthea/scenario-v2/HA-03/fixture_ha-03.json": "d0205f6aa9d3eecea303ceea870130c1bd3c25f42e2395b53907c741190c117f",
+    "experiments/data/synthea/scenario-v2/HA-04/fixture_ha-04.json": "d71f15de0f8d0c16486808dbe2dc926eddfab0ed5a7c5d9ac6dc35c904589154",
+    "experiments/data/synthea/scenario-v2/HA-05/fixture_ha-05.json": "5eae13bf20cc267da4a558e82938082184963f25204323e3eb5da8c278ad2642",
+    "experiments/data/synthea/scenario-v2/HA-06/fixture_ha-06.json": "0092465a6b0adbc9975de0c99d657590a607c9c71b2bfb23502f7c267667baa1",
+    "experiments/data/synthea/scenario-v2/HA-07/fixture_ha-07.json": "7c74bd60f0ad8709eb68b41654598c0d75d24912128ce83b5a012632ae88e3c8",
+    "experiments/data/synthea/scenario-v2/HA-08/fixture_ha-08.json": "69afb064acf4d7ddc50827ef813263f2e39791597316ae72dd34c40e890362cf",
+    "experiments/data/synthea/scenario-v2/HA-09/fixture_ha-09.json": "1eea66d9dc33ebda8ee828accc4cdf1fd031e820bf4261790a84462eaeb61bfc",
+    "experiments/data/synthea/scenario-v2/HA-10/fixture_ha-10.json": "b5ac12fdc0164f33ce8986fa467d5c5e08f8e8e16882423fda91baf22dbb0fe2"
+  }
+}

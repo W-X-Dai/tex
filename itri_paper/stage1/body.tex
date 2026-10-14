@@ -11,8 +11,8 @@ backend, local retrieval, and a HAPI FHIR sandbox (Fig.~\ref{fig:architecture}) 
 A patient invitation is exchanged for a scoped session cookie; the clinician
 launcher binds patient and encounter identifiers. The separate SMART integration
 surface follows a different authorization flow \citep{smartAppLaunch}.
-These experiments exercise text-channel HTTP APIs, not browser/OAuth launch or
-voice input. Isolated experiment databases and an explicit loopback development
+These verification activities exercise text-channel HTTP APIs, not browser/OAuth launch or
+voice input. Isolated verification databases and an explicit loopback development
 authorization bypass separate the runs from production services.
 
 \begin{figure}[t]\centering
@@ -23,9 +23,12 @@ APIs use application JSON, while FHIR defines the EHR boundary.}
 \label{fig:architecture}
 \end{figure}
 
-Question selection is deterministic: the engine asks the next enabled question
-and skips EHR-prefilled fields. Rules and evidence-checked model extraction screen
-the chief complaint; failed semantic assessment triggers manual handoff. At
+In the default questionnaire engine evaluated here, questionnaire rules select
+the next enabled question and skip EHR-prefilled fields; the LLM does not choose
+the next question. An alternative engine in the code base that makes per-turn
+model calls was not evaluated. Chief-complaint keywords select
+the questionnaire first. Only no keyword match permits evidence-grounded model
+extraction as a routing fallback. Rules and model extraction also screen the chief complaint; failed semantic assessment triggers manual handoff. At
 routine completion, retrieval supplies evidence for model-generated report
 sections and decision-support suggestions. These suggestions are neither
 validated diagnoses nor published orders.
@@ -38,7 +41,10 @@ The canonical version includes a source digest and is pinned in the interview
 trace when a route is selected. Write-back rejects a changed canonical version;
 older records without a pin use current resolution with an explicit legacy tag.
 Application extensions carry source and presentation semantics, so generic FHIR
-consumers cannot assume complete runtime equivalence.
+consumers cannot assume complete runtime equivalence. The questionnaire is encoded
+and published as FHIR Questionnaire, while source JSON drives execution. Tested
+equivalence holds for patient-entered branching answers but diverges for
+free-text EHR prefill, as quantified by R3.
 
 Structured write-back is opt-in; Composition-only write-back remains the default.
 After simulated clinician confirmation, an authorized request creates the
@@ -83,88 +89,123 @@ Mechanical audits check conditions, medications, allergies, and smoking history.
 Human approval requires two independent physician decisions against current
 script hashes, including patient bindings and expected paths. At generation,
 \ValidatedScriptCount{} scripts have those approvals. Model and sampling
-settings are disclosed by role in Supplementary Tables~\ref{tab:llmroles}
-and~\ref{tab:llmprompts}. Commercial models use remote APIs; local Gemma and
+settings and pending human QA are disclosed by role in Online Resource 1,
+Section S5; full prompt texts are in Sections S1 and S5. Commercial models use the Gemini Developer API; local Gemma and
 Qwen use Ollama \citep{ollamaSoftware,gemmaThree,qwenTwoFive}.
+Gemini API access follows the provider interface \citep{googleGeminiAPI}.
 Requested temperature is distinguished from the transmitted value: the Gemini
 adapter omits temperature for the configured newer Gemini models. Provider-effective
 sampling and unrecorded historical thinking settings are not inferred from defaults.
 Implementation, scenario drafting, orchestration, reference checking, and manuscript
 revision used AI assistance; the declarations specify the remaining author review.
 
-\subsection{Verification procedures}
+\subsection{Requirements and acceptance criteria}
+Table~\ref{tab:requirements} maps framework requirements to checks and generated
+verdicts. E1--E5 denote verification activities. Only the E1 zero-error target,
+E3 zero code-change target, and E4 request-error stopping threshold were specified
+before execution. The all-match/all-pass criteria for R2--R6 and the behavioral
+agreement component of R7 are requirement-defined and were applied post~hoc on
+2026-10-14, after inspecting the results. They are not prospective clinical
+acceptance thresholds. R0 comes from the project principal investigator's requirement for
+fixed questionnaire selection; its criteria were likewise applied post~hoc on
+2026-10-14. Missing evidence yields an indeterminate verdict.
+
+\begin{table}[t]\centering\footnotesize
+\caption{Requirements, criterion sources, and generated verdicts. R0 uses E2 with
+E3 descriptive checks; R1/R2 use E1;
+R3--R6 use E2; R7 uses E3; R8 uses E4; R9 concerns E5. R7 is reported separately
+for each replacement in Table~\ref{tab:e3}.}\label{tab:requirements}
+\setlength{\tabcolsep}{3pt}
+\input{tables/tab_requirements.tex}
+\end{table}
+
+\subsection{Verification activities}
+R0 requires all saved system-model call tasks to concern chief extraction (at most
+once per session), report generation, or RAG translation, and each script's
+repeated runtime paths to be identical. Static source inspection identifies the
+pure next-question selector; E3 cross-model paths are reported descriptively.
+Usage records are bounded and explicitly incomplete, so this audit does not
+claim a complete history of all model calls (Online Resource 1, Sections S1 and S6).
+
 E1 uses the pinned HL7 validator with TW Core and generated questionnaire and
-extension definitions \citep{hl7Validator,twcoreIG}. Structural/profile checks use
-\texttt{-tx n/a}; they do not establish complete terminology resolution.
-The prespecified target is no errors on written resources. Missing outcomes and
-validator exceptions are failed verification, reported separately from profile
-errors. Round-trip comparison ignores specified server metadata and assigned
-identifiers but preserves substantive differences. The independent E1 cohort uses
-the same seeded patient selection and fixed short complaints as the earlier run.
-A supplemental E1 validates the new E2 outputs without double counting.
+extension definitions \citep{hl7Validator,twcoreIG}. R1 requires zero errors and
+zero validator exceptions in written resources from the templated and E2
+cohorts. Structural/profile checks use \texttt{-tx n/a}; they do not establish
+terminology resolution. R2 requires substantive write/read-back identity after
+excluding specified server metadata and assigned identifiers. Missing outcomes
+cannot count as passes. Input validation is separate, and the supplemental E1
+cohort is counted only once. Online Resource 1, Sections S3 and S7, documents
+these procedures.
 
-The pinned TW Core Provenance binding references participant-type CodeSystem
-version 4.0.1, unavailable in the local terminology cache. Explicitly substituting
-a different cached version produced binding errors in a diagnostic fixture; we
-therefore retained the correct system URI and reported the warnings. Composition
-narrative warnings are also retained (Supplementary Table~\ref{tab:warnings}).
+E2 exercises invitation, text dialogue, report generation, simulated clinician
+confirmation, write-back, and read-back. A distinct local Qwen model plays the
+patient from scenario facts. Invalid constrained answers receive an explicit
+unknown fallback, never an expected-answer substitution.
+R3 compares the presented top-level runtime path with the FHIR
+\texttt{enableWhen} path derived primarily from the written
+QuestionnaireResponse, including EHR-prefilled answers. The recorded prefilled
+field list retains the skip context, including no-data fields omitted from QR.
+Nested \texttt{<linkId>.other} answer details are not separate questions.
+Reconstruction from runtime answer strings and the original script-derived check
+are secondary evidence. Expected chief stops are excluded; unexpected stops fail.
+R4 requires all persisted chief-complaint facts, including those with missing
+evidence, to be traceable to patient utterances. R5 requires every scripted
+red-flag rule expectation and every non-red-flag expectation to hold. This tests
+rule execution, not clinical sensitivity or specificity. R6 requires write-back
+and an explicit \texttt{completed} or \texttt{summary\_ready} workflow; expected
+chief stops and successful retries qualify, while manual handoff does not.
 
-E2 runs the patient-facing API through invitation, dialogue, report generation,
-simulated clinician confirmation, transaction, and read-back. A distinct local
-Qwen model plays the patient using only scenario facts. Invalid constrained
-answers receive an explicit unknown fallback, never an expected-answer substitution.
-Completion requires successful write-back and an explicit \texttt{completed} or
-\texttt{summary\_ready} workflow. This includes successful chief-complaint safety
-stops and recovery after a timeout, but excludes manual handoff. We separately
-report completion without observed timeout. Timing retains all API write-backs.
-Protocol adherence excludes expected red-flag chief stops from comparable paths;
-unexpected stops remain failures in the denominator. Traceability uses every
-persisted chief-complaint fact, including any missing evidence, and checks its
-span against patient utterances. Functional tests compare rule identifiers; they
-are not sensitivity or specificity measurements.
+E3 substitutes model configuration while retaining executable fingerprints.
+R7 requires zero code changes and equality with the default configuration in
+R1--R6 verdicts and per-script completion, path, and red-flag results. Shared R3 representation differences and R5
+rule gaps are therefore retained in the comparison baseline. This relative
+criterion does not require either configuration to pass every absolute
+requirement. One-time adapter implementation is documented separately against
+base commit \texttt{\AdapterBaseCommit} in Online Resource 1, Section S6.
 
-E3 changes only module configuration and repeats workflow and FHIR checks.
-A complete replacement requires completion without handoff and successful FHIR
-verification; successful model invocation alone is insufficient. One-time adapter
-implementation is measured separately against base commit \texttt{1b0eb1c}.
-Safe session/request identifiers link parser counts, post-validation counts,
-schema failures, and bounded-operation timeouts. Candidate-check failures are
-not unique rejected facts. Local system and simulated-patient models share GPU
-resources. E4 replays captured turns with either fixed-latency mock responses or
-real models, using backend v0.18.0 after this fix round and one worker. The
-prespecified stop criterion remains request error rate above five percent;
-session failure is a separate endpoint. The asynchronous HTTP harness replaces
-the planned k6/Locust tool. E5 remains blocked pending exchange-hub access.
-
-Results are descriptive; repetitions are not independent clinical observations.
-Tables show actual denominators and median/interquartile summaries. Cost covers
-bounded interactive request calls only: background summaries and late calls can
-be absent, and every usage record declares incomplete coverage. A successful
-recorded call can coexist with an outer operation timeout. Source hashes and
-explicit run selection generate all result macros, tables, and figures.
+E4 replays recorded turns with fixed-latency mock responses or real models on
+backend v0.18.0 with one worker. Its prespecified stopping rule is request error
+rate above \ELoadStopThreshold{}; session failure is a distinct endpoint. This
+local stopping rule does not define national capacity. E5 requires access to the
+MOHW exchange hub. Source hashes and frozen run selection generate all result
+macros, tables, and figures; repetitions are not independent clinical observations.
 
 \section{Results}\label{sec:results}
 
-\subsection{Interoperability}
-Independent validation of the converted input cohort covers \InputBundles{}
-bundles and \InputResources{} resources, with \InputErrors{} errors and
-\InputWarnings{} warnings. This combines unchanged outcomes with hash-checked
-revalidation of modified bundles and is separate from system-output conformance.
+\subsection{R0: deterministic question selection}
+R0 is \textbf{\RZeroVerdict{}}. All \ETwoDetCalls{} saved calls satisfy the task
+restriction, with at most \ETwoDetChiefMax{} chief-extraction call per session;
+\ETwoDetUsageIncomplete{} usage records declare incomplete coverage.
+All \RZeroStableScripts{} scripts have identical paths across
+\RZeroRepeats{} E2 repetitions. E3 alternate Gemini matches default paths in
+\EThreeAlternateDetSamePaths{}/\EThreeAlternateDetComparedScripts{} scripts;
+Gemma matches in \EThreeLocalDetSamePaths{}/\EThreeLocalDetComparedScripts{},
+with chief-stage handoffs or missed stops accounting for
+\EThreeLocalDetDifferentScripts{} (Online Resource 1, Section S6).
+Routing sources are \ETwoDetKeywordSources{} keyword selections,
+\ETwoDetExtractorSources{} recorded extraction fallbacks, and
+\ETwoDetUnknownSources{} unrecorded sources after expected chief stops; missing
+sources are not counted as keywords.
 
-E1 includes \EOneTemplatedSessions{} independent input-cohort sessions and
-\EOneScenarioSessions{} E2 sessions. The \EOneResources{} written resources
-have \EOneErrors{} errors and \EOneValidatorCrashes{} validator exceptions.
-All \EOneQuestionnaireResponses{} QuestionnaireResponses have explicit outcomes,
+\subsection{R1 and R2: written resources and read-back}
+R1 is \textbf{\ROneVerdict{}} and R2 is \textbf{\RTwoVerdict{}}.
+Across \EOneTemplatedSessions{} templated and \EOneScenarioSessions{} E2 sessions,
+\EOneResources{} written resources have \EOneErrors{} structural/profile errors
+and \EOneValidatorCrashes{} validator exceptions under \texttt{-tx n/a}; all
+captured submissions match their read-back counterparts
+(Tables~\ref{tab:e1} and~\ref{tab:e1workflow}). All
+\EOneQuestionnaireResponses{} QuestionnaireResponses have explicit outcomes,
 with \EOneQRErrors{} errors and \EOneQRUnverified{} unverified responses.
-The zero-error target is met in both cohorts (Tables~\ref{tab:e1}
-and~\ref{tab:e1workflow}). The retained \EOneWarnings{} warnings comprise
-\EOneProvenanceWarnings{} Provenance terminology warnings and
-\EOneCompositionWarnings{} Composition narrative warnings. The previous QR
-verification gap is resolved by faithful nested-text encoding.
+The \EOneWarnings{} retained warnings comprise \EOneProvenanceWarnings{}
+Provenance terminology warnings and \EOneCompositionWarnings{} Composition
+narrative warnings. The unavailable pinned participant-type CodeSystem version
+remains a terminology limitation, not a resolved binding.
+Input-cohort checks and the templated manual-handoff case are documented
+separately in Online Resource 1, Sections S3, S6, and S8.
 
 \begin{table}[t]\centering
-\caption{E1 written-resource validation. Input checks are excluded; exceptions
-would count as failed verification.}\label{tab:e1}
+\caption{E1 written-resource verification. Input checks are excluded; exceptions
+would prevent acceptance.}\label{tab:e1}
 \footnotesize\setlength{\tabcolsep}{3pt}
 \input{tables/tab_e1_interop.tex}
 \end{table}
@@ -176,218 +217,123 @@ submissions, including those without read-back.}\label{tab:e1workflow}
 \input{tables/tab_e1_workflow.tex}
 \end{table}
 
-\subsection{Workflow and model replacement}
-E2 contains \ETwoSessions{} sessions, with \ETwoRepeats{} repetitions per script.
-Completion is \ETwoCompletion{}, path agreement is \ETwoProtocol{}, and
-fact traceability is \ETwoTraceability{} (Table~\ref{tab:e2}). All
-\ETwoChiefStops{} chief stops completed write-back. The
-\ETwoInvalidTurns{} invalid simulated-patient turns used explicit unknown
-fallbacks. There were \ETwoTimeoutSessions{} timeout-affected sessions;
-\ETwoTimeoutStored{} retained a record and \ETwoTimeoutCompleted{} eventually
-completed after retry. Completion without observed timeout was
-\ETwoTimeoutFreeCompleted{} of \ETwoSessions{}. Table~\ref{tab:e2checks}
-reports functional checks and partial usage; independent audit fields remain blank.
+\subsection{R3--R6: questionnaire, evidence, rules, and completion}
+R3 is \textbf{\RThreeVerdict{}}: written-FHIR paths match in
+\ETwoWrittenPathAgree{}/\ETwoWrittenPathCompared{} comparable sessions, versus
+\ETwoFixtureActualPathAgree{}/\ETwoFixtureActualPathCompared{} using runtime
+answer strings. Failures occur in \RThreeFailingScripts{}; all first divergences
+expect \texttt{chronic\_detail} but observe \texttt{past\_meds}.
+Patient-entered branch controls agree in
+\ETwoWrittenPathPatientControllerAgree{}/\ETwoWrittenPathPatientControllerCompared{},
+whereas EHR-prefilled controls agree in
+\ETwoWrittenPathEhrControllerAgree{}/\ETwoWrittenPathEhrControllerCompared{}
+(Online Resource 1, Section S6.3). R4 is \textbf{\RFourVerdict{}}, with fact traceability of
+\ETwoTraceability{}. R5 is \textbf{\RFiveVerdict{}}: the failing scripts are
+\RFiveFailingScripts{}, exposing existing rule gaps rather than a transport
+failure. The full red-flag and non-red-flag denominators appear in Online
+Resource 1, Section S6.
+R6 is \textbf{\RSixVerdict{}}, with completion of \ETwoCompletion{}, including
+\ETwoChiefStopsCompleted{} expected chief stops and
+\ETwoTimeoutCompleted{} recovery after a timeout and retry.
+The simulated-patient fixture has answer biases, but verbatim chief complaints,
+separate runtime/FHIR path checks, and content-independent structure/read-back
+checks distinguish fixture bias from the representation discrepancy (Online Resource 1, Section S6.3).
 
-\begin{table}[t]\centering
-\caption{E2 software workflow outcomes. Percentages show actual numerators and
-denominators; path comparison excludes expected chief stops.}\label{tab:e2}
-\scriptsize\setlength{\tabcolsep}{2pt}
-\input{tables/tab_e2_feasibility.tex}
+\subsection{R7: configuration-only replacement}
+R7 is \textbf{\EThreeAlternateSwapVerdict{}} for alternate Gemini and
+\textbf{\EThreeLocalSwapVerdict{}} for local Gemma
+(Table~\ref{tab:e3}). The configurations retained identical executable
+fingerprints with no code changes during replacement. Alternate Gemini retains
+the default requirement verdicts and per-script outcomes, including the shared
+R3 and R5 failures; this is behavioral agreement with the default, not absolute safety
+acceptance. The local replacement differs on
+\EThreeLocalSwapFailingScripts{}: \EThreeLocalRSixFailingScripts{} enter manual
+handoff after chief-assessment timeouts, while \EThreeLocalAdditionalSafetyFailingScripts{}
+miss expected red-flag stops.
+Late worker completion does not reverse a handoff. Full per-session evidence is
+in Online Resource 1, Sections S6 and S7.
+
+\begin{table}[t]\centering\footnotesize
+\caption{E3 requirement verdicts by configuration. R7 compares each replacement
+with the default, including per-script completion, path, and red-flag outcomes;
+shared rule gaps do not themselves fail this relative check. Code lines exclude
+one-time adapter implementation.}\label{tab:e3}
+\setlength{\tabcolsep}{3pt}
+\input{tables/tab_e3_requirements.tex}
 \end{table}
-\begin{table}[t]\centering
-\caption{E2 functional-test pass rates and bounded observed usage. Costs exclude
-local hardware and unrecorded calls.}\label{tab:e2checks}
-\footnotesize\setlength{\tabcolsep}{4pt}
-\input{tables/tab_e2_safety_cost.tex}
-\end{table}
 
-The \EThreeConfigurations{} E3 configurations used identical executable
-fingerprints throughout. One-time LLM adapter work added \AdapterAdded{} and
-removed \AdapterRemoved{} lines relative to the base commit, restricted to the
-adapter-related files; subsequent configuration swaps required no code changes.
-The commercial alternate met eventual-completion and FHIR criteria, although
-\EThreeAlternateTimeoutSessions{} sessions recovered after timeouts. The local Gemma
-replacement did not: completion without handoff was \EThreeLocalCompletion{},
-despite successful FHIR checks (Table~\ref{tab:e3}). Its unexpected stops remain
-path failures; only expected stops are excluded from that denominator.
-
-\begin{table}[t]\centering
-\caption{E3 model replacement. Code changes exclude one-time adapter work.
-Completion excludes handoff. Costs are partial API-charge estimates; local zero
-excludes hardware and omitted calls.}\label{tab:e3}
-\scriptsize\setlength{\tabcolsep}{1.8pt}
-\input{tables/tab_e3_swap.tex}
-\end{table}
-
-Persisted facts were \EThreeDefaultFacts{} for the default,
-\EThreeAlternateFacts{} for the commercial alternate, and \EThreeLocalFacts{}
-for Gemma. Gemma's \EThreeLocalChiefCalls{} extraction calls produced
-\EThreeLocalParsedSymptoms{} parsed symptom candidates but retained only
-\EThreeLocalRetainedSymptoms{}; findings were absent before and after validation.
-No local schema/parser failures were observed (Table~\ref{tab:e3diagnostics}).
-AP-07 and HA-08 did not stop at chief screening; HA-08 retained only a headache
-fact. AP-03 and AP-04 entered manual handoff after chief-assessment timeouts;
-late worker completion did not reverse these outcomes. Gemma's
-\EThreeLocalTimeoutSessions{} timeout-affected sessions all retained records,
-but only \EThreeLocalTimeoutCompleted{} completed without handoff.
-All \EThreeLocalUsageCalls{} captured usage calls reported \texttt{ok}; this
-bounded lower-level status did not describe the timed-out outer operations.
-The earlier excluded run lacks pre-validation diagnostics, preventing precise
-retrospective attribution of its low extraction yield.
-
-\subsection{Local load}
-Mock load at concurrency \ELoadHundredConcurrency{} had p95 per-turn latency of
-\ELoadHundredPninetyfiveSeconds{} seconds. At \ELoadLastConcurrency{},
-\ELoadLastCompleted{} of \ELoadLastSessions{} sessions completed; request error
-was \ELoadLastRequestError{} and session failure \ELoadLastSessionFailure{}.
-The request-error stopping threshold was not crossed despite high session failure.
-The lower p95 at the highest level is subject to survivorship: sessions failing
-early contribute no later-turn latency. It does not establish faster successful
-workflows (Fig.~\ref{fig:load}; Supplementary Table~\ref{tab:e4levels}).
-Real mode completed \ERealCompleted{} of \ERealSessions{} sessions at concurrency
-\ERealConcurrency{}. Both modes replay the selected E2 source but use different
-load levels and patient pools; these are local descriptive measurements.
-National peak demand remains \texttt{TODO\_PEAK\_DEMAND}. E5 has no measured result.
-
-\begin{figure}[t]\centering
-\includegraphics[width=\textwidth]{figures/fig_e4_load.pdf}
-\caption{Local synthetic load on the fixed backend. The dotted line is the
-request-error stop threshold, not a session-failure threshold. Per-turn latency
-includes observed HTTP attempts; early failures truncate later measurements.}
-\label{fig:load}
-\end{figure}
+\subsection{R8 and R9: unavailable acceptance evidence}
+R8 is \textbf{\REightVerdict{}} because national peak demand remains
+\texttt{TODO\_PEAK\_DEMAND}. The local request-error stop condition cannot
+substitute for a national-demand criterion. R9 is \textbf{\RNineVerdict{}}
+because exchange-hub access is unavailable; E5 has no measured result.
+Timing, turns, tokens, bounded cost estimates, fact counts, and local load
+observations are descriptive background in Online Resource 1, Section S6.
 
 \section{Discussion}\label{sec:discussion}
-Verification distinguishes data fidelity from successful transport. Nested
-``other'' encoding preserved unrecognized EHR text while resolving QR validation
-exceptions. Version pinning and answered-branch guards make incompatible changes
-explicit. These contracts are narrower than a universal FHIR-native internal bus:
-source JSON still controls interviews and extensions carry application semantics.
+R0 and R3 distinguish stable selection from agreement between representations.
+Runtime JSON uses fixed substring conditions on free-text EHR values; FHIR
+write-back encodes unrecognized text as coded ``other'' with nested original
+text, enabling \texttt{chronic\_detail} in the published Questionnaire.
+These fixed rules disagree without any AI decision, even though repeated
+runtime paths are identical. Clinicians must decide whether out-of-option EHR
+text should trigger follow-up before the rules are unified; this work changes
+neither rule set. Passing structural and read-back checks does not establish
+branch equivalence or clinical meaning.
 
-Model configurability likewise does not guarantee equivalent behavior. Gemma's
-low fact yield arose with nonempty symptom candidates that disappeared during
-local code/evidence validation, absent findings, and separate operation timeouts.
-The diagnostics do not retain raw candidate JSON, so they cannot allocate each
-removed candidate to incorrect codes, unsupported evidence, or deduplication.
-A traceability percentage over a small surviving set cannot establish coverage.
-The failed completion criterion and missed scripted stops preclude a claim of
-complete local-model interchangeability under the tested settings.
+R5 failure identifies unmet rule expectations in \RFiveFailingScripts{},
+including suspected pulmonary embolism and abdominal aortic aneurysm without syncope.
+Only chief-complaint screening runs in the default engine; later questionnaire
+answers do not trigger renewed screening. Other known code-level limitations
+include sustained exertional pressure without diaphoresis or syncope,
+prefill-dependent structured ectopic-pregnancy matching, and overly broad raw
+negation windows. These require qualified clinical review; no rules were changed.
+
+R7 distinguishes configuration compatibility from preserved behavior. Agreement
+with a default that fails R3 and R5 cannot establish representation equivalence
+or clinical safety. Gemma's handoffs
+and missed scripted stops fail the relative replacement criterion. Traceability
+over surviving extracted facts also cannot establish extraction coverage; the
+retention and timeout diagnostics remain in Online Resource 1, Section S6.
+R8 requires externally supplied demand and a justified acceptance criterion;
+local load observations do not establish national readiness. R9 requires an
+authorized exchange-hub environment before verification can proceed.
 
 \subsection{Limitations and clinical review needs}
-This is software verification, not evidence of clinical safety, diagnostic
-performance, utility, or deployment readiness. Scenarios await physician review;
-synthetic demographics are not representative, the patient simulator may
-hallucinate, and evidence spans do not validate clinical interpretation. Only
-chief-complaint screening runs in the default engine. Later questionnaire
-selections such as diaphoresis, syncope, fever with neck stiffness, unclear speech,
-or abdominal rigidity/rebound pain do not trigger renewed screening.
-Rules omit suspected pulmonary embolism (CP-09), abdominal aortic aneurysm without
-syncope (AP-10), and sustained exertional pressure without diaphoresis or syncope.
-The structured ectopic-pregnancy combination depends on prefilled pregnancy risk,
-although a separate raw rule can match explicit pregnancy and bleeding. The raw
-negation window treats single negation characters broadly: a phrase describing
-limb weakness followed by unclear speech can suppress the neurologic match.
-These code-level gaps require qualified clinical review; no rules were changed.
-
-Cost telemetry is incomplete. Local models share GPU capacity, commercial aliases
-may change, and recorded versions cannot make remote inference deterministic.
+All scenario-based verdicts are provisional pending physician review and
+independent transcript/fact audits. Requirements were organized after viewing
+the results, and requirement-defined criteria are explicitly labeled post hoc.
+Synthetic demographics are not representative, evidence spans do not validate
+clinical interpretation, and clinician confirmation was simulated.
+EHR prefill can retain social/contextual Condition text and English labels in
+Chinese forms; faithful encoding does not make that mapping clinically
+appropriate (Online Resource 1, Section S3).
 The sandbox does not establish production authorization, tenant isolation,
-browser SMART integration, or national capacity. Independent transcript and
-fact audits, terminology review, institutional governance, and exchange-hub access
-remain necessary before further acceptance.
+browser SMART integration, diagnostic accuracy, clinical utility, or deployment
+readiness. Terminology review, institutional governance, and human approval
+remain separate prerequisites.
 
 \section{Conclusion}\label{sec:conclusion}
-The fixed implementation meets the written-resource verification target and
-supports inspectable questionnaire, provenance, and write-back contracts.
-Model replacement and load results expose operational limits that successful
-FHIR transfer alone would conceal. Clinical evaluation remains separate.
+The absolute requirements \PassingRequirements{} pass; \FailingRequirements{}
+fail within the defined software-verification scope. Deterministic question
+selection does not guarantee agreement between runtime and written FHIR branching.
+R7 is \EThreeAlternateSwapVerdict{} for alternate Gemini, retaining default
+outcomes including shared R3/R5 failures, and \EThreeLocalSwapVerdict{} for Gemma.
+National peak capacity is \REightVerdict{} and exchange integration is
+\RNineVerdict{}. Checks retain \texttt{-tx n/a}, without terminology resolution;
+simulated clinician confirmation and provisional scenarios do not establish
+clinical validation or deployment readiness.
 
 \backmatter
 \bmhead{Supplementary information}
-The repository preserves immutable runs, source hashes, scripts, reviewer packets,
-and analysis code. The independent E1 cohort rotates fixed brief complaints across
-seeded patients. The harness composes option answers as the kiosk does, records
-invalid attempts, and uses exact unknown-option matching; an earlier substring
-fallback was excluded because it could select a symptom-containing option.
-Run-created resources are captured and removed before patient reuse. Shared
-patients are serialized within a run, and experiments run sequentially after
-baseline checks. No current chest-pain scenario has human approval, so a
-clinician-approved walkthrough remains unavailable.
-
-Table~\ref{tab:e3diagnostics} separates chief stops, extraction yield, and timeouts;
-Table~\ref{tab:gemmasessions} gives each local-model session. Timeout logs and
-bounded-operation events can describe the same incident and are not added.
-Parser/shape failures are local observations, not proof of remote schema enforcement.
-
-\begin{table}[p]\centering
-\caption{E3 extraction and operation diagnostics. Expected chief stops alone are
-excluded from path comparison; unexpected stops remain failures.}\label{tab:e3diagnostics}
-\scriptsize\setlength{\tabcolsep}{2pt}
-\input{tables/tab_e3_diagnostics.tex}
-\end{table}
-\begin{table}[p]\centering
-\caption{Gemma session diagnostics. Symptoms show parsed to retained candidates;
-``--'' means no extractor call. Handoff* includes worker events occurring after
-session completion; these do not undo handoff. Empty usage is not zero consumption.}
-\label{tab:gemmasessions}
-\scriptsize\setlength{\tabcolsep}{3pt}
-\input{tables/tab_e3_gemma_sessions.tex}
-\end{table}
-\begin{table}[p]\centering
-\caption{Every measured load level. Latency is per observed turn; completion and
-request errors have different denominators.}\label{tab:e4levels}
-\scriptsize\setlength{\tabcolsep}{3pt}
-\input{tables/tab_e4_levels.tex}
-\end{table}
-\begin{table}[p]\centering
-\caption{Retained E1 warnings across both written-resource cohorts.}\label{tab:warnings}
-\scriptsize\setlength{\tabcolsep}{3pt}
-\input{tables/tab_e1_warnings.tex}
-\end{table}
-\begin{table}[p]\centering
-\caption{E2 restricted to currently physician-approved script hashes. No approved
-scripts are available; absent results are not zero-valued successes.}\label{tab:validated}
-\scriptsize\setlength{\tabcolsep}{2pt}
-\input{tables/tab_e2_validated.tex}
-\end{table}
-
-\begin{table}[p]\centering
-\caption{Models by executed configuration and role. Version strings are pinned
-metadata; dates are UTC. A configured role need not run in every session.}
-\label{tab:llmroles}\scriptsize\setlength{\tabcolsep}{3pt}
-\input{tables/tab_llm_models.tex}
-\end{table}
-\begin{table}[p]\centering
-\caption{Default Gemini sampling by role. Requested values are distinguished
-from values sent by the adapter; provider-effective defaults were not observed.}
-\label{tab:llmdefault}\scriptsize\setlength{\tabcolsep}{3pt}
-\input{tables/tab_llm_settings_default.tex}
-\end{table}
-\begin{table}[p]\centering
-\caption{Alternate Gemini sampling by role. Unrecorded historical thinking
-settings and final request limits are explicitly unavailable.}
-\label{tab:llmalternate}\scriptsize\setlength{\tabcolsep}{3pt}
-\input{tables/tab_llm_settings_alternate.tex}
-\end{table}
-\begin{table}[p]\centering
-\caption{Local Gemma system and Qwen simulated-patient sampling by role. Local
-API access does not imply zero hardware cost.}
-\label{tab:llmlocal}\scriptsize\setlength{\tabcolsep}{3pt}
-\input{tables/tab_llm_settings_local.tex}
-\end{table}
-\begin{table}[p]\centering
-\caption{Prompt source files and planned human QA by role. Source hashes are in
-the disclosure artifact. Automated checks and simulated confirmation do not replace
-pending human review.}\label{tab:llmprompts}
-\scriptsize\setlength{\tabcolsep}{3pt}
-\input{tables/tab_llm_prompts.tex}
-\end{table}
-
-\begin{table}[p]\centering
-\caption{Principal pinned software versions. Full digests accompany manifests.}
-\label{tab:versions}\small
-\input{tables/tab_versions.tex}
-\end{table}
+Online Resource 1 (\texttt{ESM\_1.pdf}) provides system and prompt details
+(Section S1), FHIR examples (S2), synthetic conversion (S3), provisional scenarios
+(S4), model disclosure (S5), complete results and a provisional walkthrough
+(S6), harness procedures (S7), validator limitations (S8), and version locks (S9).
+Online Resource 2 (\texttt{ESM\_2.zip}) contains the corresponding machine-readable
+scripts, review materials, FHIR examples, synthetic sample bundles, prompts,
+configurations, summaries, and a hash manifest. No scenario is physician-approved;
+the walkthrough remains provisional and the clinician screenshot is pending.
 
 \bmhead{Acknowledgements}
 Author confirmation of acknowledgements and institutional wording is pending.
@@ -397,14 +343,20 @@ Author confirmation of acknowledgements and institutional wording is pending.
 verify these statements and final approval.\par
 \textbf{Ethics and consent.} Only synthetic data were used. Authors must confirm
 the applicable institutional determination; no ethics approval is asserted.\par
-\textbf{Data and code availability.} Scripts, derived summaries, and generators
-are in the project repository. Large raw artifacts are regenerable and excluded
-from source control. An archival identifier and access statement require author
-confirmation.\par
+\textbf{Data availability.} Online Resource 2 contains provisional synthetic
+scripts, review materials, sample TW Core bundles, FHIR examples, selected result
+summaries and manifests, and configuration/prompt provenance. Full session records
+and RAG source text are excluded. Medscape redistribution rights require author
+confirmation (\texttt{TODO\_AUTHOR}).\par
+\textbf{Code availability.} Reproduction commands and source paths accompany
+Online Resource 2; the public repository location, archival identifier, and code/data
+licenses remain \texttt{TODO\_AUTHOR}.\par
 \textbf{AI assistance.} Claude Code and Codex assisted code and scenario drafting,
-experiment orchestration, source checking, and manuscript drafting and revision.
-Recorded model identifiers, dates, and unavailable settings are disclosed in the
-repository. Authors must verify citations, review technical and clinical content,
+verification orchestration, source checking, and manuscript drafting and revision.
+The authoring log records Claude Code with \texttt{claude-opus-5-5} and
+Codex in the GPT-6 family; exact tool releases and Codex runtime version remain
+unrecorded. Authors must confirm these details and the final disclosure
+wording (\texttt{TODO\_AUTHOR}; Online Resource 1, Section S5). Authors must verify citations, review technical and clinical content,
 and approve the final text; scenario approvals and independent audits remain pending.
 
 \bibliography{sn-bibliography}

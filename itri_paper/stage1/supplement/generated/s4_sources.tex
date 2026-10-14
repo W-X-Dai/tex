@@ -1,0 +1,76 @@
+\begingroup\small\raggedright
+\begin{longtable}{>{\raggedright\arraybackslash}p{.13\linewidth}>{\raggedright\arraybackslash}p{.37\linewidth}>{\raggedright\arraybackslash}p{.29\linewidth}>{\raggedright\arraybackslash}p{.10\linewidth}}
+\caption{Provisional scenario summaries; all await physician review}\\
+ID / route & Opening complaint & Red flag / rule or gap & Path / status \\ \hline
+\endfirsthead
+ID / route & Opening complaint & Red flag / rule or gap & Path / status \\ \hline
+\endhead
+AP-01 / abdomen & 胃痛好幾天了，空腹的時候比較痛，有點想吐 & False; none expected & 15 / pending \\
+AP-02 / abdomen & 肚子痛從肚臍周圍開始，現在移到右下腹，有點發燒 & False; none expected & 15 / pending \\
+AP-03 / abdomen & 吃完油膩的東西右上腹痛，會痛到右肩 & False; none expected & 12 / pending \\
+AP-04 / abdomen & 昨天吃路邊攤後一直腹痛拉肚子，同行朋友也一樣 & False; none expected & 15 / pending \\
+AP-05 / abdomen & 左邊腰痛連到肚子，一陣一陣的肚子絞痛，小便有點紅 & False; none expected & 14 / pending \\
+AP-06 / abdomen & 已經五天大不出來，下腹痛脹脹的 & False; none expected & 15 / pending \\
+AP-07 / abdomen & 肚子痛到背後，剛剛上廁所的時候昏倒了一下 & True; semantic\_alt\allowbreak{}ered\_conscio\allowbreak{}usness, semantic\_abd\allowbreak{}ominal\_synco\allowbreak{}pe & 13 / pending \\
+AP-08 / abdomen & 我月經過期又出血，下腹痛得很厲害，站起來會頭暈 & True; pregnancy\_bleeding & 15 / pending \\
+AP-09 / abdomen & 今天突然肚子很痛，整個肚子硬得像木板，動一下就痛 & True; peritonism & 13 / pending \\
+AP-10 / abdomen & 突然肚子很痛，一直痛到後\allowbreak{}背，我之前檢查說有腹主動\allowbreak{}脈瘤 & True; Suspected symptomatic/ruptured AAA without syncope (sudden severe abdominal pain radiating to the back with known AAA) has no rule. finding\_codes abdominal\_pain\_to\_back and abdominal\_ao\allowbreak{}rtic\_aneurys\allowbreak{}m\_history exist but no structured\_rule references them, and no abdomen rule uses onset/severity; only syncope (semantic\_ab\allowbreak{}dominal\_sync\allowbreak{}ope), peritoneal\_irritation and pregnancy+bleeding are covered. & 12 / pending \\
+CP-01 / chest & 左邊胸痛三天，轉身或抬手\allowbreak{}的時候比較痛，按下去也會\allowbreak{}痛 & False; none expected & 15 / pending \\
+CP-02 / chest & 吃完飯後胸口痛，有灼熱感，躺下會更明顯 & False; none expected & 16 / pending \\
+CP-03 / chest & 最近一個月爬樓梯時會胸悶，休息幾分鐘就會好 & False; none expected & 16 / pending \\
+CP-04 / chest & 感冒咳嗽一週，深呼吸和咳嗽時右邊胸痛 & False; none expected & 15 / pending \\
+CP-05 / chest & 這一週左邊胸口刺痛，壓力大的時候比較明顯 & False; none expected & 17 / pending \\
+CP-06 / chest & 這兩個禮拜常常胸悶，心跳\allowbreak{}很快，通常是在工作很緊張\allowbreak{}的時候 & False; none expected & 18 / pending \\
+CP-07 / chest & 半小時前爬樓梯時突然胸口\allowbreak{}很痛，像被大石頭壓住，痛\allowbreak{}到左手臂，還一直冒冷汗 & True; chest\_diaphoresis & 15 / pending \\
+CP-08 / chest & 剛剛突然胸痛，像被撕開一樣，胸痛延伸到背部 & True; tearing\_chest\_pain & 15 / pending \\
+CP-09 / chest & 昨天坐了十幾個小時飛機回\allowbreak{}來，今天右邊胸痛，吸氣會\allowbreak{}更痛，有點喘，心跳很快，\allowbreak{}右小腿也腫腫的 & True; Suspected pulmonary embolism (pleuritic chest pain + dyspnoea + tachycardia + unilateral leg swelling after long-haul travel) has no rule. finding\_codes pleuritic\_pain, dyspnea and tachycardia exist but no structured\_rule references them; severe\_breathing fires only for raw terms 無法呼吸/喘不過氣/嘴唇發紫 or an LLM 'severe\_breathing' finding, which 有點喘 should not produce. & 17 / pending \\
+CP-10 / chest & 今天早上胸悶，在公園散步\allowbreak{}時突然暈倒，醒來還是悶悶\allowbreak{}的 & True; chest\_syncope & 15 / pending \\
+HA-01 / headache & 頭痛兩天，兩邊太陽穴緊緊的，工作壓力大 & False; none expected & 17 / pending \\
+HA-02 / headache & 又開始偏頭痛，右邊一跳一跳的，怕光想吐 & False; none expected & 14 / pending \\
+HA-03 / headache & 感冒後前額頭痛，鼻塞，彎腰時更痛 & False; none expected & 15 / pending \\
+HA-04 / headache & 這個月幾乎每天頭痛，止痛藥越吃越多 & False; none expected & 15 / pending \\
+HA-05 / headache & 頭痛好幾天了，後腦勺到脖\allowbreak{}子一直緊緊的，低頭用電腦\allowbreak{}更明顯 & False; none expected & 17 / pending \\
+HA-06 / headache & 這兩天早上起床就後腦痛，\allowbreak{}脹脹的，血壓藥前幾天忘了\allowbreak{}吃 & False; none expected & 15 / pending \\
+HA-07 / headache & 剛剛搬東西時突然頭痛，好\allowbreak{}像被雷打到，是我此生最嚴\allowbreak{}重的頭痛，還吐了 & True; thunderclap\_headache & 17 / pending \\
+HA-08 / headache & 頭痛三天越來越嚴重，發燒\allowbreak{}到三十九度，脖子很硬，低\allowbreak{}頭下巴碰不到胸口 & True; semantic\_meningism & 16 / pending \\
+HA-09 / headache & 頭痛，右手右腳突然使不上力，講話不清楚 & True; focal\_neurologic\_deficit & 15 / pending \\
+HA-10 / headache & 今天早上頭痛得很厲害，在\allowbreak{}客廳突然失去意識幾分鐘，\allowbreak{}家人把我叫醒 & True; altered\_consciousness & 15 / pending \\
+\end{longtable}\endgroup
+\begingroup\small\raggedright
+\begin{longtable}{>{\raggedright\arraybackslash}p{.12\linewidth}>{\raggedright\arraybackslash}p{.78\linewidth}}
+\caption{Scenario-to-Synthea-module bindings}\\
+Script & Module source \\ \hline
+\endfirsthead
+Script & Module source \\ \hline
+\endhead
+AP-01 & experiments/\allowbreak{}data/synthea\allowbreak{}/scenario-v2\allowbreak{}/AP-01/fixtu\allowbreak{}re\_ap-01.jso\allowbreak{}n \\
+AP-02 & experiments/\allowbreak{}data/synthea\allowbreak{}/scenario-v2\allowbreak{}/AP-02/fixtu\allowbreak{}re\_ap-02.jso\allowbreak{}n \\
+AP-03 & experiments/\allowbreak{}data/synthea\allowbreak{}/scenario-v2\allowbreak{}/AP-03/fixtu\allowbreak{}re\_ap-03.jso\allowbreak{}n \\
+AP-04 & experiments/\allowbreak{}data/synthea\allowbreak{}/scenario-v2\allowbreak{}/AP-04/fixtu\allowbreak{}re\_ap-04.jso\allowbreak{}n \\
+AP-05 & experiments/\allowbreak{}data/synthea\allowbreak{}/scenario-v2\allowbreak{}/AP-05/fixtu\allowbreak{}re\_ap-05.jso\allowbreak{}n \\
+AP-06 & experiments/\allowbreak{}data/synthea\allowbreak{}/scenario-v2\allowbreak{}/AP-06/fixtu\allowbreak{}re\_ap-06.jso\allowbreak{}n \\
+AP-07 & experiments/\allowbreak{}data/synthea\allowbreak{}/scenario-v2\allowbreak{}/AP-07/fixtu\allowbreak{}re\_ap-07.jso\allowbreak{}n \\
+AP-08 & experiments/\allowbreak{}data/synthea\allowbreak{}/scenario-v2\allowbreak{}/AP-08/fixtu\allowbreak{}re\_ap-08.jso\allowbreak{}n \\
+AP-09 & experiments/\allowbreak{}data/synthea\allowbreak{}/scenario-v2\allowbreak{}/AP-09/fixtu\allowbreak{}re\_ap-09.jso\allowbreak{}n \\
+AP-10 & experiments/\allowbreak{}data/synthea\allowbreak{}/scenario-v2\allowbreak{}/AP-10/fixtu\allowbreak{}re\_ap-10.jso\allowbreak{}n \\
+CP-01 & experiments/\allowbreak{}data/synthea\allowbreak{}/scenario-v2\allowbreak{}/CP-01/fixtu\allowbreak{}re\_cp-01.jso\allowbreak{}n \\
+CP-02 & experiments/\allowbreak{}data/synthea\allowbreak{}/scenario-v2\allowbreak{}/CP-02/fixtu\allowbreak{}re\_cp-02.jso\allowbreak{}n \\
+CP-03 & experiments/\allowbreak{}data/synthea\allowbreak{}/scenario-v2\allowbreak{}/CP-03/fixtu\allowbreak{}re\_cp-03.jso\allowbreak{}n \\
+CP-04 & experiments/\allowbreak{}data/synthea\allowbreak{}/scenario-v2\allowbreak{}/CP-04/fixtu\allowbreak{}re\_cp-04.jso\allowbreak{}n \\
+CP-05 & experiments/\allowbreak{}data/synthea\allowbreak{}/scenario-v2\allowbreak{}/CP-05/fixtu\allowbreak{}re\_cp-05.jso\allowbreak{}n \\
+CP-06 & experiments/\allowbreak{}data/synthea\allowbreak{}/scenario-v2\allowbreak{}/CP-06/fixtu\allowbreak{}re\_cp-06.jso\allowbreak{}n \\
+CP-07 & experiments/\allowbreak{}data/synthea\allowbreak{}/scenario-v2\allowbreak{}/CP-07/fixtu\allowbreak{}re\_cp-07.jso\allowbreak{}n \\
+CP-08 & experiments/\allowbreak{}data/synthea\allowbreak{}/scenario-v2\allowbreak{}/CP-08/fixtu\allowbreak{}re\_cp-08.jso\allowbreak{}n \\
+CP-09 & experiments/\allowbreak{}data/synthea\allowbreak{}/scenario-v2\allowbreak{}/CP-09/fixtu\allowbreak{}re\_cp-09.jso\allowbreak{}n \\
+CP-10 & experiments/\allowbreak{}data/synthea\allowbreak{}/scenario-v2\allowbreak{}/CP-10/fixtu\allowbreak{}re\_cp-10.jso\allowbreak{}n \\
+HA-01 & experiments/\allowbreak{}data/synthea\allowbreak{}/scenario-v2\allowbreak{}/HA-01/fixtu\allowbreak{}re\_ha-01.jso\allowbreak{}n \\
+HA-02 & experiments/\allowbreak{}data/synthea\allowbreak{}/scenario-v2\allowbreak{}/HA-02/fixtu\allowbreak{}re\_ha-02.jso\allowbreak{}n \\
+HA-03 & experiments/\allowbreak{}data/synthea\allowbreak{}/scenario-v2\allowbreak{}/HA-03/fixtu\allowbreak{}re\_ha-03.jso\allowbreak{}n \\
+HA-04 & experiments/\allowbreak{}data/synthea\allowbreak{}/scenario-v2\allowbreak{}/HA-04/fixtu\allowbreak{}re\_ha-04.jso\allowbreak{}n \\
+HA-05 & experiments/\allowbreak{}data/synthea\allowbreak{}/scenario-v2\allowbreak{}/HA-05/fixtu\allowbreak{}re\_ha-05.jso\allowbreak{}n \\
+HA-06 & experiments/\allowbreak{}data/synthea\allowbreak{}/scenario-v2\allowbreak{}/HA-06/fixtu\allowbreak{}re\_ha-06.jso\allowbreak{}n \\
+HA-07 & experiments/\allowbreak{}data/synthea\allowbreak{}/scenario-v2\allowbreak{}/HA-07/fixtu\allowbreak{}re\_ha-07.jso\allowbreak{}n \\
+HA-08 & experiments/\allowbreak{}data/synthea\allowbreak{}/scenario-v2\allowbreak{}/HA-08/fixtu\allowbreak{}re\_ha-08.jso\allowbreak{}n \\
+HA-09 & experiments/\allowbreak{}data/synthea\allowbreak{}/scenario-v2\allowbreak{}/HA-09/fixtu\allowbreak{}re\_ha-09.jso\allowbreak{}n \\
+HA-10 & experiments/\allowbreak{}data/synthea\allowbreak{}/scenario-v2\allowbreak{}/HA-10/fixtu\allowbreak{}re\_ha-10.jso\allowbreak{}n \\
+\end{longtable}\endgroup

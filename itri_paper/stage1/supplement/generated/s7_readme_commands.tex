@@ -1,0 +1,32 @@
+\begin{Verbatim}[breaklines=true,fontsize=\small]
+export PATH=/home/user/.nvm/versions/node/v22.23.2/bin:$PATH
+
+# Before each run: reject extra, missing, or truncated baseline resources.
+backend/venv/bin/python -m experiments.tools.check_scenario_baseline
+
+# E1: independent 200-patient input cohort, before E2.
+backend/venv/bin/python -m experiments.e1_interop.run \
+  --config default --synthea-batch 200 --seed 20261013 --workers 4 --cleanup
+
+# E2: provisional 30-script workflow run, five repetitions per script.
+backend/venv/bin/python -m experiments.e2_end_to_end.run \
+  --config default --repeats 5 --workers 4 --cleanup
+
+# E1 supplemental: validate only the newly completed E2 output.
+backend/venv/bin/python -m experiments.e1_interop.run \
+  --config default --synthea-batch 0 \
+  --from-runs experiments/results/e2_end_to_end/REPLACE_WITH_RUN_ID
+
+# E3: same framework code, alternate configurations, one repetition per script.
+backend/venv/bin/python -m experiments.e3_swap.run \
+  --configs default,llm_swap_a_gemini_alt,llm_swap_b_ollama \
+  --repeats 1 --workers 4 --cleanup --verify-scenario-baseline
+
+# E4: replay recorded patient turns with fixed-latency mock model responses.
+backend/venv/bin/python -m experiments.e4_load.run --mode mock \
+  --levels 10,50,100,500 --from-run experiments/results/e2_end_to_end/REPLACE_WITH_RUN_ID
+
+# Optional small real-model load run; keep separate from mock capacity results.
+backend/venv/bin/python -m experiments.e4_load.run --mode real --levels 1,2,4 \
+  --from-run experiments/results/e2_end_to_end/REPLACE_WITH_RUN_ID
+\end{Verbatim}

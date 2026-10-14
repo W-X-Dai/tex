@@ -1,0 +1,12 @@
+% Generated; edit source results or generator, never these values.
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{5.4cm}>{\raggedright\arraybackslash}p{7cm}@{}}
+\hline
+Source/function & Static evidence \\[4pt]
+\hline\noalign{\vskip 3pt}
+backend/\allowbreak{}domain/\allowbreak{}questionnaires.py:595\newline next\_question\_index & Iterates questionnaire order and applies condition\_matches plus prefill skips; no model call. \\[3pt]
+backend/\allowbreak{}domain/\allowbreak{}questionnaires.py:528\newline condition\_matches & Fixed substring predicate on recorded data; no model call. \\[3pt]
+backend/\allowbreak{}app/\allowbreak{}routes/\allowbreak{}patient.py:1266\newline \_chat\_questionnaire & Chief assessment is confined to the reason branch; next\_question\_index chooses the next step; completion dispatch occurs only when it returns None. \\[3pt]
+backend/\allowbreak{}app/\allowbreak{}services/\allowbreak{}patient\_interview.py:92\newline select\_questionnaire\_route & Keywords first; only no keyword hit permits a single evidence-grounded extractor fallback. \\[3pt]
+experiments/\allowbreak{}harness/\allowbreak{}session.py:513\newline \_doctor\_load & Copies chief\_assessment.route\_source to the immutable observed route\_source field. \\[3pt]
+\hline
+\end{tabular}

@@ -1,0 +1,19 @@
+% Generated from selected immutable runs; provisional, pending physician review.
+\begingroup\small\setlength{\tabcolsep}{3pt}\renewcommand{\arraystretch}{1.15}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.07\linewidth}>{\raggedright\arraybackslash}p{0.06\linewidth}>{\raggedright\arraybackslash}p{0.1\linewidth}>{\raggedright\arraybackslash}p{0.07\linewidth}>{\raggedright\arraybackslash}p{0.08\linewidth}>{\raggedright\arraybackslash}p{0.08\linewidth}>{\raggedright\arraybackslash}p{0.1\linewidth}>{\raggedright\arraybackslash}p{0.1\linewidth}>{\raggedright\arraybackslash}p{0.1\linewidth}}
+\caption{E4 all measured levels. Turn latency in seconds includes recorded HTTP attempts; completion and request-error denominators differ.}\label{sup:e4load}\\\hline
+Mode & Level & Completed & p50 & p95 & p99 & Request error & Session failure & Completed / min \\ \hline
+\endfirsthead
+\hline
+Mode & Level & Completed & p50 & p95 & p99 & Request error & Session failure & Completed / min \\ \hline
+\endhead
+\hline\endfoot
+\hline\endlastfoot
+Mock & 10 & 9/10 & 0.02 & 1.50 & 15.03 & 0.00\% & 10.00\% & 32.15 \\
+Mock & 50 & 49/50 & 0.02 & 65.01 & 65.39 & 0.00\% & 2.00\% & 41.47 \\
+Mock & 100 & 99/100 & 0.02 & 121.29 & 121.84 & 0.00\% & 1.00\% & 44.79 \\
+Mock & 500 & 130/500 & 0.22 & 112.85 & 125.99 & 4.71\% & 74.00\% & 42.28 \\
+Real & 1 & 1/1 & 0.01 & 13.73 & 23.07 & 0.00\% & 0.00\% & 2.02 \\
+Real & 2 & 2/2 & 0.01 & 20.50 & 25.40 & 0.00\% & 0.00\% & 3.96 \\
+Real & 4 & 4/4 & 0.02 & 21.34 & 25.13 & 0.00\% & 0.00\% & 7.79 \\
+\end{longtable}\endgroup

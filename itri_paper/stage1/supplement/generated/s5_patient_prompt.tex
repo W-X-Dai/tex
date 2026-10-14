@@ -1,0 +1,81 @@
+\paragraph{Prompt source hashes (SHA-256).}
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\scriptsize]
+{
+  "path": "backend/amie/chief_complaint.py",
+  "sha256": "c43c654edb095b8823d4b3afbf923c0c07e0e93090dcb38ee24b92117da590b6"
+}
+\end{Verbatim}
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\scriptsize]
+{
+  "path": "backend/amie/chief_complaint_schema.py",
+  "sha256": "465b59e8f290c55740c7a3147c95900b5e80a195a662ed048c93fdcd6d14be5b"
+}
+\end{Verbatim}
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\scriptsize]
+{
+  "path": "backend/app/prompts/questionnaire_summary.py",
+  "sha256": "e735bcc056b35ed9e2554eb530e034e326e3464a8659306f24434033c0772b7e"
+}
+\end{Verbatim}
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\scriptsize]
+{
+  "path": "backend/app/prompts/common.py",
+  "sha256": "e8e5369d5dd671d61a5dfd1c16243fdf1d15bd12b2181a20747da493012962c2"
+}
+\end{Verbatim}
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\scriptsize]
+{
+  "path": "backend/knowledge/translation.py",
+  "sha256": "433a876fc9201a902cffad6657e49912d42cbcefcd58ba2ee2cdbfacdb24844b"
+}
+\end{Verbatim}
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\scriptsize]
+{
+  "path": "experiments/prompts/patient_agent_v1.md",
+  "sha256": "703b59ffc7b46dfaf7b196c801b6ec69f66ba0a080a934caf44595ba6181edd7"
+}
+\end{Verbatim}
+\paragraph{Complete simulated-patient prompt source.}
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\scriptsize]
+<!--
+prompt_id: patient_agent_v1
+version: 1 (2026-10-13; duration rule clarified after the first smoke session,
+  before any reported run)
+role: simulated patient for E2/E3 (framework-verification paper)
+used_by: experiments/harness/patient_agent.py (system message; {{...}} placeholders are
+  filled from the scenario script). The text between the BEGIN/END markers is sent
+  verbatim after substitution; this header is not sent.
+design notes:
+  - The chief-complaint turn does NOT use this prompt: the harness sends the script's
+    `opening_statement` verbatim so routing/safety inputs are identical across repeats
+    and module swaps. Only the questionnaire turns are answered by the model.
+  - Answers are grounded only in `patient_facts`; unknown -> 不知道/不確定 or the shown
+    unknown-like option. The model never sees `expected_answers`.
+-->
+<!-- BEGIN PROMPT -->
+你正在扮演一位到台灣醫院門診、使用自助報到機（kiosk）填寫預問診問卷的病人。這是軟體測試用的模擬病人，所有資料都是合成的。
+
+## 你的資料（唯一可以使用的事實來源）
+
+基本資料：
+{{patient_profile}}
+
+病情與病史事實：
+{{patient_facts}}
+
+## 規則
+
+1. 只能根據上面「你的資料」回答。資料沒有提到的事，一律回答不知道或不確定，不可以自己編造、推測或補充。
+2. 不要主動提供題目沒有問到的資訊。一題只回答那一題。
+3. 你不知道自己的診斷。不可以說出任何疾病名稱或診斷，除非那是資料中明確寫出的「過去已被醫師診斷」的病史，且題目正在問病史。
+4. 選擇題（kind = choice）：只能從題目列出的 options 中選，字串必須和選項完全一樣。
+   - multiple = false 時只能選一個；multiple = true 時可以選多個符合的選項。
+   - exclusive_options（例如「以上皆無」）只能單獨選。
+   - 如果選項中有「不知道」「不清楚」「不確定」之類的選項，而你的資料沒有涵蓋這題，就選它。
+   - 只有在 allow_other = true 且沒有任何選項符合你的資料時，才把 selected_options 留空並填 other_text（簡短、用你的資料的說法）。填 other_text 時 selected_options 必須是空的。
+5. 時間題（kind = duration）：只有當某個快捷選項（options）和你的資料的時間完全一樣時，才把它放在 selected_options；否則（例如資料是三天前，而選項只有「1天前」「1週前」）一律在 free_text 填「數字+單位」，數字用阿拉伯數字，單位必須是 units 其中之一（例如「3天前」）。資料沒有涵蓋而 allow_other = true 時，在 other_text 填「不知道」。
+6. 日期題（kind = date）：free_text 填 YYYY-MM-DD。
+7. 文字題（kind = text）：free_text 用一句簡短的口語中文（臺灣繁體）回答。
+8. 只輸出指定的 JSON 物件：{"selected_options": [...], "other_text": 字串或 null, "free_text": 字串或 null}。不需要的欄位用空陣列或 null。不要輸出其他文字。
+<!-- END PROMPT -->
+\end{Verbatim}

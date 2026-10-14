@@ -1,0 +1,2311 @@
+{
+  "example_session": "default__CP-01__r1",
+  "example_source": {
+    "path": "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-01__r1/session.json",
+    "sha256": "5235049ce5c17d1ebd9cb33aee0d262b5721329078ac0d1d67665ccc39660152"
+  },
+  "files": {
+    "README.md": {
+      "bytes": 2670,
+      "sha256": "4bbfe5c29d58f6402d989778238683655c2656f341173c4394cd08b5eb936592",
+      "sources": [
+        {
+          "path": "docs/paper/codex_supplement_spec_2026-10-13.md",
+          "sha256": "e083710f3ea4d31cdab897d673f4a0ca12ec58b044c53e7e471f2488f8a01341"
+        }
+      ],
+      "transformation": "Generated packaging and provenance instructions"
+    },
+    "config/modules/asr_tts_swap.yaml": {
+      "bytes": 400,
+      "omitted_json_path_sha256": [],
+      "sha256": "2eb20b29718f1d0710da3f779cfdd168a5faa327460a87d14f53e91f4b50b79b",
+      "sources": [
+        {
+          "path": "experiments/config/modules/asr_tts_swap.yaml",
+          "sha256": "6b6b2d0654147987fd5a8e0d442c8b4fe076e2556965d01dafa5406b656a8c8f"
+        }
+      ],
+      "transformation": "Sanitized configuration projection; sensitive-named fields omitted; model settings preserved"
+    },
+    "config/modules/default.yaml": {
+      "bytes": 1008,
+      "omitted_json_path_sha256": [],
+      "sha256": "9af04271f48679eb83175e43a915d34dcd42b553c09ae49916cf74dcbc7cde7f",
+      "sources": [
+        {
+          "path": "experiments/config/modules/default.yaml",
+          "sha256": "62fdf8d8a34813b8e00f674117bfaf6368d38bc5b967aaafb32e7383b408a1ac"
+        }
+      ],
+      "transformation": "Sanitized configuration projection; sensitive-named fields omitted; model settings preserved"
+    },
+    "config/modules/frontend_swap_smart.yaml": {
+      "bytes": 1052,
+      "omitted_json_path_sha256": [],
+      "sha256": "7c2167d311f1e66480953943020d3ee3943bd7db00efb88c3d470dfd14cbbdbb",
+      "sources": [
+        {
+          "path": "experiments/config/modules/frontend_swap_smart.yaml",
+          "sha256": "01c67dd22c19370e93e117df00eefeb75215586126528bebcde85f4bde506104"
+        }
+      ],
+      "transformation": "Sanitized configuration projection; sensitive-named fields omitted; model settings preserved"
+    },
+    "config/modules/llm_swap_a_gemini_alt.yaml": {
+      "bytes": 1057,
+      "omitted_json_path_sha256": [],
+      "sha256": "9090f9d26ec919e0b0e3c7e5cf7574ecb6b78c938d178d9ab5ed21402c12cae4",
+      "sources": [
+        {
+          "path": "experiments/config/modules/llm_swap_a_gemini_alt.yaml",
+          "sha256": "0b9f2409eae493965a107ee6832a43c75d3a2de7aab2ea4a3e2f52accf642af0"
+        }
+      ],
+      "transformation": "Sanitized configuration projection; sensitive-named fields omitted; model settings preserved"
+    },
+    "config/modules/llm_swap_b_ollama.yaml": {
+      "bytes": 1194,
+      "omitted_json_path_sha256": [
+        "538213661722fbb1f92ad250581f4ddea150bde71c1318825f56ededf8fd78e1"
+      ],
+      "sha256": "edea9a4f8fba70b2cdd2c4695fc6cf514d863122667ad5f625114221639f274d",
+      "sources": [
+        {
+          "path": "experiments/config/modules/llm_swap_b_ollama.yaml",
+          "sha256": "ff87e5906aad24a40f721d48054b34f8b0d051fb71230a8542b31647ca047187"
+        }
+      ],
+      "transformation": "Sanitized configuration projection; sensitive-named fields omitted; model settings preserved"
+    },
+    "config/modules/llm_swap_c_taide.yaml": {
+      "bytes": 1044,
+      "omitted_json_path_sha256": [
+        "538213661722fbb1f92ad250581f4ddea150bde71c1318825f56ededf8fd78e1"
+      ],
+      "sha256": "d648cee8e624ebc2d693565680057cb4ab92f9c27178a0fb98bb1f72bc5d1864",
+      "sources": [
+        {
+          "path": "experiments/config/modules/llm_swap_c_taide.yaml",
+          "sha256": "80a721db5f09265660c1e721b0f45b9d2fa1e0ea1542eb173e78f9f7c5f68488"
+        }
+      ],
+      "transformation": "Sanitized configuration projection; sensitive-named fields omitted; model settings preserved"
+    },
+    "config/paper_runs.json": {
+      "bytes": 3870,
+      "sha256": "b1c5af617606f914d220ed8b762d62af98c5f5de7eb4f8e2b39bbd545c5442f3",
+      "sources": [
+        {
+          "path": "experiments/config/paper_runs.json",
+          "sha256": "b1c5af617606f914d220ed8b762d62af98c5f5de7eb4f8e2b39bbd545c5442f3"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "config/prices.yaml": {
+      "bytes": 1477,
+      "sha256": "5012ab1d100b4b04e3a582c23d042f84c59bb10be6c694f2c7281c9262fdbf80",
+      "sources": [
+        {
+          "path": "experiments/config/prices.yaml",
+          "sha256": "5012ab1d100b4b04e3a582c23d042f84c59bb10be6c694f2c7281c9262fdbf80"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "config/versions.lock.yaml": {
+      "bytes": 6076,
+      "sha256": "e24a0584db9948c25bfc5e25dccfd21d4d57717592779a6fd28a71dc107031ea",
+      "sources": [
+        {
+          "path": "experiments/config/versions.lock.yaml",
+          "sha256": "e24a0584db9948c25bfc5e25dccfd21d4d57717592779a6fd28a71dc107031ea"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "data/MAPPING_NOTES.md": {
+      "bytes": 13495,
+      "sha256": "85d14cb4a47bc0285611bb847420f1026248d5b54fa127e25cf67aa1e463b190",
+      "sources": [
+        {
+          "path": "experiments/data/MAPPING_NOTES.md",
+          "sha256": "85d14cb4a47bc0285611bb847420f1026248d5b54fa127e25cf67aa1e463b190"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "data/twcore_sample/syn-004823ec-3709-7d61-2003-18b9ce14676f.json": {
+      "bytes": 269228,
+      "sha256": "a84a2c38976c961c1f372c4c77d2313bbbd8b16b8f1aa5bbd487ba3734afe978",
+      "sources": [
+        {
+          "path": "experiments/data/twcore/syn-004823ec-3709-7d61-2003-18b9ce14676f.json",
+          "sha256": "a84a2c38976c961c1f372c4c77d2313bbbd8b16b8f1aa5bbd487ba3734afe978"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "data/twcore_sample/syn-00a3666f-bb3b-6fa8-43b1-e2a88041632c.json": {
+      "bytes": 339598,
+      "sha256": "753942fbefab0583a3f46ee4105dadfe75105a4f8bbdf5a817e0ceeee055f460",
+      "sources": [
+        {
+          "path": "experiments/data/twcore/syn-00a3666f-bb3b-6fa8-43b1-e2a88041632c.json",
+          "sha256": "753942fbefab0583a3f46ee4105dadfe75105a4f8bbdf5a817e0ceeee055f460"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "data/twcore_sample/syn-00f11655-da31-b04e-5a89-e13581aacde4.json": {
+      "bytes": 227788,
+      "sha256": "efc4c6989689e8c0dd2c0d8beaaf3e7f0595d9443abd7df3c56f550012750f29",
+      "sources": [
+        {
+          "path": "experiments/data/twcore/syn-00f11655-da31-b04e-5a89-e13581aacde4.json",
+          "sha256": "efc4c6989689e8c0dd2c0d8beaaf3e7f0595d9443abd7df3c56f550012750f29"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "fhir/examples/Composition.json": {
+      "bytes": 3980,
+      "sha256": "808877998afa49c0e3fd4bd54c49b0c93c577d539feee7e6f441c0cbf1b9200b",
+      "sources": [
+        {
+          "path": "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-01__r1/fhir/written/Composition-495365.json",
+          "sha256": "808877998afa49c0e3fd4bd54c49b0c93c577d539feee7e6f441c0cbf1b9200b"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "fhir/examples/Observation.json": {
+      "bytes": 1851,
+      "sha256": "b8db312dcecf06956a21ba12cef4d36a24874fd88bd8e7ef6e4330502024c7fa",
+      "sources": [
+        {
+          "path": "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-01__r1/fhir/written/Observation-495364.json",
+          "sha256": "b8db312dcecf06956a21ba12cef4d36a24874fd88bd8e7ef6e4330502024c7fa"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "fhir/examples/Provenance.json": {
+      "bytes": 3782,
+      "sha256": "febac235a4c9d10e9671fca2e459d7e38746b197722ff85c8ff8e543e8e7f1c0",
+      "sources": [
+        {
+          "path": "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-01__r1/fhir/written/Provenance-495366.json",
+          "sha256": "febac235a4c9d10e9671fca2e459d7e38746b197722ff85c8ff8e543e8e7f1c0"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "fhir/examples/QuestionnaireResponse.json": {
+      "bytes": 13525,
+      "sha256": "cb03bf5834bcf363b9fce1a7a51faa6a8cd166c7b883ba1253d85f9db15a7e41",
+      "sources": [
+        {
+          "path": "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-01__r1/fhir/written/QuestionnaireResponse-495363.json",
+          "sha256": "cb03bf5834bcf363b9fce1a7a51faa6a8cd166c7b883ba1253d85f9db15a7e41"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "fhir/questionnaires/Questionnaire-abdomen.json": {
+      "bytes": 74005,
+      "sha256": "5ae2398a7532e3d24c7705837f240336f935b4784de2c9a56d0a1ebd57afe751",
+      "sources": [
+        {
+          "path": "backend/questionnaire_data/abdomen.json",
+          "sha256": "52577b857de271ecf1653a1c14d4841256506468e144474c02e2a6f84ae66356"
+        },
+        {
+          "path": "backend/questionnaire_data/accidental_ingestion.json",
+          "sha256": "006e1c3ca1b895d15b712034dceae7e28ac7c6712400e3bba3d1525c40e32c0a"
+        },
+        {
+          "path": "backend/questionnaire_data/allergies_hives_drug_reactions_stings.json",
+          "sha256": "ae1d96af3971db5cbd49997e6ced93cccd3e6282fc52371d5194008b8af2adcf"
+        },
+        {
+          "path": "backend/questionnaire_data/assault_and_rape.json",
+          "sha256": "ea111214c6fad1b9359c70b52d3cfd977e100479d324ac3049024cb7b64d3002"
+        },
+        {
+          "path": "backend/questionnaire_data/back_pain.json",
+          "sha256": "1d8a2e9c602da6c04bb9f96674508ed1cccc36c056948b1b39bf65360d04e981"
+        },
+        {
+          "path": "backend/questionnaire_data/basic.json",
+          "sha256": "f34bac3a39070cab63841d6e2b4de6849142864767db762e961d55f2669d9db8"
+        },
+        {
+          "path": "backend/questionnaire_data/bite.json",
+          "sha256": "2827666e3e4e868b7ed58f068129a2d72df6bd08b2076cb0c46288e507572564"
+        },
+        {
+          "path": "backend/questionnaire_data/bleeding.json",
+          "sha256": "75aabb783d153dd23e25f8e8006524218974c385700a28ec7885150c5f087bf7"
+        },
+        {
+          "path": "backend/questionnaire_data/body_ache.json",
+          "sha256": "3a19c684e390d688d15e14da1edc3286130e6c6a2d31c984f36aaaff77e7cbcf"
+        },
+        {
+          "path": "backend/questionnaire_data/body_temperature_related.json",
+          "sha256": "e0f2ca8a51c36a9029af16fa24eae9289b5b93bc7ea690115f4895e92f47c2e8"
+        },
+        {
+          "path": "backend/questionnaire_data/burns.json",
+          "sha256": "4b49154fb358044e043e97a4589afb183b3a5288dcd0806d0ac6ab6a2562cb41"
+        },
+        {
+          "path": "backend/questionnaire_data/cardiac_arrest.json",
+          "sha256": "6624c0bab4cbd84118aa20bdd9096ea104afab514d36d8f61d0da672e2da87a1"
+        },
+        {
+          "path": "backend/questionnaire_data/cardiovascular_issues.json",
+          "sha256": "51a3eb2c5fdc2cf9efc4f52200e98f2c4dfdd35b6fdb2de5a45ed20693253bf8"
+        },
+        {
+          "path": "backend/questionnaire_data/chest.json",
+          "sha256": "74b9c44dc1891e03780dfc9cf8f44d940ad85c143ac2c8463f3d3dc70fecc04e"
+        },
+        {
+          "path": "backend/questionnaire_data/chief.json",
+          "sha256": "881df87847565211ad0bde953f25b41caeaf076188aed479805e52527e93af7a"
+        },
+        {
+          "path": "backend/questionnaire_data/diabetes_questionnaire.json",
+          "sha256": "d6d7b3b84e200e4d3ba310e0903e80e999b85ddf746e2d2d48decbb9bc85f1c9"
+        },
+        {
+          "path": "backend/questionnaire_data/dizziness.json",
+          "sha256": "5047b3e9f66211929b5066375ef45d91185e1a0d90666ba3d5a7b5e61cc1a69d"
+        },
+        {
+          "path": "backend/questionnaire_data/ent_problems.json",
+          "sha256": "b87898c0f267a870a2f729dfa80d66851d14723f80c9e6fd8cfb8c2d5a7dcf8c"
+        },
+        {
+          "path": "backend/questionnaire_data/eye_problems.json",
+          "sha256": "33fb319ca42b6e2e46be68a9eee56baae193c7b0f172cd9596a821bbbb4fdfdf"
+        },
+        {
+          "path": "backend/questionnaire_data/fall.json",
+          "sha256": "e8b3b9f2630d2b1de32cc12382dbef62312142a5dccd93e10687749fe4487c8a"
+        },
+        {
+          "path": "backend/questionnaire_data/fever.json",
+          "sha256": "e4a2a5b6599b6073734ec8ef09c6d42e39ab3284b2635b71e656b69147bea31d"
+        },
+        {
+          "path": "backend/questionnaire_data/fluid_nutrition_changes.json",
+          "sha256": "40e5b60087a2c3ed4a2b3c89a0d0ca4ac78793133900a08db8b29ba11aa524f6"
+        },
+        {
+          "path": "backend/questionnaire_data/foreign_body.json",
+          "sha256": "60174999691300ace4e572dbbd16b0c7d1150f788b543c7e4aae1959279a2450"
+        },
+        {
+          "path": "backend/questionnaire_data/genitourinary_system_problems.json",
+          "sha256": "a3bbe26ca0335beccc245f4fa8b597eacc05363acfad72b382a874a2aaf70ae3"
+        },
+        {
+          "path": "backend/questionnaire_data/gunshot_wound.json",
+          "sha256": "9a12f4a402bab2d65d993f5d907bbf2ed59a48566c5df26118464f4f4ecc0c74"
+        },
+        {
+          "path": "backend/questionnaire_data/gynecological_issues.json",
+          "sha256": "87aa9b4f5fb33ac5a1cdd2a6e94f2864e849cb308112ae60599f09412d4807ed"
+        },
+        {
+          "path": "backend/questionnaire_data/headache.json",
+          "sha256": "d8837618bbfab9f8964a8cb0f1a9cb41b4bfa68399dccc43ca178f6d55c9b5f6"
+        },
+        {
+          "path": "backend/questionnaire_data/history.json",
+          "sha256": "2619fd1a9faa422c01c4e4ee70dbd114c221213c80fb8acc5a5a982b13b20078"
+        },
+        {
+          "path": "backend/questionnaire_data/industrial_machinery_accident.json",
+          "sha256": "632e41d3677c21328b3118613a6413425cf0b5966d85650002203a00b3fb1c2e"
+        },
+        {
+          "path": "backend/questionnaire_data/infection.json",
+          "sha256": "a434bdac95c418798556a999b99c5c2850c7b06dc3e836df0952c58ce1870af6"
+        },
+        {
+          "path": "backend/questionnaire_data/intentional_drug_overdose.json",
+          "sha256": "bb7a4fdd80e2d7edfa7218a7519f1e93e139c0efb376ff43a47b92091c6ea744"
+        },
+        {
+          "path": "backend/questionnaire_data/laceration.json",
+          "sha256": "88cdab597e94e0a153e35ef39b2cd5ee19df603bc14a0be012a3204e3efd6552"
+        },
+        {
+          "path": "backend/questionnaire_data/loss_of_consciousness.json",
+          "sha256": "77f1949a6b722cc5f3162cd1a6ac50192190f67ca947d1b9aa2f7979dc53bb19"
+        },
+        {
+          "path": "backend/questionnaire_data/low_back_pain.json",
+          "sha256": "4d32d72767de1867fdfedf216efddb0d704feb61d2974a9505286ccd370e8c1d"
+        },
+        {
+          "path": "backend/questionnaire_data/motor_vehicle_accident_injury.json",
+          "sha256": "1e62f8d4e6b31b524153c069ba2dd67ceecdab0ff6ade7c5ccdbfc0ecc1379d7"
+        },
+        {
+          "path": "backend/questionnaire_data/neck_pain.json",
+          "sha256": "28e09d521a01801192f4437d39dfca4631d4e142bee86d23fca09381432791dc"
+        },
+        {
+          "path": "backend/questionnaire_data/needlestick_injury.json",
+          "sha256": "8fc9dabc596a7868d513120b26fadf5eb73f7f4d48c7de24c6a0fad5b00b1cae"
+        },
+        {
+          "path": "backend/questionnaire_data/neurological_issues.json",
+          "sha256": "74a7d7da0d61832310c5f65cf69ea47b52bbb72340099859ca774e99b16eed94"
+        },
+        {
+          "path": "backend/questionnaire_data/obstetric_issues.json",
+          "sha256": "3289a5df07d4e7efb5aa1036a4bd7a824adf15fcd07e56394756d964222233c6"
+        },
+        {
+          "path": "backend/questionnaire_data/orthopedics_external_injury.json",
+          "sha256": "7293db20f4721fec3822fb8e04ca16ce24825424410a0eab8c9fcc2e8f308414"
+        },
+        {
+          "path": "backend/questionnaire_data/peripheral_vascular_leg_pain.json",
+          "sha256": "70412b03e9aeab9252e2c8a0eb82a2f8c549818b5ae8db25498b9f01966b76f4"
+        },
+        {
+          "path": "backend/questionnaire_data/psychosocial_issues.json",
+          "sha256": "5d7e5e5986b9be8f23a5ca6ad9f77932ab538c1c5294b5d147a4a6076630ce31"
+        },
+        {
+          "path": "backend/questionnaire_data/respiratory_issues.json",
+          "sha256": "aa06992a3b17041909d93314d1bc451191d942bcf08d6cfcf90c37f7ac0b9b57"
+        },
+        {
+          "path": "backend/questionnaire_data/seizure_epilepsy.json",
+          "sha256": "d8a0ba1a68337a5dc64d9d47371688d19a381d3f1d448a298b7976c1e20ad0dc"
+        },
+        {
+          "path": "backend/questionnaire_data/severe_dehydration.json",
+          "sha256": "3854701d541e5fd68b61ab7342b1e27c4bb671a8eaef3a0359474e6487ce7739"
+        },
+        {
+          "path": "backend/questionnaire_data/skin_problem_trauma.json",
+          "sha256": "4ef6d968fb2a56d3d42d6f804ba4981afe8b613cb881398ff7676b8df9a2e73c"
+        },
+        {
+          "path": "backend/questionnaire_data/stab_wound.json",
+          "sha256": "b6653f65644082e19137fa8d051199ec0140e65d1d55d6ad1a9e2a8320a805ec"
+        },
+        {
+          "path": "backend/questionnaire_data/stroke.json",
+          "sha256": "71a3388d486e0424c88b1942bbb1dfec8ee4f532ed61222f6f2e05b812072c35"
+        },
+        {
+          "path": "backend/questionnaire_data/substance_abuse.json",
+          "sha256": "69ed48c7e2a5896932e02c3e8571053aaade590db68e4eedc4d114f6447461ec"
+        },
+        {
+          "path": "backend/questionnaire_data/supplemental_medications.json",
+          "sha256": "5d5c201636b61337b0e51a3e0feb1213315bd78f32a7635e85cbeb2707382a02"
+        },
+        {
+          "path": "backend/questionnaire_data/syncope.json",
+          "sha256": "3ce0c6845dddf83808a39130ea068eed66721246cdf0f028f8556c9f7aeef8d5"
+        },
+        {
+          "path": "backend/questionnaire_data/toothache.json",
+          "sha256": "662aecb6b277bbd83d45d9e8dec2ea691ae5e7388656b2642f84174f689289ee"
+        },
+        {
+          "path": "backend/questionnaire_data/trauma.json",
+          "sha256": "b7f0352ae59f023bda3a8de937dfae86cf0fadb2903cd2195e5497c09b7dc844"
+        },
+        {
+          "path": "backend/questionnaire_data/vaginal_bleeding.json",
+          "sha256": "17d0c766c8a21810a61aa713a00020f27d7f81f3e30ce952d51abaa6235680b0"
+        },
+        {
+          "path": "backend/questionnaire_data/weakness.json",
+          "sha256": "1cff9d48c513944f5062209d4298710851ab428bf4d47f0602a6cbfc5aa5a79a"
+        },
+        {
+          "path": "backend/domain/fhir_questionnaire.py",
+          "sha256": "169cb86df699847a10282e8a1dffc9e8f65f23e93bb1f7877c1f2550c7754f1b"
+        },
+        {
+          "path": "backend/domain/fhir_extensions.py",
+          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+        },
+        {
+          "path": "backend/domain/questionnaires.py",
+          "sha256": "bd33cb04ad19a6e6703ddb82dbdbe87bbc1668366740b9a4ea957fd659f82e98"
+        },
+        {
+          "path": "backend/domain/questionnaire_routes.json",
+          "sha256": "e893eccc1f0c201f1983981d07021524785c88ae0f66c5c965979bc7a47ef45d"
+        }
+      ],
+      "transformation": "Generated by actual runtime FHIR encoder"
+    },
+    "fhir/questionnaires/Questionnaire-chest.json": {
+      "bytes": 76745,
+      "sha256": "db820451c3ac92fbfe7623f49ce9bbb8beee5af98d411eff12e55aa847fee9f3",
+      "sources": [
+        {
+          "path": "backend/questionnaire_data/abdomen.json",
+          "sha256": "52577b857de271ecf1653a1c14d4841256506468e144474c02e2a6f84ae66356"
+        },
+        {
+          "path": "backend/questionnaire_data/accidental_ingestion.json",
+          "sha256": "006e1c3ca1b895d15b712034dceae7e28ac7c6712400e3bba3d1525c40e32c0a"
+        },
+        {
+          "path": "backend/questionnaire_data/allergies_hives_drug_reactions_stings.json",
+          "sha256": "ae1d96af3971db5cbd49997e6ced93cccd3e6282fc52371d5194008b8af2adcf"
+        },
+        {
+          "path": "backend/questionnaire_data/assault_and_rape.json",
+          "sha256": "ea111214c6fad1b9359c70b52d3cfd977e100479d324ac3049024cb7b64d3002"
+        },
+        {
+          "path": "backend/questionnaire_data/back_pain.json",
+          "sha256": "1d8a2e9c602da6c04bb9f96674508ed1cccc36c056948b1b39bf65360d04e981"
+        },
+        {
+          "path": "backend/questionnaire_data/basic.json",
+          "sha256": "f34bac3a39070cab63841d6e2b4de6849142864767db762e961d55f2669d9db8"
+        },
+        {
+          "path": "backend/questionnaire_data/bite.json",
+          "sha256": "2827666e3e4e868b7ed58f068129a2d72df6bd08b2076cb0c46288e507572564"
+        },
+        {
+          "path": "backend/questionnaire_data/bleeding.json",
+          "sha256": "75aabb783d153dd23e25f8e8006524218974c385700a28ec7885150c5f087bf7"
+        },
+        {
+          "path": "backend/questionnaire_data/body_ache.json",
+          "sha256": "3a19c684e390d688d15e14da1edc3286130e6c6a2d31c984f36aaaff77e7cbcf"
+        },
+        {
+          "path": "backend/questionnaire_data/body_temperature_related.json",
+          "sha256": "e0f2ca8a51c36a9029af16fa24eae9289b5b93bc7ea690115f4895e92f47c2e8"
+        },
+        {
+          "path": "backend/questionnaire_data/burns.json",
+          "sha256": "4b49154fb358044e043e97a4589afb183b3a5288dcd0806d0ac6ab6a2562cb41"
+        },
+        {
+          "path": "backend/questionnaire_data/cardiac_arrest.json",
+          "sha256": "6624c0bab4cbd84118aa20bdd9096ea104afab514d36d8f61d0da672e2da87a1"
+        },
+        {
+          "path": "backend/questionnaire_data/cardiovascular_issues.json",
+          "sha256": "51a3eb2c5fdc2cf9efc4f52200e98f2c4dfdd35b6fdb2de5a45ed20693253bf8"
+        },
+        {
+          "path": "backend/questionnaire_data/chest.json",
+          "sha256": "74b9c44dc1891e03780dfc9cf8f44d940ad85c143ac2c8463f3d3dc70fecc04e"
+        },
+        {
+          "path": "backend/questionnaire_data/chief.json",
+          "sha256": "881df87847565211ad0bde953f25b41caeaf076188aed479805e52527e93af7a"
+        },
+        {
+          "path": "backend/questionnaire_data/diabetes_questionnaire.json",
+          "sha256": "d6d7b3b84e200e4d3ba310e0903e80e999b85ddf746e2d2d48decbb9bc85f1c9"
+        },
+        {
+          "path": "backend/questionnaire_data/dizziness.json",
+          "sha256": "5047b3e9f66211929b5066375ef45d91185e1a0d90666ba3d5a7b5e61cc1a69d"
+        },
+        {
+          "path": "backend/questionnaire_data/ent_problems.json",
+          "sha256": "b87898c0f267a870a2f729dfa80d66851d14723f80c9e6fd8cfb8c2d5a7dcf8c"
+        },
+        {
+          "path": "backend/questionnaire_data/eye_problems.json",
+          "sha256": "33fb319ca42b6e2e46be68a9eee56baae193c7b0f172cd9596a821bbbb4fdfdf"
+        },
+        {
+          "path": "backend/questionnaire_data/fall.json",
+          "sha256": "e8b3b9f2630d2b1de32cc12382dbef62312142a5dccd93e10687749fe4487c8a"
+        },
+        {
+          "path": "backend/questionnaire_data/fever.json",
+          "sha256": "e4a2a5b6599b6073734ec8ef09c6d42e39ab3284b2635b71e656b69147bea31d"
+        },
+        {
+          "path": "backend/questionnaire_data/fluid_nutrition_changes.json",
+          "sha256": "40e5b60087a2c3ed4a2b3c89a0d0ca4ac78793133900a08db8b29ba11aa524f6"
+        },
+        {
+          "path": "backend/questionnaire_data/foreign_body.json",
+          "sha256": "60174999691300ace4e572dbbd16b0c7d1150f788b543c7e4aae1959279a2450"
+        },
+        {
+          "path": "backend/questionnaire_data/genitourinary_system_problems.json",
+          "sha256": "a3bbe26ca0335beccc245f4fa8b597eacc05363acfad72b382a874a2aaf70ae3"
+        },
+        {
+          "path": "backend/questionnaire_data/gunshot_wound.json",
+          "sha256": "9a12f4a402bab2d65d993f5d907bbf2ed59a48566c5df26118464f4f4ecc0c74"
+        },
+        {
+          "path": "backend/questionnaire_data/gynecological_issues.json",
+          "sha256": "87aa9b4f5fb33ac5a1cdd2a6e94f2864e849cb308112ae60599f09412d4807ed"
+        },
+        {
+          "path": "backend/questionnaire_data/headache.json",
+          "sha256": "d8837618bbfab9f8964a8cb0f1a9cb41b4bfa68399dccc43ca178f6d55c9b5f6"
+        },
+        {
+          "path": "backend/questionnaire_data/history.json",
+          "sha256": "2619fd1a9faa422c01c4e4ee70dbd114c221213c80fb8acc5a5a982b13b20078"
+        },
+        {
+          "path": "backend/questionnaire_data/industrial_machinery_accident.json",
+          "sha256": "632e41d3677c21328b3118613a6413425cf0b5966d85650002203a00b3fb1c2e"
+        },
+        {
+          "path": "backend/questionnaire_data/infection.json",
+          "sha256": "a434bdac95c418798556a999b99c5c2850c7b06dc3e836df0952c58ce1870af6"
+        },
+        {
+          "path": "backend/questionnaire_data/intentional_drug_overdose.json",
+          "sha256": "bb7a4fdd80e2d7edfa7218a7519f1e93e139c0efb376ff43a47b92091c6ea744"
+        },
+        {
+          "path": "backend/questionnaire_data/laceration.json",
+          "sha256": "88cdab597e94e0a153e35ef39b2cd5ee19df603bc14a0be012a3204e3efd6552"
+        },
+        {
+          "path": "backend/questionnaire_data/loss_of_consciousness.json",
+          "sha256": "77f1949a6b722cc5f3162cd1a6ac50192190f67ca947d1b9aa2f7979dc53bb19"
+        },
+        {
+          "path": "backend/questionnaire_data/low_back_pain.json",
+          "sha256": "4d32d72767de1867fdfedf216efddb0d704feb61d2974a9505286ccd370e8c1d"
+        },
+        {
+          "path": "backend/questionnaire_data/motor_vehicle_accident_injury.json",
+          "sha256": "1e62f8d4e6b31b524153c069ba2dd67ceecdab0ff6ade7c5ccdbfc0ecc1379d7"
+        },
+        {
+          "path": "backend/questionnaire_data/neck_pain.json",
+          "sha256": "28e09d521a01801192f4437d39dfca4631d4e142bee86d23fca09381432791dc"
+        },
+        {
+          "path": "backend/questionnaire_data/needlestick_injury.json",
+          "sha256": "8fc9dabc596a7868d513120b26fadf5eb73f7f4d48c7de24c6a0fad5b00b1cae"
+        },
+        {
+          "path": "backend/questionnaire_data/neurological_issues.json",
+          "sha256": "74a7d7da0d61832310c5f65cf69ea47b52bbb72340099859ca774e99b16eed94"
+        },
+        {
+          "path": "backend/questionnaire_data/obstetric_issues.json",
+          "sha256": "3289a5df07d4e7efb5aa1036a4bd7a824adf15fcd07e56394756d964222233c6"
+        },
+        {
+          "path": "backend/questionnaire_data/orthopedics_external_injury.json",
+          "sha256": "7293db20f4721fec3822fb8e04ca16ce24825424410a0eab8c9fcc2e8f308414"
+        },
+        {
+          "path": "backend/questionnaire_data/peripheral_vascular_leg_pain.json",
+          "sha256": "70412b03e9aeab9252e2c8a0eb82a2f8c549818b5ae8db25498b9f01966b76f4"
+        },
+        {
+          "path": "backend/questionnaire_data/psychosocial_issues.json",
+          "sha256": "5d7e5e5986b9be8f23a5ca6ad9f77932ab538c1c5294b5d147a4a6076630ce31"
+        },
+        {
+          "path": "backend/questionnaire_data/respiratory_issues.json",
+          "sha256": "aa06992a3b17041909d93314d1bc451191d942bcf08d6cfcf90c37f7ac0b9b57"
+        },
+        {
+          "path": "backend/questionnaire_data/seizure_epilepsy.json",
+          "sha256": "d8a0ba1a68337a5dc64d9d47371688d19a381d3f1d448a298b7976c1e20ad0dc"
+        },
+        {
+          "path": "backend/questionnaire_data/severe_dehydration.json",
+          "sha256": "3854701d541e5fd68b61ab7342b1e27c4bb671a8eaef3a0359474e6487ce7739"
+        },
+        {
+          "path": "backend/questionnaire_data/skin_problem_trauma.json",
+          "sha256": "4ef6d968fb2a56d3d42d6f804ba4981afe8b613cb881398ff7676b8df9a2e73c"
+        },
+        {
+          "path": "backend/questionnaire_data/stab_wound.json",
+          "sha256": "b6653f65644082e19137fa8d051199ec0140e65d1d55d6ad1a9e2a8320a805ec"
+        },
+        {
+          "path": "backend/questionnaire_data/stroke.json",
+          "sha256": "71a3388d486e0424c88b1942bbb1dfec8ee4f532ed61222f6f2e05b812072c35"
+        },
+        {
+          "path": "backend/questionnaire_data/substance_abuse.json",
+          "sha256": "69ed48c7e2a5896932e02c3e8571053aaade590db68e4eedc4d114f6447461ec"
+        },
+        {
+          "path": "backend/questionnaire_data/supplemental_medications.json",
+          "sha256": "5d5c201636b61337b0e51a3e0feb1213315bd78f32a7635e85cbeb2707382a02"
+        },
+        {
+          "path": "backend/questionnaire_data/syncope.json",
+          "sha256": "3ce0c6845dddf83808a39130ea068eed66721246cdf0f028f8556c9f7aeef8d5"
+        },
+        {
+          "path": "backend/questionnaire_data/toothache.json",
+          "sha256": "662aecb6b277bbd83d45d9e8dec2ea691ae5e7388656b2642f84174f689289ee"
+        },
+        {
+          "path": "backend/questionnaire_data/trauma.json",
+          "sha256": "b7f0352ae59f023bda3a8de937dfae86cf0fadb2903cd2195e5497c09b7dc844"
+        },
+        {
+          "path": "backend/questionnaire_data/vaginal_bleeding.json",
+          "sha256": "17d0c766c8a21810a61aa713a00020f27d7f81f3e30ce952d51abaa6235680b0"
+        },
+        {
+          "path": "backend/questionnaire_data/weakness.json",
+          "sha256": "1cff9d48c513944f5062209d4298710851ab428bf4d47f0602a6cbfc5aa5a79a"
+        },
+        {
+          "path": "backend/domain/fhir_questionnaire.py",
+          "sha256": "169cb86df699847a10282e8a1dffc9e8f65f23e93bb1f7877c1f2550c7754f1b"
+        },
+        {
+          "path": "backend/domain/fhir_extensions.py",
+          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+        },
+        {
+          "path": "backend/domain/questionnaires.py",
+          "sha256": "bd33cb04ad19a6e6703ddb82dbdbe87bbc1668366740b9a4ea957fd659f82e98"
+        },
+        {
+          "path": "backend/domain/questionnaire_routes.json",
+          "sha256": "e893eccc1f0c201f1983981d07021524785c88ae0f66c5c965979bc7a47ef45d"
+        }
+      ],
+      "transformation": "Generated by actual runtime FHIR encoder"
+    },
+    "fhir/questionnaires/Questionnaire-headache.json": {
+      "bytes": 74541,
+      "sha256": "1c434bcb26d55f5a39e0964a18110db80513b62eff37298fa8255983035fff1b",
+      "sources": [
+        {
+          "path": "backend/questionnaire_data/abdomen.json",
+          "sha256": "52577b857de271ecf1653a1c14d4841256506468e144474c02e2a6f84ae66356"
+        },
+        {
+          "path": "backend/questionnaire_data/accidental_ingestion.json",
+          "sha256": "006e1c3ca1b895d15b712034dceae7e28ac7c6712400e3bba3d1525c40e32c0a"
+        },
+        {
+          "path": "backend/questionnaire_data/allergies_hives_drug_reactions_stings.json",
+          "sha256": "ae1d96af3971db5cbd49997e6ced93cccd3e6282fc52371d5194008b8af2adcf"
+        },
+        {
+          "path": "backend/questionnaire_data/assault_and_rape.json",
+          "sha256": "ea111214c6fad1b9359c70b52d3cfd977e100479d324ac3049024cb7b64d3002"
+        },
+        {
+          "path": "backend/questionnaire_data/back_pain.json",
+          "sha256": "1d8a2e9c602da6c04bb9f96674508ed1cccc36c056948b1b39bf65360d04e981"
+        },
+        {
+          "path": "backend/questionnaire_data/basic.json",
+          "sha256": "f34bac3a39070cab63841d6e2b4de6849142864767db762e961d55f2669d9db8"
+        },
+        {
+          "path": "backend/questionnaire_data/bite.json",
+          "sha256": "2827666e3e4e868b7ed58f068129a2d72df6bd08b2076cb0c46288e507572564"
+        },
+        {
+          "path": "backend/questionnaire_data/bleeding.json",
+          "sha256": "75aabb783d153dd23e25f8e8006524218974c385700a28ec7885150c5f087bf7"
+        },
+        {
+          "path": "backend/questionnaire_data/body_ache.json",
+          "sha256": "3a19c684e390d688d15e14da1edc3286130e6c6a2d31c984f36aaaff77e7cbcf"
+        },
+        {
+          "path": "backend/questionnaire_data/body_temperature_related.json",
+          "sha256": "e0f2ca8a51c36a9029af16fa24eae9289b5b93bc7ea690115f4895e92f47c2e8"
+        },
+        {
+          "path": "backend/questionnaire_data/burns.json",
+          "sha256": "4b49154fb358044e043e97a4589afb183b3a5288dcd0806d0ac6ab6a2562cb41"
+        },
+        {
+          "path": "backend/questionnaire_data/cardiac_arrest.json",
+          "sha256": "6624c0bab4cbd84118aa20bdd9096ea104afab514d36d8f61d0da672e2da87a1"
+        },
+        {
+          "path": "backend/questionnaire_data/cardiovascular_issues.json",
+          "sha256": "51a3eb2c5fdc2cf9efc4f52200e98f2c4dfdd35b6fdb2de5a45ed20693253bf8"
+        },
+        {
+          "path": "backend/questionnaire_data/chest.json",
+          "sha256": "74b9c44dc1891e03780dfc9cf8f44d940ad85c143ac2c8463f3d3dc70fecc04e"
+        },
+        {
+          "path": "backend/questionnaire_data/chief.json",
+          "sha256": "881df87847565211ad0bde953f25b41caeaf076188aed479805e52527e93af7a"
+        },
+        {
+          "path": "backend/questionnaire_data/diabetes_questionnaire.json",
+          "sha256": "d6d7b3b84e200e4d3ba310e0903e80e999b85ddf746e2d2d48decbb9bc85f1c9"
+        },
+        {
+          "path": "backend/questionnaire_data/dizziness.json",
+          "sha256": "5047b3e9f66211929b5066375ef45d91185e1a0d90666ba3d5a7b5e61cc1a69d"
+        },
+        {
+          "path": "backend/questionnaire_data/ent_problems.json",
+          "sha256": "b87898c0f267a870a2f729dfa80d66851d14723f80c9e6fd8cfb8c2d5a7dcf8c"
+        },
+        {
+          "path": "backend/questionnaire_data/eye_problems.json",
+          "sha256": "33fb319ca42b6e2e46be68a9eee56baae193c7b0f172cd9596a821bbbb4fdfdf"
+        },
+        {
+          "path": "backend/questionnaire_data/fall.json",
+          "sha256": "e8b3b9f2630d2b1de32cc12382dbef62312142a5dccd93e10687749fe4487c8a"
+        },
+        {
+          "path": "backend/questionnaire_data/fever.json",
+          "sha256": "e4a2a5b6599b6073734ec8ef09c6d42e39ab3284b2635b71e656b69147bea31d"
+        },
+        {
+          "path": "backend/questionnaire_data/fluid_nutrition_changes.json",
+          "sha256": "40e5b60087a2c3ed4a2b3c89a0d0ca4ac78793133900a08db8b29ba11aa524f6"
+        },
+        {
+          "path": "backend/questionnaire_data/foreign_body.json",
+          "sha256": "60174999691300ace4e572dbbd16b0c7d1150f788b543c7e4aae1959279a2450"
+        },
+        {
+          "path": "backend/questionnaire_data/genitourinary_system_problems.json",
+          "sha256": "a3bbe26ca0335beccc245f4fa8b597eacc05363acfad72b382a874a2aaf70ae3"
+        },
+        {
+          "path": "backend/questionnaire_data/gunshot_wound.json",
+          "sha256": "9a12f4a402bab2d65d993f5d907bbf2ed59a48566c5df26118464f4f4ecc0c74"
+        },
+        {
+          "path": "backend/questionnaire_data/gynecological_issues.json",
+          "sha256": "87aa9b4f5fb33ac5a1cdd2a6e94f2864e849cb308112ae60599f09412d4807ed"
+        },
+        {
+          "path": "backend/questionnaire_data/headache.json",
+          "sha256": "d8837618bbfab9f8964a8cb0f1a9cb41b4bfa68399dccc43ca178f6d55c9b5f6"
+        },
+        {
+          "path": "backend/questionnaire_data/history.json",
+          "sha256": "2619fd1a9faa422c01c4e4ee70dbd114c221213c80fb8acc5a5a982b13b20078"
+        },
+        {
+          "path": "backend/questionnaire_data/industrial_machinery_accident.json",
+          "sha256": "632e41d3677c21328b3118613a6413425cf0b5966d85650002203a00b3fb1c2e"
+        },
+        {
+          "path": "backend/questionnaire_data/infection.json",
+          "sha256": "a434bdac95c418798556a999b99c5c2850c7b06dc3e836df0952c58ce1870af6"
+        },
+        {
+          "path": "backend/questionnaire_data/intentional_drug_overdose.json",
+          "sha256": "bb7a4fdd80e2d7edfa7218a7519f1e93e139c0efb376ff43a47b92091c6ea744"
+        },
+        {
+          "path": "backend/questionnaire_data/laceration.json",
+          "sha256": "88cdab597e94e0a153e35ef39b2cd5ee19df603bc14a0be012a3204e3efd6552"
+        },
+        {
+          "path": "backend/questionnaire_data/loss_of_consciousness.json",
+          "sha256": "77f1949a6b722cc5f3162cd1a6ac50192190f67ca947d1b9aa2f7979dc53bb19"
+        },
+        {
+          "path": "backend/questionnaire_data/low_back_pain.json",
+          "sha256": "4d32d72767de1867fdfedf216efddb0d704feb61d2974a9505286ccd370e8c1d"
+        },
+        {
+          "path": "backend/questionnaire_data/motor_vehicle_accident_injury.json",
+          "sha256": "1e62f8d4e6b31b524153c069ba2dd67ceecdab0ff6ade7c5ccdbfc0ecc1379d7"
+        },
+        {
+          "path": "backend/questionnaire_data/neck_pain.json",
+          "sha256": "28e09d521a01801192f4437d39dfca4631d4e142bee86d23fca09381432791dc"
+        },
+        {
+          "path": "backend/questionnaire_data/needlestick_injury.json",
+          "sha256": "8fc9dabc596a7868d513120b26fadf5eb73f7f4d48c7de24c6a0fad5b00b1cae"
+        },
+        {
+          "path": "backend/questionnaire_data/neurological_issues.json",
+          "sha256": "74a7d7da0d61832310c5f65cf69ea47b52bbb72340099859ca774e99b16eed94"
+        },
+        {
+          "path": "backend/questionnaire_data/obstetric_issues.json",
+          "sha256": "3289a5df07d4e7efb5aa1036a4bd7a824adf15fcd07e56394756d964222233c6"
+        },
+        {
+          "path": "backend/questionnaire_data/orthopedics_external_injury.json",
+          "sha256": "7293db20f4721fec3822fb8e04ca16ce24825424410a0eab8c9fcc2e8f308414"
+        },
+        {
+          "path": "backend/questionnaire_data/peripheral_vascular_leg_pain.json",
+          "sha256": "70412b03e9aeab9252e2c8a0eb82a2f8c549818b5ae8db25498b9f01966b76f4"
+        },
+        {
+          "path": "backend/questionnaire_data/psychosocial_issues.json",
+          "sha256": "5d7e5e5986b9be8f23a5ca6ad9f77932ab538c1c5294b5d147a4a6076630ce31"
+        },
+        {
+          "path": "backend/questionnaire_data/respiratory_issues.json",
+          "sha256": "aa06992a3b17041909d93314d1bc451191d942bcf08d6cfcf90c37f7ac0b9b57"
+        },
+        {
+          "path": "backend/questionnaire_data/seizure_epilepsy.json",
+          "sha256": "d8a0ba1a68337a5dc64d9d47371688d19a381d3f1d448a298b7976c1e20ad0dc"
+        },
+        {
+          "path": "backend/questionnaire_data/severe_dehydration.json",
+          "sha256": "3854701d541e5fd68b61ab7342b1e27c4bb671a8eaef3a0359474e6487ce7739"
+        },
+        {
+          "path": "backend/questionnaire_data/skin_problem_trauma.json",
+          "sha256": "4ef6d968fb2a56d3d42d6f804ba4981afe8b613cb881398ff7676b8df9a2e73c"
+        },
+        {
+          "path": "backend/questionnaire_data/stab_wound.json",
+          "sha256": "b6653f65644082e19137fa8d051199ec0140e65d1d55d6ad1a9e2a8320a805ec"
+        },
+        {
+          "path": "backend/questionnaire_data/stroke.json",
+          "sha256": "71a3388d486e0424c88b1942bbb1dfec8ee4f532ed61222f6f2e05b812072c35"
+        },
+        {
+          "path": "backend/questionnaire_data/substance_abuse.json",
+          "sha256": "69ed48c7e2a5896932e02c3e8571053aaade590db68e4eedc4d114f6447461ec"
+        },
+        {
+          "path": "backend/questionnaire_data/supplemental_medications.json",
+          "sha256": "5d5c201636b61337b0e51a3e0feb1213315bd78f32a7635e85cbeb2707382a02"
+        },
+        {
+          "path": "backend/questionnaire_data/syncope.json",
+          "sha256": "3ce0c6845dddf83808a39130ea068eed66721246cdf0f028f8556c9f7aeef8d5"
+        },
+        {
+          "path": "backend/questionnaire_data/toothache.json",
+          "sha256": "662aecb6b277bbd83d45d9e8dec2ea691ae5e7388656b2642f84174f689289ee"
+        },
+        {
+          "path": "backend/questionnaire_data/trauma.json",
+          "sha256": "b7f0352ae59f023bda3a8de937dfae86cf0fadb2903cd2195e5497c09b7dc844"
+        },
+        {
+          "path": "backend/questionnaire_data/vaginal_bleeding.json",
+          "sha256": "17d0c766c8a21810a61aa713a00020f27d7f81f3e30ce952d51abaa6235680b0"
+        },
+        {
+          "path": "backend/questionnaire_data/weakness.json",
+          "sha256": "1cff9d48c513944f5062209d4298710851ab428bf4d47f0602a6cbfc5aa5a79a"
+        },
+        {
+          "path": "backend/domain/fhir_questionnaire.py",
+          "sha256": "169cb86df699847a10282e8a1dffc9e8f65f23e93bb1f7877c1f2550c7754f1b"
+        },
+        {
+          "path": "backend/domain/fhir_extensions.py",
+          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+        },
+        {
+          "path": "backend/domain/questionnaires.py",
+          "sha256": "bd33cb04ad19a6e6703ddb82dbdbe87bbc1668366740b9a4ea957fd659f82e98"
+        },
+        {
+          "path": "backend/domain/questionnaire_routes.json",
+          "sha256": "e893eccc1f0c201f1983981d07021524785c88ae0f66c5c965979bc7a47ef45d"
+        }
+      ],
+      "transformation": "Generated by actual runtime FHIR encoder"
+    },
+    "fhir/questionnaires/Questionnaire-other.json": {
+      "bytes": 24295,
+      "sha256": "8a0e4e195cf05b3185b05600fe60b5301088ddb55d04433b9951d476e3279126",
+      "sources": [
+        {
+          "path": "backend/questionnaire_data/abdomen.json",
+          "sha256": "52577b857de271ecf1653a1c14d4841256506468e144474c02e2a6f84ae66356"
+        },
+        {
+          "path": "backend/questionnaire_data/accidental_ingestion.json",
+          "sha256": "006e1c3ca1b895d15b712034dceae7e28ac7c6712400e3bba3d1525c40e32c0a"
+        },
+        {
+          "path": "backend/questionnaire_data/allergies_hives_drug_reactions_stings.json",
+          "sha256": "ae1d96af3971db5cbd49997e6ced93cccd3e6282fc52371d5194008b8af2adcf"
+        },
+        {
+          "path": "backend/questionnaire_data/assault_and_rape.json",
+          "sha256": "ea111214c6fad1b9359c70b52d3cfd977e100479d324ac3049024cb7b64d3002"
+        },
+        {
+          "path": "backend/questionnaire_data/back_pain.json",
+          "sha256": "1d8a2e9c602da6c04bb9f96674508ed1cccc36c056948b1b39bf65360d04e981"
+        },
+        {
+          "path": "backend/questionnaire_data/basic.json",
+          "sha256": "f34bac3a39070cab63841d6e2b4de6849142864767db762e961d55f2669d9db8"
+        },
+        {
+          "path": "backend/questionnaire_data/bite.json",
+          "sha256": "2827666e3e4e868b7ed58f068129a2d72df6bd08b2076cb0c46288e507572564"
+        },
+        {
+          "path": "backend/questionnaire_data/bleeding.json",
+          "sha256": "75aabb783d153dd23e25f8e8006524218974c385700a28ec7885150c5f087bf7"
+        },
+        {
+          "path": "backend/questionnaire_data/body_ache.json",
+          "sha256": "3a19c684e390d688d15e14da1edc3286130e6c6a2d31c984f36aaaff77e7cbcf"
+        },
+        {
+          "path": "backend/questionnaire_data/body_temperature_related.json",
+          "sha256": "e0f2ca8a51c36a9029af16fa24eae9289b5b93bc7ea690115f4895e92f47c2e8"
+        },
+        {
+          "path": "backend/questionnaire_data/burns.json",
+          "sha256": "4b49154fb358044e043e97a4589afb183b3a5288dcd0806d0ac6ab6a2562cb41"
+        },
+        {
+          "path": "backend/questionnaire_data/cardiac_arrest.json",
+          "sha256": "6624c0bab4cbd84118aa20bdd9096ea104afab514d36d8f61d0da672e2da87a1"
+        },
+        {
+          "path": "backend/questionnaire_data/cardiovascular_issues.json",
+          "sha256": "51a3eb2c5fdc2cf9efc4f52200e98f2c4dfdd35b6fdb2de5a45ed20693253bf8"
+        },
+        {
+          "path": "backend/questionnaire_data/chest.json",
+          "sha256": "74b9c44dc1891e03780dfc9cf8f44d940ad85c143ac2c8463f3d3dc70fecc04e"
+        },
+        {
+          "path": "backend/questionnaire_data/chief.json",
+          "sha256": "881df87847565211ad0bde953f25b41caeaf076188aed479805e52527e93af7a"
+        },
+        {
+          "path": "backend/questionnaire_data/diabetes_questionnaire.json",
+          "sha256": "d6d7b3b84e200e4d3ba310e0903e80e999b85ddf746e2d2d48decbb9bc85f1c9"
+        },
+        {
+          "path": "backend/questionnaire_data/dizziness.json",
+          "sha256": "5047b3e9f66211929b5066375ef45d91185e1a0d90666ba3d5a7b5e61cc1a69d"
+        },
+        {
+          "path": "backend/questionnaire_data/ent_problems.json",
+          "sha256": "b87898c0f267a870a2f729dfa80d66851d14723f80c9e6fd8cfb8c2d5a7dcf8c"
+        },
+        {
+          "path": "backend/questionnaire_data/eye_problems.json",
+          "sha256": "33fb319ca42b6e2e46be68a9eee56baae193c7b0f172cd9596a821bbbb4fdfdf"
+        },
+        {
+          "path": "backend/questionnaire_data/fall.json",
+          "sha256": "e8b3b9f2630d2b1de32cc12382dbef62312142a5dccd93e10687749fe4487c8a"
+        },
+        {
+          "path": "backend/questionnaire_data/fever.json",
+          "sha256": "e4a2a5b6599b6073734ec8ef09c6d42e39ab3284b2635b71e656b69147bea31d"
+        },
+        {
+          "path": "backend/questionnaire_data/fluid_nutrition_changes.json",
+          "sha256": "40e5b60087a2c3ed4a2b3c89a0d0ca4ac78793133900a08db8b29ba11aa524f6"
+        },
+        {
+          "path": "backend/questionnaire_data/foreign_body.json",
+          "sha256": "60174999691300ace4e572dbbd16b0c7d1150f788b543c7e4aae1959279a2450"
+        },
+        {
+          "path": "backend/questionnaire_data/genitourinary_system_problems.json",
+          "sha256": "a3bbe26ca0335beccc245f4fa8b597eacc05363acfad72b382a874a2aaf70ae3"
+        },
+        {
+          "path": "backend/questionnaire_data/gunshot_wound.json",
+          "sha256": "9a12f4a402bab2d65d993f5d907bbf2ed59a48566c5df26118464f4f4ecc0c74"
+        },
+        {
+          "path": "backend/questionnaire_data/gynecological_issues.json",
+          "sha256": "87aa9b4f5fb33ac5a1cdd2a6e94f2864e849cb308112ae60599f09412d4807ed"
+        },
+        {
+          "path": "backend/questionnaire_data/headache.json",
+          "sha256": "d8837618bbfab9f8964a8cb0f1a9cb41b4bfa68399dccc43ca178f6d55c9b5f6"
+        },
+        {
+          "path": "backend/questionnaire_data/history.json",
+          "sha256": "2619fd1a9faa422c01c4e4ee70dbd114c221213c80fb8acc5a5a982b13b20078"
+        },
+        {
+          "path": "backend/questionnaire_data/industrial_machinery_accident.json",
+          "sha256": "632e41d3677c21328b3118613a6413425cf0b5966d85650002203a00b3fb1c2e"
+        },
+        {
+          "path": "backend/questionnaire_data/infection.json",
+          "sha256": "a434bdac95c418798556a999b99c5c2850c7b06dc3e836df0952c58ce1870af6"
+        },
+        {
+          "path": "backend/questionnaire_data/intentional_drug_overdose.json",
+          "sha256": "bb7a4fdd80e2d7edfa7218a7519f1e93e139c0efb376ff43a47b92091c6ea744"
+        },
+        {
+          "path": "backend/questionnaire_data/laceration.json",
+          "sha256": "88cdab597e94e0a153e35ef39b2cd5ee19df603bc14a0be012a3204e3efd6552"
+        },
+        {
+          "path": "backend/questionnaire_data/loss_of_consciousness.json",
+          "sha256": "77f1949a6b722cc5f3162cd1a6ac50192190f67ca947d1b9aa2f7979dc53bb19"
+        },
+        {
+          "path": "backend/questionnaire_data/low_back_pain.json",
+          "sha256": "4d32d72767de1867fdfedf216efddb0d704feb61d2974a9505286ccd370e8c1d"
+        },
+        {
+          "path": "backend/questionnaire_data/motor_vehicle_accident_injury.json",
+          "sha256": "1e62f8d4e6b31b524153c069ba2dd67ceecdab0ff6ade7c5ccdbfc0ecc1379d7"
+        },
+        {
+          "path": "backend/questionnaire_data/neck_pain.json",
+          "sha256": "28e09d521a01801192f4437d39dfca4631d4e142bee86d23fca09381432791dc"
+        },
+        {
+          "path": "backend/questionnaire_data/needlestick_injury.json",
+          "sha256": "8fc9dabc596a7868d513120b26fadf5eb73f7f4d48c7de24c6a0fad5b00b1cae"
+        },
+        {
+          "path": "backend/questionnaire_data/neurological_issues.json",
+          "sha256": "74a7d7da0d61832310c5f65cf69ea47b52bbb72340099859ca774e99b16eed94"
+        },
+        {
+          "path": "backend/questionnaire_data/obstetric_issues.json",
+          "sha256": "3289a5df07d4e7efb5aa1036a4bd7a824adf15fcd07e56394756d964222233c6"
+        },
+        {
+          "path": "backend/questionnaire_data/orthopedics_external_injury.json",
+          "sha256": "7293db20f4721fec3822fb8e04ca16ce24825424410a0eab8c9fcc2e8f308414"
+        },
+        {
+          "path": "backend/questionnaire_data/peripheral_vascular_leg_pain.json",
+          "sha256": "70412b03e9aeab9252e2c8a0eb82a2f8c549818b5ae8db25498b9f01966b76f4"
+        },
+        {
+          "path": "backend/questionnaire_data/psychosocial_issues.json",
+          "sha256": "5d7e5e5986b9be8f23a5ca6ad9f77932ab538c1c5294b5d147a4a6076630ce31"
+        },
+        {
+          "path": "backend/questionnaire_data/respiratory_issues.json",
+          "sha256": "aa06992a3b17041909d93314d1bc451191d942bcf08d6cfcf90c37f7ac0b9b57"
+        },
+        {
+          "path": "backend/questionnaire_data/seizure_epilepsy.json",
+          "sha256": "d8a0ba1a68337a5dc64d9d47371688d19a381d3f1d448a298b7976c1e20ad0dc"
+        },
+        {
+          "path": "backend/questionnaire_data/severe_dehydration.json",
+          "sha256": "3854701d541e5fd68b61ab7342b1e27c4bb671a8eaef3a0359474e6487ce7739"
+        },
+        {
+          "path": "backend/questionnaire_data/skin_problem_trauma.json",
+          "sha256": "4ef6d968fb2a56d3d42d6f804ba4981afe8b613cb881398ff7676b8df9a2e73c"
+        },
+        {
+          "path": "backend/questionnaire_data/stab_wound.json",
+          "sha256": "b6653f65644082e19137fa8d051199ec0140e65d1d55d6ad1a9e2a8320a805ec"
+        },
+        {
+          "path": "backend/questionnaire_data/stroke.json",
+          "sha256": "71a3388d486e0424c88b1942bbb1dfec8ee4f532ed61222f6f2e05b812072c35"
+        },
+        {
+          "path": "backend/questionnaire_data/substance_abuse.json",
+          "sha256": "69ed48c7e2a5896932e02c3e8571053aaade590db68e4eedc4d114f6447461ec"
+        },
+        {
+          "path": "backend/questionnaire_data/supplemental_medications.json",
+          "sha256": "5d5c201636b61337b0e51a3e0feb1213315bd78f32a7635e85cbeb2707382a02"
+        },
+        {
+          "path": "backend/questionnaire_data/syncope.json",
+          "sha256": "3ce0c6845dddf83808a39130ea068eed66721246cdf0f028f8556c9f7aeef8d5"
+        },
+        {
+          "path": "backend/questionnaire_data/toothache.json",
+          "sha256": "662aecb6b277bbd83d45d9e8dec2ea691ae5e7388656b2642f84174f689289ee"
+        },
+        {
+          "path": "backend/questionnaire_data/trauma.json",
+          "sha256": "b7f0352ae59f023bda3a8de937dfae86cf0fadb2903cd2195e5497c09b7dc844"
+        },
+        {
+          "path": "backend/questionnaire_data/vaginal_bleeding.json",
+          "sha256": "17d0c766c8a21810a61aa713a00020f27d7f81f3e30ce952d51abaa6235680b0"
+        },
+        {
+          "path": "backend/questionnaire_data/weakness.json",
+          "sha256": "1cff9d48c513944f5062209d4298710851ab428bf4d47f0602a6cbfc5aa5a79a"
+        },
+        {
+          "path": "backend/domain/fhir_questionnaire.py",
+          "sha256": "169cb86df699847a10282e8a1dffc9e8f65f23e93bb1f7877c1f2550c7754f1b"
+        },
+        {
+          "path": "backend/domain/fhir_extensions.py",
+          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+        },
+        {
+          "path": "backend/domain/questionnaires.py",
+          "sha256": "bd33cb04ad19a6e6703ddb82dbdbe87bbc1668366740b9a4ea957fd659f82e98"
+        },
+        {
+          "path": "backend/domain/questionnaire_routes.json",
+          "sha256": "e893eccc1f0c201f1983981d07021524785c88ae0f66c5c965979bc7a47ef45d"
+        }
+      ],
+      "transformation": "Generated by actual runtime FHIR encoder"
+    },
+    "fhir/questionnaires/StructureDefinition-preconsult-answer-source.json": {
+      "bytes": 1533,
+      "sha256": "e3d01a8be085e13e1eb6621cee953bd02a6212fa49c2eec9015a41f538b35a29",
+      "sources": [
+        {
+          "path": "backend/domain/fhir_extensions.py",
+          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+        }
+      ],
+      "transformation": "Generated by extension_structure_definitions"
+    },
+    "fhir/questionnaires/StructureDefinition-preconsult-duration-quick-option.json": {
+      "bytes": 1448,
+      "sha256": "d11813d2430f00a39e4347c874136cd55d00f6498bda35af4f3e670b87504b47",
+      "sources": [
+        {
+          "path": "backend/domain/fhir_extensions.py",
+          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+        }
+      ],
+      "transformation": "Generated by extension_structure_definitions"
+    },
+    "fhir/questionnaires/StructureDefinition-preconsult-duration-unit.json": {
+      "bytes": 1397,
+      "sha256": "71033c91fa22696e3b2ed610e5c7ea14893958551f8689cabd3c093c771a7c7c",
+      "sources": [
+        {
+          "path": "backend/domain/fhir_extensions.py",
+          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+        }
+      ],
+      "transformation": "Generated by extension_structure_definitions"
+    },
+    "fhir/questionnaires/StructureDefinition-preconsult-item-allow-other.json": {
+      "bytes": 1447,
+      "sha256": "5161599ddae7a45841ea300505b42081d4a0d927011ce49e95990628467c43cf",
+      "sources": [
+        {
+          "path": "backend/domain/fhir_extensions.py",
+          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+        }
+      ],
+      "transformation": "Generated by extension_structure_definitions"
+    },
+    "fhir/questionnaires/StructureDefinition-preconsult-item-base-field.json": {
+      "bytes": 1446,
+      "sha256": "2ee45360a5c011097bd44c565d0eab6c6243e8fdd285b88229d57c6177472360",
+      "sources": [
+        {
+          "path": "backend/domain/fhir_extensions.py",
+          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+        }
+      ],
+      "transformation": "Generated by extension_structure_definitions"
+    },
+    "fhir/questionnaires/StructureDefinition-preconsult-item-kind.json": {
+      "bytes": 1391,
+      "sha256": "c53941e478aa00d67b264566050909f01ba5d67dde1497307a2430874e27482e",
+      "sources": [
+        {
+          "path": "backend/domain/fhir_extensions.py",
+          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+        }
+      ],
+      "transformation": "Generated by extension_structure_definitions"
+    },
+    "fhir/questionnaires/StructureDefinition-preconsult-item-other-label.json": {
+      "bytes": 1420,
+      "sha256": "6e2362890c265b0da52a1f72e6f5b5362e050c58c3826392c2867fba8e5fbee1",
+      "sources": [
+        {
+          "path": "backend/domain/fhir_extensions.py",
+          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+        }
+      ],
+      "transformation": "Generated by extension_structure_definitions"
+    },
+    "fhir/questionnaires/StructureDefinition-preconsult-item-route.json": {
+      "bytes": 1397,
+      "sha256": "40e8d8bf6e6131ea9658fa85ba62fc1ef1dc1fe42953c948583395b8ded108c1",
+      "sources": [
+        {
+          "path": "backend/domain/fhir_extensions.py",
+          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+        }
+      ],
+      "transformation": "Generated by extension_structure_definitions"
+    },
+    "fhir/questionnaires/StructureDefinition-preconsult-item-section.json": {
+      "bytes": 1411,
+      "sha256": "0c89f607679ce3d770c14bfad1fc21c2621bf74f879a7222dba020c094735ea8",
+      "sources": [
+        {
+          "path": "backend/domain/fhir_extensions.py",
+          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+        }
+      ],
+      "transformation": "Generated by extension_structure_definitions"
+    },
+    "fhir/questionnaires/StructureDefinition-preconsult-option-exclude-when-equals.json": {
+      "bytes": 1488,
+      "sha256": "d90528479484255e5d57ab95661d39f143ebad5429379104c6c6cab669e65676",
+      "sources": [
+        {
+          "path": "backend/domain/fhir_extensions.py",
+          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+        }
+      ],
+      "transformation": "Generated by extension_structure_definitions"
+    },
+    "fhir/questionnaires/StructureDefinition-preconsult-option-exclude-when-field.json": {
+      "bytes": 1496,
+      "sha256": "28d02fd3aa797dd6cd176cc5047afe596c7eb151c72151ed8d881d1984f2a0d8",
+      "sources": [
+        {
+          "path": "backend/domain/fhir_extensions.py",
+          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+        }
+      ],
+      "transformation": "Generated by extension_structure_definitions"
+    },
+    "fhir/questionnaires/StructureDefinition-preconsult-other-detail.json": {
+      "bytes": 1582,
+      "sha256": "c6720901899d1889117e3b811cc847152469276990af0c67462cdf43c44091f5",
+      "sources": [
+        {
+          "path": "backend/domain/fhir_extensions.py",
+          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+        }
+      ],
+      "transformation": "Generated by extension_structure_definitions"
+    },
+    "fhir/questionnaires/StructureDefinition-preconsult-prefill-behavior.json": {
+      "bytes": 1460,
+      "sha256": "737fd709b7f4b328d8d003feae763f5ee33bb8da6e8a8214862b7635e837b849",
+      "sources": [
+        {
+          "path": "backend/domain/fhir_extensions.py",
+          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+        }
+      ],
+      "transformation": "Generated by extension_structure_definitions"
+    },
+    "fhir/questionnaires/StructureDefinition-preconsult-questionnaire-route.json": {
+      "bytes": 1470,
+      "sha256": "3ce169453527a0d25b44df747ce7227516b6bb57f0d5f1092689891185c8b707",
+      "sources": [
+        {
+          "path": "backend/domain/fhir_extensions.py",
+          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+        }
+      ],
+      "transformation": "Generated by extension_structure_definitions"
+    },
+    "fhir/questionnaires/StructureDefinition-preconsult-questionnaire-source.json": {
+      "bytes": 1460,
+      "sha256": "c378ff053a350c5536b73e3a7e6f821a8bc9487c2a4f367d34234b6aa9a62837",
+      "sources": [
+        {
+          "path": "backend/domain/fhir_extensions.py",
+          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+        }
+      ],
+      "transformation": "Generated by extension_structure_definitions"
+    },
+    "fhir/questionnaires/StructureDefinition-preconsult-semantic-course.json": {
+      "bytes": 1442,
+      "sha256": "67447f3a431f87088ef607e4d9c7f8018b50c322b838dc371523caedd9fcd149",
+      "sources": [
+        {
+          "path": "backend/domain/fhir_extensions.py",
+          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+        }
+      ],
+      "transformation": "Generated by extension_structure_definitions"
+    },
+    "fhir/questionnaires/StructureDefinition-preconsult-semantic-duration.json": {
+      "bytes": 1458,
+      "sha256": "061216419d859a2e1ca8f3bca3ce0b19005f99c11dc21bd6ffad7df5bf41bcb7",
+      "sources": [
+        {
+          "path": "backend/domain/fhir_extensions.py",
+          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+        }
+      ],
+      "transformation": "Generated by extension_structure_definitions"
+    },
+    "fhir/questionnaires/StructureDefinition-preconsult-semantic-finding.json": {
+      "bytes": 1466,
+      "sha256": "3cc7c71397f6146f5431e56be7cab5d35ebdc0e8c0b632ee14bf95471a0d4253",
+      "sources": [
+        {
+          "path": "backend/domain/fhir_extensions.py",
+          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+        }
+      ],
+      "transformation": "Generated by extension_structure_definitions"
+    },
+    "fhir/questionnaires/StructureDefinition-preconsult-semantic-negated-finding.json": {
+      "bytes": 1511,
+      "sha256": "878d332ee2722a765cb506e600e607dc5b94cae22a71ca40ebc5f906f7c2e754",
+      "sources": [
+        {
+          "path": "backend/domain/fhir_extensions.py",
+          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+        }
+      ],
+      "transformation": "Generated by extension_structure_definitions"
+    },
+    "fhir/questionnaires/StructureDefinition-preconsult-semantic-new-or-changed.json": {
+      "bytes": 1504,
+      "sha256": "a1a69c853d9aefb5e39441c2355521850ab3dfcbaa51697bcb6eee6e00f110c4",
+      "sources": [
+        {
+          "path": "backend/domain/fhir_extensions.py",
+          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+        }
+      ],
+      "transformation": "Generated by extension_structure_definitions"
+    },
+    "fhir/questionnaires/StructureDefinition-preconsult-semantic-onset.json": {
+      "bytes": 1434,
+      "sha256": "0bd9561951d3069e7512f22ebbc975e9a888ee70962f492738e5874d67d1b190",
+      "sources": [
+        {
+          "path": "backend/domain/fhir_extensions.py",
+          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+        }
+      ],
+      "transformation": "Generated by extension_structure_definitions"
+    },
+    "fhir/questionnaires/StructureDefinition-preconsult-semantic-resolution-fact.json": {
+      "bytes": 1455,
+      "sha256": "94cbe14f60c2ac0f2b49d0ae248cd21a412765c62456181138b0d7fc4ea85f39",
+      "sources": [
+        {
+          "path": "backend/domain/fhir_extensions.py",
+          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+        }
+      ],
+      "transformation": "Generated by extension_structure_definitions"
+    },
+    "fhir/questionnaires/StructureDefinition-preconsult-semantic-resolved-when.json": {
+      "bytes": 1467,
+      "sha256": "41341db347e45953b4a7f6db94fb04b70ab5490f76629f781248da94280e3c9e",
+      "sources": [
+        {
+          "path": "backend/domain/fhir_extensions.py",
+          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+        }
+      ],
+      "transformation": "Generated by extension_structure_definitions"
+    },
+    "fhir/questionnaires/StructureDefinition-preconsult-semantic-severity.json": {
+      "bytes": 1458,
+      "sha256": "a6df0951418864ce0d6e51facc65f2015f74214636a2fee6d2e8ac42817b262f",
+      "sources": [
+        {
+          "path": "backend/domain/fhir_extensions.py",
+          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+        }
+      ],
+      "transformation": "Generated by extension_structure_definitions"
+    },
+    "llm/llm_disclosure.json": {
+      "bytes": 46835,
+      "sha256": "bfbf70cf5070c25f86433eece9ef3e33761495e345a21a3a051bd3e724372379",
+      "sources": [
+        {
+          "path": "experiments/llm_disclosure.json",
+          "sha256": "bfbf70cf5070c25f86433eece9ef3e33761495e345a21a3a051bd3e724372379"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "llm/prompts/chief_complaint.json": {
+      "bytes": 2124,
+      "sha256": "81d57e3266eeb14c878ffb1a9858fcefa3e705d372eb46cd39d335d2a332260e",
+      "sources": [
+        {
+          "path": "backend/app/prompts/questionnaire_summary.py",
+          "sha256": "e735bcc056b35ed9e2554eb530e034e326e3464a8659306f24434033c0772b7e"
+        },
+        {
+          "path": "backend/app/prompts/common.py",
+          "sha256": "e8e5369d5dd671d61a5dfd1c16243fdf1d15bd12b2181a20747da493012962c2"
+        }
+      ],
+      "transformation": "Actual builder; empty dynamic input containers and explicit retrieval placeholder"
+    },
+    "llm/prompts/differential_diagnoses.json": {
+      "bytes": 2179,
+      "sha256": "00e316028f056faaa89fff0639ccb361b966c717d36f2ca65410076e0af6cf14",
+      "sources": [
+        {
+          "path": "backend/app/prompts/questionnaire_summary.py",
+          "sha256": "e735bcc056b35ed9e2554eb530e034e326e3464a8659306f24434033c0772b7e"
+        },
+        {
+          "path": "backend/app/prompts/common.py",
+          "sha256": "e8e5369d5dd671d61a5dfd1c16243fdf1d15bd12b2181a20747da493012962c2"
+        }
+      ],
+      "transformation": "Actual builder; empty dynamic input containers and explicit retrieval placeholder"
+    },
+    "llm/prompts/drug_allergy_history.json": {
+      "bytes": 1994,
+      "sha256": "8b0036f81b3812441eadf507c05e67fb40d37248143ea5a9168e1f4c8e79f5bf",
+      "sources": [
+        {
+          "path": "backend/app/prompts/questionnaire_summary.py",
+          "sha256": "e735bcc056b35ed9e2554eb530e034e326e3464a8659306f24434033c0772b7e"
+        },
+        {
+          "path": "backend/app/prompts/common.py",
+          "sha256": "e8e5369d5dd671d61a5dfd1c16243fdf1d15bd12b2181a20747da493012962c2"
+        }
+      ],
+      "transformation": "Actual builder; empty dynamic input containers and explicit retrieval placeholder"
+    },
+    "llm/prompts/drug_history.json": {
+      "bytes": 2205,
+      "sha256": "1e43e137c3a3c31b1b534a6fa861e886860d68d9969570910cd00c5da2d81a35",
+      "sources": [
+        {
+          "path": "backend/app/prompts/questionnaire_summary.py",
+          "sha256": "e735bcc056b35ed9e2554eb530e034e326e3464a8659306f24434033c0772b7e"
+        },
+        {
+          "path": "backend/app/prompts/common.py",
+          "sha256": "e8e5369d5dd671d61a5dfd1c16243fdf1d15bd12b2181a20747da493012962c2"
+        }
+      ],
+      "transformation": "Actual builder; empty dynamic input containers and explicit retrieval placeholder"
+    },
+    "llm/prompts/family_history.json": {
+      "bytes": 2076,
+      "sha256": "1bce11b1f3de56756e8382a16ffe9feef6642f32a78e543e7be5af69b115cdc5",
+      "sources": [
+        {
+          "path": "backend/app/prompts/questionnaire_summary.py",
+          "sha256": "e735bcc056b35ed9e2554eb530e034e326e3464a8659306f24434033c0772b7e"
+        },
+        {
+          "path": "backend/app/prompts/common.py",
+          "sha256": "e8e5369d5dd671d61a5dfd1c16243fdf1d15bd12b2181a20747da493012962c2"
+        }
+      ],
+      "transformation": "Actual builder; empty dynamic input containers and explicit retrieval placeholder"
+    },
+    "llm/prompts/imaging.json": {
+      "bytes": 2257,
+      "sha256": "2440ec88d4defb1a46d4295ac41c38406f2900e0fdf154ea98fc9464fad7ce21",
+      "sources": [
+        {
+          "path": "backend/app/prompts/questionnaire_summary.py",
+          "sha256": "e735bcc056b35ed9e2554eb530e034e326e3464a8659306f24434033c0772b7e"
+        },
+        {
+          "path": "backend/app/prompts/common.py",
+          "sha256": "e8e5369d5dd671d61a5dfd1c16243fdf1d15bd12b2181a20747da493012962c2"
+        }
+      ],
+      "transformation": "Actual builder; empty dynamic input containers and explicit retrieval placeholder"
+    },
+    "llm/prompts/laboratory.json": {
+      "bytes": 2190,
+      "sha256": "a4d0ca0755ea53aafc9c9bd1c8efd069dc9fd6c6bfec1c6be3ee41e9b6fd7e53",
+      "sources": [
+        {
+          "path": "backend/app/prompts/questionnaire_summary.py",
+          "sha256": "e735bcc056b35ed9e2554eb530e034e326e3464a8659306f24434033c0772b7e"
+        },
+        {
+          "path": "backend/app/prompts/common.py",
+          "sha256": "e8e5369d5dd671d61a5dfd1c16243fdf1d15bd12b2181a20747da493012962c2"
+        }
+      ],
+      "transformation": "Actual builder; empty dynamic input containers and explicit retrieval placeholder"
+    },
+    "llm/prompts/must_not_miss.json": {
+      "bytes": 2193,
+      "sha256": "62a76abd6b7107eeed298db8d88b84407c779580ded9cb823224128aa5833e79",
+      "sources": [
+        {
+          "path": "backend/app/prompts/questionnaire_summary.py",
+          "sha256": "e735bcc056b35ed9e2554eb530e034e326e3464a8659306f24434033c0772b7e"
+        },
+        {
+          "path": "backend/app/prompts/common.py",
+          "sha256": "e8e5369d5dd671d61a5dfd1c16243fdf1d15bd12b2181a20747da493012962c2"
+        }
+      ],
+      "transformation": "Actual builder; empty dynamic input containers and explicit retrieval placeholder"
+    },
+    "llm/prompts/past_history.json": {
+      "bytes": 1992,
+      "sha256": "123649c4f113ed179bc948ddfc040ba4f647ffd5b5dabfb7e7d2228c500141e3",
+      "sources": [
+        {
+          "path": "backend/app/prompts/questionnaire_summary.py",
+          "sha256": "e735bcc056b35ed9e2554eb530e034e326e3464a8659306f24434033c0772b7e"
+        },
+        {
+          "path": "backend/app/prompts/common.py",
+          "sha256": "e8e5369d5dd671d61a5dfd1c16243fdf1d15bd12b2181a20747da493012962c2"
+        }
+      ],
+      "transformation": "Actual builder; empty dynamic input containers and explicit retrieval placeholder"
+    },
+    "llm/prompts/patient_agent_v1.md": {
+      "bytes": 3091,
+      "sha256": "703b59ffc7b46dfaf7b196c801b6ec69f66ba0a080a934caf44595ba6181edd7",
+      "sources": [
+        {
+          "path": "experiments/prompts/patient_agent_v1.md",
+          "sha256": "703b59ffc7b46dfaf7b196c801b6ec69f66ba0a080a934caf44595ba6181edd7"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "llm/prompts/personal_history.json": {
+      "bytes": 2050,
+      "sha256": "43bad587b81caac400a8494c7d982d54e2708ffda9e4033c3f6356e0d3d83917",
+      "sources": [
+        {
+          "path": "backend/app/prompts/questionnaire_summary.py",
+          "sha256": "e735bcc056b35ed9e2554eb530e034e326e3464a8659306f24434033c0772b7e"
+        },
+        {
+          "path": "backend/app/prompts/common.py",
+          "sha256": "e8e5369d5dd671d61a5dfd1c16243fdf1d15bd12b2181a20747da493012962c2"
+        }
+      ],
+      "transformation": "Actual builder; empty dynamic input containers and explicit retrieval placeholder"
+    },
+    "llm/prompts/physical_examination.json": {
+      "bytes": 2703,
+      "sha256": "8100e4a3760db45be167901736cb10c744d976e5ced055a136f42904d36ee07d",
+      "sources": [
+        {
+          "path": "backend/app/prompts/questionnaire_summary.py",
+          "sha256": "e735bcc056b35ed9e2554eb530e034e326e3464a8659306f24434033c0772b7e"
+        },
+        {
+          "path": "backend/app/prompts/common.py",
+          "sha256": "e8e5369d5dd671d61a5dfd1c16243fdf1d15bd12b2181a20747da493012962c2"
+        }
+      ],
+      "transformation": "Actual builder; empty dynamic input containers and explicit retrieval placeholder"
+    },
+    "llm/prompts/present_illness.json": {
+      "bytes": 1958,
+      "sha256": "86066256484307b9385da4b9f6214d0f5133eb7cd1ee9826293cd7395d3b56a9",
+      "sources": [
+        {
+          "path": "backend/app/prompts/questionnaire_summary.py",
+          "sha256": "e735bcc056b35ed9e2554eb530e034e326e3464a8659306f24434033c0772b7e"
+        },
+        {
+          "path": "backend/app/prompts/common.py",
+          "sha256": "e8e5369d5dd671d61a5dfd1c16243fdf1d15bd12b2181a20747da493012962c2"
+        }
+      ],
+      "transformation": "Actual builder; empty dynamic input containers and explicit retrieval placeholder"
+    },
+    "results/e1/manifest.json": {
+      "bytes": 86211,
+      "omitted_json_path_sha256": [
+        "e4401a4695acf6150ccbed74f47407dc7ae3bab6416cea0bae8bd1ff41c5d6ca"
+      ],
+      "sha256": "dbeca6a6eccaefb0000f051ac0f94f45044cccc65ad1f71f64fe6b893d3ea24e",
+      "sources": [
+        {
+          "path": "experiments/results/e1_interop/20261013T133317Z/manifest.json",
+          "sha256": "ee02136320c00f71a90e8063c56bc857e546bd7740944eb9fcf4449f3e99ff51"
+        }
+      ],
+      "transformation": "Sanitized metadata projection; sensitive-named fields omitted"
+    },
+    "results/e1/summary.json": {
+      "bytes": 9135431,
+      "sha256": "bd656381fb7edc152168ba6a0c98cf7abb8a21e2820c7d92429c506eb4c5d950",
+      "sources": [
+        {
+          "path": "experiments/results/e1_interop/20261013T133317Z/summary.json",
+          "sha256": "bd656381fb7edc152168ba6a0c98cf7abb8a21e2820c7d92429c506eb4c5d950"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "results/e1_e2/manifest.json": {
+      "bytes": 7139,
+      "omitted_json_path_sha256": [],
+      "sha256": "39fe8e7d8cd9056637bc5d4a4e7e60ebc65f51840bad4cca66c49a96543a8508",
+      "sources": [
+        {
+          "path": "experiments/results/e1_interop/20261013T143431Z/manifest.json",
+          "sha256": "1b58cd105d868635effc5117e1b3b65771dca193b31519719a7fa29e485a84e4"
+        }
+      ],
+      "transformation": "Sanitized metadata projection; sensitive-named fields omitted"
+    },
+    "results/e1_e2/summary.json": {
+      "bytes": 444779,
+      "sha256": "eb1ad6d85b41681b0a2fe71a3021b485d05804c6b6248dc175934d8e0f3148bc",
+      "sources": [
+        {
+          "path": "experiments/results/e1_interop/20261013T143431Z/summary.json",
+          "sha256": "eb1ad6d85b41681b0a2fe71a3021b485d05804c6b6248dc175934d8e0f3148bc"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "results/e2/manifest.json": {
+      "bytes": 65816,
+      "omitted_json_path_sha256": [
+        "e4401a4695acf6150ccbed74f47407dc7ae3bab6416cea0bae8bd1ff41c5d6ca"
+      ],
+      "sha256": "7cd2745095c7d35e68b4979281dc84d89b3744941a922e21b372785fa13775f6",
+      "sources": [
+        {
+          "path": "experiments/results/e2_end_to_end/20261013T141553Z/manifest.json",
+          "sha256": "463398c34441476c16d0d8fbb2d24ba9714778cd8829ca587179869613f88da6"
+        }
+      ],
+      "transformation": "Sanitized metadata projection; sensitive-named fields omitted"
+    },
+    "results/e2/summary.json": {
+      "bytes": 223578,
+      "sha256": "5b87a7787ab2c83f1439f1c24149f2e16df13f9aaa5a078ad3b3be6e4be39a94",
+      "sources": [
+        {
+          "path": "experiments/results/e2_end_to_end/20261013T141553Z/summary.json",
+          "sha256": "5b87a7787ab2c83f1439f1c24149f2e16df13f9aaa5a078ad3b3be6e4be39a94"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "results/e3/manifest.json": {
+      "bytes": 22738,
+      "omitted_json_path_sha256": [],
+      "sha256": "5bcdb54a6d51e747444b8545b058414bed3b06417b147f46e5b2edf75d856ac1",
+      "sources": [
+        {
+          "path": "experiments/results/e3_swap/20261013T143525Z/manifest.json",
+          "sha256": "24ac3c03e0a72556f1be945e6a005ff227b864c161bd91fbb63cbae69c409e9c"
+        }
+      ],
+      "transformation": "Sanitized metadata projection; sensitive-named fields omitted"
+    },
+    "results/e3/summary.json": {
+      "bytes": 15720,
+      "sha256": "fdaaabe977da3532123529249cf4a10c93650a43082ee8966fe9e4d913ea636f",
+      "sources": [
+        {
+          "path": "experiments/results/e3_swap/20261013T143525Z/summary.json",
+          "sha256": "fdaaabe977da3532123529249cf4a10c93650a43082ee8966fe9e4d913ea636f"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "results/e3_child_default/manifest.json": {
+      "bytes": 31550,
+      "omitted_json_path_sha256": [
+        "e4401a4695acf6150ccbed74f47407dc7ae3bab6416cea0bae8bd1ff41c5d6ca"
+      ],
+      "sha256": "22903639f5633efbc70cbf517bd9d6d4dbc391343a7fb900c761c16019b1731e",
+      "sources": [
+        {
+          "path": "experiments/results/e3_swap_e2/20261013T143527Z/manifest.json",
+          "sha256": "6b7dcaaa45132cb5663f31823d91247d86bcfb2a8b574c251d494056f706d647"
+        }
+      ],
+      "transformation": "Sanitized metadata projection; sensitive-named fields omitted"
+    },
+    "results/e3_child_default/summary.json": {
+      "bytes": 48789,
+      "sha256": "9bd79b32f5f000ab6f3ed6b5bc0b0fa201e029853331c7f585681e1f8117cb52",
+      "sources": [
+        {
+          "path": "experiments/results/e3_swap_e2/20261013T143527Z/summary.json",
+          "sha256": "9bd79b32f5f000ab6f3ed6b5bc0b0fa201e029853331c7f585681e1f8117cb52"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "results/e3_child_llm_swap_a_gemini_alt/manifest.json": {
+      "bytes": 32474,
+      "omitted_json_path_sha256": [
+        "e4401a4695acf6150ccbed74f47407dc7ae3bab6416cea0bae8bd1ff41c5d6ca"
+      ],
+      "sha256": "ee7d099b3c217e34628d212c6c11a8850dd1f0ecac729194e6f60eb761375747",
+      "sources": [
+        {
+          "path": "experiments/results/e3_swap_e2/20261013T144002Z/manifest.json",
+          "sha256": "9f2edca6c4d3225300b78bc5db01cf87c711ce8089814f00c84b7a199e1e3a83"
+        }
+      ],
+      "transformation": "Sanitized metadata projection; sensitive-named fields omitted"
+    },
+    "results/e3_child_llm_swap_a_gemini_alt/summary.json": {
+      "bytes": 49380,
+      "sha256": "94a3b8a2adb1e631451c7a0944f7c27dcbcdf2d2cce6d94ed8c1a4142da5dd86",
+      "sources": [
+        {
+          "path": "experiments/results/e3_swap_e2/20261013T144002Z/summary.json",
+          "sha256": "94a3b8a2adb1e631451c7a0944f7c27dcbcdf2d2cce6d94ed8c1a4142da5dd86"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "results/e3_child_llm_swap_b_ollama/manifest.json": {
+      "bytes": 32896,
+      "omitted_json_path_sha256": [
+        "e4401a4695acf6150ccbed74f47407dc7ae3bab6416cea0bae8bd1ff41c5d6ca"
+      ],
+      "sha256": "b9aac74187911692786a0d911020633028ac6804a82545b3ef1d7d3ea67dd291",
+      "sources": [
+        {
+          "path": "experiments/results/e3_swap_e2/20261013T144457Z/manifest.json",
+          "sha256": "49e53c8718188f892da65a14ed9b09275c0f626192bf801fbe1099b9367a01ed"
+        }
+      ],
+      "transformation": "Sanitized metadata projection; sensitive-named fields omitted"
+    },
+    "results/e3_child_llm_swap_b_ollama/summary.json": {
+      "bytes": 44218,
+      "sha256": "c6880adee03e7cc414e7aecd57dea5e2f1b44ca8558fe75a719e2517ab1cf9b1",
+      "sources": [
+        {
+          "path": "experiments/results/e3_swap_e2/20261013T144457Z/summary.json",
+          "sha256": "c6880adee03e7cc414e7aecd57dea5e2f1b44ca8558fe75a719e2517ab1cf9b1"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "results/e4_mock/manifest.json": {
+      "bytes": 12091,
+      "omitted_json_path_sha256": [
+        "e4401a4695acf6150ccbed74f47407dc7ae3bab6416cea0bae8bd1ff41c5d6ca"
+      ],
+      "sha256": "f5dbc30f24b720c8dd97397a1d3cb5e83ae4151f5dc0e3cf0bbdb5779725f1bd",
+      "sources": [
+        {
+          "path": "experiments/results/e4_load_mock/20261013T150413Z/manifest.json",
+          "sha256": "76d4a023d6d383f47d7ecda3820073a02d608fc61ba8c6c98006adc30a084037"
+        }
+      ],
+      "transformation": "Sanitized metadata projection; sensitive-named fields omitted"
+    },
+    "results/e4_mock/summary.json": {
+      "bytes": 79182,
+      "sha256": "4abbe7ab22e2b44e0491f1b65a9dc2164af91cd82803cc4e896ed650dc85afbc",
+      "sources": [
+        {
+          "path": "experiments/results/e4_load_mock/20261013T150413Z/summary.json",
+          "sha256": "4abbe7ab22e2b44e0491f1b65a9dc2164af91cd82803cc4e896ed650dc85afbc"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "results/e4_real/manifest.json": {
+      "bytes": 11979,
+      "omitted_json_path_sha256": [
+        "e4401a4695acf6150ccbed74f47407dc7ae3bab6416cea0bae8bd1ff41c5d6ca"
+      ],
+      "sha256": "d19aca1202d5d1b0b0e03a5cac7ea37f56a144f30727f918b709ec8ea76f9c63",
+      "sources": [
+        {
+          "path": "experiments/results/e4_load_real/20261013T151131Z/manifest.json",
+          "sha256": "a1d4752a0da3c6c2cf71eea38dcc8861c1a04bba8ea3eb07ae895720babd9db6"
+        }
+      ],
+      "transformation": "Sanitized metadata projection; sensitive-named fields omitted"
+    },
+    "results/e4_real/summary.json": {
+      "bytes": 7129,
+      "sha256": "c4255fb50ab7b697959cee7377fd0103ef0676c623b63214aa3a4646bd4c9e93",
+      "sources": [
+        {
+          "path": "experiments/results/e4_load_real/20261013T151131Z/summary.json",
+          "sha256": "c4255fb50ab7b697959cee7377fd0103ef0676c623b63214aa3a4646bd4c9e93"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "scripts/AP-01.yaml": {
+      "bytes": 2364,
+      "sha256": "a81d20fb589880c8e1def3f93305af31b07b80771c97558ced069c0dee2f4f4c",
+      "sources": [
+        {
+          "path": "experiments/scripts/AP-01.yaml",
+          "sha256": "a81d20fb589880c8e1def3f93305af31b07b80771c97558ced069c0dee2f4f4c"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "scripts/AP-02.yaml": {
+      "bytes": 2544,
+      "sha256": "b99f9f46352ef2a539a15baa0524489b5efbf677f828043164949d67d932dd6b",
+      "sources": [
+        {
+          "path": "experiments/scripts/AP-02.yaml",
+          "sha256": "b99f9f46352ef2a539a15baa0524489b5efbf677f828043164949d67d932dd6b"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "scripts/AP-03.yaml": {
+      "bytes": 2355,
+      "sha256": "2bd0a861dee22563585e7cff23671577820157712734b0b1314087c630a4e509",
+      "sources": [
+        {
+          "path": "experiments/scripts/AP-03.yaml",
+          "sha256": "2bd0a861dee22563585e7cff23671577820157712734b0b1314087c630a4e509"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "scripts/AP-04.yaml": {
+      "bytes": 2301,
+      "sha256": "aad772ac2183c9a2383fff961ca682fe9d0ff6d66ce1e8696dcfce13facedd7c",
+      "sources": [
+        {
+          "path": "experiments/scripts/AP-04.yaml",
+          "sha256": "aad772ac2183c9a2383fff961ca682fe9d0ff6d66ce1e8696dcfce13facedd7c"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "scripts/AP-05.yaml": {
+      "bytes": 2430,
+      "sha256": "e7699a337c80bb2b7fc1f5dcf3280fffe6eac29bf6a9ac01480a324a88617296",
+      "sources": [
+        {
+          "path": "experiments/scripts/AP-05.yaml",
+          "sha256": "e7699a337c80bb2b7fc1f5dcf3280fffe6eac29bf6a9ac01480a324a88617296"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "scripts/AP-06.yaml": {
+      "bytes": 2286,
+      "sha256": "bbbfaa1ec133855b88d4ce1653fc2227b951361c6367718dff39de7aab3f5068",
+      "sources": [
+        {
+          "path": "experiments/scripts/AP-06.yaml",
+          "sha256": "bbbfaa1ec133855b88d4ce1653fc2227b951361c6367718dff39de7aab3f5068"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "scripts/AP-07.yaml": {
+      "bytes": 2953,
+      "sha256": "c9b10e6da2fcaab752c388ac6dc9e2bd62dce334d5d0d3b7f8c86c9a9f1a045e",
+      "sources": [
+        {
+          "path": "experiments/scripts/AP-07.yaml",
+          "sha256": "c9b10e6da2fcaab752c388ac6dc9e2bd62dce334d5d0d3b7f8c86c9a9f1a045e"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "scripts/AP-08.yaml": {
+      "bytes": 2784,
+      "sha256": "f0464a99e9f9e84f1579bd18a4891332b018421847ec93c1a39e77ce83f6492d",
+      "sources": [
+        {
+          "path": "experiments/scripts/AP-08.yaml",
+          "sha256": "f0464a99e9f9e84f1579bd18a4891332b018421847ec93c1a39e77ce83f6492d"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "scripts/AP-09.yaml": {
+      "bytes": 2732,
+      "sha256": "029dad1424f84f63d306c78fc48e7191b83a810b2cfe050e912668f55fac5691",
+      "sources": [
+        {
+          "path": "experiments/scripts/AP-09.yaml",
+          "sha256": "029dad1424f84f63d306c78fc48e7191b83a810b2cfe050e912668f55fac5691"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "scripts/AP-10.yaml": {
+      "bytes": 2962,
+      "sha256": "b182526cb7b968c9f243a33b9325ced25604f9cb8982c0fc818d694357b66258",
+      "sources": [
+        {
+          "path": "experiments/scripts/AP-10.yaml",
+          "sha256": "b182526cb7b968c9f243a33b9325ced25604f9cb8982c0fc818d694357b66258"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "scripts/CP-01.yaml": {
+      "bytes": 2528,
+      "sha256": "681423f38f65d334985f7df7558136248af039e30fed055c1ed7abcc3064d23c",
+      "sources": [
+        {
+          "path": "experiments/scripts/CP-01.yaml",
+          "sha256": "681423f38f65d334985f7df7558136248af039e30fed055c1ed7abcc3064d23c"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "scripts/CP-02.yaml": {
+      "bytes": 2520,
+      "sha256": "b0e3eed3dc0dc3b9bb0bc6d938adc0a9f9cccd79280945594243d11b7b29558c",
+      "sources": [
+        {
+          "path": "experiments/scripts/CP-02.yaml",
+          "sha256": "b0e3eed3dc0dc3b9bb0bc6d938adc0a9f9cccd79280945594243d11b7b29558c"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "scripts/CP-03.yaml": {
+      "bytes": 2831,
+      "sha256": "354ff272e45c6f5a3a7b53eb2220f4b036199dcafe255b746bfaf4b57fe0edf5",
+      "sources": [
+        {
+          "path": "experiments/scripts/CP-03.yaml",
+          "sha256": "354ff272e45c6f5a3a7b53eb2220f4b036199dcafe255b746bfaf4b57fe0edf5"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "scripts/CP-04.yaml": {
+      "bytes": 2554,
+      "sha256": "5609b8e2dd53098194e45a968d435d73b79f8d8901ac5758db0b694e25292e57",
+      "sources": [
+        {
+          "path": "experiments/scripts/CP-04.yaml",
+          "sha256": "5609b8e2dd53098194e45a968d435d73b79f8d8901ac5758db0b694e25292e57"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "scripts/CP-05.yaml": {
+      "bytes": 2496,
+      "sha256": "1acd0a6a8641ebeab0894c66a626cfdb85686a62faddc3936dc5881bdafce191",
+      "sources": [
+        {
+          "path": "experiments/scripts/CP-05.yaml",
+          "sha256": "1acd0a6a8641ebeab0894c66a626cfdb85686a62faddc3936dc5881bdafce191"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "scripts/CP-06.yaml": {
+      "bytes": 2516,
+      "sha256": "bc53832a72890da1296f2e0e70ba091e347acf7931da7b2ec9f3dfbcdb1a12d5",
+      "sources": [
+        {
+          "path": "experiments/scripts/CP-06.yaml",
+          "sha256": "bc53832a72890da1296f2e0e70ba091e347acf7931da7b2ec9f3dfbcdb1a12d5"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "scripts/CP-07.yaml": {
+      "bytes": 2944,
+      "sha256": "95fa050073ac3f94ae3550c4cbe32ef43f8e9deaa3d9af8bd374cb05faf9d39d",
+      "sources": [
+        {
+          "path": "experiments/scripts/CP-07.yaml",
+          "sha256": "95fa050073ac3f94ae3550c4cbe32ef43f8e9deaa3d9af8bd374cb05faf9d39d"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "scripts/CP-08.yaml": {
+      "bytes": 2747,
+      "sha256": "75d1c793ab15c5341d408c11176c7bc8336a74272137e0bf3f46d22fd8d0032e",
+      "sources": [
+        {
+          "path": "experiments/scripts/CP-08.yaml",
+          "sha256": "75d1c793ab15c5341d408c11176c7bc8336a74272137e0bf3f46d22fd8d0032e"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "scripts/CP-09.yaml": {
+      "bytes": 3299,
+      "sha256": "f9747f81d5a86ce95438cacaf94ea69a5f40ef2f648e235f4667a56f37be660a",
+      "sources": [
+        {
+          "path": "experiments/scripts/CP-09.yaml",
+          "sha256": "f9747f81d5a86ce95438cacaf94ea69a5f40ef2f648e235f4667a56f37be660a"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "scripts/CP-10.yaml": {
+      "bytes": 2701,
+      "sha256": "faaee81c81a11ce322f5f5c024df21622123ed13c6d40dce0bec851890d56112",
+      "sources": [
+        {
+          "path": "experiments/scripts/CP-10.yaml",
+          "sha256": "faaee81c81a11ce322f5f5c024df21622123ed13c6d40dce0bec851890d56112"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "scripts/HA-01.yaml": {
+      "bytes": 2484,
+      "sha256": "ded73b7103f68b3bba5d163f75ba24a3d661997851b8580ee7b96fa03fecbe18",
+      "sources": [
+        {
+          "path": "experiments/scripts/HA-01.yaml",
+          "sha256": "ded73b7103f68b3bba5d163f75ba24a3d661997851b8580ee7b96fa03fecbe18"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "scripts/HA-02.yaml": {
+      "bytes": 2511,
+      "sha256": "73fdf57f1dbd3c36f758278a0669b00d638cfac972389a0062148a3478c5c9b3",
+      "sources": [
+        {
+          "path": "experiments/scripts/HA-02.yaml",
+          "sha256": "73fdf57f1dbd3c36f758278a0669b00d638cfac972389a0062148a3478c5c9b3"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "scripts/HA-03.yaml": {
+      "bytes": 2481,
+      "sha256": "1212153bcf543536709ce0413103fe7ba167991a541059ef117271c75fc625bd",
+      "sources": [
+        {
+          "path": "experiments/scripts/HA-03.yaml",
+          "sha256": "1212153bcf543536709ce0413103fe7ba167991a541059ef117271c75fc625bd"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "scripts/HA-04.yaml": {
+      "bytes": 2578,
+      "sha256": "879453a502980abd5ae674270c0e6277d2bfbd93be286d24a2db55c7dde3e663",
+      "sources": [
+        {
+          "path": "experiments/scripts/HA-04.yaml",
+          "sha256": "879453a502980abd5ae674270c0e6277d2bfbd93be286d24a2db55c7dde3e663"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "scripts/HA-05.yaml": {
+      "bytes": 2554,
+      "sha256": "5b4e27f291bee19641ebac0fbdc5ca998bfdc6caffd10d9503033f444a3139ab",
+      "sources": [
+        {
+          "path": "experiments/scripts/HA-05.yaml",
+          "sha256": "5b4e27f291bee19641ebac0fbdc5ca998bfdc6caffd10d9503033f444a3139ab"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "scripts/HA-06.yaml": {
+      "bytes": 2576,
+      "sha256": "79f8396df78319dbd94d7f940e050409fd9b23dbe5ce6946a0c464aaa123c614",
+      "sources": [
+        {
+          "path": "experiments/scripts/HA-06.yaml",
+          "sha256": "79f8396df78319dbd94d7f940e050409fd9b23dbe5ce6946a0c464aaa123c614"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "scripts/HA-07.yaml": {
+      "bytes": 2765,
+      "sha256": "d48658dc6d2feb6651f3fd4480a72eed2da109982a5dd6f9de16cc1289191d0a",
+      "sources": [
+        {
+          "path": "experiments/scripts/HA-07.yaml",
+          "sha256": "d48658dc6d2feb6651f3fd4480a72eed2da109982a5dd6f9de16cc1289191d0a"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "scripts/HA-08.yaml": {
+      "bytes": 2820,
+      "sha256": "6b466d617767b393f7bd8c7ccc19f056319be6647645969215188e4c36e9f25a",
+      "sources": [
+        {
+          "path": "experiments/scripts/HA-08.yaml",
+          "sha256": "6b466d617767b393f7bd8c7ccc19f056319be6647645969215188e4c36e9f25a"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "scripts/HA-09.yaml": {
+      "bytes": 3001,
+      "sha256": "12f40fc486388155adb641109ecfdc7f10798997222c39433d81a32c05506f83",
+      "sources": [
+        {
+          "path": "experiments/scripts/HA-09.yaml",
+          "sha256": "12f40fc486388155adb641109ecfdc7f10798997222c39433d81a32c05506f83"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "scripts/HA-10.yaml": {
+      "bytes": 2737,
+      "sha256": "241880a1040ded37686f22a55b65c1fe4381ff70d7ee92a36ba7fe4e4b92438f",
+      "sources": [
+        {
+          "path": "experiments/scripts/HA-10.yaml",
+          "sha256": "241880a1040ded37686f22a55b65c1fe4381ff70d7ee92a36ba7fe4e4b92438f"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "scripts/REVIEW_PACKET.md": {
+      "bytes": 171994,
+      "sha256": "51601de63408f8c0f4945ae0e5b726084b2569e1a3220e199c50bb8951dda97b",
+      "sources": [
+        {
+          "path": "experiments/scripts/REVIEW_PACKET.md",
+          "sha256": "51601de63408f8c0f4945ae0e5b726084b2569e1a3220e199c50bb8951dda97b"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "scripts/VALIDATION_LOG.md": {
+      "bytes": 5018,
+      "sha256": "da053fe8b5b4093beb8a704947a35d12599bfce4278ca2b9c17048690470e80c",
+      "sources": [
+        {
+          "path": "experiments/scripts/VALIDATION_LOG.md",
+          "sha256": "da053fe8b5b4093beb8a704947a35d12599bfce4278ca2b9c17048690470e80c"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "scripts/expected_paths.json": {
+      "bytes": 47214,
+      "sha256": "05514fa27114c2d431d0e91bce300f21ddd562949fbc38651bcb26795705d40e",
+      "sources": [
+        {
+          "path": "experiments/scripts/expected_paths.json",
+          "sha256": "05514fa27114c2d431d0e91bce300f21ddd562949fbc38651bcb26795705d40e"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "validator_repro/QuestionnaireResponse.json": {
+      "bytes": 219,
+      "sha256": "df99fa038655ee3c5085b0b2d655f2abd5df399734124458ef8236c3bac45e02",
+      "sources": [
+        {
+          "path": "experiments/validator_repro/QuestionnaireResponse.json",
+          "sha256": "df99fa038655ee3c5085b0b2d655f2abd5df399734124458ef8236c3bac45e02"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "validator_repro/SHA256SUMS": {
+      "bytes": 183,
+      "sha256": "6877f3bd7c20845e0588de86079c0b93581fc134903965c4059206abb6f433f2",
+      "sources": [
+        {
+          "path": "experiments/validator_repro/SHA256SUMS",
+          "sha256": "6877f3bd7c20845e0588de86079c0b93581fc134903965c4059206abb6f433f2"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "validator_repro/VALIDATOR_LIMITATION.md": {
+      "bytes": 7298,
+      "sha256": "668b186ba6b3489031c3cbe26269fcdaee47899896d557d4e322538a4680b750",
+      "sources": [
+        {
+          "path": "experiments/VALIDATOR_LIMITATION.md",
+          "sha256": "668b186ba6b3489031c3cbe26269fcdaee47899896d557d4e322538a4680b750"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "validator_repro/defs/Questionnaire.json": {
+      "bytes": 510,
+      "sha256": "317b36d9d358c047506d1a5ba14b646cc6fed73b9eeef34ae55fe41deab1fc70",
+      "sources": [
+        {
+          "path": "experiments/validator_repro/defs/Questionnaire.json",
+          "sha256": "317b36d9d358c047506d1a5ba14b646cc6fed73b9eeef34ae55fe41deab1fc70"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "validator_repro/manifest.json": {
+      "bytes": 2127,
+      "sha256": "dff7efa53b2d11e60c1b1c60c6f5d2102906a0bd080fbb8c0ad3c6255a4283ad",
+      "sources": [
+        {
+          "path": "experiments/validator_repro/manifest.json",
+          "sha256": "dff7efa53b2d11e60c1b1c60c6f5d2102906a0bd080fbb8c0ad3c6255a4283ad"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "validator_repro/observed.log": {
+      "bytes": 6621,
+      "sha256": "f6319693985ca74c9ce4ae6bb2cf3469d1f853d0cbdee56a03018b215338c433",
+      "sources": [
+        {
+          "path": "experiments/validator_repro/observed.log",
+          "sha256": "f6319693985ca74c9ce4ae6bb2cf3469d1f853d0cbdee56a03018b215338c433"
+        }
+      ],
+      "transformation": "verbatim copy"
+    }
+  },
+  "root": "ESM_2",
+  "sample_selection": "First three filenames in lexicographic order in experiments/data/twcore",
+  "scenario_status": "provisional; pending physician review",
+  "schema": 1,
+  "self_hash_policy": "MANIFEST.json excludes itself; identical external copy provided",
+  "synthetic_only": true
+}

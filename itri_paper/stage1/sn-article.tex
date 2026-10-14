@@ -50,6 +50,7 @@
 \usepackage{xcolor}%
 \usepackage{textcomp}%
 \usepackage{manyfoot}%
+\usepackage{array}
 \usepackage{booktabs}%
 \usepackage{algorithm}%
 \usepackage{algorithmicx}%
@@ -88,6 +89,8 @@
 \raggedbottom
 %%\unnumbered% uncomment this for unnumbered level heads
 
+% Unique hyperlink targets avoid duplicate float anchors from the journal class.
+\hypersetup{hypertexnames=false}
 \input{tables/numbers.tex}
 \begin{document}
 
@@ -132,7 +135,7 @@
 %% Sample for unstructured abstract %%
 %%==================================%%
 
-\abstract{We describe a modular framework for LLM-assisted pre-consultation with deterministic questionnaires and structured TW Core FHIR write-back. Synthetic verification covered interoperability, text-channel workflow, model replacement, and local load; clinician confirmation was simulated. Across the selected E1 cohorts, \EOneResources{} written resources, including \EOneQuestionnaireResponses{} QuestionnaireResponses, had \EOneErrors{} errors and \EOneValidatorCrashes{} validator exceptions, meeting the zero-error target. End-to-end completion was \ETwoCompletion{} across \ETwoSessions{} sessions. A commercial model replacement met eventual-completion and FHIR criteria; local Gemma retained only \EThreeLocalFacts{} chief-complaint facts and completed without handoff in \EThreeLocalCompletion{}, failing the full replacement criterion. Mock load at \ELoadLastConcurrency{} concurrent sessions had \ELoadLastSessionFailure{} session failure despite \ELoadLastRequestError{} request error. Small real-model load completed \ERealCompleted{} of \ERealSessions{} sessions. Exchange-hub testing (E5) remains blocked by access. Physician scenario review and independent audits are pending. These findings establish bounded software verification, not clinical effectiveness or deployment readiness.}
+\abstract{We describe a modular framework for LLM-assisted pre-consultation with questionnaire-based question selection and structured TW Core FHIR write-back. Synthetic verification maps requirements to explicit checks; clinician confirmation was simulated. Absolute requirements \PassingRequirements{} pass; \FailingRequirements{} fail. R0 supports deterministic question selection through saved-call auditing, static code evidence, and repeated-path stability. R3 fails because written FHIR paths differ from runtime paths for free-text EHR prefill, despite agreement for patient-entered branching answers. The discrepancy reflects fixed-rule encoding differences, not AI question selection. R5 retains known scripted rule gaps. Configuration-only replacement (R7) is \EThreeAlternateSwapVerdict{} for alternate Gemini, matching default outcomes including shared R3/R5 failures, and \EThreeLocalSwapVerdict{} for Gemma because of handoffs and missed stops. National capacity (R8) is \REightVerdict{} without demand data; exchange-hub verification (R9) is \RNineVerdict{} by unavailable access. Structural/profile checks use \texttt{-tx n/a}, without terminology resolution. Requirement-defined criteria were applied post~hoc, distinct from prespecified targets. Findings remain provisional pending physician review and independent audits; they establish bounded software verification, not clinical validation or deployment readiness.}
 
 
 

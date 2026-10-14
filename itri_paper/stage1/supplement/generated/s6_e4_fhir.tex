@@ -1,0 +1,19 @@
+% Generated from selected immutable runs; provisional, pending physician review.
+\begingroup\small\setlength{\tabcolsep}{3pt}\renewcommand{\arraystretch}{1.15}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.07\linewidth}>{\raggedright\arraybackslash}p{0.06\linewidth}>{\raggedright\arraybackslash}p{0.07\linewidth}>{\raggedright\arraybackslash}p{0.24\linewidth}>{\raggedright\arraybackslash}p{0.1\linewidth}>{\raggedright\arraybackslash}p{0.1\linewidth}>{\raggedright\arraybackslash}p{0.18\linewidth}}
+\caption{E4 FHIR-write latency (milliseconds) and partial API charges. Median [Q1,Q3]; late/background usage may be absent.}\label{sup:e4fhir}\\\hline
+Mode & Level & Write n & Median [Q1,Q3] ms & p95 ms & p99 ms & USD/session median (n) \\ \hline
+\endfirsthead
+\hline
+Mode & Level & Write n & Median [Q1,Q3] ms & p95 ms & p99 ms & USD/session median (n) \\ \hline
+\endhead
+\hline\endfoot
+\hline\endlastfoot
+Mock & 10 & 9 & 61.6 [41.9, 83.4] & 106.7 & 110.3 & 0.00000 (n=9) \\
+Mock & 50 & 49 & 28.1 [24.7, 56.3] & 83.0 & 88.5 & 0.00000 (n=39) \\
+Mock & 100 & 99 & 31.6 [25.6, 56.9] & 87.0 & 197.5 & 0.00000 (n=74) \\
+Mock & 500 & 130 & 171.4 [68.4, 742.3] & 1,319.4 & 1,851.5 & -- (n=0) \\
+Real & 1 & 1 & 23.8 [23.8, 23.8] & 23.8 & 23.8 & 0.02380 (n=1) \\
+Real & 2 & 2 & 40.2 [32.5, 48.0] & 54.1 & 55.4 & 0.02266 (n=2) \\
+Real & 4 & 4 & 29.0 [26.0, 40.4] & 62.9 & 67.3 & 0.02097 (n=4) \\
+\end{longtable}\endgroup

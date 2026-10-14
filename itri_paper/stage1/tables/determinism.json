@@ -1,0 +1,6303 @@
+{
+  "schema": "deterministic_question_selection_v1",
+  "requirement_id": "R0",
+  "verdict": "Pass",
+  "criterion_source": "Project investigator requirement; task-audit and repetition criteria applied post hoc on 2026-10-14",
+  "failing_scripts": [],
+  "cohorts": {
+    "E2": {
+      "calls": {
+        "verdict": "Pass",
+        "sessions": 150,
+        "calls": 1381,
+        "allowed_sessions": 150,
+        "chief_calls_max": 1,
+        "task_counts": {
+          "chief_complaint_extraction": 110,
+          "rag_query_translation": 60,
+          "summary:chief_complaint": 101,
+          "summary:differential_diagnoses": 101,
+          "summary:drug_allergy_history": 101,
+          "summary:drug_history": 101,
+          "summary:family_history": 101,
+          "summary:imaging": 100,
+          "summary:laboratory": 101,
+          "summary:must_not_miss": 101,
+          "summary:past_history": 101,
+          "summary:personal_history": 101,
+          "summary:physical_examination": 101,
+          "summary:present_illness": 101
+        },
+        "usage_incomplete": 150,
+        "usage_completeness_unrecorded": 0,
+        "empty_calls": 40,
+        "missing_task_sessions": 0,
+        "per_session": [
+          {
+            "session_key": "default__AP-01__r1",
+            "script_id": "AP-01",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-01__r2",
+            "script_id": "AP-01",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-01__r3",
+            "script_id": "AP-01",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-01__r4",
+            "script_id": "AP-01",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-01__r5",
+            "script_id": "AP-01",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-02__r1",
+            "script_id": "AP-02",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-02__r2",
+            "script_id": "AP-02",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-02__r3",
+            "script_id": "AP-02",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-02__r4",
+            "script_id": "AP-02",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-02__r5",
+            "script_id": "AP-02",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-03__r1",
+            "script_id": "AP-03",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-03__r2",
+            "script_id": "AP-03",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-03__r3",
+            "script_id": "AP-03",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-03__r4",
+            "script_id": "AP-03",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-03__r5",
+            "script_id": "AP-03",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-04__r1",
+            "script_id": "AP-04",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-04__r2",
+            "script_id": "AP-04",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-04__r3",
+            "script_id": "AP-04",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-04__r4",
+            "script_id": "AP-04",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-04__r5",
+            "script_id": "AP-04",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-05__r1",
+            "script_id": "AP-05",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-05__r2",
+            "script_id": "AP-05",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-05__r3",
+            "script_id": "AP-05",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-05__r4",
+            "script_id": "AP-05",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-05__r5",
+            "script_id": "AP-05",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-06__r1",
+            "script_id": "AP-06",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-06__r2",
+            "script_id": "AP-06",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-06__r3",
+            "script_id": "AP-06",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-06__r4",
+            "script_id": "AP-06",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-06__r5",
+            "script_id": "AP-06",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-07__r1",
+            "script_id": "AP-07",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-07__r2",
+            "script_id": "AP-07",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-07__r3",
+            "script_id": "AP-07",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-07__r4",
+            "script_id": "AP-07",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-07__r5",
+            "script_id": "AP-07",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-08__r1",
+            "script_id": "AP-08",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-08__r2",
+            "script_id": "AP-08",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-08__r3",
+            "script_id": "AP-08",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-08__r4",
+            "script_id": "AP-08",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-08__r5",
+            "script_id": "AP-08",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-09__r1",
+            "script_id": "AP-09",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-09__r2",
+            "script_id": "AP-09",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-09__r3",
+            "script_id": "AP-09",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-09__r4",
+            "script_id": "AP-09",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-09__r5",
+            "script_id": "AP-09",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-10__r1",
+            "script_id": "AP-10",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-10__r2",
+            "script_id": "AP-10",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-10__r3",
+            "script_id": "AP-10",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-10__r4",
+            "script_id": "AP-10",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-10__r5",
+            "script_id": "AP-10",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-01__r1",
+            "script_id": "CP-01",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-01__r2",
+            "script_id": "CP-01",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-01__r3",
+            "script_id": "CP-01",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-01__r4",
+            "script_id": "CP-01",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-01__r5",
+            "script_id": "CP-01",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-02__r1",
+            "script_id": "CP-02",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-02__r2",
+            "script_id": "CP-02",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-02__r3",
+            "script_id": "CP-02",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-02__r4",
+            "script_id": "CP-02",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-02__r5",
+            "script_id": "CP-02",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-03__r1",
+            "script_id": "CP-03",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-03__r2",
+            "script_id": "CP-03",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-03__r3",
+            "script_id": "CP-03",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-03__r4",
+            "script_id": "CP-03",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-03__r5",
+            "script_id": "CP-03",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-04__r1",
+            "script_id": "CP-04",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-04__r2",
+            "script_id": "CP-04",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-04__r3",
+            "script_id": "CP-04",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-04__r4",
+            "script_id": "CP-04",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-04__r5",
+            "script_id": "CP-04",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-05__r1",
+            "script_id": "CP-05",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-05__r2",
+            "script_id": "CP-05",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-05__r3",
+            "script_id": "CP-05",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-05__r4",
+            "script_id": "CP-05",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-05__r5",
+            "script_id": "CP-05",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-06__r1",
+            "script_id": "CP-06",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-06__r2",
+            "script_id": "CP-06",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-06__r3",
+            "script_id": "CP-06",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-06__r4",
+            "script_id": "CP-06",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-06__r5",
+            "script_id": "CP-06",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-07__r1",
+            "script_id": "CP-07",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-07__r2",
+            "script_id": "CP-07",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-07__r3",
+            "script_id": "CP-07",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-07__r4",
+            "script_id": "CP-07",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-07__r5",
+            "script_id": "CP-07",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-08__r1",
+            "script_id": "CP-08",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-08__r2",
+            "script_id": "CP-08",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-08__r3",
+            "script_id": "CP-08",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-08__r4",
+            "script_id": "CP-08",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-08__r5",
+            "script_id": "CP-08",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-09__r1",
+            "script_id": "CP-09",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-09__r2",
+            "script_id": "CP-09",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-09__r3",
+            "script_id": "CP-09",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-09__r4",
+            "script_id": "CP-09",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-09__r5",
+            "script_id": "CP-09",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-10__r1",
+            "script_id": "CP-10",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-10__r2",
+            "script_id": "CP-10",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-10__r3",
+            "script_id": "CP-10",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-10__r4",
+            "script_id": "CP-10",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-10__r5",
+            "script_id": "CP-10",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-01__r1",
+            "script_id": "HA-01",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-01__r2",
+            "script_id": "HA-01",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-01__r3",
+            "script_id": "HA-01",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-01__r4",
+            "script_id": "HA-01",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-01__r5",
+            "script_id": "HA-01",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-02__r1",
+            "script_id": "HA-02",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-02__r2",
+            "script_id": "HA-02",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-02__r3",
+            "script_id": "HA-02",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-02__r4",
+            "script_id": "HA-02",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-02__r5",
+            "script_id": "HA-02",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-03__r1",
+            "script_id": "HA-03",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-03__r2",
+            "script_id": "HA-03",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-03__r3",
+            "script_id": "HA-03",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-03__r4",
+            "script_id": "HA-03",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-03__r5",
+            "script_id": "HA-03",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-04__r1",
+            "script_id": "HA-04",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-04__r2",
+            "script_id": "HA-04",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-04__r3",
+            "script_id": "HA-04",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-04__r4",
+            "script_id": "HA-04",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-04__r5",
+            "script_id": "HA-04",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-05__r1",
+            "script_id": "HA-05",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-05__r2",
+            "script_id": "HA-05",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-05__r3",
+            "script_id": "HA-05",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-05__r4",
+            "script_id": "HA-05",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-05__r5",
+            "script_id": "HA-05",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-06__r1",
+            "script_id": "HA-06",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-06__r2",
+            "script_id": "HA-06",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-06__r3",
+            "script_id": "HA-06",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-06__r4",
+            "script_id": "HA-06",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-06__r5",
+            "script_id": "HA-06",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-07__r1",
+            "script_id": "HA-07",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-07__r2",
+            "script_id": "HA-07",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-07__r3",
+            "script_id": "HA-07",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-07__r4",
+            "script_id": "HA-07",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-07__r5",
+            "script_id": "HA-07",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-08__r1",
+            "script_id": "HA-08",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-08__r2",
+            "script_id": "HA-08",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-08__r3",
+            "script_id": "HA-08",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-08__r4",
+            "script_id": "HA-08",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-08__r5",
+            "script_id": "HA-08",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-09__r1",
+            "script_id": "HA-09",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-09__r2",
+            "script_id": "HA-09",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-09__r3",
+            "script_id": "HA-09",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-09__r4",
+            "script_id": "HA-09",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-09__r5",
+            "script_id": "HA-09",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-10__r1",
+            "script_id": "HA-10",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-10__r2",
+            "script_id": "HA-10",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-10__r3",
+            "script_id": "HA-10",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-10__r4",
+            "script_id": "HA-10",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-10__r5",
+            "script_id": "HA-10",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          }
+        ],
+        "scope": "Saved interactive_request_calls only; background/late calls and bounded history may be absent. Empty saved lists are not complete-call evidence."
+      },
+      "route_sources": {
+        "sessions": 150,
+        "counts": {
+          "keyword": 100,
+          "unknown": 50
+        },
+        "unknown_reasons": {
+          "expected_chief_stop_before_route_source_recording": 50
+        },
+        "source": "observed.route_source copied from doctor-loaded chief_assessment.route_source by harness/session.py"
+      }
+    },
+    "default": {
+      "calls": {
+        "verdict": "Pass",
+        "sessions": 30,
+        "calls": 322,
+        "allowed_sessions": 30,
+        "chief_calls_max": 1,
+        "task_counts": {
+          "chief_complaint_extraction": 22,
+          "rag_query_translation": 60,
+          "summary:chief_complaint": 20,
+          "summary:differential_diagnoses": 20,
+          "summary:drug_allergy_history": 20,
+          "summary:drug_history": 20,
+          "summary:family_history": 20,
+          "summary:imaging": 20,
+          "summary:laboratory": 20,
+          "summary:must_not_miss": 20,
+          "summary:past_history": 20,
+          "summary:personal_history": 20,
+          "summary:physical_examination": 20,
+          "summary:present_illness": 20
+        },
+        "usage_incomplete": 30,
+        "usage_completeness_unrecorded": 0,
+        "empty_calls": 8,
+        "missing_task_sessions": 0,
+        "per_session": [
+          {
+            "session_key": "default__AP-01__r1",
+            "script_id": "AP-01",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-02__r1",
+            "script_id": "AP-02",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-03__r1",
+            "script_id": "AP-03",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-04__r1",
+            "script_id": "AP-04",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-05__r1",
+            "script_id": "AP-05",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-06__r1",
+            "script_id": "AP-06",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-07__r1",
+            "script_id": "AP-07",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-08__r1",
+            "script_id": "AP-08",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-09__r1",
+            "script_id": "AP-09",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__AP-10__r1",
+            "script_id": "AP-10",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-01__r1",
+            "script_id": "CP-01",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-02__r1",
+            "script_id": "CP-02",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-03__r1",
+            "script_id": "CP-03",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-04__r1",
+            "script_id": "CP-04",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-05__r1",
+            "script_id": "CP-05",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-06__r1",
+            "script_id": "CP-06",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-07__r1",
+            "script_id": "CP-07",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-08__r1",
+            "script_id": "CP-08",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-09__r1",
+            "script_id": "CP-09",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__CP-10__r1",
+            "script_id": "CP-10",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-01__r1",
+            "script_id": "HA-01",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-02__r1",
+            "script_id": "HA-02",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-03__r1",
+            "script_id": "HA-03",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-04__r1",
+            "script_id": "HA-04",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-05__r1",
+            "script_id": "HA-05",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-06__r1",
+            "script_id": "HA-06",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-07__r1",
+            "script_id": "HA-07",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-08__r1",
+            "script_id": "HA-08",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-09__r1",
+            "script_id": "HA-09",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "default__HA-10__r1",
+            "script_id": "HA-10",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          }
+        ],
+        "scope": "Saved interactive_request_calls only; background/late calls and bounded history may be absent. Empty saved lists are not complete-call evidence."
+      },
+      "route_sources": {
+        "sessions": 30,
+        "counts": {
+          "keyword": 20,
+          "unknown": 10
+        },
+        "unknown_reasons": {
+          "expected_chief_stop_before_route_source_recording": 10
+        },
+        "source": "observed.route_source copied from doctor-loaded chief_assessment.route_source by harness/session.py"
+      }
+    },
+    "llm_swap_a_gemini_alt": {
+      "calls": {
+        "verdict": "Pass",
+        "sessions": 30,
+        "calls": 321,
+        "allowed_sessions": 30,
+        "chief_calls_max": 1,
+        "task_counts": {
+          "chief_complaint_extraction": 22,
+          "rag_query_translation": 59,
+          "summary:chief_complaint": 20,
+          "summary:differential_diagnoses": 20,
+          "summary:drug_allergy_history": 20,
+          "summary:drug_history": 20,
+          "summary:family_history": 20,
+          "summary:imaging": 20,
+          "summary:laboratory": 20,
+          "summary:must_not_miss": 20,
+          "summary:past_history": 20,
+          "summary:personal_history": 20,
+          "summary:physical_examination": 20,
+          "summary:present_illness": 20
+        },
+        "usage_incomplete": 30,
+        "usage_completeness_unrecorded": 0,
+        "empty_calls": 8,
+        "missing_task_sessions": 0,
+        "per_session": [
+          {
+            "session_key": "llm_swap_a_gemini_alt__AP-01__r1",
+            "script_id": "AP-01",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_a_gemini_alt__AP-02__r1",
+            "script_id": "AP-02",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_a_gemini_alt__AP-03__r1",
+            "script_id": "AP-03",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_a_gemini_alt__AP-04__r1",
+            "script_id": "AP-04",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_a_gemini_alt__AP-05__r1",
+            "script_id": "AP-05",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_a_gemini_alt__AP-06__r1",
+            "script_id": "AP-06",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_a_gemini_alt__AP-07__r1",
+            "script_id": "AP-07",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_a_gemini_alt__AP-08__r1",
+            "script_id": "AP-08",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_a_gemini_alt__AP-09__r1",
+            "script_id": "AP-09",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_a_gemini_alt__AP-10__r1",
+            "script_id": "AP-10",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_a_gemini_alt__CP-01__r1",
+            "script_id": "CP-01",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_a_gemini_alt__CP-02__r1",
+            "script_id": "CP-02",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_a_gemini_alt__CP-03__r1",
+            "script_id": "CP-03",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_a_gemini_alt__CP-04__r1",
+            "script_id": "CP-04",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_a_gemini_alt__CP-05__r1",
+            "script_id": "CP-05",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_a_gemini_alt__CP-06__r1",
+            "script_id": "CP-06",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_a_gemini_alt__CP-07__r1",
+            "script_id": "CP-07",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_a_gemini_alt__CP-08__r1",
+            "script_id": "CP-08",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_a_gemini_alt__CP-09__r1",
+            "script_id": "CP-09",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_a_gemini_alt__CP-10__r1",
+            "script_id": "CP-10",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_a_gemini_alt__HA-01__r1",
+            "script_id": "HA-01",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_a_gemini_alt__HA-02__r1",
+            "script_id": "HA-02",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_a_gemini_alt__HA-03__r1",
+            "script_id": "HA-03",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_a_gemini_alt__HA-04__r1",
+            "script_id": "HA-04",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_a_gemini_alt__HA-05__r1",
+            "script_id": "HA-05",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_a_gemini_alt__HA-06__r1",
+            "script_id": "HA-06",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_a_gemini_alt__HA-07__r1",
+            "script_id": "HA-07",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_a_gemini_alt__HA-08__r1",
+            "script_id": "HA-08",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_a_gemini_alt__HA-09__r1",
+            "script_id": "HA-09",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_a_gemini_alt__HA-10__r1",
+            "script_id": "HA-10",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          }
+        ],
+        "scope": "Saved interactive_request_calls only; background/late calls and bounded history may be absent. Empty saved lists are not complete-call evidence."
+      },
+      "route_sources": {
+        "sessions": 30,
+        "counts": {
+          "keyword": 20,
+          "unknown": 10
+        },
+        "unknown_reasons": {
+          "expected_chief_stop_before_route_source_recording": 10
+        },
+        "source": "observed.route_source copied from doctor-loaded chief_assessment.route_source by harness/session.py"
+      }
+    },
+    "llm_swap_b_ollama": {
+      "calls": {
+        "verdict": "Pass",
+        "sessions": 30,
+        "calls": 311,
+        "allowed_sessions": 30,
+        "chief_calls_max": 1,
+        "task_counts": {
+          "chief_complaint_extraction": 20,
+          "rag_query_translation": 51,
+          "summary:chief_complaint": 20,
+          "summary:differential_diagnoses": 20,
+          "summary:drug_allergy_history": 20,
+          "summary:drug_history": 20,
+          "summary:family_history": 20,
+          "summary:imaging": 20,
+          "summary:laboratory": 20,
+          "summary:must_not_miss": 20,
+          "summary:past_history": 20,
+          "summary:personal_history": 20,
+          "summary:physical_examination": 20,
+          "summary:present_illness": 20
+        },
+        "usage_incomplete": 30,
+        "usage_completeness_unrecorded": 0,
+        "empty_calls": 10,
+        "missing_task_sessions": 0,
+        "per_session": [
+          {
+            "session_key": "llm_swap_b_ollama__AP-01__r1",
+            "script_id": "AP-01",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_b_ollama__AP-02__r1",
+            "script_id": "AP-02",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_b_ollama__AP-03__r1",
+            "script_id": "AP-03",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_b_ollama__AP-04__r1",
+            "script_id": "AP-04",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_b_ollama__AP-05__r1",
+            "script_id": "AP-05",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_b_ollama__AP-06__r1",
+            "script_id": "AP-06",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_b_ollama__AP-07__r1",
+            "script_id": "AP-07",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_b_ollama__AP-08__r1",
+            "script_id": "AP-08",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_b_ollama__AP-09__r1",
+            "script_id": "AP-09",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_b_ollama__AP-10__r1",
+            "script_id": "AP-10",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_b_ollama__CP-01__r1",
+            "script_id": "CP-01",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_b_ollama__CP-02__r1",
+            "script_id": "CP-02",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_b_ollama__CP-03__r1",
+            "script_id": "CP-03",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_b_ollama__CP-04__r1",
+            "script_id": "CP-04",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_b_ollama__CP-05__r1",
+            "script_id": "CP-05",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_b_ollama__CP-06__r1",
+            "script_id": "CP-06",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_b_ollama__CP-07__r1",
+            "script_id": "CP-07",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_b_ollama__CP-08__r1",
+            "script_id": "CP-08",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_b_ollama__CP-09__r1",
+            "script_id": "CP-09",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_b_ollama__CP-10__r1",
+            "script_id": "CP-10",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_b_ollama__HA-01__r1",
+            "script_id": "HA-01",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_b_ollama__HA-02__r1",
+            "script_id": "HA-02",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_b_ollama__HA-03__r1",
+            "script_id": "HA-03",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_b_ollama__HA-04__r1",
+            "script_id": "HA-04",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_b_ollama__HA-05__r1",
+            "script_id": "HA-05",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_b_ollama__HA-06__r1",
+            "script_id": "HA-06",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_b_ollama__HA-07__r1",
+            "script_id": "HA-07",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_b_ollama__HA-08__r1",
+            "script_id": "HA-08",
+            "chief_calls": 1,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_b_ollama__HA-09__r1",
+            "script_id": "HA-09",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          },
+          {
+            "session_key": "llm_swap_b_ollama__HA-10__r1",
+            "script_id": "HA-10",
+            "chief_calls": 0,
+            "disallowed_tasks": [],
+            "pass": true
+          }
+        ],
+        "scope": "Saved interactive_request_calls only; background/late calls and bounded history may be absent. Empty saved lists are not complete-call evidence."
+      },
+      "route_sources": {
+        "sessions": 30,
+        "counts": {
+          "keyword": 20,
+          "unknown": 10
+        },
+        "unknown_reasons": {
+          "expected_chief_stop_before_route_source_recording": 8,
+          "manual_handoff_before_route_source_recording": 2
+        },
+        "source": "observed.route_source copied from doctor-loaded chief_assessment.route_source by harness/session.py"
+      }
+    }
+  },
+  "repeated_paths": {
+    "verdict": "Pass",
+    "scripts": 30,
+    "stable_scripts": 30,
+    "required_repeats": 5,
+    "missing_scripts": 0,
+    "complete": true,
+    "per_script": [
+      {
+        "script_id": "AP-01",
+        "repeats": 5,
+        "same": true,
+        "paths": [
+          [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "abdomen_hx",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "abdomen_hx",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "abdomen_hx",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "abdomen_hx",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "abdomen_hx",
+            "surgery"
+          ]
+        ],
+        "session_keys": [
+          "default__AP-01__r1",
+          "default__AP-01__r2",
+          "default__AP-01__r3",
+          "default__AP-01__r4",
+          "default__AP-01__r5"
+        ]
+      },
+      {
+        "script_id": "AP-02",
+        "repeats": 5,
+        "same": true,
+        "paths": [
+          [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "abdomen_hx",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "abdomen_hx",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "abdomen_hx",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "abdomen_hx",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "abdomen_hx",
+            "surgery"
+          ]
+        ],
+        "session_keys": [
+          "default__AP-02__r1",
+          "default__AP-02__r2",
+          "default__AP-02__r3",
+          "default__AP-02__r4",
+          "default__AP-02__r5"
+        ]
+      },
+      {
+        "script_id": "AP-03",
+        "repeats": 5,
+        "same": true,
+        "paths": [
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "surgery"
+          ]
+        ],
+        "session_keys": [
+          "default__AP-03__r1",
+          "default__AP-03__r2",
+          "default__AP-03__r3",
+          "default__AP-03__r4",
+          "default__AP-03__r5"
+        ]
+      },
+      {
+        "script_id": "AP-04",
+        "repeats": 5,
+        "same": true,
+        "paths": [
+          [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "abdomen_hx",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "abdomen_hx",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "abdomen_hx",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "abdomen_hx",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "abdomen_hx",
+            "surgery"
+          ]
+        ],
+        "session_keys": [
+          "default__AP-04__r1",
+          "default__AP-04__r2",
+          "default__AP-04__r3",
+          "default__AP-04__r4",
+          "default__AP-04__r5"
+        ]
+      },
+      {
+        "script_id": "AP-05",
+        "repeats": 5,
+        "same": true,
+        "paths": [
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "abdomen_hx",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "abdomen_hx",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "abdomen_hx",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "abdomen_hx",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "abdomen_hx",
+            "surgery"
+          ]
+        ],
+        "session_keys": [
+          "default__AP-05__r1",
+          "default__AP-05__r2",
+          "default__AP-05__r3",
+          "default__AP-05__r4",
+          "default__AP-05__r5"
+        ]
+      },
+      {
+        "script_id": "AP-06",
+        "repeats": 5,
+        "same": true,
+        "paths": [
+          [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "abdomen_hx",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "abdomen_hx",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "abdomen_hx",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "abdomen_hx",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "abdomen_hx",
+            "surgery"
+          ]
+        ],
+        "session_keys": [
+          "default__AP-06__r1",
+          "default__AP-06__r2",
+          "default__AP-06__r3",
+          "default__AP-06__r4",
+          "default__AP-06__r5"
+        ]
+      },
+      {
+        "script_id": "AP-07",
+        "repeats": 5,
+        "same": true,
+        "paths": [
+          [
+            "reason"
+          ],
+          [
+            "reason"
+          ],
+          [
+            "reason"
+          ],
+          [
+            "reason"
+          ],
+          [
+            "reason"
+          ]
+        ],
+        "session_keys": [
+          "default__AP-07__r1",
+          "default__AP-07__r2",
+          "default__AP-07__r3",
+          "default__AP-07__r4",
+          "default__AP-07__r5"
+        ]
+      },
+      {
+        "script_id": "AP-08",
+        "repeats": 5,
+        "same": true,
+        "paths": [
+          [
+            "reason"
+          ],
+          [
+            "reason"
+          ],
+          [
+            "reason"
+          ],
+          [
+            "reason"
+          ],
+          [
+            "reason"
+          ]
+        ],
+        "session_keys": [
+          "default__AP-08__r1",
+          "default__AP-08__r2",
+          "default__AP-08__r3",
+          "default__AP-08__r4",
+          "default__AP-08__r5"
+        ]
+      },
+      {
+        "script_id": "AP-09",
+        "repeats": 5,
+        "same": true,
+        "paths": [
+          [
+            "reason"
+          ],
+          [
+            "reason"
+          ],
+          [
+            "reason"
+          ],
+          [
+            "reason"
+          ],
+          [
+            "reason"
+          ]
+        ],
+        "session_keys": [
+          "default__AP-09__r1",
+          "default__AP-09__r2",
+          "default__AP-09__r3",
+          "default__AP-09__r4",
+          "default__AP-09__r5"
+        ]
+      },
+      {
+        "script_id": "AP-10",
+        "repeats": 5,
+        "same": true,
+        "paths": [
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "surgery"
+          ]
+        ],
+        "session_keys": [
+          "default__AP-10__r1",
+          "default__AP-10__r2",
+          "default__AP-10__r3",
+          "default__AP-10__r4",
+          "default__AP-10__r5"
+        ]
+      },
+      {
+        "script_id": "CP-01",
+        "repeats": 5,
+        "same": true,
+        "paths": [
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "surgery"
+          ]
+        ],
+        "session_keys": [
+          "default__CP-01__r1",
+          "default__CP-01__r2",
+          "default__CP-01__r3",
+          "default__CP-01__r4",
+          "default__CP-01__r5"
+        ]
+      },
+      {
+        "script_id": "CP-02",
+        "repeats": 5,
+        "same": true,
+        "paths": [
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "cardio",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "cardio",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "cardio",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "cardio",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "cardio",
+            "surgery"
+          ]
+        ],
+        "session_keys": [
+          "default__CP-02__r1",
+          "default__CP-02__r2",
+          "default__CP-02__r3",
+          "default__CP-02__r4",
+          "default__CP-02__r5"
+        ]
+      },
+      {
+        "script_id": "CP-03",
+        "repeats": 5,
+        "same": true,
+        "paths": [
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "cardio",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "cardio",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "cardio",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "cardio",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "cardio",
+            "surgery"
+          ]
+        ],
+        "session_keys": [
+          "default__CP-03__r1",
+          "default__CP-03__r2",
+          "default__CP-03__r3",
+          "default__CP-03__r4",
+          "default__CP-03__r5"
+        ]
+      },
+      {
+        "script_id": "CP-04",
+        "repeats": 5,
+        "same": true,
+        "paths": [
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "surgery"
+          ]
+        ],
+        "session_keys": [
+          "default__CP-04__r1",
+          "default__CP-04__r2",
+          "default__CP-04__r3",
+          "default__CP-04__r4",
+          "default__CP-04__r5"
+        ]
+      },
+      {
+        "script_id": "CP-05",
+        "repeats": 5,
+        "same": true,
+        "paths": [
+          [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "cardio",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "cardio",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "cardio",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "cardio",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "cardio",
+            "surgery"
+          ]
+        ],
+        "session_keys": [
+          "default__CP-05__r1",
+          "default__CP-05__r2",
+          "default__CP-05__r3",
+          "default__CP-05__r4",
+          "default__CP-05__r5"
+        ]
+      },
+      {
+        "script_id": "CP-06",
+        "repeats": 5,
+        "same": true,
+        "paths": [
+          [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "cardio",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "cardio",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "cardio",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "cardio",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "cardio",
+            "surgery"
+          ]
+        ],
+        "session_keys": [
+          "default__CP-06__r1",
+          "default__CP-06__r2",
+          "default__CP-06__r3",
+          "default__CP-06__r4",
+          "default__CP-06__r5"
+        ]
+      },
+      {
+        "script_id": "CP-07",
+        "repeats": 5,
+        "same": true,
+        "paths": [
+          [
+            "reason"
+          ],
+          [
+            "reason"
+          ],
+          [
+            "reason"
+          ],
+          [
+            "reason"
+          ],
+          [
+            "reason"
+          ]
+        ],
+        "session_keys": [
+          "default__CP-07__r1",
+          "default__CP-07__r2",
+          "default__CP-07__r3",
+          "default__CP-07__r4",
+          "default__CP-07__r5"
+        ]
+      },
+      {
+        "script_id": "CP-08",
+        "repeats": 5,
+        "same": true,
+        "paths": [
+          [
+            "reason"
+          ],
+          [
+            "reason"
+          ],
+          [
+            "reason"
+          ],
+          [
+            "reason"
+          ],
+          [
+            "reason"
+          ]
+        ],
+        "session_keys": [
+          "default__CP-08__r1",
+          "default__CP-08__r2",
+          "default__CP-08__r3",
+          "default__CP-08__r4",
+          "default__CP-08__r5"
+        ]
+      },
+      {
+        "script_id": "CP-09",
+        "repeats": 5,
+        "same": true,
+        "paths": [
+          [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "cardio",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "cardio",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "cardio",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "cardio",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "cardio",
+            "surgery"
+          ]
+        ],
+        "session_keys": [
+          "default__CP-09__r1",
+          "default__CP-09__r2",
+          "default__CP-09__r3",
+          "default__CP-09__r4",
+          "default__CP-09__r5"
+        ]
+      },
+      {
+        "script_id": "CP-10",
+        "repeats": 5,
+        "same": true,
+        "paths": [
+          [
+            "reason"
+          ],
+          [
+            "reason"
+          ],
+          [
+            "reason"
+          ],
+          [
+            "reason"
+          ],
+          [
+            "reason"
+          ]
+        ],
+        "session_keys": [
+          "default__CP-10__r1",
+          "default__CP-10__r2",
+          "default__CP-10__r3",
+          "default__CP-10__r4",
+          "default__CP-10__r5"
+        ]
+      },
+      {
+        "script_id": "HA-01",
+        "repeats": 5,
+        "same": true,
+        "paths": [
+          [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "neuro",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "neuro",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "neuro",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "neuro",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "neuro",
+            "surgery"
+          ]
+        ],
+        "session_keys": [
+          "default__HA-01__r1",
+          "default__HA-01__r2",
+          "default__HA-01__r3",
+          "default__HA-01__r4",
+          "default__HA-01__r5"
+        ]
+      },
+      {
+        "script_id": "HA-02",
+        "repeats": 5,
+        "same": true,
+        "paths": [
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "surgery"
+          ]
+        ],
+        "session_keys": [
+          "default__HA-02__r1",
+          "default__HA-02__r2",
+          "default__HA-02__r3",
+          "default__HA-02__r4",
+          "default__HA-02__r5"
+        ]
+      },
+      {
+        "script_id": "HA-03",
+        "repeats": 5,
+        "same": true,
+        "paths": [
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "neuro",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "neuro",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "neuro",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "neuro",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "neuro",
+            "surgery"
+          ]
+        ],
+        "session_keys": [
+          "default__HA-03__r1",
+          "default__HA-03__r2",
+          "default__HA-03__r3",
+          "default__HA-03__r4",
+          "default__HA-03__r5"
+        ]
+      },
+      {
+        "script_id": "HA-04",
+        "repeats": 5,
+        "same": true,
+        "paths": [
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "neuro",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "neuro",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "neuro",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "neuro",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "neuro",
+            "surgery"
+          ]
+        ],
+        "session_keys": [
+          "default__HA-04__r1",
+          "default__HA-04__r2",
+          "default__HA-04__r3",
+          "default__HA-04__r4",
+          "default__HA-04__r5"
+        ]
+      },
+      {
+        "script_id": "HA-05",
+        "repeats": 5,
+        "same": true,
+        "paths": [
+          [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "neuro",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "neuro",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "neuro",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "neuro",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "neuro",
+            "surgery"
+          ]
+        ],
+        "session_keys": [
+          "default__HA-05__r1",
+          "default__HA-05__r2",
+          "default__HA-05__r3",
+          "default__HA-05__r4",
+          "default__HA-05__r5"
+        ]
+      },
+      {
+        "script_id": "HA-06",
+        "repeats": 5,
+        "same": true,
+        "paths": [
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "neuro",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "neuro",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "neuro",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "neuro",
+            "surgery"
+          ],
+          [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "neuro",
+            "surgery"
+          ]
+        ],
+        "session_keys": [
+          "default__HA-06__r1",
+          "default__HA-06__r2",
+          "default__HA-06__r3",
+          "default__HA-06__r4",
+          "default__HA-06__r5"
+        ]
+      },
+      {
+        "script_id": "HA-07",
+        "repeats": 5,
+        "same": true,
+        "paths": [
+          [
+            "reason"
+          ],
+          [
+            "reason"
+          ],
+          [
+            "reason"
+          ],
+          [
+            "reason"
+          ],
+          [
+            "reason"
+          ]
+        ],
+        "session_keys": [
+          "default__HA-07__r1",
+          "default__HA-07__r2",
+          "default__HA-07__r3",
+          "default__HA-07__r4",
+          "default__HA-07__r5"
+        ]
+      },
+      {
+        "script_id": "HA-08",
+        "repeats": 5,
+        "same": true,
+        "paths": [
+          [
+            "reason"
+          ],
+          [
+            "reason"
+          ],
+          [
+            "reason"
+          ],
+          [
+            "reason"
+          ],
+          [
+            "reason"
+          ]
+        ],
+        "session_keys": [
+          "default__HA-08__r1",
+          "default__HA-08__r2",
+          "default__HA-08__r3",
+          "default__HA-08__r4",
+          "default__HA-08__r5"
+        ]
+      },
+      {
+        "script_id": "HA-09",
+        "repeats": 5,
+        "same": true,
+        "paths": [
+          [
+            "reason"
+          ],
+          [
+            "reason"
+          ],
+          [
+            "reason"
+          ],
+          [
+            "reason"
+          ],
+          [
+            "reason"
+          ]
+        ],
+        "session_keys": [
+          "default__HA-09__r1",
+          "default__HA-09__r2",
+          "default__HA-09__r3",
+          "default__HA-09__r4",
+          "default__HA-09__r5"
+        ]
+      },
+      {
+        "script_id": "HA-10",
+        "repeats": 5,
+        "same": true,
+        "paths": [
+          [
+            "reason"
+          ],
+          [
+            "reason"
+          ],
+          [
+            "reason"
+          ],
+          [
+            "reason"
+          ],
+          [
+            "reason"
+          ]
+        ],
+        "session_keys": [
+          "default__HA-10__r1",
+          "default__HA-10__r2",
+          "default__HA-10__r3",
+          "default__HA-10__r4",
+          "default__HA-10__r5"
+        ]
+      }
+    ]
+  },
+  "cross_model_paths": {
+    "llm_swap_a_gemini_alt": {
+      "verdict": "Pass",
+      "scripts": 30,
+      "same_scripts": 30,
+      "different_scripts": [],
+      "unknown_scripts": 0,
+      "complete": true,
+      "per_script": [
+        {
+          "script_id": "AP-01",
+          "same": true,
+          "default_path": [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "abdomen_hx",
+            "surgery"
+          ],
+          "replacement_path": [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "abdomen_hx",
+            "surgery"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "AP-02",
+          "same": true,
+          "default_path": [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "abdomen_hx",
+            "surgery"
+          ],
+          "replacement_path": [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "abdomen_hx",
+            "surgery"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "AP-03",
+          "same": true,
+          "default_path": [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "surgery"
+          ],
+          "replacement_path": [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "surgery"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "AP-04",
+          "same": true,
+          "default_path": [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "abdomen_hx",
+            "surgery"
+          ],
+          "replacement_path": [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "abdomen_hx",
+            "surgery"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "AP-05",
+          "same": true,
+          "default_path": [
+            "reason",
+            "smoke",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "abdomen_hx",
+            "surgery"
+          ],
+          "replacement_path": [
+            "reason",
+            "smoke",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "abdomen_hx",
+            "surgery"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "AP-06",
+          "same": true,
+          "default_path": [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "abdomen_hx",
+            "surgery"
+          ],
+          "replacement_path": [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "abdomen_hx",
+            "surgery"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "AP-07",
+          "same": true,
+          "default_path": [
+            "reason"
+          ],
+          "replacement_path": [
+            "reason"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "AP-08",
+          "same": true,
+          "default_path": [
+            "reason"
+          ],
+          "replacement_path": [
+            "reason"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "AP-09",
+          "same": true,
+          "default_path": [
+            "reason"
+          ],
+          "replacement_path": [
+            "reason"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "AP-10",
+          "same": true,
+          "default_path": [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "surgery"
+          ],
+          "replacement_path": [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "surgery"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "CP-01",
+          "same": true,
+          "default_path": [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "surgery"
+          ],
+          "replacement_path": [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "surgery"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "CP-02",
+          "same": true,
+          "default_path": [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "cardio",
+            "surgery"
+          ],
+          "replacement_path": [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "cardio",
+            "surgery"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "CP-03",
+          "same": true,
+          "default_path": [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "cardio",
+            "surgery"
+          ],
+          "replacement_path": [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "cardio",
+            "surgery"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "CP-04",
+          "same": true,
+          "default_path": [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "surgery"
+          ],
+          "replacement_path": [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "surgery"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "CP-05",
+          "same": true,
+          "default_path": [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "cardio",
+            "surgery"
+          ],
+          "replacement_path": [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "cardio",
+            "surgery"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "CP-06",
+          "same": true,
+          "default_path": [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "cardio",
+            "surgery"
+          ],
+          "replacement_path": [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "cardio",
+            "surgery"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "CP-07",
+          "same": true,
+          "default_path": [
+            "reason"
+          ],
+          "replacement_path": [
+            "reason"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "CP-08",
+          "same": true,
+          "default_path": [
+            "reason"
+          ],
+          "replacement_path": [
+            "reason"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "CP-09",
+          "same": true,
+          "default_path": [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "cardio",
+            "surgery"
+          ],
+          "replacement_path": [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "cardio",
+            "surgery"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "CP-10",
+          "same": true,
+          "default_path": [
+            "reason"
+          ],
+          "replacement_path": [
+            "reason"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "HA-01",
+          "same": true,
+          "default_path": [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "neuro",
+            "surgery"
+          ],
+          "replacement_path": [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "neuro",
+            "surgery"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "HA-02",
+          "same": true,
+          "default_path": [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "surgery"
+          ],
+          "replacement_path": [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "surgery"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "HA-03",
+          "same": true,
+          "default_path": [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "neuro",
+            "surgery"
+          ],
+          "replacement_path": [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "neuro",
+            "surgery"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "HA-04",
+          "same": true,
+          "default_path": [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "neuro",
+            "surgery"
+          ],
+          "replacement_path": [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "neuro",
+            "surgery"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "HA-05",
+          "same": true,
+          "default_path": [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "neuro",
+            "surgery"
+          ],
+          "replacement_path": [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "neuro",
+            "surgery"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "HA-06",
+          "same": true,
+          "default_path": [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "neuro",
+            "surgery"
+          ],
+          "replacement_path": [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "neuro",
+            "surgery"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "HA-07",
+          "same": true,
+          "default_path": [
+            "reason"
+          ],
+          "replacement_path": [
+            "reason"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "HA-08",
+          "same": true,
+          "default_path": [
+            "reason"
+          ],
+          "replacement_path": [
+            "reason"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "HA-09",
+          "same": true,
+          "default_path": [
+            "reason"
+          ],
+          "replacement_path": [
+            "reason"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "HA-10",
+          "same": true,
+          "default_path": [
+            "reason"
+          ],
+          "replacement_path": [
+            "reason"
+          ],
+          "reason": null
+        }
+      ]
+    },
+    "llm_swap_b_ollama": {
+      "verdict": "Fail",
+      "scripts": 30,
+      "same_scripts": 26,
+      "different_scripts": [
+        "AP-03",
+        "AP-04",
+        "AP-07",
+        "HA-08"
+      ],
+      "unknown_scripts": 0,
+      "complete": true,
+      "per_script": [
+        {
+          "script_id": "AP-01",
+          "same": true,
+          "default_path": [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "abdomen_hx",
+            "surgery"
+          ],
+          "replacement_path": [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "abdomen_hx",
+            "surgery"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "AP-02",
+          "same": true,
+          "default_path": [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "abdomen_hx",
+            "surgery"
+          ],
+          "replacement_path": [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "abdomen_hx",
+            "surgery"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "AP-03",
+          "same": false,
+          "default_path": [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "surgery"
+          ],
+          "replacement_path": [
+            "reason"
+          ],
+          "reason": "Chief-stage manual handoff in replacement"
+        },
+        {
+          "script_id": "AP-04",
+          "same": false,
+          "default_path": [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "abdomen_hx",
+            "surgery"
+          ],
+          "replacement_path": [
+            "reason"
+          ],
+          "reason": "Chief-stage manual handoff in replacement"
+        },
+        {
+          "script_id": "AP-05",
+          "same": true,
+          "default_path": [
+            "reason",
+            "smoke",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "abdomen_hx",
+            "surgery"
+          ],
+          "replacement_path": [
+            "reason",
+            "smoke",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "abdomen_hx",
+            "surgery"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "AP-06",
+          "same": true,
+          "default_path": [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "abdomen_hx",
+            "surgery"
+          ],
+          "replacement_path": [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "abdomen_hx",
+            "surgery"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "AP-07",
+          "same": false,
+          "default_path": [
+            "reason"
+          ],
+          "replacement_path": [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "abdomen_hx",
+            "surgery"
+          ],
+          "reason": "Default stopped at chief complaint; replacement continued with missing expected safety rules"
+        },
+        {
+          "script_id": "AP-08",
+          "same": true,
+          "default_path": [
+            "reason"
+          ],
+          "replacement_path": [
+            "reason"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "AP-09",
+          "same": true,
+          "default_path": [
+            "reason"
+          ],
+          "replacement_path": [
+            "reason"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "AP-10",
+          "same": true,
+          "default_path": [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "surgery"
+          ],
+          "replacement_path": [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "severity",
+            "quality",
+            "location",
+            "associated",
+            "contact_history",
+            "surgery"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "CP-01",
+          "same": true,
+          "default_path": [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "surgery"
+          ],
+          "replacement_path": [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "surgery"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "CP-02",
+          "same": true,
+          "default_path": [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "cardio",
+            "surgery"
+          ],
+          "replacement_path": [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "cardio",
+            "surgery"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "CP-03",
+          "same": true,
+          "default_path": [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "cardio",
+            "surgery"
+          ],
+          "replacement_path": [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "cardio",
+            "surgery"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "CP-04",
+          "same": true,
+          "default_path": [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "surgery"
+          ],
+          "replacement_path": [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "surgery"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "CP-05",
+          "same": true,
+          "default_path": [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "cardio",
+            "surgery"
+          ],
+          "replacement_path": [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "cardio",
+            "surgery"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "CP-06",
+          "same": true,
+          "default_path": [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "cardio",
+            "surgery"
+          ],
+          "replacement_path": [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "cardio",
+            "surgery"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "CP-07",
+          "same": true,
+          "default_path": [
+            "reason"
+          ],
+          "replacement_path": [
+            "reason"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "CP-08",
+          "same": true,
+          "default_path": [
+            "reason"
+          ],
+          "replacement_path": [
+            "reason"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "CP-09",
+          "same": true,
+          "default_path": [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "cardio",
+            "surgery"
+          ],
+          "replacement_path": [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "fixed",
+            "tender",
+            "severity",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "cardio",
+            "surgery"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "CP-10",
+          "same": true,
+          "default_path": [
+            "reason"
+          ],
+          "replacement_path": [
+            "reason"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "HA-01",
+          "same": true,
+          "default_path": [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "neuro",
+            "surgery"
+          ],
+          "replacement_path": [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "neuro",
+            "surgery"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "HA-02",
+          "same": true,
+          "default_path": [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "surgery"
+          ],
+          "replacement_path": [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "surgery"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "HA-03",
+          "same": true,
+          "default_path": [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "neuro",
+            "surgery"
+          ],
+          "replacement_path": [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "neuro",
+            "surgery"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "HA-04",
+          "same": true,
+          "default_path": [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "neuro",
+            "surgery"
+          ],
+          "replacement_path": [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "neuro",
+            "surgery"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "HA-05",
+          "same": true,
+          "default_path": [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "neuro",
+            "surgery"
+          ],
+          "replacement_path": [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "current_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "neuro",
+            "surgery"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "HA-06",
+          "same": true,
+          "default_path": [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "neuro",
+            "surgery"
+          ],
+          "replacement_path": [
+            "reason",
+            "smoke",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "neuro",
+            "surgery"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "HA-07",
+          "same": true,
+          "default_path": [
+            "reason"
+          ],
+          "replacement_path": [
+            "reason"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "HA-08",
+          "same": false,
+          "default_path": [
+            "reason"
+          ],
+          "replacement_path": [
+            "reason",
+            "smoke",
+            "chronic",
+            "past_meds",
+            "allergy",
+            "onset",
+            "start_type",
+            "location",
+            "worst_ever",
+            "quality",
+            "aggravate",
+            "relieve",
+            "associated",
+            "risk_flags",
+            "neuro",
+            "surgery"
+          ],
+          "reason": "Default stopped at chief complaint; replacement continued with missing expected safety rules"
+        },
+        {
+          "script_id": "HA-09",
+          "same": true,
+          "default_path": [
+            "reason"
+          ],
+          "replacement_path": [
+            "reason"
+          ],
+          "reason": null
+        },
+        {
+          "script_id": "HA-10",
+          "same": true,
+          "default_path": [
+            "reason"
+          ],
+          "replacement_path": [
+            "reason"
+          ],
+          "reason": null
+        }
+      ]
+    }
+  },
+  "static_sources": [
+    {
+      "path": "backend/domain/questionnaires.py",
+      "symbol": "next_question_index",
+      "available": true,
+      "line_start": 595,
+      "line_end": 607,
+      "role": "Iterates questionnaire order and applies condition_matches plus prefill skips; no model call.",
+      "sha256": "bd33cb04ad19a6e6703ddb82dbdbe87bbc1668366740b9a4ea957fd659f82e98"
+    },
+    {
+      "path": "backend/domain/questionnaires.py",
+      "symbol": "condition_matches",
+      "available": true,
+      "line_start": 528,
+      "line_end": 533,
+      "role": "Fixed substring predicate on recorded data; no model call.",
+      "sha256": "bd33cb04ad19a6e6703ddb82dbdbe87bbc1668366740b9a4ea957fd659f82e98"
+    },
+    {
+      "path": "backend/app/routes/patient.py",
+      "symbol": "_chat_questionnaire",
+      "available": true,
+      "line_start": 1266,
+      "line_end": 1424,
+      "role": "Chief assessment is confined to the reason branch; next_question_index chooses the next step; completion dispatch occurs only when it returns None.",
+      "sha256": "733fdc9140430cc7515ca38b85f3bb5c33cd7cea95bee00f733da4087ebe265b"
+    },
+    {
+      "path": "backend/app/services/patient_interview.py",
+      "symbol": "select_questionnaire_route",
+      "available": true,
+      "line_start": 92,
+      "line_end": 117,
+      "role": "Keywords first; only no keyword hit permits a single evidence-grounded extractor fallback.",
+      "sha256": "7d804c81640b4eb53a4b3cc89cab5c9757645f5a0c47775773b2661c8add765b"
+    },
+    {
+      "path": "experiments/harness/session.py",
+      "symbol": "_doctor_load",
+      "available": true,
+      "line_start": 513,
+      "line_end": 540,
+      "role": "Copies chief_assessment.route_source to the immutable observed route_source field.",
+      "sha256": "ffb884fd015f31888254829dd1952cbd2c757fd76c50821cfd1b4d878f51fd78"
+    }
+  ],
+  "sources_sha256": {
+    "experiments/results/e2_end_to_end/20261013T141553Z/summary.json": "5b87a7787ab2c83f1439f1c24149f2e16df13f9aaa5a078ad3b3be6e4be39a94",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__AP-01__r1/session.json": "fa445401528c52433e25e7c3baad5240b4f669b66d926fae3986f4ab99a98b12",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__AP-01__r2/session.json": "dae92aaaea789cd4345654c0fc075f19ca34d6f075df06ed4b2281ccb2f981b6",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__AP-01__r3/session.json": "f9290807a361f953e0e7a067622d9c52c3c0abf20a8a923919194bc06dcabf24",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__AP-01__r4/session.json": "66866b6a73a2712d91e840e834f0aa90e58c4b70726ab79928b4ea20ac24be61",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__AP-01__r5/session.json": "4dc397b126644102aab70866c49622b37e365c1b16745385c6ace9a469a189ff",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__AP-02__r1/session.json": "b14d0b085a3b5373fa2dd388b676a4fee9c6cd8af143de32e780e339f82aa117",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__AP-02__r2/session.json": "97dc146e5eb65c140c3a5caca663fb85293f82dbd6e2496c062496e5994e44d0",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__AP-02__r3/session.json": "31423f2173ce77b85e49a1de4d14015b1f221b40f7750d3ee06149098d4501df",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__AP-02__r4/session.json": "8ed9360d348a1ac353948abf96049aa27db36f7ba3d416945a448cc06048b1dd",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__AP-02__r5/session.json": "3081e81f238c9b93f37afab9a84243eb540ed3e649d02a1974859dbc9d592999",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__AP-03__r1/session.json": "d7bdb0ffb5ef5fa7388663771f63f08f1089da5ba5c19c94dea57a1f75dfcc67",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__AP-03__r2/session.json": "137da79ea12228a0776fbc7fe42e2c17f52821470df8bb25eb67f8f0f6e3f15a",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__AP-03__r3/session.json": "9f58867e68c4b248ce79a5383aced6ce894a662f7f15110292fc5bd9d33dcaa4",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__AP-03__r4/session.json": "1c4d9a68d09911d3421464633cb71e884f4f911284ddcdf36554a3bc64aade6c",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__AP-03__r5/session.json": "857109a2e8b5b25e0844128fa76f7337c33df445f51f4d36e4b068e13296b0ba",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__AP-04__r1/session.json": "7c5b17754b7273bc8c5f30fc038e311a923c09c7761ab52c790e7bc17cc66f48",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__AP-04__r2/session.json": "47adff7f40c816ea236e33d89a868d2756bb2ac2cb800c84cd7144552080e60d",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__AP-04__r3/session.json": "bad5253afbb8199b7fb4c4059a8f9d9f89faa4a50210e5dd5fdcbc95600a8e2e",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__AP-04__r4/session.json": "fde60320b232a71713799eb1ddeea114ab5ff5c7edd21cd63078d174deddd7a1",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__AP-04__r5/session.json": "0e11b63ba373489c902f32ee41ef892789b245ce84970a666916cf42a35d983f",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__AP-05__r1/session.json": "a4cb93d6a01c68d63968b6d9bae3b2bdb4e38b6083d5efd75ddc21a690494173",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__AP-05__r2/session.json": "cbf4f1219b8da8c3a55b597c63628c213810d26bb7c63525d37653ac4d137d2e",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__AP-05__r3/session.json": "6bd2e72906d314ed829115999e65353defac1b9f3e502ed3036b575200d252d8",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__AP-05__r4/session.json": "e589d333a81f3952812ca17406dbcac13d335deebffde8bd5421783632129e6b",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__AP-05__r5/session.json": "9819c51a657dfdb6b95e6a2d131065d4a765e35f4fee41e14ea267524dda4f56",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__AP-06__r1/session.json": "b2d0f28af477c53c19be85e95a07e4985c1869332c61b5ffe2b7fd8aba671cf8",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__AP-06__r2/session.json": "5d6222d9e97fef438a41546fcc549890df2ecb12e1a00a2e1390e12201912be7",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__AP-06__r3/session.json": "b095abf7f5fa8060cbe254b6cabf8146eb90598538ead59218e2432bd7ea4c69",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__AP-06__r4/session.json": "0e9d89542b87f7b0507d466a6f3f8b251b0c8f6793e19fb6bf364236fcd48f2a",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__AP-06__r5/session.json": "85f86ffec95902978c65b6f7db033034dd7cc13358093e934be8bb32e0557183",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__AP-07__r1/session.json": "a86d0eeb83211c1312ef4e1516e07df383b463d2903f6dfbfe9ff91d1fcbedb0",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__AP-07__r2/session.json": "a743caf3c4532ece19f8098afe5f2947b99d77ad6cb67ed3fc678694fbf21766",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__AP-07__r3/session.json": "d04b44df42ebdbd7092307e1c2ea28a2c79a040fb16423c99e6309f437814655",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__AP-07__r4/session.json": "4fa18ee71a072ed192e38b573dba2cfe9044522946e354244a3806176cb634cc",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__AP-07__r5/session.json": "9a81982a8c619ea5ee8fc3415978c0e6f142db2487355d23100d2279ab852b38",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__AP-08__r1/session.json": "51c41455a2ac597eb0804def22f74512e89ce149e8e49ad0df32aa6eea605c9d",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__AP-08__r2/session.json": "3508902d30b99bf82415e8d259e55b98be4f6a75373b6eb651f944c71809dae2",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__AP-08__r3/session.json": "89ec0fc670eeddd833859e72162bab20c52fc1e1713e9cc13318fd0305ef3fd2",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__AP-08__r4/session.json": "d819c25480e71d6165a31b242f5c5a98df488fcbfe28dc979958c5b3ca9d76a4",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__AP-08__r5/session.json": "15e10a03bfefad149e977f88ac9e2550b590fd700857ac1c4a72cf5b29811aad",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__AP-09__r1/session.json": "9e8c766c4482337521c86c4ac1ced7865820970eb6668b7fe5ab078eb30d5bf5",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__AP-09__r2/session.json": "05486a99188b79e0da6c86eb45407c03764f691c9f7966697b290e558a91c137",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__AP-09__r3/session.json": "b876ebf4865f5f132fd6d1786cedf973bbf00465069a1ed62e0a621bb68728fb",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__AP-09__r4/session.json": "bd8ebeb06c9a38dadeaac518c57ed33740effda803ca43be021b2568402f7a08",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__AP-09__r5/session.json": "fae05ba87b2304558b5fef1eb99259cc07002acd03d63ca25e6a18f7aee08834",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__AP-10__r1/session.json": "8cfdfc1a38237326e1dc83d3417cb3a5f5ae88624d0c417c1e741dc256c98c7b",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__AP-10__r2/session.json": "491115881d00fc80fc3cc6ccc1869f7f2de5ea6023051033c71d49875e390c05",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__AP-10__r3/session.json": "60e041388a915e80d3e05d2b8921c73e972761a8bc8752c9f9f2e531c37258db",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__AP-10__r4/session.json": "a1ca2e42269a0a2564b1c9b447cff9188ed709c4d0075ddde80e3eb05bdcedf6",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__AP-10__r5/session.json": "b365e9fcfc4983bab13e50b33c8b35376d4443856204d442dc10814f7eab248c",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-01__r1/session.json": "5235049ce5c17d1ebd9cb33aee0d262b5721329078ac0d1d67665ccc39660152",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-01__r2/session.json": "165fea6801569d1e18e74a0e8ae84714e9ef85c57eaada816dab8f0def029d7b",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-01__r3/session.json": "f4b0966e2d7e75dc8568dc538e38b8d43861e7dacc9b8654a62804c38c1cb74a",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-01__r4/session.json": "9290d8b7579847af23a8c6f50552e2a60312697e33a243269fb38bcba1c98b60",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-01__r5/session.json": "f7b57dd4f37f34f3e4fde1e8ecffe6e177871af6374c2fb28c70748b22d45dc3",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-02__r1/session.json": "febbb8bc14351dd41e8452da4982d9492236e333b52f9a8ca14431f3f2cd564c",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-02__r2/session.json": "6c4f794f4c2e24cec9e1b4f4cc330d9435ad96fc9b0931180a4fc2566fe6cd92",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-02__r3/session.json": "b65a541385009fd6a634297f31ae2ef48fa968c4cdf597339bb73539485edd53",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-02__r4/session.json": "e8d3e8e56c0a1d8dd60ac2e2a6aba63ae5ed811ffacf9281900ab8039eb947fa",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-02__r5/session.json": "2bcc197cc6f969c01679a0d752255fb5ff734c1c30fec30b88852642eaa712ad",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-03__r1/session.json": "f9c9afb28bfbe13944b400b3943fa1c3bee27537dcb971c934fbb1346ac40111",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-03__r2/session.json": "e9ae39440c6b0fc11eb1f6d561c59f30e9512b6b00fb38e9cb3e660ddaf38bb7",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-03__r3/session.json": "308d99e9f4b7afb2a7ed7722e2f290446fa0bc63203bcfd21c77e02e20536af1",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-03__r4/session.json": "f6ffa6231622123fc15aef980db80eebc7e25cc36470612ad3271093fe1dd01c",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-03__r5/session.json": "c01e4ffb4a5b332a0c86a726268278eab307e5bb26eea6ed24ce9697be6157a8",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-04__r1/session.json": "696659da5fc949b7a7f9c6d9ecf3a81d714f8e607541611c9437e2ede229ddd3",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-04__r2/session.json": "a5e5e2da6daefea6f9f5ce92efa18b7334b90b6c980611406feac5978dc0ecd5",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-04__r3/session.json": "21172477e3be70820912f9fe7eaafceb0d3523e57668468fe9169639dd17616c",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-04__r4/session.json": "169b3cd3583ccd3b72e19db9786e96cea959d93b9964868f45cff71fe60d11a2",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-04__r5/session.json": "f8c47ce4330ba0c7b2640ad7a33577ab80ba1bda3b1eaa1f9c9328b56dac1fd9",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-05__r1/session.json": "22a501fbe506fabfbba2c3973fb5a9cc4f8fa57fd0ddecdcc1c01fd07afddeb7",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-05__r2/session.json": "682181ca0e363b17edf5dc834df2f160319ca0d6e30ac75aa9da87601932cb4b",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-05__r3/session.json": "9edc67b8835c075f1d8b7ae5c5d82236dbc6ed9539ad7f079b054c71c67ac196",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-05__r4/session.json": "d4f540c3d0297d611528cc0457d393af03e7ed5f5d5f9533f11886270d112a7f",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-05__r5/session.json": "7839919367b16b020574bfde6a1b68ddbeba2c1af3862f84e00d38f7231e1933",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-06__r1/session.json": "3880eb030f02b4d91a42ce94b01b5e18c55156773e0b5ad3485c760db297183a",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-06__r2/session.json": "0056e11bccae640d19a6377950f4ea182c83589a24167fc2a86dae0ea1dcbed4",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-06__r3/session.json": "00d78b483b4351495d5641484b929398efe85489fe276f4159b5f6878192836d",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-06__r4/session.json": "593250062aa14bfbc6ef1b6c793ae788a6aa1b353cac8ac20a8d809e891206b8",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-06__r5/session.json": "f1a30ace802f94e505dcd7e06061de00f6a0bedecd897f1615498ac32c64c8b4",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-07__r1/session.json": "d4c18a60449f05f7340b94eab0e6f521d07273c36bf3e09e01af228e3d3395f4",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-07__r2/session.json": "7c86a85b2d1a57f83e8984b134b237177ad17c3c85bc0c9f928e9e619c0d8764",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-07__r3/session.json": "d428fb96bec716bd61d9adaf2011ab93afebd65b288f8d2f2ab801adc6e3b431",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-07__r4/session.json": "8c0e1c0a375fb9e7573b537b5ae4b338e9bb5ea15c84b99682c88509b6a4b3b4",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-07__r5/session.json": "d04c8e8323e1792e36d58259f98cf1177092d08be51256b37c9bf71dc4402db1",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-08__r1/session.json": "547afbe5bdf29afd8fb2f5028cf24bcb1d884ebade4c66be0dc6b41182b782c3",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-08__r2/session.json": "a40f709e01062708096bfd220a8ff7cf1a6ed743110e5264218a77d8835f28df",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-08__r3/session.json": "4d8822f025edd47ba4e3b7a9108cae338a58f778ad2762d6aaffd78ee502ae55",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-08__r4/session.json": "003ce5a828726f203cc5f7d1d8ee41ef094bb5a8f301cbd6528d97c801d3330c",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-08__r5/session.json": "834e64ad285c8e41de33d7727c6b175af365c86cc4b5d144918d5761cff001ad",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-09__r1/session.json": "b779b6697144f9d6268831f212a2678dd5f596a31c9b30d3114af4e4e4294790",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-09__r2/session.json": "9f2874afbe7d1cc43079d92fb14cf53ca8d2ff24c8a91a1a7abc79076a8c548d",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-09__r3/session.json": "238651914fb39061ac143d230935723c5f2ea8f625b0c2e9a2721c6f9390424d",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-09__r4/session.json": "65abdebdfd3fa64a46c48a34dfbab7718d8caf7229df53723a8d0483c22343a6",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-09__r5/session.json": "3291837128b06fc1380a103b15a8fd6ea536285c2ce9510661eddc39c94a4eed",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-10__r1/session.json": "3e22abe889bd9b99442982fb9e6e3d91b69fd883c4a44f409ce655d0d5be87e3",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-10__r2/session.json": "9977f9d8fd6e8dfd7653e9fb2b845011f1d529080db8273d6b4790bd762f9d08",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-10__r3/session.json": "29a0d2fd6e11c1b981f642a88ca52bde72cd1559bf685eb7a4873b4452edb9dd",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-10__r4/session.json": "0c6ba47ab0dc9b9a4bc791cc30a0ca042293e04f1ab10b4174c53d21a017e86d",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-10__r5/session.json": "e4795cc9ea42383eb0ab9bd58665612d457a5b2d945893ac056e8dbde90ad83b",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__HA-01__r1/session.json": "2215de5d27faef642b616118084f12fc0fbc38bd87f07308fe137d06d8ce5fdd",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__HA-01__r2/session.json": "ad612a66a848c68d436776f64f44a46c3aadea97699fe965ae8471e881b9dad4",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__HA-01__r3/session.json": "35fd63969280402cb5df5066ce7407e71dbd387c55b99fe493fb0384c41a2778",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__HA-01__r4/session.json": "c4ce4dd038dbc84e56751e4e0294fce54b0fd71be9afbed2bd9f9a78b2c12853",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__HA-01__r5/session.json": "bec4b4058d1ce99a234d582758edc6b3baa848b0a970a257735944a0b79bd2fa",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__HA-02__r1/session.json": "3c7a780e5030922a30a1a0f19251a334a5c1edc6e234dd4228b9c4c7e42a7444",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__HA-02__r2/session.json": "4250718a1144aeea7290fd9ae9201ed6e76c14772ac90dbcf4ae1911ee46dfc8",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__HA-02__r3/session.json": "4221330b50f7ac2e01d5fa514f10137529d4260f3d7213fb98577c715988f5b4",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__HA-02__r4/session.json": "fcf106b396d347643a2fc92272ea552629ecb741c9e9ac2a13ee4189bbf5d9c8",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__HA-02__r5/session.json": "b8e641ce2ccfbff155d803aeecfb5e5b6c9fde22449c7e20f6b6b115cf678b68",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__HA-03__r1/session.json": "b2725e0275ceb43b2762a9455edef869d035691b0aec93fd4639ce02ef8bff53",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__HA-03__r2/session.json": "2e60c1afa5ab448effbbee0c37b63ae3519ca214deaed487fb8e13ad498a9aff",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__HA-03__r3/session.json": "0ab2f4a7555d1465c89519983a4c190e4d03f591118544881b37932736c584b4",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__HA-03__r4/session.json": "424d282772965bfcbc39a68689dbf9975674ac96d4a2ca1a9f15db8548210ff1",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__HA-03__r5/session.json": "e58587150ab59e776665956898c97f9d873a6e931a32b0d66dd005bb305355b4",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__HA-04__r1/session.json": "91fa58a7b7c6e26f2392312dfda321c44f90cf8e1b33c85cbb05ed675f207b34",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__HA-04__r2/session.json": "dc729a7de8de05ef56c26bb63f402e34b50115c3ea6bbf75506d945531ed1291",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__HA-04__r3/session.json": "1ae714f115bf46078e75a985069b51548664aa27945cb76d17a42c0445f19d2c",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__HA-04__r4/session.json": "63cd8c45a0718717a50c9212b923bcb9ffdcdb8927d04286bb786fd7b3aca9e8",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__HA-04__r5/session.json": "1443cb3b68c67c7b2ad316f769a62d6808cbcec7e3116f6adba53ac3511fa9c2",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__HA-05__r1/session.json": "7efc260d31689fb1349a4e26bcd31837a21311109d12f1706caa923eb7341418",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__HA-05__r2/session.json": "292e28274c90f245f5280756515f22326cb2757380eaf6e6080f45fad29b1ae3",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__HA-05__r3/session.json": "29a157604620ee09977b515c0443108091938f1fe2b8d01e5c728eb5a56ddef9",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__HA-05__r4/session.json": "1813505ec5b5cfc30977ffa1f0841b51646f3873bcde5d5f8d39d7c99d011955",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__HA-05__r5/session.json": "363c705d9d4b0eaa23aeb9dc9d8c20dd003538bdaa8cdd4fd56a93ed959461d2",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__HA-06__r1/session.json": "107f72bda921ab8a16bac6fed19a10339f778a5d80960482856710ec41a2e624",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__HA-06__r2/session.json": "b9c1d387a233ba81d471a4cedbb383a2b2237dd1e96acf5f1b9d80811f68f839",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__HA-06__r3/session.json": "6fc73a8948da88daa76686fb1d1ee0dc5e18133f914cacc980a458b1fd899bf3",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__HA-06__r4/session.json": "eec1026e20dd1af78a6a071725409ec6b91dc67c6535de18b1e528dafcee7af2",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__HA-06__r5/session.json": "17c42b2c79bc6d09b6556de05f4ee1afd2c5d1da9d2f6bc23abf79832ded4c22",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__HA-07__r1/session.json": "7a851e39e84a7217c7c2000aa6991b7db089f27b4cb65bcd39e25ae7e8be942e",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__HA-07__r2/session.json": "7b7650be3982b3c26a9f0d663b6f48924299def7ad96d59b867b6130a95a0c34",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__HA-07__r3/session.json": "f9c9666f4b1dae5d02fff7c9b094e7ae0728454b0425d909b0a2d89b8dab1ecf",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__HA-07__r4/session.json": "a6eeb3464f224ff34b2fb16a87801a5651d05b5daf8f79f060c74a61477939a2",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__HA-07__r5/session.json": "d583fddf40b49920db735867fe778c60ba084ead2573534aae77a1a137410bf2",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__HA-08__r1/session.json": "138de9487fcad1f2578ca1556e4a768bab0bbfc40d1ff3635bec32c3c3e18a06",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__HA-08__r2/session.json": "92cf069635fc8e9a31eadfba1293959d0452b2bf5f5195572a00bb17e2103b13",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__HA-08__r3/session.json": "44dafacf653fec763d4ca0b873b16168a5bf75e6224832fd2fee4b3f3f3be874",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__HA-08__r4/session.json": "091e1940c8a4dd6e73f9deb603ffd05dc1ef9f7c2068a3964b1a8422bd526761",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__HA-08__r5/session.json": "6f9658213c60b83e1f30e129fe8d8985115ee352139f6dbde6ba596935b3878c",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__HA-09__r1/session.json": "ceac04cac7fa79975caae6058e2a0449ce0ee3e0e633f27137ab60a51b6f45bc",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__HA-09__r2/session.json": "0c3185dbb3767f88ad180ff68e51711c025bc31058586ed3540b3e74f40dd897",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__HA-09__r3/session.json": "d96055bcec3de7dd2506de406707842b892073616e51b5cdf25cfd90de83936f",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__HA-09__r4/session.json": "44963591097e7022702bd5f5c211ddd345de3fbd32fc51c798a2480c0f7b53fc",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__HA-09__r5/session.json": "930011f7f897862e66e51be508137af10e47c5844578e1aabed44ecc60a213cb",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__HA-10__r1/session.json": "51a0ae6158b1a7689e8e19a1b48de5330ad909dea31f7acecfa25fdad92a4d98",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__HA-10__r2/session.json": "7bbd0e09d0396fdeb146972624de57a3a8d5859a2e5b3e79618d0b8b378d2e5a",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__HA-10__r3/session.json": "cefd2a14d149867b65069251c40f3839cdd8457e13e26a83d92ca3f8208ab7a2",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__HA-10__r4/session.json": "7aca0b66785f963452137e8c889defa2f482514cd7fbe3e735b3caef077e0b19",
+    "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__HA-10__r5/session.json": "0521daadf84108db9048835f8b8687449da01f8ab88d22e8be508daff6e88738",
+    "experiments/results/e3_swap/20261013T143525Z/summary.json": "fdaaabe977da3532123529249cf4a10c93650a43082ee8966fe9e4d913ea636f",
+    "experiments/results/e3_swap_e2/20261013T143527Z/summary.json": "9bd79b32f5f000ab6f3ed6b5bc0b0fa201e029853331c7f585681e1f8117cb52",
+    "experiments/results/e3_swap_e2/20261013T143527Z/sessions/default__AP-01__r1/session.json": "15f55dedf57817f1e8f344cba54a66a94ab3f18fb918762739acabffe20fd7f7",
+    "experiments/results/e3_swap_e2/20261013T143527Z/sessions/default__AP-02__r1/session.json": "90f594b5f4bc62cb364cdcc7ea09ccbeb15cac043582bdbc1f068882ead81327",
+    "experiments/results/e3_swap_e2/20261013T143527Z/sessions/default__AP-03__r1/session.json": "9a2233b7f46f7a9c59a1554629e0fdf2d09b4ebca819665e6518909a9fbd5fec",
+    "experiments/results/e3_swap_e2/20261013T143527Z/sessions/default__AP-04__r1/session.json": "cd7a6b41726b5afd9965052a98775eb13bea43c0609743a3ecb2bf6ce440b5b1",
+    "experiments/results/e3_swap_e2/20261013T143527Z/sessions/default__AP-05__r1/session.json": "43804df7e2ec5d99542eb9b3f6bfa2f2d9ab4e42247e63a69eeb9ec5b035301c",
+    "experiments/results/e3_swap_e2/20261013T143527Z/sessions/default__AP-06__r1/session.json": "90844598e83490fec6bfda49e2d27846baacbcff3f3a199cb816438c9c56028e",
+    "experiments/results/e3_swap_e2/20261013T143527Z/sessions/default__AP-07__r1/session.json": "9125688b8312f4526e379f7fd6214684897181dfbacf538158c3acad7f614aa5",
+    "experiments/results/e3_swap_e2/20261013T143527Z/sessions/default__AP-08__r1/session.json": "8e4e030f794ed6c6de47311469493d967707d4c1e22d9e3ebec554ba66de67dc",
+    "experiments/results/e3_swap_e2/20261013T143527Z/sessions/default__AP-09__r1/session.json": "d91bc021ee39e13c8a0523224f4148e98940ccb6fec812d1862d2b623f29d336",
+    "experiments/results/e3_swap_e2/20261013T143527Z/sessions/default__AP-10__r1/session.json": "1ce96a59b54d50a97e09c7db89dcec8af9e1f41ede0a3f687898e8bbb0b3815c",
+    "experiments/results/e3_swap_e2/20261013T143527Z/sessions/default__CP-01__r1/session.json": "6006b89c156f345a9fc829a626c697cfa0023f04616026dd44238c8238833ac7",
+    "experiments/results/e3_swap_e2/20261013T143527Z/sessions/default__CP-02__r1/session.json": "676ea575f704fef4a33351b3d7dd0c589351ed13125059b892f1936aebf7690f",
+    "experiments/results/e3_swap_e2/20261013T143527Z/sessions/default__CP-03__r1/session.json": "d1dbe2b5fb4e27b2da131d20899abe448167c41f745e4319fe28e4a9035e0494",
+    "experiments/results/e3_swap_e2/20261013T143527Z/sessions/default__CP-04__r1/session.json": "2583c1c663b6c514d0d320a9688d4fc239d8e8e3ef393db76ffac48cce3dd26e",
+    "experiments/results/e3_swap_e2/20261013T143527Z/sessions/default__CP-05__r1/session.json": "6c2b702bd76791c490fe3b6fc96042ffa255dbce8200047587c684e9ce95fbba",
+    "experiments/results/e3_swap_e2/20261013T143527Z/sessions/default__CP-06__r1/session.json": "7281e4bc51841ec15627afa77c968bd1edf4a57ba1ff3126378beb6903c919f8",
+    "experiments/results/e3_swap_e2/20261013T143527Z/sessions/default__CP-07__r1/session.json": "e02aec4d94135160f83c2afe6c13b70743622aac35a5cf913f1c1b60b3c8c9b2",
+    "experiments/results/e3_swap_e2/20261013T143527Z/sessions/default__CP-08__r1/session.json": "89f88ae721ec0fb8ae3fe4f39a34be70d4c22194eb6d97270a063cf71a2ce0ff",
+    "experiments/results/e3_swap_e2/20261013T143527Z/sessions/default__CP-09__r1/session.json": "0db54f1e6450f3e6d4178326cbaf3c64c493c50bf99c8ee79bf0258a63bc53b8",
+    "experiments/results/e3_swap_e2/20261013T143527Z/sessions/default__CP-10__r1/session.json": "b14acda85b772929af589fd7a57ba95cc3cd5f5d36d7799a6c1e8ba8d1a0af0d",
+    "experiments/results/e3_swap_e2/20261013T143527Z/sessions/default__HA-01__r1/session.json": "4fd2141aef769163d3fb756947c2519151ab11bf21e274aaa1202ad1d6cf9ef9",
+    "experiments/results/e3_swap_e2/20261013T143527Z/sessions/default__HA-02__r1/session.json": "2f09aeafe27e3147eda5e0507ff7078be5b5631aec6c2e16bdde592aa7111cad",
+    "experiments/results/e3_swap_e2/20261013T143527Z/sessions/default__HA-03__r1/session.json": "8f03da23b760cb0c766d1f32ecf1e75aaaf19a2983531342efbc802095ad093a",
+    "experiments/results/e3_swap_e2/20261013T143527Z/sessions/default__HA-04__r1/session.json": "dd963fce8814794b2eda89152e10a32dbb6bb8e83f4cdb033be717efa04f4b08",
+    "experiments/results/e3_swap_e2/20261013T143527Z/sessions/default__HA-05__r1/session.json": "83c17b94a7cada6b8e938f18e080464daa48436d0f493a6bbdf17e125381f5c3",
+    "experiments/results/e3_swap_e2/20261013T143527Z/sessions/default__HA-06__r1/session.json": "311b2f6298e8b337769dd813e80e38db18c5c06a99487711e40642f97f07bbc3",
+    "experiments/results/e3_swap_e2/20261013T143527Z/sessions/default__HA-07__r1/session.json": "8444a3ade445cb2723ed44c58cae48703e0db6d7a64d2b53c38b81daf97a0895",
+    "experiments/results/e3_swap_e2/20261013T143527Z/sessions/default__HA-08__r1/session.json": "e9e3dae417653f1b3eba6dd27965d6ef08f90acd8350bd977fd00b467e208a78",
+    "experiments/results/e3_swap_e2/20261013T143527Z/sessions/default__HA-09__r1/session.json": "cb4f4af78ec1bfcdeb738ff552ba9653c49d69c8853f8e052fdf12a39f9d6e58",
+    "experiments/results/e3_swap_e2/20261013T143527Z/sessions/default__HA-10__r1/session.json": "a130d92d31278a15ecdd0e07409599ddd89aa68b63bde7d99c3b0984711dcd50",
+    "experiments/results/e3_swap_e2/20261013T144002Z/summary.json": "94a3b8a2adb1e631451c7a0944f7c27dcbcdf2d2cce6d94ed8c1a4142da5dd86",
+    "experiments/results/e3_swap_e2/20261013T144002Z/sessions/llm_swap_a_gemini_alt__AP-01__r1/session.json": "b5bdb1f29587562863df8f09c224dc1df22a21dc2f03862e0b2a2cb64fd2c255",
+    "experiments/results/e3_swap_e2/20261013T144002Z/sessions/llm_swap_a_gemini_alt__AP-02__r1/session.json": "6921a1d35863dd9f9de5f1de7b2a1bce73186b3b08f07a8c07f891ea3cf4fb4b",
+    "experiments/results/e3_swap_e2/20261013T144002Z/sessions/llm_swap_a_gemini_alt__AP-03__r1/session.json": "becf1c98a1ae33c581f0638da84c98b3f65194ed7bf0692ee04ba7fd42f0d134",
+    "experiments/results/e3_swap_e2/20261013T144002Z/sessions/llm_swap_a_gemini_alt__AP-04__r1/session.json": "b68ca9d8739dc88ba86e7666f4b2e47f9c8417399101d9a1252bed394b49104b",
+    "experiments/results/e3_swap_e2/20261013T144002Z/sessions/llm_swap_a_gemini_alt__AP-05__r1/session.json": "88750aed3b551409ba1bb789498d323aa30eed6154cce146267c8452763b5586",
+    "experiments/results/e3_swap_e2/20261013T144002Z/sessions/llm_swap_a_gemini_alt__AP-06__r1/session.json": "1f2deaf9a28191bdff5b5f311fcdea09d87584b4390f56be426abae4c1feea6b",
+    "experiments/results/e3_swap_e2/20261013T144002Z/sessions/llm_swap_a_gemini_alt__AP-07__r1/session.json": "0be6110bb6906772a072759034f6068fe69109494feebc5534c67de109101c76",
+    "experiments/results/e3_swap_e2/20261013T144002Z/sessions/llm_swap_a_gemini_alt__AP-08__r1/session.json": "3746585ba7e7c6baa0657dfe9f0dbf41bc7f4cb66e78aabdcb0dae6790bfab72",
+    "experiments/results/e3_swap_e2/20261013T144002Z/sessions/llm_swap_a_gemini_alt__AP-09__r1/session.json": "f7aca570854aed703b6189250f6df1f6673aa81f7c191cc0d71eddaf6a4b2589",
+    "experiments/results/e3_swap_e2/20261013T144002Z/sessions/llm_swap_a_gemini_alt__AP-10__r1/session.json": "7adebd2f617ee3dfc7b0d0b7d72cfee7f1254f9ebd456e31a7ae7a5d72e16b01",
+    "experiments/results/e3_swap_e2/20261013T144002Z/sessions/llm_swap_a_gemini_alt__CP-01__r1/session.json": "47f67d792ad4515263757a0d2c6ee2cea47c0f6244db943f80ffad82550fffac",
+    "experiments/results/e3_swap_e2/20261013T144002Z/sessions/llm_swap_a_gemini_alt__CP-02__r1/session.json": "297af8d4ddd6d3b60e3988c8267b09ef72ee51308b1f65db4c3299a6478311c2",
+    "experiments/results/e3_swap_e2/20261013T144002Z/sessions/llm_swap_a_gemini_alt__CP-03__r1/session.json": "cef22eb53df04a2b2c8e2d4a249cc30ddc5aad0603d0a0a35d290d37a6cd96ec",
+    "experiments/results/e3_swap_e2/20261013T144002Z/sessions/llm_swap_a_gemini_alt__CP-04__r1/session.json": "c65192fa222cbc806d608a5daeff0fd3d6e1ef0160a89c165e689dcded4ee9e6",
+    "experiments/results/e3_swap_e2/20261013T144002Z/sessions/llm_swap_a_gemini_alt__CP-05__r1/session.json": "4bd46d77b7dde37378b8a24f0c0fdfb76999a408f766f0c610bd79b0ca0cdd5c",
+    "experiments/results/e3_swap_e2/20261013T144002Z/sessions/llm_swap_a_gemini_alt__CP-06__r1/session.json": "1b922cd4e02b4daf54cc3328ea7cd8e3fe3878c90177758add85e70225bade9d",
+    "experiments/results/e3_swap_e2/20261013T144002Z/sessions/llm_swap_a_gemini_alt__CP-07__r1/session.json": "28fcfe77443d45111937f0ffb53702e8b56f16846cf4836ce110321d58bce25b",
+    "experiments/results/e3_swap_e2/20261013T144002Z/sessions/llm_swap_a_gemini_alt__CP-08__r1/session.json": "48eb368029942b0ff2843bef9b925d16a4c1352acc62156613db8b12df6f0d4c",
+    "experiments/results/e3_swap_e2/20261013T144002Z/sessions/llm_swap_a_gemini_alt__CP-09__r1/session.json": "49a11772d21363eab8861883f9cfb7565b1ca409dbfbbd22f81bc69a5c479788",
+    "experiments/results/e3_swap_e2/20261013T144002Z/sessions/llm_swap_a_gemini_alt__CP-10__r1/session.json": "1b280e35d9a520fd021bd064fa8999c291a4e2b6ac01c7a74673176fcd27e3f0",
+    "experiments/results/e3_swap_e2/20261013T144002Z/sessions/llm_swap_a_gemini_alt__HA-01__r1/session.json": "d9e88f6acc57c7e91ddf3486501262e219d3bc00b4dd3dbc56c2694c76a62476",
+    "experiments/results/e3_swap_e2/20261013T144002Z/sessions/llm_swap_a_gemini_alt__HA-02__r1/session.json": "bd7aa866f199405bc23a3d5f8dbcdf03852a83dd78401613df2362b714b8fa7b",
+    "experiments/results/e3_swap_e2/20261013T144002Z/sessions/llm_swap_a_gemini_alt__HA-03__r1/session.json": "f14ce13c67a96c67875ed55a960d9e36c36a88fc836e8d43d26d00a7343d5e1f",
+    "experiments/results/e3_swap_e2/20261013T144002Z/sessions/llm_swap_a_gemini_alt__HA-04__r1/session.json": "016ae03ed6393eeec1ba83a984f192766b9967aa982d8a5513777ee25d015ae7",
+    "experiments/results/e3_swap_e2/20261013T144002Z/sessions/llm_swap_a_gemini_alt__HA-05__r1/session.json": "2147ebc8686d0701b967cbbae57d480b48933131dfbd327ce7290fd9a96bc98a",
+    "experiments/results/e3_swap_e2/20261013T144002Z/sessions/llm_swap_a_gemini_alt__HA-06__r1/session.json": "3364b7bce8837c3b838d75b7c53c6a67d226948aacbd04959be7cd717d24ab2f",
+    "experiments/results/e3_swap_e2/20261013T144002Z/sessions/llm_swap_a_gemini_alt__HA-07__r1/session.json": "1d8e2d09c0d9fb1324244e7ba8014cc6bfc71cbfed4db4ac3520962e0b7b3101",
+    "experiments/results/e3_swap_e2/20261013T144002Z/sessions/llm_swap_a_gemini_alt__HA-08__r1/session.json": "6e420312526822bc0a0f490c677ca481a386e708fef40bd0bb6f28baea566144",
+    "experiments/results/e3_swap_e2/20261013T144002Z/sessions/llm_swap_a_gemini_alt__HA-09__r1/session.json": "745e5f7116a3da39899d3d10f28a0dc430f6d6022ad757895e835d126fc99859",
+    "experiments/results/e3_swap_e2/20261013T144002Z/sessions/llm_swap_a_gemini_alt__HA-10__r1/session.json": "70ac0fc33565abfa6e1835da4ca00ab05f5d5c85a6a0d0b62692d1615500c3b6",
+    "experiments/results/e3_swap_e2/20261013T144457Z/summary.json": "c6880adee03e7cc414e7aecd57dea5e2f1b44ca8558fe75a719e2517ab1cf9b1",
+    "experiments/results/e3_swap_e2/20261013T144457Z/sessions/llm_swap_b_ollama__AP-01__r1/session.json": "f68196bf58f3a1ffde35d1fe819878905492be84a8fd89e0777f39b7e3a5b181",
+    "experiments/results/e3_swap_e2/20261013T144457Z/sessions/llm_swap_b_ollama__AP-02__r1/session.json": "8ed6a725e9d843bdaf355679ed320e133286975591c014fea74503954e4c056f",
+    "experiments/results/e3_swap_e2/20261013T144457Z/sessions/llm_swap_b_ollama__AP-03__r1/session.json": "e74fd3b247e2cdf2b03f677333b5a5aa8080a00a1c096248c09b8791cc8238b6",
+    "experiments/results/e3_swap_e2/20261013T144457Z/sessions/llm_swap_b_ollama__AP-04__r1/session.json": "05e46009bad05ce654290e45764a43729978439a086ef91d6efcb75b739dc3af",
+    "experiments/results/e3_swap_e2/20261013T144457Z/sessions/llm_swap_b_ollama__AP-05__r1/session.json": "77ce649e1e8008d78518f0ba5aaf9a5f97f1bcd42f492c20d02cda8d3cd90860",
+    "experiments/results/e3_swap_e2/20261013T144457Z/sessions/llm_swap_b_ollama__AP-06__r1/session.json": "81989860945403d11cb074f9d6d9e501890f0f908fcd8ce5961323a068614dc0",
+    "experiments/results/e3_swap_e2/20261013T144457Z/sessions/llm_swap_b_ollama__AP-07__r1/session.json": "b109ee9132f9e15e20c6af0b37ccf1958a14d0f9374a56c71a23c5c3348241cc",
+    "experiments/results/e3_swap_e2/20261013T144457Z/sessions/llm_swap_b_ollama__AP-08__r1/session.json": "9fcfd613debedb99e2cd1062d520c4ee605237820c821b2792c856538d16b2b3",
+    "experiments/results/e3_swap_e2/20261013T144457Z/sessions/llm_swap_b_ollama__AP-09__r1/session.json": "7a9ecffbb5a05b3eb6250cdfc10711f6ba0ddb791dd4b5d89c32c4e4b60d59f9",
+    "experiments/results/e3_swap_e2/20261013T144457Z/sessions/llm_swap_b_ollama__AP-10__r1/session.json": "a6f412bd89d1d8676c8c73f4243654a3b2999ab2f8e723a1a6ba9c5d8afe212f",
+    "experiments/results/e3_swap_e2/20261013T144457Z/sessions/llm_swap_b_ollama__CP-01__r1/session.json": "beef2de2c7c34627fa1ec867c70785531cb35586e4532d411c0853bc533ca8b4",
+    "experiments/results/e3_swap_e2/20261013T144457Z/sessions/llm_swap_b_ollama__CP-02__r1/session.json": "e579c03bf8f7ce74b5315c558aee27feb87070e9cde3e3606d9fe64d59069b01",
+    "experiments/results/e3_swap_e2/20261013T144457Z/sessions/llm_swap_b_ollama__CP-03__r1/session.json": "b6be7ab4e808e6172cfac26db430723527345f99581aaa8edfdffb9bec7e1296",
+    "experiments/results/e3_swap_e2/20261013T144457Z/sessions/llm_swap_b_ollama__CP-04__r1/session.json": "b018cfee321f5c2d189d91dc2a79e5bc169b6989dc80a725cfb1580f0fe20f82",
+    "experiments/results/e3_swap_e2/20261013T144457Z/sessions/llm_swap_b_ollama__CP-05__r1/session.json": "6e2e6467f03a6e92a2f69bb5bdbc38163199929a0f5529807ba30f81d17e1320",
+    "experiments/results/e3_swap_e2/20261013T144457Z/sessions/llm_swap_b_ollama__CP-06__r1/session.json": "c8d2f335a67e0142eab63ac5ba06e2c028899890ae73e5a6237e3bf98b34fcef",
+    "experiments/results/e3_swap_e2/20261013T144457Z/sessions/llm_swap_b_ollama__CP-07__r1/session.json": "6539872f834da7c30a9aea6375e419881ec808e5a180d90550b5a7e21d5a0d47",
+    "experiments/results/e3_swap_e2/20261013T144457Z/sessions/llm_swap_b_ollama__CP-08__r1/session.json": "1bfa9fcd70347cae778b10c9b5534f2c7447636358a49bd5dec2d10ae177a87e",
+    "experiments/results/e3_swap_e2/20261013T144457Z/sessions/llm_swap_b_ollama__CP-09__r1/session.json": "98fa7d04c956c72175c13a74a806ee69c2b2b8963dbd8d624344fed3703db5b2",
+    "experiments/results/e3_swap_e2/20261013T144457Z/sessions/llm_swap_b_ollama__CP-10__r1/session.json": "8f15c5224729592d376e3643a339b7c0f6ea571207d8257c3f9cd6f41cb27f03",
+    "experiments/results/e3_swap_e2/20261013T144457Z/sessions/llm_swap_b_ollama__HA-01__r1/session.json": "c61ca735ac2e05a0d46d72f1bd48918b8d051534caf6158afbf3de62e300b04b",
+    "experiments/results/e3_swap_e2/20261013T144457Z/sessions/llm_swap_b_ollama__HA-02__r1/session.json": "226a78b44e0ce1e8b373e4b9d0d323040bc51fc015ba7059d3d14e841fe6a99f",
+    "experiments/results/e3_swap_e2/20261013T144457Z/sessions/llm_swap_b_ollama__HA-03__r1/session.json": "65a8468c9a1f98c37efd18994d059d0461ed56e818560ecfe86a92ed858dd702",
+    "experiments/results/e3_swap_e2/20261013T144457Z/sessions/llm_swap_b_ollama__HA-04__r1/session.json": "c9f32532d2b1a5b693fee5267e6e3f2db1cdbd375dfa487d01b0e65e01fc25e6",
+    "experiments/results/e3_swap_e2/20261013T144457Z/sessions/llm_swap_b_ollama__HA-05__r1/session.json": "b52adcd9af396fd354fb11df0a3631745aca65fc76845399716a92672c906596",
+    "experiments/results/e3_swap_e2/20261013T144457Z/sessions/llm_swap_b_ollama__HA-06__r1/session.json": "44eb337e00be34292e5a14c0ecea704eb2a857f59f00bcf74e20701d41722086",
+    "experiments/results/e3_swap_e2/20261013T144457Z/sessions/llm_swap_b_ollama__HA-07__r1/session.json": "d9021f217f06ddaeb358e3af568c1ce3bc23d72789eb7aa2d300204f41cc2f4e",
+    "experiments/results/e3_swap_e2/20261013T144457Z/sessions/llm_swap_b_ollama__HA-08__r1/session.json": "40fe55f488752101bcd4ab4b1982112ff6ca8d981cc02da33c1c33201f54c9d6",
+    "experiments/results/e3_swap_e2/20261013T144457Z/sessions/llm_swap_b_ollama__HA-09__r1/session.json": "53a1190380e9aef36db366e4e7c2afb824aab64bd02b0854a6ff3202d7f4f017",
+    "experiments/results/e3_swap_e2/20261013T144457Z/sessions/llm_swap_b_ollama__HA-10__r1/session.json": "2dca04b83a1446817a1f9b8c6883910cbd51a1b228067c28d932af89e731d46f",
+    "backend/domain/questionnaires.py": "bd33cb04ad19a6e6703ddb82dbdbe87bbc1668366740b9a4ea957fd659f82e98",
+    "backend/app/routes/patient.py": "733fdc9140430cc7515ca38b85f3bb5c33cd7cea95bee00f733da4087ebe265b",
+    "backend/app/services/patient_interview.py": "7d804c81640b4eb53a4b3cc89cab5c9757645f5a0c47775773b2661c8add765b",
+    "experiments/harness/session.py": "ffb884fd015f31888254829dd1952cbd2c757fd76c50821cfd1b4d878f51fd78",
+    "experiments/config/paper_runs.json": "b1c5af617606f914d220ed8b762d62af98c5f5de7eb4f8e2b39bbd545c5442f3",
+    "experiments/paper_assets/requirements_evidence.py": "f9aaf31d1b1e83a9c63e69418433739ff7e3f6090680938046e418dc38ad6284",
+    "experiments/paper_assets/requirements_rules.py": "f0bf93b00f79f47018f17fbe225eeb369ada2ba8f6eae5147cbfb02cc41e55dc",
+    "experiments/harness/metrics.py": "b66758f1fe7199a6d2bdab3e2c4fff261a5895fc251cab9eef2b6a7b381157ed",
+    "experiments/paper_assets/common.py": "1c145254a04de1bd4ea1ea43528d6c3c8408385ce64ea0e0978bce5d587343cd",
+    "docs/paper/codex_determinism_r3_spec_2026-10-14.md": "d0f0c411c91def92dfb67d987e6bebd7d687600d91d41f84229d98321829e1d8",
+    "experiments/paper_assets/determinism.py": "edd680cc7fc60422b457bf66475ae1bb3976cbfb4dad51995f10f21fbac3cf08",
+    "experiments/paper_assets/determinism_evidence.py": "409dd97743aff0044b3a08ed294f29b53981423741c8ac10ce902915e37fff01"
+  },
+  "scope": "R0 verdict uses E2 saved-task audit and five-repeat stability with static code evidence. Cross-model path stability is descriptive; incomplete call telemetry is not proof of all historical calls."
+}

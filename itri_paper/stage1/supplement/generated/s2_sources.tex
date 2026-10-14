@@ -1,0 +1,308 @@
+\begingroup\small\raggedright
+\begin{longtable}{>{\raggedright\arraybackslash}p{.38\linewidth}>{\raggedright\arraybackslash}p{.39\linewidth}>{\raggedright\arraybackslash}p{.12\linewidth}}
+\caption{Application extension catalog (complete URLs)}\\
+URL & Purpose & Type \\ \hline
+\endfirsthead
+URL & Purpose & Type \\ \hline
+\endhead
+https://medi\allowbreak{}cal-consulta\allowbreak{}tion.local/f\allowbreak{}hir/Structur\allowbreak{}eDefinition/\allowbreak{}preconsult-i\allowbreak{}tem-kind & Runtime input kind of the item: text, choice, date or duration. & code \\
+https://medi\allowbreak{}cal-consulta\allowbreak{}tion.local/f\allowbreak{}hir/Structur\allowbreak{}eDefinition/\allowbreak{}preconsult-i\allowbreak{}tem-section & Runtime questionnaire section: chief, basic, history or disease. & code \\
+https://medi\allowbreak{}cal-consulta\allowbreak{}tion.local/f\allowbreak{}hir/Structur\allowbreak{}eDefinition/\allowbreak{}preconsult-i\allowbreak{}tem-route & Disease route that contributed this item (disease items only). & string \\
+https://medi\allowbreak{}cal-consulta\allowbreak{}tion.local/f\allowbreak{}hir/Structur\allowbreak{}eDefinition/\allowbreak{}preconsult-i\allowbreak{}tem-base-fie\allowbreak{}ld & Unprefixed source field; secondary routes store answers as route\_\_field. & string \\
+https://medi\allowbreak{}cal-consulta\allowbreak{}tion.local/f\allowbreak{}hir/Structur\allowbreak{}eDefinition/\allowbreak{}preconsult-i\allowbreak{}tem-allow-ot\allowbreak{}her & Whether the runtime accepts a free-text 'other' answer for this item. & boolean \\
+https://medi\allowbreak{}cal-consulta\allowbreak{}tion.local/f\allowbreak{}hir/Structur\allowbreak{}eDefinition/\allowbreak{}preconsult-i\allowbreak{}tem-other-la\allowbreak{}bel & Label the runtime shows for the free-text 'other' input. & string \\
+https://medi\allowbreak{}cal-consulta\allowbreak{}tion.local/f\allowbreak{}hir/Structur\allowbreak{}eDefinition/\allowbreak{}preconsult-d\allowbreak{}uration-quic\allowbreak{}k-option & Ordered quick-pick answers offered for a duration item. & string \\
+https://medi\allowbreak{}cal-consulta\allowbreak{}tion.local/f\allowbreak{}hir/Structur\allowbreak{}eDefinition/\allowbreak{}preconsult-d\allowbreak{}uration-unit & Ordered units offered with a numeric duration answer. & string \\
+https://medi\allowbreak{}cal-consulta\allowbreak{}tion.local/f\allowbreak{}hir/Structur\allowbreak{}eDefinition/\allowbreak{}preconsult-o\allowbreak{}ther-detail & Marks the nested string item that carries the free text of the coded 'other' answer. It is part of its parent answer, not a separate interview step. & boolean \\
+https://medi\allowbreak{}cal-consulta\allowbreak{}tion.local/f\allowbreak{}hir/Structur\allowbreak{}eDefinition/\allowbreak{}preconsult-s\allowbreak{}emantic-onse\allowbreak{}t & Deterministic onset fact asserted when this option is selected. & code \\
+https://medi\allowbreak{}cal-consulta\allowbreak{}tion.local/f\allowbreak{}hir/Structur\allowbreak{}eDefinition/\allowbreak{}preconsult-s\allowbreak{}emantic-cour\allowbreak{}se & Deterministic course fact asserted when this option is selected. & code \\
+https://medi\allowbreak{}cal-consulta\allowbreak{}tion.local/f\allowbreak{}hir/Structur\allowbreak{}eDefinition/\allowbreak{}preconsult-s\allowbreak{}emantic-dura\allowbreak{}tion & Deterministic duration fact asserted when this option is selected. & code \\
+https://medi\allowbreak{}cal-consulta\allowbreak{}tion.local/f\allowbreak{}hir/Structur\allowbreak{}eDefinition/\allowbreak{}preconsult-s\allowbreak{}emantic-seve\allowbreak{}rity & Deterministic severity fact asserted when this option is selected. & code \\
+https://medi\allowbreak{}cal-consulta\allowbreak{}tion.local/f\allowbreak{}hir/Structur\allowbreak{}eDefinition/\allowbreak{}preconsult-s\allowbreak{}emantic-new-\allowbreak{}or-changed & Deterministic new-or-changed fact asserted when this option is selected. & code \\
+https://medi\allowbreak{}cal-consulta\allowbreak{}tion.local/f\allowbreak{}hir/Structur\allowbreak{}eDefinition/\allowbreak{}preconsult-s\allowbreak{}emantic-reso\allowbreak{}lved-when & Whether all or any resolution facts resolve this option. & code \\
+https://medi\allowbreak{}cal-consulta\allowbreak{}tion.local/f\allowbreak{}hir/Structur\allowbreak{}eDefinition/\allowbreak{}preconsult-s\allowbreak{}emantic-find\allowbreak{}ing & Ordered ClinicalFact finding codes asserted by this option (provisional). & code \\
+https://medi\allowbreak{}cal-consulta\allowbreak{}tion.local/f\allowbreak{}hir/Structur\allowbreak{}eDefinition/\allowbreak{}preconsult-s\allowbreak{}emantic-nega\allowbreak{}ted-finding & Ordered ClinicalFact finding codes negated by this option (provisional). & code \\
+https://medi\allowbreak{}cal-consulta\allowbreak{}tion.local/f\allowbreak{}hir/Structur\allowbreak{}eDefinition/\allowbreak{}preconsult-s\allowbreak{}emantic-reso\allowbreak{}lution-fact & Ordered fact codes that resolve this option. & code \\
+https://medi\allowbreak{}cal-consulta\allowbreak{}tion.local/f\allowbreak{}hir/Structur\allowbreak{}eDefinition/\allowbreak{}preconsult-o\allowbreak{}ption-exclud\allowbreak{}e-when-field & Context field whose exact value hides this option at runtime. & string \\
+https://medi\allowbreak{}cal-consulta\allowbreak{}tion.local/f\allowbreak{}hir/Structur\allowbreak{}eDefinition/\allowbreak{}preconsult-o\allowbreak{}ption-exclud\allowbreak{}e-when-equal\allowbreak{}s & Exact context values that hide this option at runtime. & string \\
+https://medi\allowbreak{}cal-consulta\allowbreak{}tion.local/f\allowbreak{}hir/Structur\allowbreak{}eDefinition/\allowbreak{}preconsult-q\allowbreak{}uestionnaire\allowbreak{}-route & Ordered disease routes combined into this questionnaire (empty = generic). & string \\
+https://medi\allowbreak{}cal-consulta\allowbreak{}tion.local/f\allowbreak{}hir/Structur\allowbreak{}eDefinition/\allowbreak{}preconsult-q\allowbreak{}uestionnaire\allowbreak{}-source & Source questionnaire JSON provenance as '<category> sha256:<hex>'. & string \\
+https://medi\allowbreak{}cal-consulta\allowbreak{}tion.local/f\allowbreak{}hir/Structur\allowbreak{}eDefinition/\allowbreak{}preconsult-p\allowbreak{}refill-behav\allowbreak{}ior & 'skip-prefilled': an item whose linkId was prefilled from the EHR is not asked. & code \\
+https://medi\allowbreak{}cal-consulta\allowbreak{}tion.local/f\allowbreak{}hir/Structur\allowbreak{}eDefinition/\allowbreak{}preconsult-a\allowbreak{}nswer-source & Origin of the answer: patient-reported, ehr-prefill, or unattributed when the prefill origin could not be established. & code \\
+\end{longtable}\endgroup
+Chest Questionnaire excerpt: other items and all but the first questionnaire-level extension are omitted. The selected item retains its full conditional logic and extensions.
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\scriptsize]
+{
+  "extension": [
+    {
+      "url": "https://medical-consultation.local/fhir/StructureDefinition/preconsult-questionnaire-route",
+      "valueString": "chest"
+    }
+  ],
+  "item": [
+    {
+      "enableBehavior": "any",
+      "enableWhen": [
+        {
+          "answerCoding": {
+            "code": "opt-59e1a99ab7",
+            "display": "自體免疫疾病",
+            "system": "https://medical-consultation.local/fhir/CodeSystem/preconsult-history-chronic"
+          },
+          "operator": "=",
+          "question": "chronic"
+        },
+        {
+          "answerCoding": {
+            "code": "opt-b3c76c10f4",
+            "display": "癌症",
+            "system": "https://medical-consultation.local/fhir/CodeSystem/preconsult-history-chronic"
+          },
+          "operator": "=",
+          "question": "chronic"
+        },
+        {
+          "answerCoding": {
+            "code": "other",
+            "display": "其他／補充說明",
+            "system": "https://medical-consultation.local/fhir/CodeSystem/preconsult-history-chronic"
+          },
+          "operator": "=",
+          "question": "chronic"
+        }
+      ],
+      "extension": [
+        {
+          "url": "https://medical-consultation.local/fhir/StructureDefinition/preconsult-item-kind",
+          "valueCode": "text"
+        },
+        {
+          "url": "https://medical-consultation.local/fhir/StructureDefinition/preconsult-item-section",
+          "valueCode": "history"
+        },
+        {
+          "url": "https://medical-consultation.local/fhir/StructureDefinition/preconsult-item-allow-other",
+          "valueBoolean": false
+        },
+        {
+          "url": "https://medical-consultation.local/fhir/StructureDefinition/preconsult-item-other-label",
+          "valueString": "其他／補充說明"
+        }
+      ],
+      "linkId": "chronic_detail",
+      "text": "請補充慢性疾病、自體免疫疾病或癌症的病名。",
+      "type": "text"
+    }
+  ],
+  "resourceType": "Questionnaire",
+  "status": "draft",
+  "url": "https://medical-consultation.local/fhir/Questionnaire/preconsult-chest",
+  "version": "b6887d96ce6231f8"
+}
+\end{Verbatim}
+All following excerpts use the same provisional synthetic session: default\_\_CP-01\_\_r1. Full resources are in Online Resource 2, fhir/examples/. Only selected top-level fields and at most the first two repeated entries are shown; omitted fields are not absent from the originals.
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\scriptsize]
+{
+  "encounter": {
+    "reference": "Encounter/exp-20261013t141553z-default--cp-01--r1-enc"
+  },
+  "id": "495365",
+  "resourceType": "Composition",
+  "section": [
+    {
+      "text": {
+        "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>A 61-year-old male patient presents with Left-sided chest pain for three days.</p></div>",
+        "status": "additional"
+      },
+      "title": "Chief Complaint"
+    },
+    {
+      "text": {
+        "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>The patient is a male with a history of hypertension presenting with mild, sharp left-sided chest pain of gradually progressive onset lasting for three days. The pain is localized and fixed, with associated tenderness to palpation. Symptoms are aggravated by turning or raising the arm and are relieved by rest. There are no associated symptoms.</p></div>",
+        "status": "additional"
+      },
+      "title": "Present Illness"
+    }
+  ],
+  "status": "preliminary",
+  "subject": {
+    "reference": "Patient/syn-6d30c8d2-ee90-9108-f102-e635914928cf"
+  },
+  "title": "AI pre-consultation clinician-reviewed summary",
+  "type": {
+    "coding": [
+      {
+        "code": "11503-0",
+        "display": "Medical records",
+        "system": "http://loinc.org"
+      }
+    ]
+  }
+}
+\end{Verbatim}
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\scriptsize]
+{
+  "code": {
+    "coding": [
+      {
+        "code": "72166-2",
+        "display": "Tobacco smoking status",
+        "system": "http://loinc.org"
+      }
+    ]
+  },
+  "derivedFrom": [
+    {
+      "reference": "QuestionnaireResponse/495363"
+    }
+  ],
+  "encounter": {
+    "reference": "Encounter/exp-20261013t141553z-default--cp-01--r1-enc"
+  },
+  "id": "495364",
+  "resourceType": "Observation",
+  "status": "final",
+  "subject": {
+    "reference": "Patient/syn-6d30c8d2-ee90-9108-f102-e635914928cf"
+  },
+  "valueCodeableConcept": {
+    "coding": [
+      {
+        "code": "266919005",
+        "display": "Never smoked tobacco",
+        "system": "http://snomed.info/sct"
+      }
+    ],
+    "text": "沒有，從未抽菸"
+  }
+}
+\end{Verbatim}
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\scriptsize]
+{
+  "activity": {
+    "coding": [
+      {
+        "code": "CREATE",
+        "display": "create",
+        "system": "http://terminology.hl7.org/CodeSystem/v3-DataOperation"
+      }
+    ]
+  },
+  "agent": [
+    {
+      "onBehalfOf": {
+        "identifier": {
+          "system": "https://medical-consultation.local/fhir/institutions",
+          "value": "local-development"
+        },
+        "type": "Organization"
+      },
+      "type": {
+        "coding": [
+          {
+            "code": "author",
+            "system": "http://terminology.hl7.org/CodeSystem/provenance-participant-type"
+          }
+        ]
+      },
+      "who": {
+        "display": "Local development clinician",
+        "identifier": {
+          "system": "https://medical-consultation.local/fhir/clinicians",
+          "value": "local-developer"
+        },
+        "type": "Practitioner"
+      }
+    },
+    {
+      "onBehalfOf": {
+        "identifier": {
+          "system": "https://medical-consultation.local/fhir/institutions",
+          "value": "local-development"
+        },
+        "type": "Organization"
+      },
+      "type": {
+        "coding": [
+          {
+            "code": "verifier",
+            "system": "http://terminology.hl7.org/CodeSystem/provenance-participant-type"
+          }
+        ]
+      },
+      "who": {
+        "display": "Local development clinician",
+        "identifier": {
+          "system": "https://medical-consultation.local/fhir/clinicians",
+          "value": "local-developer"
+        },
+        "type": "Practitioner"
+      }
+    }
+  ],
+  "entity": [
+    {
+      "role": "source",
+      "what": {
+        "reference": "QuestionnaireResponse/495363"
+      }
+    }
+  ],
+  "id": "495366",
+  "resourceType": "Provenance",
+  "target": [
+    {
+      "reference": "QuestionnaireResponse/495363"
+    },
+    {
+      "reference": "Observation/495364"
+    }
+  ]
+}
+\end{Verbatim}
+\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\scriptsize]
+{
+  "encounter": {
+    "reference": "Encounter/exp-20261013t141553z-default--cp-01--r1-enc"
+  },
+  "id": "495363",
+  "item": [
+    {
+      "answer": [
+        {
+          "valueString": "左邊胸痛三天，轉身或抬手的時候比較痛，按下去也會痛"
+        }
+      ],
+      "extension": [
+        {
+          "url": "https://medical-consultation.local/fhir/StructureDefinition/preconsult-answer-source",
+          "valueCode": "patient-reported"
+        }
+      ],
+      "linkId": "reason",
+      "text": "請自由描述今天最不舒服的症狀、部位，以及發生的情況。"
+    },
+    {
+      "answer": [
+        {
+          "valueString": "蕭柏宇"
+        }
+      ],
+      "extension": [
+        {
+          "url": "https://medical-consultation.local/fhir/StructureDefinition/preconsult-answer-source",
+          "valueCode": "ehr-prefill"
+        }
+      ],
+      "linkId": "name",
+      "text": "請輸入您的姓名。"
+    }
+  ],
+  "questionnaire": "https://medical-consultation.local/fhir/Questionnaire/preconsult-chest|b6887d96ce6231f8",
+  "resourceType": "QuestionnaireResponse",
+  "status": "completed",
+  "subject": {
+    "reference": "Patient/syn-6d30c8d2-ee90-9108-f102-e635914928cf"
+  }
+}
+\end{Verbatim}

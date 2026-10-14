@@ -1,0 +1,211 @@
+{\small\setlength{\tabcolsep}{3pt}
+\begin{longtable}{p{0.24\linewidth}p{0.68\linewidth}}
+\caption{Frozen base-cohort generation parameters; observed ages are converter outputs.}\label{sup:generation}\\
+\hline
+Parameter & Value \\ \hline
+\endfirsthead
+\hline
+Parameter & Value \\ \hline
+\endhead
+version & v4.\allowbreak{}0.\allowbreak{}0 \\
+seed & 20261013 \\
+clinician seed & 20261013 \\
+reference date & 20261001 \\
+end date & 20261001 \\
+population & 1,000 \\
+age range & 20-\allowbreak{}90 \\
+geography & Massachusetts (US; demographics are localised during conversion) \\
+Observed age minimum & 20 \\
+Observed age maximum & 89 \\
+Generation command & java -\allowbreak{}jar /\allowbreak{}home/\allowbreak{}user/\allowbreak{}tools/\allowbreak{}synthea/\allowbreak{}build/\allowbreak{}libs/\allowbreak{}synthea-\allowbreak{}with-\allowbreak{}dependencies.\allowbreak{}jar -\allowbreak{}s 20261013 -\allowbreak{}cs 20261013 -\allowbreak{}r 20261001 -\allowbreak{}e 20261001 -\allowbreak{}p 1000 -\allowbreak{}a 20-\allowbreak{}90 -\allowbreak{}c experiments/\allowbreak{}data/\allowbreak{}synthea/\allowbreak{}synthea-\allowbreak{}twcore.\allowbreak{}properties -\allowbreak{}-\allowbreak{}generate.\allowbreak{}thread\_\allowbreak{}pool\_\allowbreak{}size=1 Massachusetts \\
+\hline\end{longtable}}
+
+{\small\setlength{\tabcolsep}{3pt}
+\begin{longtable}{p{0.43\linewidth}p{0.15\linewidth}p{0.15\linewidth}p{0.15\linewidth}}
+\caption{Converter resource accounting. Resources excluded by Synthea export are not converter drops.}\label{sup:conversionresources}\\
+\hline
+Resource type & Input & Converted & Dropped \\ \hline
+\endfirsthead
+\hline
+Resource type & Input & Converted & Dropped \\ \hline
+\endhead
+AllergyIntolerance & 768 & 768 & 0 \\
+Condition & 28,464 & 28,464 & 0 \\
+Encounter & 37,401 & 37,401 & 0 \\
+MedicationRequest & 33,250 & 33,250 & 0 \\
+Observation & 329,134 & 329,134 & 0 \\
+Patient & 1,000 & 1,000 & 0 \\
+\hline\end{longtable}}
+
+{\small\setlength{\tabcolsep}{3pt}
+\begin{longtable}{p{0.72\linewidth}p{0.18\linewidth}}
+\caption{TW Core profile assignment from converter counters.}\label{sup:profiles}\\
+\hline
+Profile & Resources \\ \hline
+\endfirsthead
+\hline
+Profile & Resources \\ \hline
+\endhead
+AllergyIntolerance-\allowbreak{}twcore & 768 \\
+Condition-\allowbreak{}twcore & 28,464 \\
+Encounter-\allowbreak{}twcore & 37,401 \\
+MedicationRequest-\allowbreak{}twcore & 33,250 \\
+Observation-\allowbreak{}bloodPressure-\allowbreak{}twcore & 7,662 \\
+Observation-\allowbreak{}bmi-\allowbreak{}twcore & 7,170 \\
+Observation-\allowbreak{}body-\allowbreak{}height-\allowbreak{}twcore & 7,170 \\
+Observation-\allowbreak{}body-\allowbreak{}temperature-\allowbreak{}twcore & 389 \\
+Observation-\allowbreak{}body-\allowbreak{}weight-\allowbreak{}twcore & 7,248 \\
+Observation-\allowbreak{}clinical-\allowbreak{}result-\allowbreak{}twcore & 2,836 \\
+Observation-\allowbreak{}heart-\allowbreak{}rate-\allowbreak{}twcore & 7,185 \\
+Observation-\allowbreak{}laboratoryResult-\allowbreak{}twcore & 229,478 \\
+Observation-\allowbreak{}pediatric-\allowbreak{}bmi-\allowbreak{}age-\allowbreak{}twcore & 181 \\
+Observation-\allowbreak{}pregnancy-\allowbreak{}status-\allowbreak{}twcore & 228 \\
+Observation-\allowbreak{}pulse-\allowbreak{}oximetry-\allowbreak{}twcore & 251 \\
+Observation-\allowbreak{}respiratory-\allowbreak{}rate-\allowbreak{}twcore & 7,185 \\
+Observation-\allowbreak{}screening-\allowbreak{}assessment-\allowbreak{}twcore & 28,110 \\
+Observation-\allowbreak{}sexual-\allowbreak{}orientation-\allowbreak{}twcore & 13 \\
+Observation-\allowbreak{}simple-\allowbreak{}twcore & 16,854 \\
+Observation-\allowbreak{}smoking-\allowbreak{}status-\allowbreak{}twcore & 7,170 \\
+Observation-\allowbreak{}vitalSigns-\allowbreak{}twcore & 4 \\
+Patient-\allowbreak{}twcore & 1,000 \\
+\hline\end{longtable}}
+
+{\small\setlength{\tabcolsep}{3pt}
+\begin{longtable}{p{0.78\linewidth}p{0.12\linewidth}}
+\caption{Element-level mapping and loss accounting. Counters describe affected resources or element operations as named, not distinct patients.}\label{sup:mappingloss}\\
+\hline
+Recorded mapping decision & Count \\ \hline
+\endfirsthead
+\hline
+Recorded mapping decision & Count \\ \hline
+\endhead
+Condition.\allowbreak{}category added = encounter-\allowbreak{}diagnosis (absent in Synthea; TW Core 1.\allowbreak{}.\allowbreak{}1) & 28,464 \\
+Condition.\allowbreak{}code:\allowbreak{} SNOMED CT kept (sct slice); no ICD-\allowbreak{}10-\allowbreak{}CM TW coding (no offline map) & 28,464 \\
+Encounter.\allowbreak{}participant removed (Practitioner conditional reference; practitioners not exported) & 37,401 \\
+Encounter.\allowbreak{}serviceProvider removed (Organization conditional reference; organizations not exported) & 37,401 \\
+Encounter.\allowbreak{}serviceType not populated (no Synthea source for NHI department codes) & 37,401 \\
+MedicationRequest.\allowbreak{}medication:\allowbreak{} RxNorm only (no TW FDA/\allowbreak{}NHI/\allowbreak{}ATC coding; no offline crosswalk) & 33,250 \\
+MedicationRequest.\allowbreak{}requester removed (Practitioner not exported) & 33,250 \\
+Observation.\allowbreak{}code:\allowbreak{} LOINC 57905-\allowbreak{}2 display updated from validator terminology response & 46 \\
+Observation.\allowbreak{}code:\allowbreak{} Synthea placeholder code X9999-\allowbreak{}0 moved from LOINC to synthetic local system & 58 \\
+Observation.\allowbreak{}code:\allowbreak{} coding with SNOMED id mislabelled as LOINC removed & 942 \\
+Observation.\allowbreak{}code:\allowbreak{} secondary coding removed for Observation-\allowbreak{}body-\allowbreak{}temperature-\allowbreak{}twcore (coding 1.\allowbreak{}.\allowbreak{}1):\allowbreak{} 8331-\allowbreak{}1 Oral temperature & 389 \\
+Observation.\allowbreak{}component.\allowbreak{}code:\allowbreak{} Synthea placeholder code X9999-\allowbreak{}1 moved from LOINC to synthetic local system & 58 \\
+Observation.\allowbreak{}component.\allowbreak{}code:\allowbreak{} Synthea placeholder code X9999-\allowbreak{}2 moved from LOINC to synthetic local system & 58 \\
+Patient.\allowbreak{}address:\allowbreak{} Synthea US address (incl.\allowbreak{} geolocation) replaced by synthetic TW address & 1,000 \\
+Patient.\allowbreak{}communication:\allowbreak{} language replaced by zh-\allowbreak{}TW & 1,000 \\
+Patient.\allowbreak{}extension removed:\allowbreak{} http:\allowbreak{}/\allowbreak{}/\allowbreak{}hl7.\allowbreak{}org/\allowbreak{}fhir/\allowbreak{}StructureDefinition/\allowbreak{}patient-\allowbreak{}birthPlace & 1,000 \\
+Patient.\allowbreak{}extension removed:\allowbreak{} http:\allowbreak{}/\allowbreak{}/\allowbreak{}hl7.\allowbreak{}org/\allowbreak{}fhir/\allowbreak{}StructureDefinition/\allowbreak{}patient-\allowbreak{}mothersMaidenName & 1,000 \\
+Patient.\allowbreak{}extension removed:\allowbreak{} http:\allowbreak{}/\allowbreak{}/\allowbreak{}synthetichealth.\allowbreak{}github.\allowbreak{}io/\allowbreak{}synthea/\allowbreak{}disability-\allowbreak{}adjusted-\allowbreak{}life-\allowbreak{}years & 1,000 \\
+Patient.\allowbreak{}extension removed:\allowbreak{} http:\allowbreak{}/\allowbreak{}/\allowbreak{}synthetichealth.\allowbreak{}github.\allowbreak{}io/\allowbreak{}synthea/\allowbreak{}quality-\allowbreak{}adjusted-\allowbreak{}life-\allowbreak{}years & 1,000 \\
+Patient.\allowbreak{}identifier removed (US identifier:\allowbreak{} Driver's license number) & 1,000 \\
+Patient.\allowbreak{}identifier removed (US identifier:\allowbreak{} Medical Record Number) & 1,000 \\
+Patient.\allowbreak{}identifier removed (US identifier:\allowbreak{} Passport Number) & 999 \\
+Patient.\allowbreak{}identifier removed (US identifier:\allowbreak{} Social Security Number) & 1,000 \\
+Patient.\allowbreak{}identifier removed (US identifier:\allowbreak{} https:\allowbreak{}/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}synthetichealth/\allowbreak{}synthea) & 1,000 \\
+Patient.\allowbreak{}identifier:\allowbreak{} synthetic MRN (medicalRecord slice) added & 1,000 \\
+Patient.\allowbreak{}name:\allowbreak{} Synthea US names replaced by synthetic zh-\allowbreak{}TW name & 1,000 \\
+Patient.\allowbreak{}name:\allowbreak{} additional Synthea names (e.\allowbreak{}g.\allowbreak{} maiden) removed & 381 \\
+Patient.\allowbreak{}telecom removed (US 555 numbers; no synthetic TW phone generated) & 1,000 \\
+Patient.\allowbreak{}text removed (Synthea narrative contains US name/\allowbreak{}seed) & 1,000 \\
+\hline\end{longtable}}
+
+{\small\setlength{\tabcolsep}{3pt}
+\begin{longtable}{p{0.38\linewidth}p{0.12\linewidth}p{0.14\linewidth}p{0.1\linewidth}p{0.14\linewidth}}
+\caption{Independent input validation. Structural/profile outcomes are not proof of complete terminology resolution.}\label{sup:inputvalidation}\\
+\hline
+Cohort / check & Bundles & Resources & Errors & Warnings \\ \hline
+\endfirsthead
+\hline
+Cohort / check & Bundles & Resources & Errors & Warnings \\ \hline
+\endhead
+Base cohort:\allowbreak{} corrected structural/\allowbreak{}profile pass & 1,000 & 430,017 & 0 & 1,058,802 \\
+Base cohort:\allowbreak{} terminology-\allowbreak{}enabled sample & 50 & 13,877 & 0 & 24,240 \\
+Separate scenario-\allowbreak{}v2 cohort & 30 & 521 & 0 & 780 \\
+\hline\end{longtable}}
+
+\paragraph{Validation provenance}
+954 unchanged inputs retain original outcomes; all46 changed inputs revalidated. first 50 files sorted by name. validator default (tx.fhir.org).
+
+{\small\setlength{\tabcolsep}{3pt}
+\begin{longtable}{p{0.12\linewidth}p{0.8\linewidth}}
+\caption{Most frequent input warnings: structural/profile pass.}\label{sup:warningsinputvalidation}\\
+\hline
+Count & Warning \\ \hline
+\endfirsthead
+\hline
+Count & Warning \\ \hline
+\endhead
+385,757 & Constraint failed:\allowbreak{} dom-\allowbreak{}6:\allowbreak{} 'A resource should have narrative for robust management' (defined in http:\allowbreak{}/\allowbreak{}/\allowbreak{}hl7.\allowbreak{}org/\allowbreak{}fhir/\allowbreak{}StructureDefinition/\allowbreak{}DomainResource) (Best Practice Recommendation) \\
+329,134 & Best Practice Recommendation:\allowbreak{} In general, all observations should have a performer \\
+80,488 & Unable to validate code 'mg/\allowbreak{}dL' in system 'http:\allowbreak{}/\allowbreak{}/\allowbreak{}unitsofmeasure.\allowbreak{}org' because the validator is running without terminology services \\
+43,276 & Unable to validate code 'mmol/\allowbreak{}L' in system 'http:\allowbreak{}/\allowbreak{}/\allowbreak{}unitsofmeasure.\allowbreak{}org' because the validator is running without terminology services \\
+27,915 & Unable to validate code '\{score\}' in system 'http:\allowbreak{}/\allowbreak{}/\allowbreak{}unitsofmeasure.\allowbreak{}org' because the validator is running without terminology services \\
+27,915 & UCUM Codes that contain human readable annotations like \{score\} can be misleading (e.\allowbreak{}g.\allowbreak{} they are ignored when comparing units).\allowbreak{} Best Practice is not to depend on annotations in the UCUM code, so this usage should be checked \\
+16,618 & Unable to validate code 'mm[Hg]' in system 'http:\allowbreak{}/\allowbreak{}/\allowbreak{}unitsofmeasure.\allowbreak{}org' because the validator is running without terminology services \\
+14,370 & Unable to validate code '/\allowbreak{}min' in system 'http:\allowbreak{}/\allowbreak{}/\allowbreak{}unitsofmeasure.\allowbreak{}org' because the validator is running without terminology services \\
+11,289 & Unable to validate code 'kg' in system 'http:\allowbreak{}/\allowbreak{}/\allowbreak{}unitsofmeasure.\allowbreak{}org' because the validator is running without terminology services \\
+9,577 & Unable to validate code '\{\#\}' in system 'http:\allowbreak{}/\allowbreak{}/\allowbreak{}unitsofmeasure.\allowbreak{}org' because the validator is running without terminology services \\
+\hline\end{longtable}}
+
+{\small\setlength{\tabcolsep}{3pt}
+\begin{longtable}{p{0.12\linewidth}p{0.8\linewidth}}
+\caption{Most frequent input warnings: terminology-enabled sample.}\label{sup:warningsinputterminology}\\
+\hline
+Count & Warning \\ \hline
+\endfirsthead
+\hline
+Count & Warning \\ \hline
+\endhead
+12,432 & Constraint failed:\allowbreak{} dom-\allowbreak{}6:\allowbreak{} 'A resource should have narrative for robust management' (defined in http:\allowbreak{}/\allowbreak{}/\allowbreak{}hl7.\allowbreak{}org/\allowbreak{}fhir/\allowbreak{}StructureDefinition/\allowbreak{}DomainResource) (Best Practice Recommendation) \\
+9,846 & Best Practice Recommendation:\allowbreak{} In general, all observations should have a performer \\
+1,195 & UCUM Codes that contain human readable annotations like \{score\} can be misleading (e.\allowbreak{}g.\allowbreak{} they are ignored when comparing units).\allowbreak{} Best Practice is not to depend on annotations in the UCUM code, so this usage should be checked \\
+291 & UCUM Codes that contain human readable annotations like \{\#\} can be misleading (e.\allowbreak{}g.\allowbreak{} they are ignored when comparing units).\allowbreak{} Best Practice is not to depend on annotations in the UCUM code, so this usage should be checked \\
+155 & The concept '33914-\allowbreak{}3' has a status of DISCOURAGED and its use should be reviewed \\
+94 & UCUM Codes that contain human readable annotations like \{nominal\} can be misleading (e.\allowbreak{}g.\allowbreak{} they are ignored when comparing units).\allowbreak{} Best Practice is not to depend on annotations in the UCUM code, so this usage should be checked \\
+56 & UCUM Codes that contain human readable annotations like \{1.\allowbreak{}73\_\allowbreak{}m2\} can be misleading (e.\allowbreak{}g.\allowbreak{} they are ignored when comparing units).\allowbreak{} Best Practice is not to depend on annotations in the UCUM code, so this usage should be checked \\
+34 & None of the codings provided are in the value set 'SNOMED CT Additional Dosage Instructions' (http:\allowbreak{}/\allowbreak{}/\allowbreak{}hl7.\allowbreak{}org/\allowbreak{}fhir/\allowbreak{}ValueSet/\allowbreak{}additional-\allowbreak{}instruction-\allowbreak{}codes|4.\allowbreak{}0.\allowbreak{}1), and a coding should come from this value set unless it has no suitable code (note that the validator cannot judge what is suitable) (codes = http:\allowbreak{}/\allowbreak{}/\allowbreak{}snomed.\allowbreak{}info/\allowbreak{}sct\#225757006) \\
+26 & None of the codings provided are in the value set 'Condition/\allowbreak{}Problem/\allowbreak{}Diagnosis Codes' (http:\allowbreak{}/\allowbreak{}/\allowbreak{}hl7.\allowbreak{}org/\allowbreak{}fhir/\allowbreak{}ValueSet/\allowbreak{}condition-\allowbreak{}code|4.\allowbreak{}0.\allowbreak{}1), and a coding should come from this value set unless it has no suitable code (note that the validator cannot judge what is suitable) (codes = http:\allowbreak{}/\allowbreak{}/\allowbreak{}snomed.\allowbreak{}info/\allowbreak{}sct\#103697008) \\
+21 & None of the codings provided are in the value set 'SNOMED CT Additional Dosage Instructions' (http:\allowbreak{}/\allowbreak{}/\allowbreak{}hl7.\allowbreak{}org/\allowbreak{}fhir/\allowbreak{}ValueSet/\allowbreak{}additional-\allowbreak{}instruction-\allowbreak{}codes|4.\allowbreak{}0.\allowbreak{}1), and a coding should come from this value set unless it has no suitable code (note that the validator cannot judge what is suitable) (codes = http:\allowbreak{}/\allowbreak{}/\allowbreak{}snomed.\allowbreak{}info/\allowbreak{}sct\#307468000) \\
+\hline\end{longtable}}
+
+{\small\setlength{\tabcolsep}{3pt}
+\begin{longtable}{p{0.08\linewidth}p{0.34\linewidth}p{0.28\linewidth}p{0.2\linewidth}}
+\caption{Scenario source-module bindings and mechanical comparison, all pending clinical review.}\label{sup:modulebindings}\\
+\hline
+Script & Synthea source module & Synthetic patient ID & Mechanical status \\ \hline
+\endfirsthead
+\hline
+Script & Synthea source module & Synthetic patient ID & Mechanical status \\ \hline
+\endhead
+AP-\allowbreak{}01 & experiments/\allowbreak{}data/\allowbreak{}synthea/\allowbreak{}scenario-\allowbreak{}v2/\allowbreak{}AP-\allowbreak{}01/\allowbreak{}fixture\_\allowbreak{}ap-\allowbreak{}01.\allowbreak{}json & syn-\allowbreak{}6d540260-\allowbreak{}5154-\allowbreak{}cb49-\allowbreak{}e41e-\allowbreak{}ade28f1f70b0 & consistent\_\allowbreak{}with\_\allowbreak{}authored\_\allowbreak{}source \\
+AP-\allowbreak{}02 & experiments/\allowbreak{}data/\allowbreak{}synthea/\allowbreak{}scenario-\allowbreak{}v2/\allowbreak{}AP-\allowbreak{}02/\allowbreak{}fixture\_\allowbreak{}ap-\allowbreak{}02.\allowbreak{}json & syn-\allowbreak{}6d4e2372-\allowbreak{}9634-\allowbreak{}16e9-\allowbreak{}ce88-\allowbreak{}89e062563bb4 & consistent\_\allowbreak{}with\_\allowbreak{}authored\_\allowbreak{}source \\
+AP-\allowbreak{}03 & experiments/\allowbreak{}data/\allowbreak{}synthea/\allowbreak{}scenario-\allowbreak{}v2/\allowbreak{}AP-\allowbreak{}03/\allowbreak{}fixture\_\allowbreak{}ap-\allowbreak{}03.\allowbreak{}json & syn-\allowbreak{}6d5fc039-\allowbreak{}c796-\allowbreak{}3409-\allowbreak{}9cea-\allowbreak{}7d52ded81b36 & consistent\_\allowbreak{}with\_\allowbreak{}authored\_\allowbreak{}source \\
+AP-\allowbreak{}04 & experiments/\allowbreak{}data/\allowbreak{}synthea/\allowbreak{}scenario-\allowbreak{}v2/\allowbreak{}AP-\allowbreak{}04/\allowbreak{}fixture\_\allowbreak{}ap-\allowbreak{}04.\allowbreak{}json & syn-\allowbreak{}6d59e14d-\allowbreak{}0c75-\allowbreak{}7fa9-\allowbreak{}cbd8-\allowbreak{}afbea1892918 & consistent\_\allowbreak{}with\_\allowbreak{}authored\_\allowbreak{}source \\
+AP-\allowbreak{}05 & experiments/\allowbreak{}data/\allowbreak{}synthea/\allowbreak{}scenario-\allowbreak{}v2/\allowbreak{}AP-\allowbreak{}05/\allowbreak{}fixture\_\allowbreak{}ap-\allowbreak{}05.\allowbreak{}json & syn-\allowbreak{}6d3c86ad-\allowbreak{}64d1-\allowbreak{}f9c8-\allowbreak{}316b-\allowbreak{}534f3443dd63 & consistent\_\allowbreak{}with\_\allowbreak{}authored\_\allowbreak{}source \\
+AP-\allowbreak{}06 & experiments/\allowbreak{}data/\allowbreak{}synthea/\allowbreak{}scenario-\allowbreak{}v2/\allowbreak{}AP-\allowbreak{}06/\allowbreak{}fixture\_\allowbreak{}ap-\allowbreak{}06.\allowbreak{}json & syn-\allowbreak{}6d36a7bf-\allowbreak{}a9b1-\allowbreak{}4568-\allowbreak{}c500-\allowbreak{}51b6dcad385b & consistent\_\allowbreak{}with\_\allowbreak{}authored\_\allowbreak{}source \\
+AP-\allowbreak{}07 & experiments/\allowbreak{}data/\allowbreak{}synthea/\allowbreak{}scenario-\allowbreak{}v2/\allowbreak{}AP-\allowbreak{}07/\allowbreak{}fixture\_\allowbreak{}ap-\allowbreak{}07.\allowbreak{}json & syn-\allowbreak{}6d484485-\allowbreak{}db13-\allowbreak{}6289-\allowbreak{}62d8-\allowbreak{}73716a173da4 & consistent\_\allowbreak{}with\_\allowbreak{}authored\_\allowbreak{}source \\
+AP-\allowbreak{}08 & experiments/\allowbreak{}data/\allowbreak{}synthea/\allowbreak{}scenario-\allowbreak{}v2/\allowbreak{}AP-\allowbreak{}08/\allowbreak{}fixture\_\allowbreak{}ap-\allowbreak{}08.\allowbreak{}json & syn-\allowbreak{}6d426599-\allowbreak{}1ff2-\allowbreak{}ae29-\allowbreak{}7504-\allowbreak{}6cc43097ca45 & consistent\_\allowbreak{}with\_\allowbreak{}authored\_\allowbreak{}source \\
+AP-\allowbreak{}09 & experiments/\allowbreak{}data/\allowbreak{}synthea/\allowbreak{}scenario-\allowbreak{}v2/\allowbreak{}AP-\allowbreak{}09/\allowbreak{}fixture\_\allowbreak{}ap-\allowbreak{}09.\allowbreak{}json & syn-\allowbreak{}6d250af9-\allowbreak{}784f-\allowbreak{}2848-\allowbreak{}4163-\allowbreak{}285dbb09b6d3 & consistent\_\allowbreak{}with\_\allowbreak{}authored\_\allowbreak{}source \\
+AP-\allowbreak{}10 & experiments/\allowbreak{}data/\allowbreak{}synthea/\allowbreak{}scenario-\allowbreak{}v2/\allowbreak{}AP-\allowbreak{}10/\allowbreak{}fixture\_\allowbreak{}ap-\allowbreak{}10.\allowbreak{}json & syn-\allowbreak{}6d1f2c0b-\allowbreak{}bd2e-\allowbreak{}73e8-\allowbreak{}3313-\allowbreak{}aeca71f088b5 & consistent\_\allowbreak{}with\_\allowbreak{}authored\_\allowbreak{}source \\
+CP-\allowbreak{}01 & experiments/\allowbreak{}data/\allowbreak{}synthea/\allowbreak{}scenario-\allowbreak{}v2/\allowbreak{}CP-\allowbreak{}01/\allowbreak{}fixture\_\allowbreak{}cp-\allowbreak{}01.\allowbreak{}json & syn-\allowbreak{}6d30c8d2-\allowbreak{}ee90-\allowbreak{}9108-\allowbreak{}f102-\allowbreak{}e635914928cf & consistent\_\allowbreak{}with\_\allowbreak{}authored\_\allowbreak{}source \\
+CP-\allowbreak{}02 & experiments/\allowbreak{}data/\allowbreak{}synthea/\allowbreak{}scenario-\allowbreak{}v2/\allowbreak{}CP-\allowbreak{}02/\allowbreak{}fixture\_\allowbreak{}cp-\allowbreak{}02.\allowbreak{}json & syn-\allowbreak{}6d2ae9e6-\allowbreak{}336f-\allowbreak{}dca8-\allowbreak{}5618-\allowbreak{}f190810692d9 & consistent\_\allowbreak{}with\_\allowbreak{}authored\_\allowbreak{}source \\
+CP-\allowbreak{}03 & experiments/\allowbreak{}data/\allowbreak{}synthea/\allowbreak{}scenario-\allowbreak{}v2/\allowbreak{}CP-\allowbreak{}03/\allowbreak{}fixture\_\allowbreak{}cp-\allowbreak{}03.\allowbreak{}json & syn-\allowbreak{}6c51b1a9-\allowbreak{}27b5-\allowbreak{}cac7-\allowbreak{}9d38-\allowbreak{}d8494062ad6e & consistent\_\allowbreak{}with\_\allowbreak{}authored\_\allowbreak{}source \\
+CP-\allowbreak{}04 & experiments/\allowbreak{}data/\allowbreak{}synthea/\allowbreak{}scenario-\allowbreak{}v2/\allowbreak{}CP-\allowbreak{}04/\allowbreak{}fixture\_\allowbreak{}cp-\allowbreak{}04.\allowbreak{}json & syn-\allowbreak{}6c4bd2bc-\allowbreak{}6c95-\allowbreak{}1667-\allowbreak{}a7f9-\allowbreak{}b44602a47871 & consistent\_\allowbreak{}with\_\allowbreak{}authored\_\allowbreak{}source \\
+CP-\allowbreak{}05 & experiments/\allowbreak{}data/\allowbreak{}synthea/\allowbreak{}scenario-\allowbreak{}v2/\allowbreak{}CP-\allowbreak{}05/\allowbreak{}fixture\_\allowbreak{}cp-\allowbreak{}05.\allowbreak{}json & syn-\allowbreak{}6c5d6f81-\allowbreak{}9df7-\allowbreak{}3387-\allowbreak{}de63-\allowbreak{}4ad29d20fb34 & consistent\_\allowbreak{}with\_\allowbreak{}authored\_\allowbreak{}source \\
+CP-\allowbreak{}06 & experiments/\allowbreak{}data/\allowbreak{}synthea/\allowbreak{}scenario-\allowbreak{}v2/\allowbreak{}CP-\allowbreak{}06/\allowbreak{}fixture\_\allowbreak{}cp-\allowbreak{}06.\allowbreak{}json & syn-\allowbreak{}6c579094-\allowbreak{}e2d6-\allowbreak{}7f27-\allowbreak{}4b47-\allowbreak{}da2622fd65d6 & consistent\_\allowbreak{}with\_\allowbreak{}authored\_\allowbreak{}source \\
+CP-\allowbreak{}07 & experiments/\allowbreak{}data/\allowbreak{}synthea/\allowbreak{}scenario-\allowbreak{}v2/\allowbreak{}CP-\allowbreak{}07/\allowbreak{}fixture\_\allowbreak{}cp-\allowbreak{}07.\allowbreak{}json & syn-\allowbreak{}6c3a35f5-\allowbreak{}3b32-\allowbreak{}f947-\allowbreak{}9d14-\allowbreak{}fffcd9b003e8 & consistent\_\allowbreak{}with\_\allowbreak{}authored\_\allowbreak{}source \\
+CP-\allowbreak{}08 & experiments/\allowbreak{}data/\allowbreak{}synthea/\allowbreak{}scenario-\allowbreak{}v2/\allowbreak{}CP-\allowbreak{}08/\allowbreak{}fixture\_\allowbreak{}cp-\allowbreak{}08.\allowbreak{}json & syn-\allowbreak{}6c345707-\allowbreak{}8012-\allowbreak{}44e7-\allowbreak{}1bfb-\allowbreak{}6a646acc5ae0 & consistent\_\allowbreak{}with\_\allowbreak{}authored\_\allowbreak{}source \\
+CP-\allowbreak{}09 & experiments/\allowbreak{}data/\allowbreak{}synthea/\allowbreak{}scenario-\allowbreak{}v2/\allowbreak{}CP-\allowbreak{}09/\allowbreak{}fixture\_\allowbreak{}cp-\allowbreak{}09.\allowbreak{}json & syn-\allowbreak{}6c45f3ce-\allowbreak{}b174-\allowbreak{}6207-\allowbreak{}f780-\allowbreak{}6b2f9a57f8da & consistent\_\allowbreak{}with\_\allowbreak{}authored\_\allowbreak{}source \\
+CP-\allowbreak{}10 & experiments/\allowbreak{}data/\allowbreak{}synthea/\allowbreak{}scenario-\allowbreak{}v2/\allowbreak{}CP-\allowbreak{}10/\allowbreak{}fixture\_\allowbreak{}cp-\allowbreak{}10.\allowbreak{}json & syn-\allowbreak{}6c4014e1-\allowbreak{}f653-\allowbreak{}ada7-\allowbreak{}b030-\allowbreak{}d043e11b8844 & consistent\_\allowbreak{}with\_\allowbreak{}authored\_\allowbreak{}source \\
+HA-\allowbreak{}01 & experiments/\allowbreak{}data/\allowbreak{}synthea/\allowbreak{}scenario-\allowbreak{}v2/\allowbreak{}HA-\allowbreak{}01/\allowbreak{}fixture\_\allowbreak{}ha-\allowbreak{}01.\allowbreak{}json & syn-\allowbreak{}6c22ba41-\allowbreak{}4eb0-\allowbreak{}27c7-\allowbreak{}e860-\allowbreak{}d9b7ad7a162e & consistent\_\allowbreak{}with\_\allowbreak{}authored\_\allowbreak{}source \\
+HA-\allowbreak{}02 & experiments/\allowbreak{}data/\allowbreak{}synthea/\allowbreak{}scenario-\allowbreak{}v2/\allowbreak{}HA-\allowbreak{}02/\allowbreak{}fixture\_\allowbreak{}ha-\allowbreak{}02.\allowbreak{}json & syn-\allowbreak{}6c1cdb53-\allowbreak{}938f-\allowbreak{}7366-\allowbreak{}4f58-\allowbreak{}59308b4c4573 & consistent\_\allowbreak{}with\_\allowbreak{}authored\_\allowbreak{}source \\
+HA-\allowbreak{}03 & experiments/\allowbreak{}data/\allowbreak{}synthea/\allowbreak{}scenario-\allowbreak{}v2/\allowbreak{}HA-\allowbreak{}03/\allowbreak{}fixture\_\allowbreak{}ha-\allowbreak{}03.\allowbreak{}json & syn-\allowbreak{}6c2e781a-\allowbreak{}c4f1-\allowbreak{}9087-\allowbreak{}b98a-\allowbreak{}a8e29108ad54 & consistent\_\allowbreak{}with\_\allowbreak{}authored\_\allowbreak{}source \\
+HA-\allowbreak{}04 & experiments/\allowbreak{}data/\allowbreak{}synthea/\allowbreak{}scenario-\allowbreak{}v2/\allowbreak{}HA-\allowbreak{}04/\allowbreak{}fixture\_\allowbreak{}ha-\allowbreak{}04.\allowbreak{}json & syn-\allowbreak{}6c28992e-\allowbreak{}09d0-\allowbreak{}dc27-\allowbreak{}d7f3-\allowbreak{}4c35c6199bf6 & consistent\_\allowbreak{}with\_\allowbreak{}authored\_\allowbreak{}source \\
+HA-\allowbreak{}05 & experiments/\allowbreak{}data/\allowbreak{}synthea/\allowbreak{}scenario-\allowbreak{}v2/\allowbreak{}HA-\allowbreak{}05/\allowbreak{}fixture\_\allowbreak{}ha-\allowbreak{}05.\allowbreak{}json & syn-\allowbreak{}6c0b3e8e-\allowbreak{}622d-\allowbreak{}5646-\allowbreak{}d5d6-\allowbreak{}7b6a8d07fb80 & consistent\_\allowbreak{}with\_\allowbreak{}authored\_\allowbreak{}source \\
+HA-\allowbreak{}06 & experiments/\allowbreak{}data/\allowbreak{}synthea/\allowbreak{}scenario-\allowbreak{}v2/\allowbreak{}HA-\allowbreak{}06/\allowbreak{}fixture\_\allowbreak{}ha-\allowbreak{}06.\allowbreak{}json & syn-\allowbreak{}6c055fa0-\allowbreak{}a70c-\allowbreak{}a1e6-\allowbreak{}8ebc-\allowbreak{}5ca77aec2659 & consistent\_\allowbreak{}with\_\allowbreak{}authored\_\allowbreak{}source \\
+HA-\allowbreak{}07 & experiments/\allowbreak{}data/\allowbreak{}synthea/\allowbreak{}scenario-\allowbreak{}v2/\allowbreak{}HA-\allowbreak{}07/\allowbreak{}fixture\_\allowbreak{}ha-\allowbreak{}07.\allowbreak{}json & syn-\allowbreak{}6c16fc67-\allowbreak{}d86e-\allowbreak{}bf06-\allowbreak{}813a-\allowbreak{}6149a923a8e4 & consistent\_\allowbreak{}with\_\allowbreak{}authored\_\allowbreak{}source \\
+HA-\allowbreak{}08 & experiments/\allowbreak{}data/\allowbreak{}synthea/\allowbreak{}scenario-\allowbreak{}v2/\allowbreak{}HA-\allowbreak{}08/\allowbreak{}fixture\_\allowbreak{}ha-\allowbreak{}08.\allowbreak{}json & syn-\allowbreak{}6c111d7b-\allowbreak{}1d4e-\allowbreak{}0aa6-\allowbreak{}68f1-\allowbreak{}ec17072b90df & consistent\_\allowbreak{}with\_\allowbreak{}authored\_\allowbreak{}source \\
+HA-\allowbreak{}09 & experiments/\allowbreak{}data/\allowbreak{}synthea/\allowbreak{}scenario-\allowbreak{}v2/\allowbreak{}HA-\allowbreak{}09/\allowbreak{}fixture\_\allowbreak{}ha-\allowbreak{}09.\allowbreak{}json & syn-\allowbreak{}6cafa076-\allowbreak{}d9c1-\allowbreak{}10c7-\allowbreak{}5ee5-\allowbreak{}342b8a446749 & consistent\_\allowbreak{}with\_\allowbreak{}authored\_\allowbreak{}source \\
+HA-\allowbreak{}10 & experiments/\allowbreak{}data/\allowbreak{}synthea/\allowbreak{}scenario-\allowbreak{}v2/\allowbreak{}HA-\allowbreak{}10/\allowbreak{}fixture\_\allowbreak{}ha-\allowbreak{}10.\allowbreak{}json & syn-\allowbreak{}6ca9c18a-\allowbreak{}1ea0-\allowbreak{}5c67-\allowbreak{}ff84-\allowbreak{}837edf2491ea & consistent\_\allowbreak{}with\_\allowbreak{}authored\_\allowbreak{}source \\
+\hline\end{longtable}}

@@ -620,10 +620,11 @@ completion, model replacement, and local concurrency. Diagnostic and triage
 accuracy, clinical note quality, and comparisons with clinicians were outside scope.
 
 The implementation combines Vue patient and clinician interfaces, a FastAPI
-backend, local retrieval, and a HAPI FHIR sandbox (Fig.~\ref{fig:architecture}) \citep{hapiFHIR}.
+backend, local retrieval, and a HAPI FHIR R4 sandbox (Fig.~\ref{fig:architecture})
+\citep{vueJs,fastApi,hapiFHIR,fhirR4}.
 A patient invitation is exchanged for a scoped session cookie; the clinician
 launcher binds patient and encounter identifiers. The separate SMART integration
-surface follows a different authorization flow \citep{smartAppLaunch}.
+surface follows a different authorization flow \citep{mandelSmartOnFhir2016,smartAppLaunch}.
 These verification activities exercise text-channel HTTP APIs, not browser/OAuth launch or
 voice input. Isolated verification databases and an explicit loopback development
 authorization bypass separate the runs from production services.
@@ -643,7 +644,7 @@ model calls was not evaluated. Chief-complaint keywords select
 the questionnaire first. Only no keyword match permits evidence-grounded model
 extraction as a routing fallback. Rules and model extraction also screen the chief complaint; failed semantic assessment triggers manual handoff. At
 routine completion, retrieval supplies evidence for model-generated report
-sections and decision-support suggestions. These suggestions are neither
+sections and decision-support suggestions \citep{lewisRag2020}. These suggestions are neither
 validated diagnoses nor published orders.
 
 \subsection{Questionnaire and write-back contracts}
@@ -769,7 +770,8 @@ these procedures.
 
 E2 exercises invitation, text dialogue, report generation, simulated clinician
 confirmation, write-back, and read-back. A distinct local Qwen model plays the
-patient from scenario facts. Invalid constrained answers receive an explicit
+patient from scenario facts, following prior use of LLM-simulated patients in
+conversational evaluation \citep{tuConversationalDiagnosticArtificial2025,johriCraftMd2025,schmidgallAgentClinic2024}. Invalid constrained answers receive an explicit
 unknown fallback, never an expected-answer substitution.
 R3 compares the presented top-level runtime path with the FHIR
 \texttt{enableWhen} path derived primarily from the written
@@ -1015,7 +1017,7 @@ the applicable institutional determination; no ethics approval is asserted.\par
 \textbf{Data availability.} Online Resource 2 contains provisional synthetic
 scripts, review materials, sample TW Core bundles, FHIR examples, selected result
 summaries and manifests, and configuration/prompt provenance. Full session records
-and RAG source text are excluded. Medscape redistribution rights require author
+and RAG source text are excluded. Medscape \citep{medscapeReference} redistribution rights require author
 confirmation (\texttt{TODO\_AUTHOR}).\par
 \textbf{Code availability.} Reproduction commands and source paths accompany
 Online Resource 2; the public repository location, archival identifier, and code/data

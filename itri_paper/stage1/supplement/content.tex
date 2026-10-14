@@ -48,7 +48,7 @@ acceptance rules were applied post hoc on 2026-10-14 after observing the runs.
 \subsection{Chief extraction and report prompts}
 Raw phrase rules screen the opening utterance first. A raw rule hit ends that
 screening path without a semantic extraction call. Otherwise, model output must
-satisfy the JSON schema, the finding-code whitelist and local grounding checks.
+satisfy the JSON schema \citep{jsonSchema}, the finding-code whitelist and local grounding checks.
 Evidence must occur in the patient's text after the implemented normalization;
 negation and status checks determine whether that evidence can support the
 assertion. Unsupported codes or evidence are discarded rather than promoted to
@@ -63,13 +63,16 @@ provider requests. The patient simulator's complete prompt is in Section~\ref{su
 \input{generated/s1_sources.tex}
 
 \subsection{Retrieval and data protection}
-The local retrieval corpus originated from Medscape material. Cleaning normalizes
+The local retrieval corpus originated from Medscape material \citep{medscapeReference}. Cleaning normalizes
 formatting and removes fixed website markers; it does not repair missing words or
 establish clinical accuracy. Chunking uses whitespace boundaries with a bounded
-character overlap. The generated settings identify the embedding model and
-retrieval constants. Versioned Chroma route collections use metadata partitions:
+character overlap. Passages are embedded with the multilingual sentence-embedding
+model paraphrase-multilingual-MiniLM-L12-v2
+\citep{reimersSbert2019,reimersMultilingual2020,multilingualMiniLM}; the generated
+settings record the retrieval constants. Versioned Chroma \citep{chromaDb} route
+collections use metadata partitions:
 A supplies diagnosis/workup evidence, B laboratory evidence, and C imaging evidence.
-Query variants are merged by reciprocal rank fusion and deduplicated. The dual
+Query variants are merged by reciprocal rank fusion \citep{cormackRrf2009} and deduplicated. The dual
 query mode retains the original query alongside a validated English normalization;
 translation failure falls back to the original multilingual query. Legacy retrieval
 without clinical-stage metadata is labelled separately. Retrieval does not choose
@@ -110,6 +113,8 @@ verbatim.
 The Composition title ``clinician-reviewed summary'' is the system's fixed title
 for a confirmed record. In these checks the confirmation step was performed
 by the harness, not by a clinician; no clinician reviewed any written resource.
+The smoking-status Observation uses LOINC and SNOMED CT codes
+\citep{mcdonaldLoinc2003,snomedCt}; the mapping below awaits terminology review.
 \input{generated/s2_smoking.tex}
 
 \subsection{Equivalence and assertion limits}
@@ -168,8 +173,9 @@ The base cohort retains US-derived disease and care patterns. Localized names,
 addresses and language do not establish Taiwan epidemiological representativeness.
 No real national identity number is synthesized. Export deliberately excludes
 practitioners and organizations; references to absent actors are removed. Missing
-Taiwan-specific terminology crosswalks are not guessed: retained SNOMED CT, RxNorm
-and LOINC content may lack the corresponding national code slices. The element
+Taiwan-specific terminology crosswalks are not guessed: retained SNOMED CT
+\citep{snomedCt}, RxNorm \citep{nelsonRxNorm2011} and LOINC \citep{mcdonaldLoinc2003}
+content may lack the corresponding national code slices. The element
 counters distinguish removed values from resources never exported upstream.
 
 The existing EHR prefill mapping places Condition displays into
@@ -204,7 +210,9 @@ expected paths and the review packet are in Online Resource 2.
 
 For the selected deterministic questionnaire engine, screening occurs at the chief
 complaint; later answers do not trigger another safety screen. This differs from
-some legacy AMIE paths and must not be generalized to continuous monitoring.
+some paths of the repository's legacy AMIE-style engine, named after the
+conversational diagnostic system of \citet{tuConversationalDiagnosticArtificial2025}
+and not evaluated here, and must not be generalized to continuous monitoring.
 CP-09 and AP-10 expose documented coverage gaps. The raw negation lookback can
 misinterpret negative substrings in a neurologic complaint; a semantic path may
 behave differently, but this is not a correction to the raw rule. The structured
@@ -339,7 +347,9 @@ every session used keyword routing.
 \SupplementTable{E3 runtime paths differing from the default setting, with recorded chief-stage causes. This descriptive check does not change the R0 acceptance rule.}{sup:determinismdifferences}{generated/paper_tables/tab_determinism_differences.tex}
 
 \subsection{Test-fixture fidelity}\label{sup:simfidelity}
-The simulated patient is a test fixture. Contradictions of explicit script facts
+The simulated patient is a test fixture, following prior use of LLM-simulated
+patients in conversational evaluation
+\citep{johriCraftMd2025,schmidgallAgentClinic2024}. Contradictions of explicit script facts
 are fixture defects, not evidence about the pre-consultation framework's clinical
 behavior or patient populations. The following audit separates fixture fidelity
 from each software requirement's measurement boundary.

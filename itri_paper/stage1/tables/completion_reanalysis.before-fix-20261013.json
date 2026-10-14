@@ -1,0 +1,531 @@
+{
+  "policy": "Original summaries count API write-back; paper completion also requires explicit completed or summary_ready workflow status. Manual handoff and unknown statuses are not successful completion. Timing distributions retain all API write-backs.",
+  "e2": {
+    "Chest pain": {
+      "api_writeback_completion": {
+        "k": 50,
+        "n": 50,
+        "rate": 1.0
+      },
+      "completion_without_handoff": {
+        "k": 50,
+        "n": 50,
+        "rate": 1.0
+      },
+      "manual_handoff_after_writeback": 0,
+      "other_or_missing_workflow_status": 0
+    },
+    "Headache": {
+      "api_writeback_completion": {
+        "k": 50,
+        "n": 50,
+        "rate": 1.0
+      },
+      "completion_without_handoff": {
+        "k": 50,
+        "n": 50,
+        "rate": 1.0
+      },
+      "manual_handoff_after_writeback": 0,
+      "other_or_missing_workflow_status": 0
+    },
+    "Abdominal pain": {
+      "api_writeback_completion": {
+        "k": 50,
+        "n": 50,
+        "rate": 1.0
+      },
+      "completion_without_handoff": {
+        "k": 50,
+        "n": 50,
+        "rate": 1.0
+      },
+      "manual_handoff_after_writeback": 0,
+      "other_or_missing_workflow_status": 0
+    },
+    "Overall": {
+      "api_writeback_completion": {
+        "k": 150,
+        "n": 150,
+        "rate": 1.0
+      },
+      "completion_without_handoff": {
+        "k": 150,
+        "n": 150,
+        "rate": 1.0
+      },
+      "manual_handoff_after_writeback": 0,
+      "other_or_missing_workflow_status": 0
+    }
+  },
+  "e3": [
+    {
+      "config": "default",
+      "e2_run": "experiments/results/e3_swap_e2/20261013T091850Z",
+      "code_lines_changed_outside_config": 0,
+      "completion": {
+        "k": 30,
+        "n": 30,
+        "rate": 1.0
+      },
+      "protocol_adherence": {
+        "k": 20,
+        "n": 20,
+        "rate": 1.0,
+        "wilson95": [
+          0.8388748398148705,
+          1.0
+        ],
+        "not_compared_by_status": {
+          "ended_at_chief_complaint": 10
+        },
+        "first_divergences": {}
+      },
+      "fact_traceability": {
+        "k": 89,
+        "n": 89,
+        "rate": 1.0,
+        "wilson95": [
+          0.9586234541380101,
+          1.0
+        ],
+        "among_evidenced": {
+          "k": 89,
+          "n": 89,
+          "rate": 1.0,
+          "wilson95": [
+            0.9586234541380101,
+            1.0
+          ]
+        },
+        "denominator": "all extracted facts; missing evidence is untraceable",
+        "facts_total": 89,
+        "exact": 89,
+        "normalized_only": 0,
+        "no_evidence": 0
+      },
+      "validation_errors_written": 30,
+      "median_turn_latency_ms": 9.148320008534938,
+      "median_wall_clock_ms": 36021.10394600459,
+      "cost_usd_per_session_median": 0.018385399999999996,
+      "unpriced_models": [],
+      "validated_only": false,
+      "config_lines_vs_first": {
+        "added": 0,
+        "removed": 0
+      },
+      "e1": {
+        "threshold": {
+          "rule": "0 validator errors on written resources (structural/profile mode)",
+          "errors": 30,
+          "pass": false
+        },
+        "io": {
+          "sessions": 30,
+          "read_success": {
+            "k": 30,
+            "n": 30,
+            "rate": 1.0,
+            "wilson95": [
+              0.886486605238548,
+              1.0
+            ]
+          },
+          "write_success": {
+            "k": 30,
+            "n": 30,
+            "rate": 1.0,
+            "wilson95": [
+              0.886486605238548,
+              1.0
+            ]
+          },
+          "readback_success": {
+            "k": 110,
+            "n": 110,
+            "rate": 1.0,
+            "wilson95": [
+              0.9662560641874632,
+              1.0
+            ]
+          },
+          "written_by_type": {
+            "QuestionnaireResponse": 30,
+            "Observation": 20,
+            "Composition": 30,
+            "Provenance": 30
+          },
+          "structured_resources_written": 30
+        },
+        "roundtrip": {
+          "overall": {
+            "k": 110,
+            "n": 110,
+            "rate": 1.0,
+            "wilson95": [
+              0.9662560641874632,
+              1.0
+            ]
+          },
+          "compared_only": {
+            "k": 110,
+            "n": 110,
+            "rate": 1.0,
+            "wilson95": [
+              0.9662560641874632,
+              1.0
+            ]
+          },
+          "denominator": "all captured submissions; unverified submissions are not passes",
+          "submitted_total": 110,
+          "unverified_by_reason": {},
+          "per_type": {
+            "QuestionnaireResponse": {
+              "compared": 30,
+              "identical": 30
+            },
+            "Observation": {
+              "compared": 20,
+              "identical": 20
+            },
+            "Composition": {
+              "compared": 30,
+              "identical": 30
+            },
+            "Provenance": {
+              "compared": 30,
+              "identical": 30
+            }
+          },
+          "submitted_without_readback": 0,
+          "differing_paths": {}
+        }
+      },
+      "cost_sessions": 22,
+      "api_writeback_completion": {
+        "k": 30,
+        "n": 30,
+        "rate": 1.0
+      },
+      "completion_without_handoff": {
+        "k": 30,
+        "n": 30,
+        "rate": 1.0
+      },
+      "manual_handoff_after_writeback": 0,
+      "other_or_missing_workflow_status": 0
+    },
+    {
+      "config": "llm_swap_a_gemini_alt",
+      "e2_run": "experiments/results/e3_swap_e2/20261013T092412Z",
+      "code_lines_changed_outside_config": 0,
+      "completion": {
+        "k": 30,
+        "n": 30,
+        "rate": 1.0
+      },
+      "protocol_adherence": {
+        "k": 20,
+        "n": 20,
+        "rate": 1.0,
+        "wilson95": [
+          0.8388748398148705,
+          1.0
+        ],
+        "not_compared_by_status": {
+          "ended_at_chief_complaint": 10
+        },
+        "first_divergences": {}
+      },
+      "fact_traceability": {
+        "k": 119,
+        "n": 119,
+        "rate": 1.0,
+        "wilson95": [
+          0.9687283192801539,
+          1.0
+        ],
+        "among_evidenced": {
+          "k": 119,
+          "n": 119,
+          "rate": 1.0,
+          "wilson95": [
+            0.9687283192801539,
+            1.0
+          ]
+        },
+        "denominator": "all extracted facts; missing evidence is untraceable",
+        "facts_total": 119,
+        "exact": 119,
+        "normalized_only": 0,
+        "no_evidence": 0
+      },
+      "validation_errors_written": 30,
+      "median_turn_latency_ms": 9.213946003001183,
+      "median_wall_clock_ms": 31204.607764506363,
+      "cost_usd_per_session_median": 0.0097052,
+      "unpriced_models": [],
+      "validated_only": false,
+      "config_lines_vs_first": {
+        "added": 19,
+        "removed": 15
+      },
+      "e1": {
+        "threshold": {
+          "rule": "0 validator errors on written resources (structural/profile mode)",
+          "errors": 30,
+          "pass": false
+        },
+        "io": {
+          "sessions": 30,
+          "read_success": {
+            "k": 30,
+            "n": 30,
+            "rate": 1.0,
+            "wilson95": [
+              0.886486605238548,
+              1.0
+            ]
+          },
+          "write_success": {
+            "k": 30,
+            "n": 30,
+            "rate": 1.0,
+            "wilson95": [
+              0.886486605238548,
+              1.0
+            ]
+          },
+          "readback_success": {
+            "k": 110,
+            "n": 110,
+            "rate": 1.0,
+            "wilson95": [
+              0.9662560641874632,
+              1.0
+            ]
+          },
+          "written_by_type": {
+            "QuestionnaireResponse": 30,
+            "Observation": 20,
+            "Composition": 30,
+            "Provenance": 30
+          },
+          "structured_resources_written": 30
+        },
+        "roundtrip": {
+          "overall": {
+            "k": 110,
+            "n": 110,
+            "rate": 1.0,
+            "wilson95": [
+              0.9662560641874632,
+              1.0
+            ]
+          },
+          "compared_only": {
+            "k": 110,
+            "n": 110,
+            "rate": 1.0,
+            "wilson95": [
+              0.9662560641874632,
+              1.0
+            ]
+          },
+          "denominator": "all captured submissions; unverified submissions are not passes",
+          "submitted_total": 110,
+          "unverified_by_reason": {},
+          "per_type": {
+            "QuestionnaireResponse": {
+              "compared": 30,
+              "identical": 30
+            },
+            "Observation": {
+              "compared": 20,
+              "identical": 20
+            },
+            "Composition": {
+              "compared": 30,
+              "identical": 30
+            },
+            "Provenance": {
+              "compared": 30,
+              "identical": 30
+            }
+          },
+          "submitted_without_readback": 0,
+          "differing_paths": {}
+        }
+      },
+      "cost_sessions": 22,
+      "api_writeback_completion": {
+        "k": 30,
+        "n": 30,
+        "rate": 1.0
+      },
+      "completion_without_handoff": {
+        "k": 30,
+        "n": 30,
+        "rate": 1.0
+      },
+      "manual_handoff_after_writeback": 0,
+      "other_or_missing_workflow_status": 0
+    },
+    {
+      "config": "llm_swap_b_ollama",
+      "e2_run": "experiments/results/e3_swap_e2/20261013T092912Z",
+      "code_lines_changed_outside_config": 0,
+      "completion": {
+        "k": 28,
+        "n": 30,
+        "rate": 0.9333333333333333
+      },
+      "protocol_adherence": {
+        "k": 20,
+        "n": 22,
+        "rate": 0.9090909090909091,
+        "wilson95": [
+          0.721850529721749,
+          0.9747045712376774
+        ],
+        "not_compared_by_status": {
+          "ended_at_chief_complaint": 8
+        },
+        "first_divergences": {}
+      },
+      "fact_traceability": {
+        "k": 6,
+        "n": 6,
+        "rate": 1.0,
+        "wilson95": [
+          0.6096657083436265,
+          1.0
+        ],
+        "among_evidenced": {
+          "k": 6,
+          "n": 6,
+          "rate": 1.0,
+          "wilson95": [
+            0.6096657083436265,
+            1.0
+          ]
+        },
+        "denominator": "all extracted facts; missing evidence is untraceable",
+        "facts_total": 6,
+        "exact": 6,
+        "normalized_only": 0,
+        "no_evidence": 0
+      },
+      "validation_errors_written": 30,
+      "median_turn_latency_ms": 8.922920998884365,
+      "median_wall_clock_ms": 202206.94876150083,
+      "cost_usd_per_session_median": 0.0,
+      "unpriced_models": [],
+      "validated_only": false,
+      "config_lines_vs_first": {
+        "added": 25,
+        "removed": 20
+      },
+      "e1": {
+        "threshold": {
+          "rule": "0 validator errors on written resources (structural/profile mode)",
+          "errors": 30,
+          "pass": false
+        },
+        "io": {
+          "sessions": 30,
+          "read_success": {
+            "k": 30,
+            "n": 30,
+            "rate": 1.0,
+            "wilson95": [
+              0.886486605238548,
+              1.0
+            ]
+          },
+          "write_success": {
+            "k": 30,
+            "n": 30,
+            "rate": 1.0,
+            "wilson95": [
+              0.886486605238548,
+              1.0
+            ]
+          },
+          "readback_success": {
+            "k": 110,
+            "n": 110,
+            "rate": 1.0,
+            "wilson95": [
+              0.9662560641874632,
+              1.0
+            ]
+          },
+          "written_by_type": {
+            "QuestionnaireResponse": 30,
+            "Composition": 30,
+            "Provenance": 30,
+            "Observation": 20
+          },
+          "structured_resources_written": 30
+        },
+        "roundtrip": {
+          "overall": {
+            "k": 110,
+            "n": 110,
+            "rate": 1.0,
+            "wilson95": [
+              0.9662560641874632,
+              1.0
+            ]
+          },
+          "compared_only": {
+            "k": 110,
+            "n": 110,
+            "rate": 1.0,
+            "wilson95": [
+              0.9662560641874632,
+              1.0
+            ]
+          },
+          "denominator": "all captured submissions; unverified submissions are not passes",
+          "submitted_total": 110,
+          "unverified_by_reason": {},
+          "per_type": {
+            "QuestionnaireResponse": {
+              "compared": 30,
+              "identical": 30
+            },
+            "Composition": {
+              "compared": 30,
+              "identical": 30
+            },
+            "Provenance": {
+              "compared": 30,
+              "identical": 30
+            },
+            "Observation": {
+              "compared": 20,
+              "identical": 20
+            }
+          },
+          "submitted_without_readback": 0,
+          "differing_paths": {}
+        }
+      },
+      "cost_sessions": 20,
+      "api_writeback_completion": {
+        "k": 30,
+        "n": 30,
+        "rate": 1.0
+      },
+      "completion_without_handoff": {
+        "k": 28,
+        "n": 30,
+        "rate": 0.9333333333333333
+      },
+      "manual_handoff_after_writeback": 2,
+      "other_or_missing_workflow_status": 0
+    }
+  ]
+}

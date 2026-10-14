@@ -1,0 +1,170 @@
+%Version 3.1 December 2024
+% See section 11 of the User Manual for version history
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                                 %%
+%% Please do not use \input{...} to include other tex files.       %%
+%% Submit your LaTeX manuscript as one .tex document.              %%
+%%                                                                 %%
+%% All additional figures and files should be attached             %%
+%% separately and not embedded in the \TeX\ document itself.       %%
+%%                                                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%\documentclass[referee,sn-basic]{sn-jnl}% referee option is meant for double line spacing
+
+%%=======================================================%%
+%% to print line numbers in the margin use lineno option %%
+%%=======================================================%%
+
+\documentclass[lineno,pdflatex,sn-basic]{sn-jnl}% Basic Springer Nature Reference Style/Chemistry Reference Style
+
+%%=========================================================================================%%
+%% the documentclass is set to pdflatex as default. You can delete it if not appropriate.  %%
+%%=========================================================================================%%
+
+%%\documentclass[sn-basic]{sn-jnl}% Basic Springer Nature Reference Style/Chemistry Reference Style
+
+%%Note: the following reference styles support Namedate and Numbered referencing. By default the style follows the most common style. To switch between the options you can add or remove �Numbered� in the optional parenthesis. 
+%%The option is available for: sn-basic.bst, sn-chicago.bst%  
+ 
+%%\documentclass[pdflatex,sn-nature]{sn-jnl}% Style for submissions to Nature Portfolio journals
+%%\documentclass[pdflatex,sn-basic]{sn-jnl}% Basic Springer Nature Reference Style/Chemistry Reference Style
+% \documentclass[pdflatex,sn-mathphys-num]{sn-jnl}% Math and Physical Sciences Numbered Reference Style
+%%\documentclass[pdflatex,sn-mathphys-ay]{sn-jnl}% Math and Physical Sciences Author Year Reference Style
+%%\documentclass[pdflatex,sn-aps]{sn-jnl}% American Physical Society (APS) Reference Style
+%%\documentclass[pdflatex,sn-vancouver-num]{sn-jnl}% Vancouver Numbered Reference Style
+%%\documentclass[pdflatex,sn-vancouver-ay]{sn-jnl}% Vancouver Author Year Reference Style
+%%\documentclass[pdflatex,sn-apa]{sn-jnl}% APA Reference Style
+%%\documentclass[pdflatex,sn-chicago]{sn-jnl}% Chicago-based Humanities Reference Style
+
+%%%% Standard Packages
+%%<additional latex packages if required can be included here>
+
+\usepackage{graphicx}%
+\usepackage{multirow}%
+\usepackage{amsmath,amssymb,amsfonts}%
+\usepackage{amsthm}%
+\usepackage{mathrsfs}%
+\usepackage[title]{appendix}%
+\usepackage{xcolor}%
+\usepackage{textcomp}%
+\usepackage{manyfoot}%
+\usepackage{booktabs}%
+\usepackage{algorithm}%
+\usepackage{algorithmicx}%
+\usepackage{algpseudocode}%
+\usepackage{listings}%
+%%%%
+
+%%%%%=============================================================================%%%%
+%%%%  Remarks: This template is provided to aid authors with the preparation
+%%%%  of original research articles intended for submission to journals published 
+%%%%  by Springer Nature. The guidance has been prepared in partnership with 
+%%%%  production teams to conform to Springer Nature technical requirements. 
+%%%%  Editorial and presentation requirements differ among journal portfolios and 
+%%%%  research disciplines. You may find sections in this template are irrelevant 
+%%%%  to your work and are empowered to omit any such section if allowed by the 
+%%%%  journal you intend to submit to. The submission guidelines and policies 
+%%%%  of the journal take precedence. A detailed User Manual is available in the 
+%%%%  template package for technical guidance.
+%%%%%=============================================================================%%%%
+
+%% as per the requirement new theorem styles can be included as shown below
+\theoremstyle{thmstyleone}%
+\newtheorem{theorem}{Theorem}%  meant for continuous numbers
+%%\newtheorem{theorem}{Theorem}[section]% meant for sectionwise numbers
+%% optional argument [theorem] produces theorem numbering sequence instead of independent numbers for Proposition
+\newtheorem{proposition}[theorem]{Proposition}% 
+%%\newtheorem{proposition}{Proposition}% to get separate numbers for theorem and proposition etc.
+
+\theoremstyle{thmstyletwo}%
+\newtheorem{example}{Example}%
+\newtheorem{remark}{Remark}%
+
+\theoremstyle{thmstylethree}%
+\newtheorem{definition}{Definition}%
+
+\raggedbottom
+%%\unnumbered% uncomment this for unnumbered level heads
+
+\input{tables/numbers.tex}
+\begin{document}
+
+\title[FHIR-integrated pre-consultation]{A Modular, FHIR-Integrated Framework for LLM-Assisted Pre-Consultation}
+
+%%=============================================================%%
+%% GivenName	-> \fnm{Joergen W.}
+%% Particle	-> \spfx{van der} -> surname prefix
+%% FamilyName	-> \sur{Ploeg}
+%% Suffix	-> \sfx{IV}
+%% \author*[1,2]{\fnm{Joergen W.} \spfx{van der} \sur{Ploeg} 
+%%  \sfx{IV}}\email{iauthor@gmail.com}
+%%=============================================================%%
+
+\author[1,2,3]{\fnm{Wei-Hsuan} \sur{Tai}}\email{b12508026@ntu.edu.tw}\equalcont{These authors contributed equally to this work.}
+
+
+\author[2,3]{\fnm{Chun-Yi} \sur{Chen}}\email{TODO}\equalcont{These authors contributed equally to this work.}
+
+
+\author[4]{\fnm{Guan-Ying} \sur{Huang}}\email{TODO}\equalcont{These authors contributed equally to this work.}
+
+
+\author*[4,5,6]{\fnm{Chien-Chang} \sur{Lee}}\email{cclee100@gmail.com}
+
+\affil[1]{\orgdiv{Department of Biomedical Engineering}, \orgname{National Taiwan University}, \orgaddress{\city{Taipei}, \country{Taiwan}}}
+
+% TODO: confirm ISTI's official English name and city (Hsinchu HQ or Taipei office)
+\affil[2]{\orgdiv{Industry, Science and Technology International Strategy Center}, \orgname{Industrial Technology Research Institute}, \orgaddress{\city{Hsinchu}, \country{Taiwan}}}
+
+% TODO: official English name of the office; or use Dept. of Information Management (same as affil 6)
+\affil[3]{\orgdiv{Next-Generation Digital Health Platform Office}, \orgname{Ministry of Health and Welfare}, \orgaddress{\city{Taipei}, \country{Taiwan}}}
+
+\affil*[4]{\orgdiv{Department of Emergency Medicine}, \orgname{National Taiwan University Hospital}, \orgaddress{\city{Taipei}, \country{Taiwan}}}
+
+\affil[5]{\orgdiv{Department of Emergency Medicine, College of Medicine}, \orgname{National Taiwan University}, \orgaddress{\city{Taipei}, \country{Taiwan}}}
+
+\affil[6]{\orgdiv{Department of Information Management}, \orgname{Ministry of Health and Welfare}, \orgaddress{\city{Taipei}, \country{Taiwan}}}
+
+
+%%==================================%%
+%% Sample for unstructured abstract %%
+%%==================================%%
+
+\abstract{We describe a modular reference implementation for LLM-assisted pre-consultation with deterministic questionnaire control and structured FHIR write-back. Synthetic verification covers interoperability, end-to-end operation, module replacement, and local concurrency. Questionnaire definitions are exported from versioned source JSON; model adapters support commercial and local inference; write-back retains patient, EHR, model, and clinician provenance. Explicit run selection and source hashes generate the reported tables and numerical values. The selected provisional end-to-end evidence contains \ETwoSessions{} sessions with completion of \ETwoCompletion{}. Written-resource checking reports \EOneErrors{} verification errors, including \EOneValidatorCrashes{} resources left unverified after validator exceptions. Scenario review and independent audits remain pending. These findings describe technical verification and its limitations, not diagnostic accuracy, clinical safety, or national deployment readiness.}
+
+
+
+%%================================%%
+%% Sample for structured abstract %%
+%%================================%%
+
+% \abstract{\textbf{Purpose:} The abstract serves both as a general introduction to the topic and as a brief, non-technical summary of the main results and their implications. The abstract must not include subheadings (unless expressly permitted in the journal's Instructions to Authors), equations or citations. As a guide the abstract should not exceed 200 words. Most journals do not set a hard limit however authors are advised to check the author instructions for the journal they are submitting to.
+% 
+% \textbf{Methods:} The abstract serves both as a general introduction to the topic and as a brief, non-technical summary of the main results and their implications. The abstract must not include subheadings (unless expressly permitted in the journal's Instructions to Authors), equations or citations. As a guide the abstract should not exceed 200 words. Most journals do not set a hard limit however authors are advised to check the author instructions for the journal they are submitting to.
+% 
+% \textbf{Results:} The abstract serves both as a general introduction to the topic and as a brief, non-technical summary of the main results and their implications. The abstract must not include subheadings (unless expressly permitted in the journal's Instructions to Authors), equations or citations. As a guide the abstract should not exceed 200 words. Most journals do not set a hard limit however authors are advised to check the author instructions for the journal they are submitting to.
+% 
+% \textbf{Conclusion:} The abstract serves both as a general introduction to the topic and as a brief, non-technical summary of the main results and their implications. The abstract must not include subheadings (unless expressly permitted in the journal's Instructions to Authors), equations or citations. As a guide the abstract should not exceed 200 words. Most journals do not set a hard limit however authors are advised to check the author instructions for the journal they are submitting to.}
+
+\keywords{FHIR, Pre-consultation, Conversational AI, Clinical Documentation}
+
+%%\pacs[JEL Classification]{D8, H51}
+
+%%\pacs[MSC Classification]{35A01, 65L10, 65L12, 65L20, 65L70}
+
+\maketitle
+
+\section{Introduction}\label{sec1}
+
+Low-acuity visits place a growing burden on unscheduled care worldwide.\cite{pinesInternationalPerspectivesEmergency2011} In Taiwan, despite low-cost access under National Health Insurance, its emergency departments remain chronically crowded, and about one-third of visits are non-emergent.\cite{huangCharacteristicsNonEmergentVisits2019} This crowding prolongs waits, worsens outcomes, and drives clinician burnout.\cite{morleyEmergencyDepartmentCrowding2018, ghaseminejadOrganisationalFactorsAssociated2025}
+
+Large language models (LLMs) now support numerous clinical tasks, including ambient scribing, EHR documentation, and clinical decision support.\cite{nairCurrentStateDigital2026} Agentic systems extend these capabilities through planning, tool use, and multi-step action, enabling closer integration with health-system workflows and conversational diagnosis.\cite{tuConversationalDiagnosticArtificial2025} However, although various benchmarks now evaluate LLMs on realistic tasks and interactive encounters, most agentic systems remain confined to simulated settings.\cite{liuBenchmarkingLargeLanguage2026}
+
+Here, we present XXX, an LLM-based agent for adults presenting in Taiwanese urgent care centers. XXX conducts structured history-taking by text or voice, drafts a clinician-ready note, and supports decision-making with a ranked differential and not-to-miss conditions, alongside suggested examinations and imaging. To limit hallucination, the LLM only extracts clinical facts linked to the patient's own words, while safety screening, question selection, and diagnostic ranking follow auditable rules. XXX connects to EHRs via SMART on FHIR and was evaluated on benchmark.
+
+
+
+\input{body}
+\end{document}

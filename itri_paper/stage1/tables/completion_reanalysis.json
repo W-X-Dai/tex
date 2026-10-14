@@ -61,7 +61,7 @@
   "e3": [
     {
       "config": "default",
-      "e2_run": "experiments/results/e3_swap_e2/20261013T091850Z",
+      "e2_run": "experiments/results/e3_swap_e2/20261013T143527Z",
       "code_lines_changed_outside_config": 0,
       "completion": {
         "k": 30,
@@ -82,32 +82,32 @@
         "first_divergences": {}
       },
       "fact_traceability": {
-        "k": 89,
-        "n": 89,
+        "k": 91,
+        "n": 91,
         "rate": 1.0,
         "wilson95": [
-          0.9586234541380101,
+          0.9594959954580202,
           1.0
         ],
         "among_evidenced": {
-          "k": 89,
-          "n": 89,
+          "k": 91,
+          "n": 91,
           "rate": 1.0,
           "wilson95": [
-            0.9586234541380101,
+            0.9594959954580202,
             1.0
           ]
         },
         "denominator": "all extracted facts; missing evidence is untraceable",
-        "facts_total": 89,
-        "exact": 89,
+        "facts_total": 91,
+        "exact": 91,
         "normalized_only": 0,
         "no_evidence": 0
       },
-      "validation_errors_written": 30,
-      "median_turn_latency_ms": 9.148320008534938,
-      "median_wall_clock_ms": 36021.10394600459,
-      "cost_usd_per_session_median": 0.018385399999999996,
+      "validation_errors_written": 0,
+      "median_turn_latency_ms": 8.848554993164726,
+      "median_wall_clock_ms": 39985.89302349865,
+      "cost_usd_per_session_median": 0.019188425000000002,
       "unpriced_models": [],
       "validated_only": false,
       "config_lines_vs_first": {
@@ -117,8 +117,8 @@
       "e1": {
         "threshold": {
           "rule": "0 validator errors on written resources (structural/profile mode)",
-          "errors": 30,
-          "pass": false
+          "errors": 0,
+          "pass": true
         },
         "io": {
           "sessions": 30,
@@ -217,7 +217,7 @@
     },
     {
       "config": "llm_swap_a_gemini_alt",
-      "e2_run": "experiments/results/e3_swap_e2/20261013T092412Z",
+      "e2_run": "experiments/results/e3_swap_e2/20261013T144002Z",
       "code_lines_changed_outside_config": 0,
       "completion": {
         "k": 30,
@@ -238,32 +238,32 @@
         "first_divergences": {}
       },
       "fact_traceability": {
-        "k": 119,
-        "n": 119,
+        "k": 114,
+        "n": 114,
         "rate": 1.0,
         "wilson95": [
-          0.9687283192801539,
+          0.9674014653436566,
           1.0
         ],
         "among_evidenced": {
-          "k": 119,
-          "n": 119,
+          "k": 114,
+          "n": 114,
           "rate": 1.0,
           "wilson95": [
-            0.9687283192801539,
+            0.9674014653436566,
             1.0
           ]
         },
         "denominator": "all extracted facts; missing evidence is untraceable",
-        "facts_total": 119,
-        "exact": 119,
+        "facts_total": 114,
+        "exact": 114,
         "normalized_only": 0,
         "no_evidence": 0
       },
-      "validation_errors_written": 30,
-      "median_turn_latency_ms": 9.213946003001183,
-      "median_wall_clock_ms": 31204.607764506363,
-      "cost_usd_per_session_median": 0.0097052,
+      "validation_errors_written": 0,
+      "median_turn_latency_ms": 9.353340996312909,
+      "median_wall_clock_ms": 34546.04852099874,
+      "cost_usd_per_session_median": 0.009626349999999999,
       "unpriced_models": [],
       "validated_only": false,
       "config_lines_vs_first": {
@@ -273,8 +273,8 @@
       "e1": {
         "threshold": {
           "rule": "0 validator errors on written resources (structural/profile mode)",
-          "errors": 30,
-          "pass": false
+          "errors": 0,
+          "pass": true
         },
         "io": {
           "sessions": 30,
@@ -373,7 +373,7 @@
     },
     {
       "config": "llm_swap_b_ollama",
-      "e2_run": "experiments/results/e3_swap_e2/20261013T092912Z",
+      "e2_run": "experiments/results/e3_swap_e2/20261013T144457Z",
       "code_lines_changed_outside_config": 0,
       "completion": {
         "k": 28,
@@ -416,9 +416,9 @@
         "normalized_only": 0,
         "no_evidence": 0
       },
-      "validation_errors_written": 30,
-      "median_turn_latency_ms": 8.922920998884365,
-      "median_wall_clock_ms": 202206.94876150083,
+      "validation_errors_written": 0,
+      "median_turn_latency_ms": 9.177779997116886,
+      "median_wall_clock_ms": 205656.89770949393,
       "cost_usd_per_session_median": 0.0,
       "unpriced_models": [],
       "validated_only": false,
@@ -429,8 +429,8 @@
       "e1": {
         "threshold": {
           "rule": "0 validator errors on written resources (structural/profile mode)",
-          "errors": 30,
-          "pass": false
+          "errors": 0,
+          "pass": true
         },
         "io": {
           "sessions": 30,
@@ -463,9 +463,9 @@
           },
           "written_by_type": {
             "QuestionnaireResponse": 30,
+            "Observation": 20,
             "Composition": 30,
-            "Provenance": 30,
-            "Observation": 20
+            "Provenance": 30
           },
           "structured_resources_written": 30
         },
@@ -496,6 +496,10 @@
               "compared": 30,
               "identical": 30
             },
+            "Observation": {
+              "compared": 20,
+              "identical": 20
+            },
             "Composition": {
               "compared": 30,
               "identical": 30
@@ -503,10 +507,6 @@
             "Provenance": {
               "compared": 30,
               "identical": 30
-            },
-            "Observation": {
-              "compared": 20,
-              "identical": 20
             }
           },
           "submitted_without_readback": 0,

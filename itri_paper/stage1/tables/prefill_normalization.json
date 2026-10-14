@@ -1,0 +1,3686 @@
+{
+  "schema": "prefill_normalization_descriptive_v1",
+  "cohorts": {
+    "E1 templated": {
+      "run": "experiments/results/e1_interop/20261014T094026Z",
+      "sessions": 200,
+      "planned_sessions": 200,
+      "missing_sessions": 0,
+      "metadata_known": 200,
+      "metadata_unknown": 0,
+      "coverage_complete": true,
+      "failed_sessions": 0,
+      "failed_sessions_observed": 0,
+      "status_counts": {
+        "normalized": 184,
+        "unclear": 0,
+        "failed": 0,
+        "no_chronic_identified": 16,
+        "no_chronic": 0,
+        "disabled": 0
+      },
+      "category_counts": {
+        "diabetes": 133,
+        "ckd": 117,
+        "hyperlipidemia": 56,
+        "cirrhosis": 0,
+        "autoimmune": 3,
+        "cancer": 19,
+        "other_chronic": 890,
+        "exclude": 2608,
+        "unclear": 0
+      },
+      "entries": 3764,
+      "classified_entries": 3764,
+      "unclassified_entries": 0,
+      "unclear_entries": 0,
+      "sessions_with_unclear_entries": 0,
+      "entries_unknown_sessions": 0,
+      "truncated_entries": 0,
+      "applied_prefill_unknown_sessions": 0,
+      "providers": {
+        "gemini": 200
+      },
+      "models": {
+        "gemini-3.5-flash-lite": 200
+      },
+      "failure_reasons": {},
+      "listed_option_disagreements": 70,
+      "reference_chronic_excluded": 22,
+      "listed_option_disagreement_detail": [
+        {
+          "entry": "carcinoma in situ of prostate",
+          "assigned": "cancer",
+          "reference": "ambiguous",
+          "count": 1
+        },
+        {
+          "entry": "fibromyalgia",
+          "assigned": "autoimmune",
+          "reference": "other_chronic",
+          "count": 1
+        },
+        {
+          "entry": "hyperglycemia",
+          "assigned": "diabetes",
+          "reference": "ambiguous",
+          "count": 2
+        },
+        {
+          "entry": "idiopathic atrophic hypothyroidism",
+          "assigned": "autoimmune",
+          "reference": "ambiguous",
+          "count": 1
+        },
+        {
+          "entry": "microalbuminuria due to type 2 diabetes mellitus",
+          "assigned": "ckd",
+          "reference": "diabetes",
+          "count": 20
+        },
+        {
+          "entry": "neoplasm of prostate",
+          "assigned": "cancer",
+          "reference": "ambiguous",
+          "count": 1
+        },
+        {
+          "entry": "neuropathy due to type 2 diabetes mellitus",
+          "assigned": "ckd",
+          "reference": "diabetes",
+          "count": 1
+        },
+        {
+          "entry": "polyp of colon",
+          "assigned": "cancer",
+          "reference": "other_chronic",
+          "count": 4
+        },
+        {
+          "entry": "prediabetes",
+          "assigned": "diabetes",
+          "reference": "ambiguous",
+          "count": 38
+        },
+        {
+          "entry": "recurrent rectal polyp",
+          "assigned": "cancer",
+          "reference": "other_chronic",
+          "count": 1
+        }
+      ],
+      "reference_chronic_excluded_detail": [
+        {
+          "entry": "history of coronary artery bypass grafting",
+          "reference": "other_chronic",
+          "count": 22
+        }
+      ],
+      "per_session": [
+        {
+          "session_key": "default__tpl0000__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 8,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0001__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 15,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0002__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 25,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0003__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 29,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0004__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 21,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0005__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 16,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0006__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 9,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0007__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 9,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0008__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 17,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0009__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 21,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0010__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 25,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0011__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 21,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0012__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 27,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0013__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 39,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0014__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 23,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0015__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 16,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0016__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 23,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0017__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 53,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0018__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 18,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0019__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 10,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0020__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 16,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0021__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 14,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0022__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 14,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0023__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 18,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0024__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 20,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0025__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 17,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0026__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 17,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0027__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 15,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0028__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 14,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0029__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 15,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0030__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 32,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0031__headache",
+          "script_id": "TPL-headache",
+          "status": "no_chronic_identified",
+          "classified_entries": 7,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0032__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 26,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0033__chest",
+          "script_id": "TPL-chest",
+          "status": "no_chronic_identified",
+          "classified_entries": 9,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0034__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 12,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0035__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 13,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0036__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 33,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0037__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 32,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0038__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 11,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0039__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 15,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0040__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 25,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0041__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 15,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0042__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 11,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0043__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 12,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0044__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 16,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0045__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 46,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0046__headache",
+          "script_id": "TPL-headache",
+          "status": "no_chronic_identified",
+          "classified_entries": 13,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0047__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 14,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0048__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 18,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0049__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 23,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0050__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 45,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0051__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 11,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0052__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 16,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0053__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 14,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0054__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 11,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0055__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 11,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0056__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 20,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0057__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 18,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0058__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 24,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0059__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 11,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0060__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 19,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0061__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 13,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0062__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 15,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0063__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 31,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0064__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 23,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0065__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 19,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0066__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 13,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0067__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 12,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0068__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 35,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0069__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 16,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0070__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 19,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0071__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 22,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0072__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 21,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0073__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 26,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0074__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 12,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0075__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 17,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0076__headache",
+          "script_id": "TPL-headache",
+          "status": "no_chronic_identified",
+          "classified_entries": 9,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0077__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 19,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0078__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 18,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0079__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 20,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0080__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "no_chronic_identified",
+          "classified_entries": 9,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0081__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 20,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0082__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 15,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0083__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 29,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0084__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 10,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0085__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 19,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0086__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 20,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0087__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 14,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0088__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 10,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0089__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 10,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0090__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 28,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0091__headache",
+          "script_id": "TPL-headache",
+          "status": "no_chronic_identified",
+          "classified_entries": 9,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0092__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 15,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0093__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 25,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0094__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 18,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0095__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 25,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0096__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 27,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0097__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 35,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0098__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 23,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0099__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 15,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0100__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 8,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0101__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 16,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0102__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 21,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0103__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 15,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0104__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 14,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0105__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 27,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0106__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 15,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0107__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 22,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0108__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 12,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0109__headache",
+          "script_id": "TPL-headache",
+          "status": "no_chronic_identified",
+          "classified_entries": 7,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0110__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 14,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0111__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 24,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0112__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 17,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0113__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "no_chronic_identified",
+          "classified_entries": 13,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0114__chest",
+          "script_id": "TPL-chest",
+          "status": "no_chronic_identified",
+          "classified_entries": 10,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0115__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 20,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0116__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 19,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0117__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 18,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0118__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 14,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0119__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "no_chronic_identified",
+          "classified_entries": 12,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0120__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 24,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0121__headache",
+          "script_id": "TPL-headache",
+          "status": "no_chronic_identified",
+          "classified_entries": 11,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0122__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 25,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0123__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 16,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0124__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 17,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0125__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 21,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0126__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 17,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0127__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 18,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0128__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 7,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0129__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 25,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0130__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 27,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0131__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 31,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0132__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 14,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0133__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 11,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0134__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 16,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0135__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 21,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0136__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 22,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0137__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 13,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0138__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 22,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0139__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 24,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0140__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 18,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0141__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 16,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0142__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 15,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0143__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 9,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0144__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 12,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0145__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 14,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0146__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 22,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0147__chest",
+          "script_id": "TPL-chest",
+          "status": "no_chronic_identified",
+          "classified_entries": 14,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0148__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 28,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0149__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 20,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0150__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 14,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0151__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 20,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0152__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "no_chronic_identified",
+          "classified_entries": 5,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0153__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 17,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0154__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 41,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0155__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 19,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0156__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 17,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0157__headache",
+          "script_id": "TPL-headache",
+          "status": "no_chronic_identified",
+          "classified_entries": 5,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0158__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 20,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0159__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 12,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0160__headache",
+          "script_id": "TPL-headache",
+          "status": "no_chronic_identified",
+          "classified_entries": 14,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0161__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 22,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0162__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 19,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0163__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 17,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0164__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 13,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0165__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 16,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0166__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 12,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0167__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 32,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0168__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 27,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0169__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 20,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0170__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 15,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0171__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 38,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0172__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 28,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0173__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 34,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0174__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 42,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0175__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 17,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0176__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 14,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0177__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 37,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0178__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 20,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0179__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 17,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0180__chest",
+          "script_id": "TPL-chest",
+          "status": "no_chronic_identified",
+          "classified_entries": 11,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0181__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 26,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0182__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 33,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0183__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 14,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0184__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 27,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0185__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 21,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0186__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 16,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0187__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 16,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0188__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 16,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0189__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 16,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0190__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 25,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0191__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 17,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0192__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 9,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0193__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 26,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0194__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 17,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0195__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 17,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0196__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 16,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0197__abdomen",
+          "script_id": "TPL-abdomen",
+          "status": "normalized",
+          "classified_entries": 15,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0198__chest",
+          "script_id": "TPL-chest",
+          "status": "normalized",
+          "classified_entries": 8,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__tpl0199__headache",
+          "script_id": "TPL-headache",
+          "status": "normalized",
+          "classified_entries": 22,
+          "unclear_entries": 0
+        }
+      ]
+    },
+    "E2 default": {
+      "run": "experiments/results/e2_end_to_end/20261014T101952Z",
+      "sessions": 150,
+      "planned_sessions": 150,
+      "missing_sessions": 0,
+      "metadata_known": 150,
+      "metadata_unknown": 0,
+      "coverage_complete": true,
+      "failed_sessions": 0,
+      "failed_sessions_observed": 0,
+      "status_counts": {
+        "normalized": 90,
+        "unclear": 0,
+        "failed": 0,
+        "no_chronic_identified": 0,
+        "no_chronic": 60,
+        "disabled": 0
+      },
+      "category_counts": {
+        "diabetes": 15,
+        "ckd": 5,
+        "hyperlipidemia": 15,
+        "cirrhosis": 0,
+        "autoimmune": 1,
+        "cancer": 0,
+        "other_chronic": 85,
+        "exclude": 0,
+        "unclear": 0
+      },
+      "entries": 120,
+      "classified_entries": 120,
+      "unclassified_entries": 0,
+      "unclear_entries": 0,
+      "sessions_with_unclear_entries": 0,
+      "entries_unknown_sessions": 0,
+      "truncated_entries": 0,
+      "applied_prefill_unknown_sessions": 0,
+      "providers": {
+        "gemini": 150
+      },
+      "models": {
+        "gemini-3.5-flash-lite": 150
+      },
+      "failure_reasons": {},
+      "listed_option_disagreements": 1,
+      "reference_chronic_excluded": 0,
+      "listed_option_disagreement_detail": [
+        {
+          "entry": "hypothyroidism",
+          "assigned": "autoimmune",
+          "reference": "other_chronic",
+          "count": 1
+        }
+      ],
+      "reference_chronic_excluded_detail": [],
+      "per_session": [
+        {
+          "session_key": "default__AP-01__r1",
+          "script_id": "AP-01",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-01__r2",
+          "script_id": "AP-01",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-01__r3",
+          "script_id": "AP-01",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-01__r4",
+          "script_id": "AP-01",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-01__r5",
+          "script_id": "AP-01",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-02__r1",
+          "script_id": "AP-02",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-02__r2",
+          "script_id": "AP-02",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-02__r3",
+          "script_id": "AP-02",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-02__r4",
+          "script_id": "AP-02",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-02__r5",
+          "script_id": "AP-02",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-03__r1",
+          "script_id": "AP-03",
+          "status": "normalized",
+          "classified_entries": 2,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-03__r2",
+          "script_id": "AP-03",
+          "status": "normalized",
+          "classified_entries": 2,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-03__r3",
+          "script_id": "AP-03",
+          "status": "normalized",
+          "classified_entries": 2,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-03__r4",
+          "script_id": "AP-03",
+          "status": "normalized",
+          "classified_entries": 2,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-03__r5",
+          "script_id": "AP-03",
+          "status": "normalized",
+          "classified_entries": 2,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-04__r1",
+          "script_id": "AP-04",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-04__r2",
+          "script_id": "AP-04",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-04__r3",
+          "script_id": "AP-04",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-04__r4",
+          "script_id": "AP-04",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-04__r5",
+          "script_id": "AP-04",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-05__r1",
+          "script_id": "AP-05",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-05__r2",
+          "script_id": "AP-05",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-05__r3",
+          "script_id": "AP-05",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-05__r4",
+          "script_id": "AP-05",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-05__r5",
+          "script_id": "AP-05",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-06__r1",
+          "script_id": "AP-06",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-06__r2",
+          "script_id": "AP-06",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-06__r3",
+          "script_id": "AP-06",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-06__r4",
+          "script_id": "AP-06",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-06__r5",
+          "script_id": "AP-06",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-07__r1",
+          "script_id": "AP-07",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-07__r2",
+          "script_id": "AP-07",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-07__r3",
+          "script_id": "AP-07",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-07__r4",
+          "script_id": "AP-07",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-07__r5",
+          "script_id": "AP-07",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-08__r1",
+          "script_id": "AP-08",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-08__r2",
+          "script_id": "AP-08",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-08__r3",
+          "script_id": "AP-08",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-08__r4",
+          "script_id": "AP-08",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-08__r5",
+          "script_id": "AP-08",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-09__r1",
+          "script_id": "AP-09",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-09__r2",
+          "script_id": "AP-09",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-09__r3",
+          "script_id": "AP-09",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-09__r4",
+          "script_id": "AP-09",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-09__r5",
+          "script_id": "AP-09",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-10__r1",
+          "script_id": "AP-10",
+          "status": "normalized",
+          "classified_entries": 2,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-10__r2",
+          "script_id": "AP-10",
+          "status": "normalized",
+          "classified_entries": 2,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-10__r3",
+          "script_id": "AP-10",
+          "status": "normalized",
+          "classified_entries": 2,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-10__r4",
+          "script_id": "AP-10",
+          "status": "normalized",
+          "classified_entries": 2,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-10__r5",
+          "script_id": "AP-10",
+          "status": "normalized",
+          "classified_entries": 2,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-01__r1",
+          "script_id": "CP-01",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-01__r2",
+          "script_id": "CP-01",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-01__r3",
+          "script_id": "CP-01",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-01__r4",
+          "script_id": "CP-01",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-01__r5",
+          "script_id": "CP-01",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-02__r1",
+          "script_id": "CP-02",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-02__r2",
+          "script_id": "CP-02",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-02__r3",
+          "script_id": "CP-02",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-02__r4",
+          "script_id": "CP-02",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-02__r5",
+          "script_id": "CP-02",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-03__r1",
+          "script_id": "CP-03",
+          "status": "normalized",
+          "classified_entries": 2,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-03__r2",
+          "script_id": "CP-03",
+          "status": "normalized",
+          "classified_entries": 2,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-03__r3",
+          "script_id": "CP-03",
+          "status": "normalized",
+          "classified_entries": 2,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-03__r4",
+          "script_id": "CP-03",
+          "status": "normalized",
+          "classified_entries": 2,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-03__r5",
+          "script_id": "CP-03",
+          "status": "normalized",
+          "classified_entries": 2,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-04__r1",
+          "script_id": "CP-04",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-04__r2",
+          "script_id": "CP-04",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-04__r3",
+          "script_id": "CP-04",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-04__r4",
+          "script_id": "CP-04",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-04__r5",
+          "script_id": "CP-04",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-05__r1",
+          "script_id": "CP-05",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-05__r2",
+          "script_id": "CP-05",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-05__r3",
+          "script_id": "CP-05",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-05__r4",
+          "script_id": "CP-05",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-05__r5",
+          "script_id": "CP-05",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-06__r1",
+          "script_id": "CP-06",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-06__r2",
+          "script_id": "CP-06",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-06__r3",
+          "script_id": "CP-06",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-06__r4",
+          "script_id": "CP-06",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-06__r5",
+          "script_id": "CP-06",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-07__r1",
+          "script_id": "CP-07",
+          "status": "normalized",
+          "classified_entries": 2,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-07__r2",
+          "script_id": "CP-07",
+          "status": "normalized",
+          "classified_entries": 2,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-07__r3",
+          "script_id": "CP-07",
+          "status": "normalized",
+          "classified_entries": 2,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-07__r4",
+          "script_id": "CP-07",
+          "status": "normalized",
+          "classified_entries": 2,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-07__r5",
+          "script_id": "CP-07",
+          "status": "normalized",
+          "classified_entries": 2,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-08__r1",
+          "script_id": "CP-08",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-08__r2",
+          "script_id": "CP-08",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-08__r3",
+          "script_id": "CP-08",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-08__r4",
+          "script_id": "CP-08",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-08__r5",
+          "script_id": "CP-08",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-09__r1",
+          "script_id": "CP-09",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-09__r2",
+          "script_id": "CP-09",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-09__r3",
+          "script_id": "CP-09",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-09__r4",
+          "script_id": "CP-09",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-09__r5",
+          "script_id": "CP-09",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-10__r1",
+          "script_id": "CP-10",
+          "status": "normalized",
+          "classified_entries": 2,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-10__r2",
+          "script_id": "CP-10",
+          "status": "normalized",
+          "classified_entries": 2,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-10__r3",
+          "script_id": "CP-10",
+          "status": "normalized",
+          "classified_entries": 2,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-10__r4",
+          "script_id": "CP-10",
+          "status": "normalized",
+          "classified_entries": 2,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-10__r5",
+          "script_id": "CP-10",
+          "status": "normalized",
+          "classified_entries": 2,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-01__r1",
+          "script_id": "HA-01",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-01__r2",
+          "script_id": "HA-01",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-01__r3",
+          "script_id": "HA-01",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-01__r4",
+          "script_id": "HA-01",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-01__r5",
+          "script_id": "HA-01",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-02__r1",
+          "script_id": "HA-02",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-02__r2",
+          "script_id": "HA-02",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-02__r3",
+          "script_id": "HA-02",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-02__r4",
+          "script_id": "HA-02",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-02__r5",
+          "script_id": "HA-02",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-03__r1",
+          "script_id": "HA-03",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-03__r2",
+          "script_id": "HA-03",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-03__r3",
+          "script_id": "HA-03",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-03__r4",
+          "script_id": "HA-03",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-03__r5",
+          "script_id": "HA-03",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-04__r1",
+          "script_id": "HA-04",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-04__r2",
+          "script_id": "HA-04",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-04__r3",
+          "script_id": "HA-04",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-04__r4",
+          "script_id": "HA-04",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-04__r5",
+          "script_id": "HA-04",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-05__r1",
+          "script_id": "HA-05",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-05__r2",
+          "script_id": "HA-05",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-05__r3",
+          "script_id": "HA-05",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-05__r4",
+          "script_id": "HA-05",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-05__r5",
+          "script_id": "HA-05",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-06__r1",
+          "script_id": "HA-06",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-06__r2",
+          "script_id": "HA-06",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-06__r3",
+          "script_id": "HA-06",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-06__r4",
+          "script_id": "HA-06",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-06__r5",
+          "script_id": "HA-06",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-07__r1",
+          "script_id": "HA-07",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-07__r2",
+          "script_id": "HA-07",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-07__r3",
+          "script_id": "HA-07",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-07__r4",
+          "script_id": "HA-07",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-07__r5",
+          "script_id": "HA-07",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-08__r1",
+          "script_id": "HA-08",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-08__r2",
+          "script_id": "HA-08",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-08__r3",
+          "script_id": "HA-08",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-08__r4",
+          "script_id": "HA-08",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-08__r5",
+          "script_id": "HA-08",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-09__r1",
+          "script_id": "HA-09",
+          "status": "normalized",
+          "classified_entries": 2,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-09__r2",
+          "script_id": "HA-09",
+          "status": "normalized",
+          "classified_entries": 2,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-09__r3",
+          "script_id": "HA-09",
+          "status": "normalized",
+          "classified_entries": 2,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-09__r4",
+          "script_id": "HA-09",
+          "status": "normalized",
+          "classified_entries": 2,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-09__r5",
+          "script_id": "HA-09",
+          "status": "normalized",
+          "classified_entries": 2,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-10__r1",
+          "script_id": "HA-10",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-10__r2",
+          "script_id": "HA-10",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-10__r3",
+          "script_id": "HA-10",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-10__r4",
+          "script_id": "HA-10",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-10__r5",
+          "script_id": "HA-10",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        }
+      ]
+    },
+    "E3 default": {
+      "run": "experiments/results/e3_swap_e2/20261014T103750Z",
+      "sessions": 30,
+      "planned_sessions": 30,
+      "missing_sessions": 0,
+      "metadata_known": 30,
+      "metadata_unknown": 0,
+      "coverage_complete": true,
+      "failed_sessions": 0,
+      "failed_sessions_observed": 0,
+      "status_counts": {
+        "normalized": 18,
+        "unclear": 0,
+        "failed": 0,
+        "no_chronic_identified": 0,
+        "no_chronic": 12,
+        "disabled": 0
+      },
+      "category_counts": {
+        "diabetes": 3,
+        "ckd": 1,
+        "hyperlipidemia": 3,
+        "cirrhosis": 0,
+        "autoimmune": 0,
+        "cancer": 0,
+        "other_chronic": 17,
+        "exclude": 0,
+        "unclear": 0
+      },
+      "entries": 24,
+      "classified_entries": 24,
+      "unclassified_entries": 0,
+      "unclear_entries": 0,
+      "sessions_with_unclear_entries": 0,
+      "entries_unknown_sessions": 0,
+      "truncated_entries": 0,
+      "applied_prefill_unknown_sessions": 0,
+      "providers": {
+        "gemini": 30
+      },
+      "models": {
+        "gemini-3.5-flash-lite": 30
+      },
+      "failure_reasons": {},
+      "listed_option_disagreements": 0,
+      "reference_chronic_excluded": 0,
+      "listed_option_disagreement_detail": [],
+      "reference_chronic_excluded_detail": [],
+      "per_session": [
+        {
+          "session_key": "default__AP-01__r1",
+          "script_id": "AP-01",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-02__r1",
+          "script_id": "AP-02",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-03__r1",
+          "script_id": "AP-03",
+          "status": "normalized",
+          "classified_entries": 2,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-04__r1",
+          "script_id": "AP-04",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-05__r1",
+          "script_id": "AP-05",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-06__r1",
+          "script_id": "AP-06",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-07__r1",
+          "script_id": "AP-07",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-08__r1",
+          "script_id": "AP-08",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-09__r1",
+          "script_id": "AP-09",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__AP-10__r1",
+          "script_id": "AP-10",
+          "status": "normalized",
+          "classified_entries": 2,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-01__r1",
+          "script_id": "CP-01",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-02__r1",
+          "script_id": "CP-02",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-03__r1",
+          "script_id": "CP-03",
+          "status": "normalized",
+          "classified_entries": 2,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-04__r1",
+          "script_id": "CP-04",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-05__r1",
+          "script_id": "CP-05",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-06__r1",
+          "script_id": "CP-06",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-07__r1",
+          "script_id": "CP-07",
+          "status": "normalized",
+          "classified_entries": 2,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-08__r1",
+          "script_id": "CP-08",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-09__r1",
+          "script_id": "CP-09",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__CP-10__r1",
+          "script_id": "CP-10",
+          "status": "normalized",
+          "classified_entries": 2,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-01__r1",
+          "script_id": "HA-01",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-02__r1",
+          "script_id": "HA-02",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-03__r1",
+          "script_id": "HA-03",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-04__r1",
+          "script_id": "HA-04",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-05__r1",
+          "script_id": "HA-05",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-06__r1",
+          "script_id": "HA-06",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-07__r1",
+          "script_id": "HA-07",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-08__r1",
+          "script_id": "HA-08",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-09__r1",
+          "script_id": "HA-09",
+          "status": "normalized",
+          "classified_entries": 2,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "default__HA-10__r1",
+          "script_id": "HA-10",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        }
+      ]
+    },
+    "E3 alternate": {
+      "run": "experiments/results/e3_swap_e2/20261014T104203Z",
+      "sessions": 30,
+      "planned_sessions": 30,
+      "missing_sessions": 0,
+      "metadata_known": 30,
+      "metadata_unknown": 0,
+      "coverage_complete": true,
+      "failed_sessions": 0,
+      "failed_sessions_observed": 0,
+      "status_counts": {
+        "normalized": 18,
+        "unclear": 0,
+        "failed": 0,
+        "no_chronic_identified": 0,
+        "no_chronic": 12,
+        "disabled": 0
+      },
+      "category_counts": {
+        "diabetes": 3,
+        "ckd": 1,
+        "hyperlipidemia": 3,
+        "cirrhosis": 0,
+        "autoimmune": 0,
+        "cancer": 0,
+        "other_chronic": 17,
+        "exclude": 0,
+        "unclear": 0
+      },
+      "entries": 24,
+      "classified_entries": 24,
+      "unclassified_entries": 0,
+      "unclear_entries": 0,
+      "sessions_with_unclear_entries": 0,
+      "entries_unknown_sessions": 0,
+      "truncated_entries": 0,
+      "applied_prefill_unknown_sessions": 0,
+      "providers": {
+        "gemini": 30
+      },
+      "models": {
+        "gemini-2.5-flash": 30
+      },
+      "failure_reasons": {},
+      "listed_option_disagreements": 0,
+      "reference_chronic_excluded": 0,
+      "listed_option_disagreement_detail": [],
+      "reference_chronic_excluded_detail": [],
+      "per_session": [
+        {
+          "session_key": "llm_swap_a_gemini_alt__AP-01__r1",
+          "script_id": "AP-01",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_a_gemini_alt__AP-02__r1",
+          "script_id": "AP-02",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_a_gemini_alt__AP-03__r1",
+          "script_id": "AP-03",
+          "status": "normalized",
+          "classified_entries": 2,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_a_gemini_alt__AP-04__r1",
+          "script_id": "AP-04",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_a_gemini_alt__AP-05__r1",
+          "script_id": "AP-05",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_a_gemini_alt__AP-06__r1",
+          "script_id": "AP-06",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_a_gemini_alt__AP-07__r1",
+          "script_id": "AP-07",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_a_gemini_alt__AP-08__r1",
+          "script_id": "AP-08",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_a_gemini_alt__AP-09__r1",
+          "script_id": "AP-09",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_a_gemini_alt__AP-10__r1",
+          "script_id": "AP-10",
+          "status": "normalized",
+          "classified_entries": 2,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_a_gemini_alt__CP-01__r1",
+          "script_id": "CP-01",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_a_gemini_alt__CP-02__r1",
+          "script_id": "CP-02",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_a_gemini_alt__CP-03__r1",
+          "script_id": "CP-03",
+          "status": "normalized",
+          "classified_entries": 2,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_a_gemini_alt__CP-04__r1",
+          "script_id": "CP-04",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_a_gemini_alt__CP-05__r1",
+          "script_id": "CP-05",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_a_gemini_alt__CP-06__r1",
+          "script_id": "CP-06",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_a_gemini_alt__CP-07__r1",
+          "script_id": "CP-07",
+          "status": "normalized",
+          "classified_entries": 2,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_a_gemini_alt__CP-08__r1",
+          "script_id": "CP-08",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_a_gemini_alt__CP-09__r1",
+          "script_id": "CP-09",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_a_gemini_alt__CP-10__r1",
+          "script_id": "CP-10",
+          "status": "normalized",
+          "classified_entries": 2,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_a_gemini_alt__HA-01__r1",
+          "script_id": "HA-01",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_a_gemini_alt__HA-02__r1",
+          "script_id": "HA-02",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_a_gemini_alt__HA-03__r1",
+          "script_id": "HA-03",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_a_gemini_alt__HA-04__r1",
+          "script_id": "HA-04",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_a_gemini_alt__HA-05__r1",
+          "script_id": "HA-05",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_a_gemini_alt__HA-06__r1",
+          "script_id": "HA-06",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_a_gemini_alt__HA-07__r1",
+          "script_id": "HA-07",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_a_gemini_alt__HA-08__r1",
+          "script_id": "HA-08",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_a_gemini_alt__HA-09__r1",
+          "script_id": "HA-09",
+          "status": "normalized",
+          "classified_entries": 2,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_a_gemini_alt__HA-10__r1",
+          "script_id": "HA-10",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        }
+      ]
+    },
+    "E3 local": {
+      "run": "experiments/results/e3_swap_e2/20261014T104547Z",
+      "sessions": 30,
+      "planned_sessions": 30,
+      "missing_sessions": 0,
+      "metadata_known": 30,
+      "metadata_unknown": 0,
+      "coverage_complete": true,
+      "failed_sessions": 1,
+      "failed_sessions_observed": 1,
+      "status_counts": {
+        "normalized": 15,
+        "unclear": 0,
+        "failed": 1,
+        "no_chronic_identified": 2,
+        "no_chronic": 12,
+        "disabled": 0
+      },
+      "category_counts": {
+        "diabetes": 3,
+        "ckd": 1,
+        "hyperlipidemia": 3,
+        "cirrhosis": 0,
+        "autoimmune": 0,
+        "cancer": 0,
+        "other_chronic": 12,
+        "exclude": 4,
+        "unclear": 0
+      },
+      "entries": 24,
+      "classified_entries": 23,
+      "unclassified_entries": 1,
+      "unclear_entries": 0,
+      "sessions_with_unclear_entries": 0,
+      "entries_unknown_sessions": 0,
+      "truncated_entries": 0,
+      "applied_prefill_unknown_sessions": 0,
+      "providers": {
+        "openai_compatible": 30
+      },
+      "models": {
+        "gemma3:12b": 30
+      },
+      "failure_reasons": {
+        "timeout": 1
+      },
+      "listed_option_disagreements": 0,
+      "reference_chronic_excluded": 4,
+      "listed_option_disagreement_detail": [],
+      "reference_chronic_excluded_detail": [
+        {
+          "entry": "abdominal aortic aneurysm",
+          "reference": "other_chronic",
+          "count": 1
+        },
+        {
+          "entry": "atrial fibrillation",
+          "reference": "other_chronic",
+          "count": 1
+        },
+        {
+          "entry": "cholelithiasis",
+          "reference": "other_chronic",
+          "count": 1
+        },
+        {
+          "entry": "migraine",
+          "reference": "other_chronic",
+          "count": 1
+        }
+      ],
+      "per_session": [
+        {
+          "session_key": "llm_swap_b_ollama__AP-01__r1",
+          "script_id": "AP-01",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_b_ollama__AP-02__r1",
+          "script_id": "AP-02",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_b_ollama__AP-03__r1",
+          "script_id": "AP-03",
+          "status": "normalized",
+          "classified_entries": 2,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_b_ollama__AP-04__r1",
+          "script_id": "AP-04",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_b_ollama__AP-05__r1",
+          "script_id": "AP-05",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_b_ollama__AP-06__r1",
+          "script_id": "AP-06",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_b_ollama__AP-07__r1",
+          "script_id": "AP-07",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_b_ollama__AP-08__r1",
+          "script_id": "AP-08",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_b_ollama__AP-09__r1",
+          "script_id": "AP-09",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_b_ollama__AP-10__r1",
+          "script_id": "AP-10",
+          "status": "normalized",
+          "classified_entries": 2,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_b_ollama__CP-01__r1",
+          "script_id": "CP-01",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_b_ollama__CP-02__r1",
+          "script_id": "CP-02",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_b_ollama__CP-03__r1",
+          "script_id": "CP-03",
+          "status": "normalized",
+          "classified_entries": 2,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_b_ollama__CP-04__r1",
+          "script_id": "CP-04",
+          "status": "failed",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_b_ollama__CP-05__r1",
+          "script_id": "CP-05",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_b_ollama__CP-06__r1",
+          "script_id": "CP-06",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_b_ollama__CP-07__r1",
+          "script_id": "CP-07",
+          "status": "normalized",
+          "classified_entries": 2,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_b_ollama__CP-08__r1",
+          "script_id": "CP-08",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_b_ollama__CP-09__r1",
+          "script_id": "CP-09",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_b_ollama__CP-10__r1",
+          "script_id": "CP-10",
+          "status": "normalized",
+          "classified_entries": 2,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_b_ollama__HA-01__r1",
+          "script_id": "HA-01",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_b_ollama__HA-02__r1",
+          "script_id": "HA-02",
+          "status": "no_chronic_identified",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_b_ollama__HA-03__r1",
+          "script_id": "HA-03",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_b_ollama__HA-04__r1",
+          "script_id": "HA-04",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_b_ollama__HA-05__r1",
+          "script_id": "HA-05",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_b_ollama__HA-06__r1",
+          "script_id": "HA-06",
+          "status": "normalized",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_b_ollama__HA-07__r1",
+          "script_id": "HA-07",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_b_ollama__HA-08__r1",
+          "script_id": "HA-08",
+          "status": "no_chronic",
+          "classified_entries": 0,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_b_ollama__HA-09__r1",
+          "script_id": "HA-09",
+          "status": "normalized",
+          "classified_entries": 2,
+          "unclear_entries": 0
+        },
+        {
+          "session_key": "llm_swap_b_ollama__HA-10__r1",
+          "script_id": "HA-10",
+          "status": "no_chronic_identified",
+          "classified_entries": 1,
+          "unclear_entries": 0
+        }
+      ]
+    }
+  },
+  "feasibility": {
+    "available": true,
+    "run": "experiments/results/r3_prefill/20261014T080112Z",
+    "provider": "gemini",
+    "model": "gemini-3.6-flash",
+    "prefill_strings": 213,
+    "calls_failed": 0,
+    "calls_with_missing_or_bad_indices": 0,
+    "entries_scored": 2308,
+    "exact_match": 2225,
+    "exact_mismatch": 83,
+    "exact_match_rate": 0.9640381282495667,
+    "ambiguous_not_scored": 397,
+    "unlabeled_entries": 24,
+    "truncated": {
+      "total": 105,
+      "unclear": 90,
+      "guessed": 15
+    },
+    "per_category": {
+      "diabetes": {
+        "tp": 54,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "ckd": {
+        "tp": 40,
+        "fp": 4,
+        "fn": 0,
+        "precision": 0.9090909090909091,
+        "recall": 1.0
+      },
+      "hyperlipidemia": {
+        "tp": 50,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "cirrhosis": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      },
+      "autoimmune": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      },
+      "cancer": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "other_chronic": {
+        "tp": 457,
+        "fp": 64,
+        "fn": 15,
+        "precision": 0.8771593090211133,
+        "recall": 0.9682203389830508
+      },
+      "exclude": {
+        "tp": 1642,
+        "fp": 15,
+        "fn": 63,
+        "precision": 0.9909474954737477,
+        "recall": 0.963049853372434
+      }
+    },
+    "reference_status": "provisional author labels; not clinician-reviewed",
+    "temperature_requested": 0.0,
+    "reference_clinician_reviewed": false,
+    "limitations": "Provisional author reference labels, not clinician-reviewed; synthetic disease-name distribution does not establish real-EHR accuracy. Truncated entries are excluded from exact-match scoring."
+  },
+  "feasibility_runs": {
+    "PrefillFeasibility": {
+      "available": true,
+      "run": "experiments/results/r3_prefill/20261014T080112Z",
+      "provider": "gemini",
+      "model": "gemini-3.6-flash",
+      "prefill_strings": 213,
+      "calls_failed": 0,
+      "calls_with_missing_or_bad_indices": 0,
+      "entries_scored": 2308,
+      "exact_match": 2225,
+      "exact_mismatch": 83,
+      "exact_match_rate": 0.9640381282495667,
+      "ambiguous_not_scored": 397,
+      "unlabeled_entries": 24,
+      "truncated": {
+        "total": 105,
+        "unclear": 90,
+        "guessed": 15
+      },
+      "per_category": {
+        "diabetes": {
+          "tp": 54,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "ckd": {
+          "tp": 40,
+          "fp": 4,
+          "fn": 0,
+          "precision": 0.9090909090909091,
+          "recall": 1.0
+        },
+        "hyperlipidemia": {
+          "tp": 50,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "cirrhosis": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": null,
+          "recall": null
+        },
+        "autoimmune": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": null,
+          "recall": null
+        },
+        "cancer": {
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "other_chronic": {
+          "tp": 457,
+          "fp": 64,
+          "fn": 15,
+          "precision": 0.8771593090211133,
+          "recall": 0.9682203389830508
+        },
+        "exclude": {
+          "tp": 1642,
+          "fp": 15,
+          "fn": 63,
+          "precision": 0.9909474954737477,
+          "recall": 0.963049853372434
+        }
+      },
+      "reference_status": "provisional author labels; not clinician-reviewed",
+      "temperature_requested": 0.0,
+      "reference_clinician_reviewed": false,
+      "limitations": "Provisional author reference labels, not clinician-reviewed; synthetic disease-name distribution does not establish real-EHR accuracy. Truncated entries are excluded from exact-match scoring."
+    },
+    "PrefillDeployedFeasibility": {
+      "available": true,
+      "run": "experiments/results/r3_prefill/20261014T113629Z",
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "prefill_strings": 213,
+      "calls_failed": 0,
+      "calls_with_missing_or_bad_indices": 0,
+      "entries_scored": 2308,
+      "exact_match": 2283,
+      "exact_mismatch": 25,
+      "exact_match_rate": 0.9891681109185442,
+      "ambiguous_not_scored": 397,
+      "unlabeled_entries": 24,
+      "truncated": {
+        "total": 105,
+        "unclear": 86,
+        "guessed": 19
+      },
+      "per_category": {
+        "diabetes": {
+          "tp": 54,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "ckd": {
+          "tp": 40,
+          "fp": 5,
+          "fn": 0,
+          "precision": 0.8888888888888888,
+          "recall": 1.0
+        },
+        "hyperlipidemia": {
+          "tp": 50,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "cirrhosis": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": null,
+          "recall": null
+        },
+        "autoimmune": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0.0,
+          "recall": null
+        },
+        "cancer": {
+          "tp": 2,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0.6666666666666666,
+          "recall": 1.0
+        },
+        "other_chronic": {
+          "tp": 458,
+          "fp": 5,
+          "fn": 14,
+          "precision": 0.9892008639308856,
+          "recall": 0.9703389830508474
+        },
+        "exclude": {
+          "tp": 1701,
+          "fp": 13,
+          "fn": 4,
+          "precision": 0.9924154025670945,
+          "recall": 0.9976539589442815
+        }
+      },
+      "reference_status": "provisional author labels; not clinician-reviewed",
+      "temperature_requested": 0.0,
+      "reference_clinician_reviewed": false,
+      "limitations": "Provisional author reference labels, not clinician-reviewed; synthetic disease-name distribution does not establish real-EHR accuracy. Truncated entries are excluded from exact-match scoring."
+    }
+  },
+  "scope": "Descriptive saved classifications, not a new requirement or clinical-accuracy claim. Status/category counts cover recorded metadata only; unknown or missing sessions cannot establish zero failures. Categories are multi-label, so their counts need not sum to classified entries. Unclear in any item leaves both chronic fields for patient answers."
+}

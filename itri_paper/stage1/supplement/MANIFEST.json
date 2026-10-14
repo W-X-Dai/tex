@@ -1,17 +1,25 @@
 {
   "example_session": "default__CP-01__r1",
   "example_source": {
-    "path": "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-01__r1/session.json",
-    "sha256": "5235049ce5c17d1ebd9cb33aee0d262b5721329078ac0d1d67665ccc39660152"
+    "path": "experiments/results/e2_end_to_end/20261014T101952Z/sessions/default__CP-01__r1/session.json",
+    "sha256": "34ad1e46aa43ed4a8cf18fbb88956eebc5b5c2ab0d0d4a4e9d1ae77a1f508553"
   },
   "files": {
     "README.md": {
-      "bytes": 2670,
-      "sha256": "4bbfe5c29d58f6402d989778238683655c2656f341173c4394cd08b5eb936592",
+      "bytes": 2826,
+      "sha256": "4b28bb49e5a9f3de2ef5c62cb49b487812c979c5e38538574f5384721b0edddb",
       "sources": [
         {
           "path": "docs/paper/codex_supplement_spec_2026-10-13.md",
           "sha256": "e083710f3ea4d31cdab897d673f4a0ca12ec58b044c53e7e471f2488f8a01341"
+        },
+        {
+          "path": "docs/paper/codex_r3_prefill_fix_spec_2026-10-14.md",
+          "sha256": "25a81b0e6c683443ca2c428f0f3aee41709e19d1017c3081a5e9493d4f2b93f0"
+        },
+        {
+          "path": "experiments/supplement/archive.py",
+          "sha256": "13324d361d170e1999069d16324d1180b74db1795b818360c5f42135d06821b2"
         }
       ],
       "transformation": "Generated packaging and provenance instructions"
@@ -29,51 +37,51 @@
       "transformation": "Sanitized configuration projection; sensitive-named fields omitted; model settings preserved"
     },
     "config/modules/default.yaml": {
-      "bytes": 1008,
+      "bytes": 1103,
       "omitted_json_path_sha256": [],
-      "sha256": "9af04271f48679eb83175e43a915d34dcd42b553c09ae49916cf74dcbc7cde7f",
+      "sha256": "9f8ca3286ee89cc3b4f1eb16bb66f52f1e9ce1c72fc27b97f07024f01cbca70f",
       "sources": [
         {
           "path": "experiments/config/modules/default.yaml",
-          "sha256": "62fdf8d8a34813b8e00f674117bfaf6368d38bc5b967aaafb32e7383b408a1ac"
+          "sha256": "7eb5286474518e40414a6de6a354558247699de437ce970eeff75be182021e59"
         }
       ],
       "transformation": "Sanitized configuration projection; sensitive-named fields omitted; model settings preserved"
     },
     "config/modules/frontend_swap_smart.yaml": {
-      "bytes": 1052,
+      "bytes": 1147,
       "omitted_json_path_sha256": [],
-      "sha256": "7c2167d311f1e66480953943020d3ee3943bd7db00efb88c3d470dfd14cbbdbb",
+      "sha256": "94f0a017f4959c7a1c2b8e4282cd35d789460d35517be297c0db428df6db11dc",
       "sources": [
         {
           "path": "experiments/config/modules/frontend_swap_smart.yaml",
-          "sha256": "01c67dd22c19370e93e117df00eefeb75215586126528bebcde85f4bde506104"
+          "sha256": "2ab7898c08e1462e5e63da88af0009169359f46436bac1c1dbeb7057ee3c23b2"
         }
       ],
       "transformation": "Sanitized configuration projection; sensitive-named fields omitted; model settings preserved"
     },
     "config/modules/llm_swap_a_gemini_alt.yaml": {
-      "bytes": 1057,
+      "bytes": 1147,
       "omitted_json_path_sha256": [],
-      "sha256": "9090f9d26ec919e0b0e3c7e5cf7574ecb6b78c938d178d9ab5ed21402c12cae4",
+      "sha256": "473a54dcbb25d43ff620c7b463eaa1dfe85cb04e1c0d1236a812d15ec35d8c86",
       "sources": [
         {
           "path": "experiments/config/modules/llm_swap_a_gemini_alt.yaml",
-          "sha256": "0b9f2409eae493965a107ee6832a43c75d3a2de7aab2ea4a3e2f52accf642af0"
+          "sha256": "4e81c24a0578cd67918a927976c086933e9ab3cf9dd91c23299393bb70b50e49"
         }
       ],
       "transformation": "Sanitized configuration projection; sensitive-named fields omitted; model settings preserved"
     },
     "config/modules/llm_swap_b_ollama.yaml": {
-      "bytes": 1194,
+      "bytes": 1278,
       "omitted_json_path_sha256": [
         "538213661722fbb1f92ad250581f4ddea150bde71c1318825f56ededf8fd78e1"
       ],
-      "sha256": "edea9a4f8fba70b2cdd2c4695fc6cf514d863122667ad5f625114221639f274d",
+      "sha256": "fdd7b41f7ffb25595bbae73a64ea3bb307dc01cb524a0af990357b6070070a92",
       "sources": [
         {
           "path": "experiments/config/modules/llm_swap_b_ollama.yaml",
-          "sha256": "ff87e5906aad24a40f721d48054b34f8b0d051fb71230a8542b31647ca047187"
+          "sha256": "42af4f657afda12a3c0b18311af2d376686344684ae2b26042668d443fc666af"
         }
       ],
       "transformation": "Sanitized configuration projection; sensitive-named fields omitted; model settings preserved"
@@ -93,12 +101,12 @@
       "transformation": "Sanitized configuration projection; sensitive-named fields omitted; model settings preserved"
     },
     "config/paper_runs.json": {
-      "bytes": 3870,
-      "sha256": "b1c5af617606f914d220ed8b762d62af98c5f5de7eb4f8e2b39bbd545c5442f3",
+      "bytes": 8360,
+      "sha256": "b204e6edc79f164366a3e9b7277375ecc67fbf8b3437e8d73a70c364f2801a10",
       "sources": [
         {
           "path": "experiments/config/paper_runs.json",
-          "sha256": "b1c5af617606f914d220ed8b762d62af98c5f5de7eb4f8e2b39bbd545c5442f3"
+          "sha256": "b204e6edc79f164366a3e9b7277375ecc67fbf8b3437e8d73a70c364f2801a10"
         }
       ],
       "transformation": "verbatim copy"
@@ -170,45 +178,45 @@
       "transformation": "verbatim copy"
     },
     "fhir/examples/Composition.json": {
-      "bytes": 3980,
-      "sha256": "808877998afa49c0e3fd4bd54c49b0c93c577d539feee7e6f441c0cbf1b9200b",
+      "bytes": 3959,
+      "sha256": "e17840e25ee4eda8cac245b174350d5263403454827caa47c202c4bef54da509",
       "sources": [
         {
-          "path": "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-01__r1/fhir/written/Composition-495365.json",
-          "sha256": "808877998afa49c0e3fd4bd54c49b0c93c577d539feee7e6f441c0cbf1b9200b"
+          "path": "experiments/results/e2_end_to_end/20261014T101952Z/sessions/default__CP-01__r1/fhir/written/Composition-501044.json",
+          "sha256": "e17840e25ee4eda8cac245b174350d5263403454827caa47c202c4bef54da509"
         }
       ],
       "transformation": "verbatim copy"
     },
     "fhir/examples/Observation.json": {
       "bytes": 1851,
-      "sha256": "b8db312dcecf06956a21ba12cef4d36a24874fd88bd8e7ef6e4330502024c7fa",
+      "sha256": "21fc0ddf1f1efde790cda575e10db214d2937c844eb3e077148cf62ee26384e4",
       "sources": [
         {
-          "path": "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-01__r1/fhir/written/Observation-495364.json",
-          "sha256": "b8db312dcecf06956a21ba12cef4d36a24874fd88bd8e7ef6e4330502024c7fa"
+          "path": "experiments/results/e2_end_to_end/20261014T101952Z/sessions/default__CP-01__r1/fhir/written/Observation-501043.json",
+          "sha256": "21fc0ddf1f1efde790cda575e10db214d2937c844eb3e077148cf62ee26384e4"
         }
       ],
       "transformation": "verbatim copy"
     },
     "fhir/examples/Provenance.json": {
       "bytes": 3782,
-      "sha256": "febac235a4c9d10e9671fca2e459d7e38746b197722ff85c8ff8e543e8e7f1c0",
+      "sha256": "e40214a2cba9ac7cbf810e6d2364e8d7c440d3adb839840110b0f3d4ec5a8f92",
       "sources": [
         {
-          "path": "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-01__r1/fhir/written/Provenance-495366.json",
-          "sha256": "febac235a4c9d10e9671fca2e459d7e38746b197722ff85c8ff8e543e8e7f1c0"
+          "path": "experiments/results/e2_end_to_end/20261014T101952Z/sessions/default__CP-01__r1/fhir/written/Provenance-501045.json",
+          "sha256": "e40214a2cba9ac7cbf810e6d2364e8d7c440d3adb839840110b0f3d4ec5a8f92"
         }
       ],
       "transformation": "verbatim copy"
     },
     "fhir/examples/QuestionnaireResponse.json": {
-      "bytes": 13525,
-      "sha256": "cb03bf5834bcf363b9fce1a7a51faa6a8cd166c7b883ba1253d85f9db15a7e41",
+      "bytes": 14617,
+      "sha256": "3c1e5fb2dbdda62d9de4d868b10db2ddf478d51952288910db233d3cbc772ebb",
       "sources": [
         {
-          "path": "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-01__r1/fhir/written/QuestionnaireResponse-495363.json",
-          "sha256": "cb03bf5834bcf363b9fce1a7a51faa6a8cd166c7b883ba1253d85f9db15a7e41"
+          "path": "experiments/results/e2_end_to_end/20261014T101952Z/sessions/default__CP-01__r1/fhir/written/QuestionnaireResponse-501042.json",
+          "sha256": "3c1e5fb2dbdda62d9de4d868b10db2ddf478d51952288910db233d3cbc772ebb"
         }
       ],
       "transformation": "verbatim copy"
@@ -443,7 +451,7 @@
         },
         {
           "path": "backend/domain/fhir_extensions.py",
-          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+          "sha256": "dbad4f21a1ec08fbccdafe07857f52bbfff784b06f3b8d18b15fb697bf88e335"
         },
         {
           "path": "backend/domain/questionnaires.py",
@@ -686,7 +694,7 @@
         },
         {
           "path": "backend/domain/fhir_extensions.py",
-          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+          "sha256": "dbad4f21a1ec08fbccdafe07857f52bbfff784b06f3b8d18b15fb697bf88e335"
         },
         {
           "path": "backend/domain/questionnaires.py",
@@ -929,7 +937,7 @@
         },
         {
           "path": "backend/domain/fhir_extensions.py",
-          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+          "sha256": "dbad4f21a1ec08fbccdafe07857f52bbfff784b06f3b8d18b15fb697bf88e335"
         },
         {
           "path": "backend/domain/questionnaires.py",
@@ -1172,7 +1180,7 @@
         },
         {
           "path": "backend/domain/fhir_extensions.py",
-          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+          "sha256": "dbad4f21a1ec08fbccdafe07857f52bbfff784b06f3b8d18b15fb697bf88e335"
         },
         {
           "path": "backend/domain/questionnaires.py",
@@ -1191,7 +1199,7 @@
       "sources": [
         {
           "path": "backend/domain/fhir_extensions.py",
-          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+          "sha256": "dbad4f21a1ec08fbccdafe07857f52bbfff784b06f3b8d18b15fb697bf88e335"
         }
       ],
       "transformation": "Generated by extension_structure_definitions"
@@ -1202,7 +1210,7 @@
       "sources": [
         {
           "path": "backend/domain/fhir_extensions.py",
-          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+          "sha256": "dbad4f21a1ec08fbccdafe07857f52bbfff784b06f3b8d18b15fb697bf88e335"
         }
       ],
       "transformation": "Generated by extension_structure_definitions"
@@ -1213,7 +1221,7 @@
       "sources": [
         {
           "path": "backend/domain/fhir_extensions.py",
-          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+          "sha256": "dbad4f21a1ec08fbccdafe07857f52bbfff784b06f3b8d18b15fb697bf88e335"
         }
       ],
       "transformation": "Generated by extension_structure_definitions"
@@ -1224,7 +1232,7 @@
       "sources": [
         {
           "path": "backend/domain/fhir_extensions.py",
-          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+          "sha256": "dbad4f21a1ec08fbccdafe07857f52bbfff784b06f3b8d18b15fb697bf88e335"
         }
       ],
       "transformation": "Generated by extension_structure_definitions"
@@ -1235,7 +1243,7 @@
       "sources": [
         {
           "path": "backend/domain/fhir_extensions.py",
-          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+          "sha256": "dbad4f21a1ec08fbccdafe07857f52bbfff784b06f3b8d18b15fb697bf88e335"
         }
       ],
       "transformation": "Generated by extension_structure_definitions"
@@ -1246,7 +1254,7 @@
       "sources": [
         {
           "path": "backend/domain/fhir_extensions.py",
-          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+          "sha256": "dbad4f21a1ec08fbccdafe07857f52bbfff784b06f3b8d18b15fb697bf88e335"
         }
       ],
       "transformation": "Generated by extension_structure_definitions"
@@ -1257,7 +1265,7 @@
       "sources": [
         {
           "path": "backend/domain/fhir_extensions.py",
-          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+          "sha256": "dbad4f21a1ec08fbccdafe07857f52bbfff784b06f3b8d18b15fb697bf88e335"
         }
       ],
       "transformation": "Generated by extension_structure_definitions"
@@ -1268,7 +1276,7 @@
       "sources": [
         {
           "path": "backend/domain/fhir_extensions.py",
-          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+          "sha256": "dbad4f21a1ec08fbccdafe07857f52bbfff784b06f3b8d18b15fb697bf88e335"
         }
       ],
       "transformation": "Generated by extension_structure_definitions"
@@ -1279,7 +1287,7 @@
       "sources": [
         {
           "path": "backend/domain/fhir_extensions.py",
-          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+          "sha256": "dbad4f21a1ec08fbccdafe07857f52bbfff784b06f3b8d18b15fb697bf88e335"
         }
       ],
       "transformation": "Generated by extension_structure_definitions"
@@ -1290,7 +1298,7 @@
       "sources": [
         {
           "path": "backend/domain/fhir_extensions.py",
-          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+          "sha256": "dbad4f21a1ec08fbccdafe07857f52bbfff784b06f3b8d18b15fb697bf88e335"
         }
       ],
       "transformation": "Generated by extension_structure_definitions"
@@ -1301,7 +1309,7 @@
       "sources": [
         {
           "path": "backend/domain/fhir_extensions.py",
-          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+          "sha256": "dbad4f21a1ec08fbccdafe07857f52bbfff784b06f3b8d18b15fb697bf88e335"
         }
       ],
       "transformation": "Generated by extension_structure_definitions"
@@ -1312,7 +1320,7 @@
       "sources": [
         {
           "path": "backend/domain/fhir_extensions.py",
-          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+          "sha256": "dbad4f21a1ec08fbccdafe07857f52bbfff784b06f3b8d18b15fb697bf88e335"
         }
       ],
       "transformation": "Generated by extension_structure_definitions"
@@ -1323,7 +1331,29 @@
       "sources": [
         {
           "path": "backend/domain/fhir_extensions.py",
-          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+          "sha256": "dbad4f21a1ec08fbccdafe07857f52bbfff784b06f3b8d18b15fb697bf88e335"
+        }
+      ],
+      "transformation": "Generated by extension_structure_definitions"
+    },
+    "fhir/questionnaires/StructureDefinition-preconsult-prefill-normalized.json": {
+      "bytes": 1546,
+      "sha256": "45c0b0cf8d4f8410e1bf0cd792e3a922efbd4f0582a750f1cd074ed9df8d11d3",
+      "sources": [
+        {
+          "path": "backend/domain/fhir_extensions.py",
+          "sha256": "dbad4f21a1ec08fbccdafe07857f52bbfff784b06f3b8d18b15fb697bf88e335"
+        }
+      ],
+      "transformation": "Generated by extension_structure_definitions"
+    },
+    "fhir/questionnaires/StructureDefinition-preconsult-prefill-prompt-version.json": {
+      "bytes": 1484,
+      "sha256": "da676167a81d223363b1e9716dc21a02f12af7d1685e3b2c00a121108d0ae8c9",
+      "sources": [
+        {
+          "path": "backend/domain/fhir_extensions.py",
+          "sha256": "dbad4f21a1ec08fbccdafe07857f52bbfff784b06f3b8d18b15fb697bf88e335"
         }
       ],
       "transformation": "Generated by extension_structure_definitions"
@@ -1334,7 +1364,7 @@
       "sources": [
         {
           "path": "backend/domain/fhir_extensions.py",
-          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+          "sha256": "dbad4f21a1ec08fbccdafe07857f52bbfff784b06f3b8d18b15fb697bf88e335"
         }
       ],
       "transformation": "Generated by extension_structure_definitions"
@@ -1345,7 +1375,7 @@
       "sources": [
         {
           "path": "backend/domain/fhir_extensions.py",
-          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+          "sha256": "dbad4f21a1ec08fbccdafe07857f52bbfff784b06f3b8d18b15fb697bf88e335"
         }
       ],
       "transformation": "Generated by extension_structure_definitions"
@@ -1356,7 +1386,7 @@
       "sources": [
         {
           "path": "backend/domain/fhir_extensions.py",
-          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+          "sha256": "dbad4f21a1ec08fbccdafe07857f52bbfff784b06f3b8d18b15fb697bf88e335"
         }
       ],
       "transformation": "Generated by extension_structure_definitions"
@@ -1367,7 +1397,7 @@
       "sources": [
         {
           "path": "backend/domain/fhir_extensions.py",
-          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+          "sha256": "dbad4f21a1ec08fbccdafe07857f52bbfff784b06f3b8d18b15fb697bf88e335"
         }
       ],
       "transformation": "Generated by extension_structure_definitions"
@@ -1378,7 +1408,7 @@
       "sources": [
         {
           "path": "backend/domain/fhir_extensions.py",
-          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+          "sha256": "dbad4f21a1ec08fbccdafe07857f52bbfff784b06f3b8d18b15fb697bf88e335"
         }
       ],
       "transformation": "Generated by extension_structure_definitions"
@@ -1389,7 +1419,7 @@
       "sources": [
         {
           "path": "backend/domain/fhir_extensions.py",
-          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+          "sha256": "dbad4f21a1ec08fbccdafe07857f52bbfff784b06f3b8d18b15fb697bf88e335"
         }
       ],
       "transformation": "Generated by extension_structure_definitions"
@@ -1400,7 +1430,7 @@
       "sources": [
         {
           "path": "backend/domain/fhir_extensions.py",
-          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+          "sha256": "dbad4f21a1ec08fbccdafe07857f52bbfff784b06f3b8d18b15fb697bf88e335"
         }
       ],
       "transformation": "Generated by extension_structure_definitions"
@@ -1411,7 +1441,7 @@
       "sources": [
         {
           "path": "backend/domain/fhir_extensions.py",
-          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+          "sha256": "dbad4f21a1ec08fbccdafe07857f52bbfff784b06f3b8d18b15fb697bf88e335"
         }
       ],
       "transformation": "Generated by extension_structure_definitions"
@@ -1422,7 +1452,7 @@
       "sources": [
         {
           "path": "backend/domain/fhir_extensions.py",
-          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+          "sha256": "dbad4f21a1ec08fbccdafe07857f52bbfff784b06f3b8d18b15fb697bf88e335"
         }
       ],
       "transformation": "Generated by extension_structure_definitions"
@@ -1433,7 +1463,7 @@
       "sources": [
         {
           "path": "backend/domain/fhir_extensions.py",
-          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+          "sha256": "dbad4f21a1ec08fbccdafe07857f52bbfff784b06f3b8d18b15fb697bf88e335"
         }
       ],
       "transformation": "Generated by extension_structure_definitions"
@@ -1444,18 +1474,18 @@
       "sources": [
         {
           "path": "backend/domain/fhir_extensions.py",
-          "sha256": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90"
+          "sha256": "dbad4f21a1ec08fbccdafe07857f52bbfff784b06f3b8d18b15fb697bf88e335"
         }
       ],
       "transformation": "Generated by extension_structure_definitions"
     },
     "llm/llm_disclosure.json": {
-      "bytes": 46835,
-      "sha256": "bfbf70cf5070c25f86433eece9ef3e33761495e345a21a3a051bd3e724372379",
+      "bytes": 54560,
+      "sha256": "d2a7b826833c862f1e9199399bf94a66020c2cf83dad7c1d0f9c2eb2c897d5e3",
       "sources": [
         {
           "path": "experiments/llm_disclosure.json",
-          "sha256": "bfbf70cf5070c25f86433eece9ef3e33761495e345a21a3a051bd3e724372379"
+          "sha256": "d2a7b826833c862f1e9199399bf94a66020c2cf83dad7c1d0f9c2eb2c897d5e3"
         }
       ],
       "transformation": "verbatim copy"
@@ -1636,6 +1666,17 @@
       ],
       "transformation": "Actual builder; empty dynamic input containers and explicit retrieval placeholder"
     },
+    "llm/prompts/prefill_mapping_v1.md": {
+      "bytes": 1397,
+      "sha256": "bd0af18c38cb0c1b0c4e72340c92fe80c06916d921256c4e2ba0d9464bde1df0",
+      "sources": [
+        {
+          "path": "backend/app/prompts/prefill_mapping_v1.md",
+          "sha256": "bd0af18c38cb0c1b0c4e72340c92fe80c06916d921256c4e2ba0d9464bde1df0"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
     "llm/prompts/present_illness.json": {
       "bytes": 1958,
       "sha256": "86066256484307b9385da4b9f6214d0f5133eb7cd1ee9826293cd7395d3b56a9",
@@ -1652,222 +1693,244 @@
       "transformation": "Actual builder; empty dynamic input containers and explicit retrieval placeholder"
     },
     "results/e1/manifest.json": {
-      "bytes": 86211,
+      "bytes": 89550,
       "omitted_json_path_sha256": [
         "e4401a4695acf6150ccbed74f47407dc7ae3bab6416cea0bae8bd1ff41c5d6ca"
       ],
-      "sha256": "dbeca6a6eccaefb0000f051ac0f94f45044cccc65ad1f71f64fe6b893d3ea24e",
+      "sha256": "c17b8e7e008bca65ada065132fe3ed6f457d15553a4796379b86f4e9830eb8ab",
       "sources": [
         {
-          "path": "experiments/results/e1_interop/20261013T133317Z/manifest.json",
-          "sha256": "ee02136320c00f71a90e8063c56bc857e546bd7740944eb9fcf4449f3e99ff51"
+          "path": "experiments/results/e1_interop/20261014T094026Z/manifest.json",
+          "sha256": "5b3d4421b9ff3c577abcd7a28af2636d8a15d45152ccb81fee861d0da1793183"
         }
       ],
       "transformation": "Sanitized metadata projection; sensitive-named fields omitted"
     },
     "results/e1/summary.json": {
-      "bytes": 9135431,
-      "sha256": "bd656381fb7edc152168ba6a0c98cf7abb8a21e2820c7d92429c506eb4c5d950",
+      "bytes": 9136941,
+      "sha256": "842e94f3555e8420d24f2965e29a143a2270182f2aa44988bc8688769fb7bcd9",
       "sources": [
         {
-          "path": "experiments/results/e1_interop/20261013T133317Z/summary.json",
-          "sha256": "bd656381fb7edc152168ba6a0c98cf7abb8a21e2820c7d92429c506eb4c5d950"
+          "path": "experiments/results/e1_interop/20261014T094026Z/summary.json",
+          "sha256": "842e94f3555e8420d24f2965e29a143a2270182f2aa44988bc8688769fb7bcd9"
         }
       ],
       "transformation": "verbatim copy"
     },
     "results/e1_e2/manifest.json": {
-      "bytes": 7139,
+      "bytes": 9964,
       "omitted_json_path_sha256": [],
-      "sha256": "39fe8e7d8cd9056637bc5d4a4e7e60ebc65f51840bad4cca66c49a96543a8508",
+      "sha256": "aa8f7501fd4b68d53d841bf07955363012400a426ecce81b72651aff83f509cd",
       "sources": [
         {
-          "path": "experiments/results/e1_interop/20261013T143431Z/manifest.json",
-          "sha256": "1b58cd105d868635effc5117e1b3b65771dca193b31519719a7fa29e485a84e4"
+          "path": "experiments/results/e1_interop/20261014T103652Z/manifest.json",
+          "sha256": "3f6a6682f45c26de8a8c2cd789bcfd46282ca1294f12f438e4cbe38510afdf4c"
         }
       ],
       "transformation": "Sanitized metadata projection; sensitive-named fields omitted"
     },
     "results/e1_e2/summary.json": {
-      "bytes": 444779,
-      "sha256": "eb1ad6d85b41681b0a2fe71a3021b485d05804c6b6248dc175934d8e0f3148bc",
+      "bytes": 445223,
+      "sha256": "4d045c3ef03fe210289fa71791ee00e08085fa606b50e1afef9e439ac4adee6a",
       "sources": [
         {
-          "path": "experiments/results/e1_interop/20261013T143431Z/summary.json",
-          "sha256": "eb1ad6d85b41681b0a2fe71a3021b485d05804c6b6248dc175934d8e0f3148bc"
+          "path": "experiments/results/e1_interop/20261014T103652Z/summary.json",
+          "sha256": "4d045c3ef03fe210289fa71791ee00e08085fa606b50e1afef9e439ac4adee6a"
         }
       ],
       "transformation": "verbatim copy"
     },
     "results/e2/manifest.json": {
-      "bytes": 65816,
+      "bytes": 69116,
       "omitted_json_path_sha256": [
         "e4401a4695acf6150ccbed74f47407dc7ae3bab6416cea0bae8bd1ff41c5d6ca"
       ],
-      "sha256": "7cd2745095c7d35e68b4979281dc84d89b3744941a922e21b372785fa13775f6",
+      "sha256": "88e08f2d322c82f1c3c6460fef6a7b18e30e2125673d528006d2b79b2652f54d",
       "sources": [
         {
-          "path": "experiments/results/e2_end_to_end/20261013T141553Z/manifest.json",
-          "sha256": "463398c34441476c16d0d8fbb2d24ba9714778cd8829ca587179869613f88da6"
+          "path": "experiments/results/e2_end_to_end/20261014T101952Z/manifest.json",
+          "sha256": "5aa69ee4df47cacde802607a47c5a68a1cdd543598ab1ae9c32d69ad90e03204"
         }
       ],
       "transformation": "Sanitized metadata projection; sensitive-named fields omitted"
     },
     "results/e2/summary.json": {
-      "bytes": 223578,
-      "sha256": "5b87a7787ab2c83f1439f1c24149f2e16df13f9aaa5a078ad3b3be6e4be39a94",
+      "bytes": 234579,
+      "sha256": "9baf39e224837517404b34f424c7e136977faef4f8e1b92eea6f27b397dcdb00",
       "sources": [
         {
-          "path": "experiments/results/e2_end_to_end/20261013T141553Z/summary.json",
-          "sha256": "5b87a7787ab2c83f1439f1c24149f2e16df13f9aaa5a078ad3b3be6e4be39a94"
+          "path": "experiments/results/e2_end_to_end/20261014T101952Z/summary.json",
+          "sha256": "9baf39e224837517404b34f424c7e136977faef4f8e1b92eea6f27b397dcdb00"
         }
       ],
       "transformation": "verbatim copy"
     },
     "results/e3/manifest.json": {
-      "bytes": 22738,
+      "bytes": 26868,
       "omitted_json_path_sha256": [],
-      "sha256": "5bcdb54a6d51e747444b8545b058414bed3b06417b147f46e5b2edf75d856ac1",
+      "sha256": "82a3b55a22f906bcf95daf01e1b249ae4e9c93c387f83aac3874822e9724f035",
       "sources": [
         {
-          "path": "experiments/results/e3_swap/20261013T143525Z/manifest.json",
-          "sha256": "24ac3c03e0a72556f1be945e6a005ff227b864c161bd91fbb63cbae69c409e9c"
+          "path": "experiments/results/e3_swap/20261014T103746Z/manifest.json",
+          "sha256": "33b8acb60d96c850346e75f6ef705bc88000a1cccd3443495107b1cef77141e6"
         }
       ],
       "transformation": "Sanitized metadata projection; sensitive-named fields omitted"
     },
     "results/e3/summary.json": {
-      "bytes": 15720,
-      "sha256": "fdaaabe977da3532123529249cf4a10c93650a43082ee8966fe9e4d913ea636f",
+      "bytes": 17025,
+      "sha256": "b792a61a8acb6b16def1a4da738f255ad6767a10344bfa16a86a3fd17fa72b8b",
       "sources": [
         {
-          "path": "experiments/results/e3_swap/20261013T143525Z/summary.json",
-          "sha256": "fdaaabe977da3532123529249cf4a10c93650a43082ee8966fe9e4d913ea636f"
+          "path": "experiments/results/e3_swap/20261014T103746Z/summary.json",
+          "sha256": "b792a61a8acb6b16def1a4da738f255ad6767a10344bfa16a86a3fd17fa72b8b"
         }
       ],
       "transformation": "verbatim copy"
     },
     "results/e3_child_default/manifest.json": {
-      "bytes": 31550,
+      "bytes": 34853,
       "omitted_json_path_sha256": [
         "e4401a4695acf6150ccbed74f47407dc7ae3bab6416cea0bae8bd1ff41c5d6ca"
       ],
-      "sha256": "22903639f5633efbc70cbf517bd9d6d4dbc391343a7fb900c761c16019b1731e",
+      "sha256": "4d686b1da85541787e694a116f39940a5c58c46205681b9c5bd11f3d9856b513",
       "sources": [
         {
-          "path": "experiments/results/e3_swap_e2/20261013T143527Z/manifest.json",
-          "sha256": "6b7dcaaa45132cb5663f31823d91247d86bcfb2a8b574c251d494056f706d647"
+          "path": "experiments/results/e3_swap_e2/20261014T103750Z/manifest.json",
+          "sha256": "70e3a5f0454443311e14faaf4197bff6a878ae520dc742078a8ecbad7e752800"
         }
       ],
       "transformation": "Sanitized metadata projection; sensitive-named fields omitted"
     },
     "results/e3_child_default/summary.json": {
-      "bytes": 48789,
-      "sha256": "9bd79b32f5f000ab6f3ed6b5bc0b0fa201e029853331c7f585681e1f8117cb52",
+      "bytes": 51105,
+      "sha256": "7dc4962750dbfc3b49cc54175aa26b1ef62bbb2ee761dbdb5b43b8f21666cf55",
       "sources": [
         {
-          "path": "experiments/results/e3_swap_e2/20261013T143527Z/summary.json",
-          "sha256": "9bd79b32f5f000ab6f3ed6b5bc0b0fa201e029853331c7f585681e1f8117cb52"
+          "path": "experiments/results/e3_swap_e2/20261014T103750Z/summary.json",
+          "sha256": "7dc4962750dbfc3b49cc54175aa26b1ef62bbb2ee761dbdb5b43b8f21666cf55"
         }
       ],
       "transformation": "verbatim copy"
     },
     "results/e3_child_llm_swap_a_gemini_alt/manifest.json": {
-      "bytes": 32474,
+      "bytes": 35767,
       "omitted_json_path_sha256": [
         "e4401a4695acf6150ccbed74f47407dc7ae3bab6416cea0bae8bd1ff41c5d6ca"
       ],
-      "sha256": "ee7d099b3c217e34628d212c6c11a8850dd1f0ecac729194e6f60eb761375747",
+      "sha256": "4470445789e54a34db3ee2bb38cfd550d542c5b5decdf7e9ac53c5c6cd1ae6fb",
       "sources": [
         {
-          "path": "experiments/results/e3_swap_e2/20261013T144002Z/manifest.json",
-          "sha256": "9f2edca6c4d3225300b78bc5db01cf87c711ce8089814f00c84b7a199e1e3a83"
+          "path": "experiments/results/e3_swap_e2/20261014T104203Z/manifest.json",
+          "sha256": "df948b7675893035c05c05412de799355bd975ae9a605f6e3f2caaf0430716bf"
         }
       ],
       "transformation": "Sanitized metadata projection; sensitive-named fields omitted"
     },
     "results/e3_child_llm_swap_a_gemini_alt/summary.json": {
-      "bytes": 49380,
-      "sha256": "94a3b8a2adb1e631451c7a0944f7c27dcbcdf2d2cce6d94ed8c1a4142da5dd86",
+      "bytes": 51268,
+      "sha256": "a0e49c39f26fd62559e81be23405c76d2b92b60ac8645070f0cbf20969399edf",
       "sources": [
         {
-          "path": "experiments/results/e3_swap_e2/20261013T144002Z/summary.json",
-          "sha256": "94a3b8a2adb1e631451c7a0944f7c27dcbcdf2d2cce6d94ed8c1a4142da5dd86"
+          "path": "experiments/results/e3_swap_e2/20261014T104203Z/summary.json",
+          "sha256": "a0e49c39f26fd62559e81be23405c76d2b92b60ac8645070f0cbf20969399edf"
         }
       ],
       "transformation": "verbatim copy"
     },
     "results/e3_child_llm_swap_b_ollama/manifest.json": {
-      "bytes": 32896,
+      "bytes": 36193,
       "omitted_json_path_sha256": [
         "e4401a4695acf6150ccbed74f47407dc7ae3bab6416cea0bae8bd1ff41c5d6ca"
       ],
-      "sha256": "b9aac74187911692786a0d911020633028ac6804a82545b3ef1d7d3ea67dd291",
+      "sha256": "bbcdbfdd55fd422250299e5c1694708e0ba81af68dcd030091f3718effbdc37c",
       "sources": [
         {
-          "path": "experiments/results/e3_swap_e2/20261013T144457Z/manifest.json",
-          "sha256": "49e53c8718188f892da65a14ed9b09275c0f626192bf801fbe1099b9367a01ed"
+          "path": "experiments/results/e3_swap_e2/20261014T104547Z/manifest.json",
+          "sha256": "7d77cc889c9898ea65c1ffad637ad16d7b24179d13d42b7ef8959a704f35983f"
         }
       ],
       "transformation": "Sanitized metadata projection; sensitive-named fields omitted"
     },
     "results/e3_child_llm_swap_b_ollama/summary.json": {
-      "bytes": 44218,
-      "sha256": "c6880adee03e7cc414e7aecd57dea5e2f1b44ca8558fe75a719e2517ab1cf9b1",
+      "bytes": 46069,
+      "sha256": "9a4d05ee274b1ea7d5a728917541439671d773785b8cf7bda2e36f4a0cc6fb6c",
       "sources": [
         {
-          "path": "experiments/results/e3_swap_e2/20261013T144457Z/summary.json",
-          "sha256": "c6880adee03e7cc414e7aecd57dea5e2f1b44ca8558fe75a719e2517ab1cf9b1"
+          "path": "experiments/results/e3_swap_e2/20261014T104547Z/summary.json",
+          "sha256": "9a4d05ee274b1ea7d5a728917541439671d773785b8cf7bda2e36f4a0cc6fb6c"
         }
       ],
       "transformation": "verbatim copy"
     },
     "results/e4_mock/manifest.json": {
-      "bytes": 12091,
+      "bytes": 15190,
       "omitted_json_path_sha256": [
         "e4401a4695acf6150ccbed74f47407dc7ae3bab6416cea0bae8bd1ff41c5d6ca"
       ],
-      "sha256": "f5dbc30f24b720c8dd97397a1d3cb5e83ae4151f5dc0e3cf0bbdb5779725f1bd",
+      "sha256": "31796ac5f39c773f5bdd056dde7d3a3e7be560de95934bb1360bba916dcb5591",
       "sources": [
         {
-          "path": "experiments/results/e4_load_mock/20261013T150413Z/manifest.json",
-          "sha256": "76d4a023d6d383f47d7ecda3820073a02d608fc61ba8c6c98006adc30a084037"
+          "path": "experiments/results/e4_load_mock/20261014T110500Z/manifest.json",
+          "sha256": "19efc33b7ea5b2373a90991441571ef79ee7272024531b42837e35de5da80c26"
         }
       ],
       "transformation": "Sanitized metadata projection; sensitive-named fields omitted"
     },
     "results/e4_mock/summary.json": {
-      "bytes": 79182,
-      "sha256": "4abbe7ab22e2b44e0491f1b65a9dc2164af91cd82803cc4e896ed650dc85afbc",
+      "bytes": 79334,
+      "sha256": "109739305479f76bce7740c2039e7364035fd61f17c95fefc22d2aa69d1c7c38",
       "sources": [
         {
-          "path": "experiments/results/e4_load_mock/20261013T150413Z/summary.json",
-          "sha256": "4abbe7ab22e2b44e0491f1b65a9dc2164af91cd82803cc4e896ed650dc85afbc"
+          "path": "experiments/results/e4_load_mock/20261014T110500Z/summary.json",
+          "sha256": "109739305479f76bce7740c2039e7364035fd61f17c95fefc22d2aa69d1c7c38"
         }
       ],
       "transformation": "verbatim copy"
     },
     "results/e4_real/manifest.json": {
-      "bytes": 11979,
+      "bytes": 15110,
       "omitted_json_path_sha256": [
         "e4401a4695acf6150ccbed74f47407dc7ae3bab6416cea0bae8bd1ff41c5d6ca"
       ],
-      "sha256": "d19aca1202d5d1b0b0e03a5cac7ea37f56a144f30727f918b709ec8ea76f9c63",
+      "sha256": "d5285774d1a0c222c3ac92a467e9443ec7d5314048f2be661a9b8d7bf3697f40",
       "sources": [
         {
-          "path": "experiments/results/e4_load_real/20261013T151131Z/manifest.json",
-          "sha256": "a1d4752a0da3c6c2cf71eea38dcc8861c1a04bba8ea3eb07ae895720babd9db6"
+          "path": "experiments/results/e4_load_real/20261014T111340Z/manifest.json",
+          "sha256": "af4a5bb2a2dce0e3af5eaae8fd25dc3b19494dc690a33761039a6b88261f6a1d"
         }
       ],
       "transformation": "Sanitized metadata projection; sensitive-named fields omitted"
     },
     "results/e4_real/summary.json": {
-      "bytes": 7129,
-      "sha256": "c4255fb50ab7b697959cee7377fd0103ef0676c623b63214aa3a4646bd4c9e93",
+      "bytes": 7068,
+      "sha256": "ed68ff9aa11e412d9f46434101d622a29940fa6514fe472bb907cd7e96439971",
       "sources": [
         {
-          "path": "experiments/results/e4_load_real/20261013T151131Z/summary.json",
-          "sha256": "c4255fb50ab7b697959cee7377fd0103ef0676c623b63214aa3a4646bd4c9e93"
+          "path": "experiments/results/e4_load_real/20261014T111340Z/summary.json",
+          "sha256": "ed68ff9aa11e412d9f46434101d622a29940fa6514fe472bb907cd7e96439971"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "results/prefill_feasibility/summary.json": {
+      "bytes": 3331,
+      "sha256": "bca83981df3ff008a77fe24c0fdbd663d27c4b17c52da4316e09755f29e2a9e4",
+      "sources": [
+        {
+          "path": "experiments/results/r3_prefill/20261014T080112Z/summary.json",
+          "sha256": "bca83981df3ff008a77fe24c0fdbd663d27c4b17c52da4316e09755f29e2a9e4"
+        }
+      ],
+      "transformation": "verbatim copy"
+    },
+    "results/prefill_normalization.json": {
+      "bytes": 107889,
+      "sha256": "325861d189eb37116640bc5f91479163e6746a78535f2f46332713aab652b9cf",
+      "sources": [
+        {
+          "path": "paper/tables/prefill_normalization.json",
+          "sha256": "325861d189eb37116640bc5f91479163e6746a78535f2f46332713aab652b9cf"
         }
       ],
       "transformation": "verbatim copy"

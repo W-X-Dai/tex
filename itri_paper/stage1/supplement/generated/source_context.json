@@ -19,7 +19,7 @@
       },
       {
         "code": "symptom_chest_pain",
-        "evidence": "胸痛",
+        "evidence": "左邊胸痛",
         "route": "",
         "source": "chief_semantic_extraction",
         "status": "present",
@@ -69,17 +69,17 @@
               }
             }
           ],
-          "date": "2026-10-13T14:17:55.916792Z",
+          "date": "2026-10-14T10:21:49.861642Z",
           "encounter": {
-            "reference": "Encounter/exp-20261013t141553z-default--cp-01--r1-enc"
+            "reference": "Encounter/exp-20261014t101952z-default--cp-01--r1-enc"
           },
-          "id": "495365",
+          "id": "501044",
           "identifier": {
             "system": "https://medical-consultation.local/fhir/consultations",
-            "value": "local-development:2026-10-13:10006"
+            "value": "local-development:2026-10-14:10007"
           },
           "meta": {
-            "lastUpdated": "2026-10-13T14:17:55.927+00:00",
+            "lastUpdated": "2026-10-14T10:21:49.873+00:00",
             "profile": [
               "https://twcore.mohw.gov.tw/ig/twcore/StructureDefinition/Composition-twcore"
             ],
@@ -103,14 +103,14 @@
             },
             {
               "text": {
-                "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>The patient is a male with a history of hypertension presenting with mild, sharp left-sided chest pain of gradually progressive onset lasting for three days. The pain is localized and fixed, with associated tenderness to palpation. Symptoms are aggravated by turning or raising the arm and are relieved by rest. There are no associated symptoms.</p></div>",
+                "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>The patient is a male with a history of hypertension presenting with mild, sharp left-sided chest pain of gradual onset lasting for three days. The pain is localized, fixed, reproducible with palpation, and aggravated by turning or raising the arm, while relieved by rest. There are no associated symptoms.</p></div>",
                 "status": "additional"
               },
               "title": "Present Illness"
             },
             {
               "text": {
-                "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>History of hypertension.</p></div>",
+                "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>Hypertension. No history of prior surgery.</p></div>",
                 "status": "additional"
               },
               "title": "Past History"
@@ -131,7 +131,7 @@
             },
             {
               "text": {
-                "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>The patient is a male with a history of hypertension. He reports no history of smoking. Other social history elements such as alcohol use, betel nut use, recent travel, occupation, and contact history were not provided.</p></div>",
+                "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>The patient has a history of hypertension and is currently taking Amlodipine 5 mg once daily. He is a lifelong non-smoker. Alcohol, betel nut, recent travel, occupation, contact, and cluster histories were not provided.</p></div>",
                 "status": "additional"
               },
               "title": "Personal History"
@@ -151,10 +151,10 @@
               ],
               "entry": [
                 {
-                  "reference": "QuestionnaireResponse/495363"
+                  "reference": "QuestionnaireResponse/501042"
                 },
                 {
-                  "reference": "Observation/495364"
+                  "reference": "Observation/501043"
                 }
               ],
               "text": {
@@ -180,8 +180,8 @@
           }
         },
         "source": {
-          "path": "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-01__r1/fhir/written/Composition-495365.json",
-          "sha256": "808877998afa49c0e3fd4bd54c49b0c93c577d539feee7e6f441c0cbf1b9200b"
+          "path": "experiments/results/e2_end_to_end/20261014T101952Z/sessions/default__CP-01__r1/fhir/written/Composition-501044.json",
+          "sha256": "e17840e25ee4eda8cac245b174350d5263403454827caa47c202c4bef54da509"
         }
       },
       "Observation": {
@@ -208,22 +208,22 @@
           },
           "derivedFrom": [
             {
-              "reference": "QuestionnaireResponse/495363"
+              "reference": "QuestionnaireResponse/501042"
             }
           ],
-          "effectiveDateTime": "2026-10-13T14:17:55.870000Z",
+          "effectiveDateTime": "2026-10-14T10:21:49.826000Z",
           "encounter": {
-            "reference": "Encounter/exp-20261013t141553z-default--cp-01--r1-enc"
+            "reference": "Encounter/exp-20261014t101952z-default--cp-01--r1-enc"
           },
-          "id": "495364",
+          "id": "501043",
           "identifier": [
             {
               "system": "https://medical-consultation.local/fhir/consultations",
-              "value": "local-development:2026-10-13:10006:smoking-status"
+              "value": "local-development:2026-10-14:10007:smoking-status"
             }
           ],
           "meta": {
-            "lastUpdated": "2026-10-13T14:17:55.927+00:00",
+            "lastUpdated": "2026-10-14T10:21:49.873+00:00",
             "profile": [
               "https://twcore.mohw.gov.tw/ig/twcore/StructureDefinition/Observation-smoking-status-twcore"
             ],
@@ -262,8 +262,8 @@
           }
         },
         "source": {
-          "path": "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-01__r1/fhir/written/Observation-495364.json",
-          "sha256": "b8db312dcecf06956a21ba12cef4d36a24874fd88bd8e7ef6e4330502024c7fa"
+          "path": "experiments/results/e2_end_to_end/20261014T101952Z/sessions/default__CP-01__r1/fhir/written/Observation-501043.json",
+          "sha256": "21fc0ddf1f1efde790cda575e10db214d2937c844eb3e077148cf62ee26384e4"
         }
       },
       "Provenance": {
@@ -371,35 +371,35 @@
             {
               "role": "source",
               "what": {
-                "reference": "QuestionnaireResponse/495363"
+                "reference": "QuestionnaireResponse/501042"
               }
             }
           ],
-          "id": "495366",
+          "id": "501045",
           "meta": {
-            "lastUpdated": "2026-10-13T14:17:55.927+00:00",
+            "lastUpdated": "2026-10-14T10:21:49.873+00:00",
             "profile": [
               "https://twcore.mohw.gov.tw/ig/twcore/StructureDefinition/Provenance-twcore"
             ],
             "tag": [
               {
-                "code": "local-development:2026-10-13:10006:provenance",
+                "code": "local-development:2026-10-14:10007:provenance",
                 "system": "https://medical-consultation.local/fhir/CodeSystem/writeback-key"
               }
             ],
             "versionId": "1"
           },
-          "recorded": "2026-10-13T14:17:55.923752Z",
+          "recorded": "2026-10-14T10:21:49.870258Z",
           "resourceType": "Provenance",
           "target": [
             {
-              "reference": "QuestionnaireResponse/495363"
+              "reference": "QuestionnaireResponse/501042"
             },
             {
-              "reference": "Observation/495364"
+              "reference": "Observation/501043"
             },
             {
-              "reference": "Composition/495365"
+              "reference": "Composition/501044"
             }
           ],
           "text": {
@@ -408,8 +408,8 @@
           }
         },
         "source": {
-          "path": "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-01__r1/fhir/written/Provenance-495366.json",
-          "sha256": "febac235a4c9d10e9671fca2e459d7e38746b197722ff85c8ff8e543e8e7f1c0"
+          "path": "experiments/results/e2_end_to_end/20261014T101952Z/sessions/default__CP-01__r1/fhir/written/Provenance-501045.json",
+          "sha256": "e40214a2cba9ac7cbf810e6d2364e8d7c440d3adb839840110b0f3d4ec5a8f92"
         }
       },
       "QuestionnaireResponse": {
@@ -417,14 +417,14 @@
           "author": {
             "reference": "Patient/syn-6d30c8d2-ee90-9108-f102-e635914928cf"
           },
-          "authored": "2026-10-13T14:17:55.870000Z",
+          "authored": "2026-10-14T10:21:49.826000Z",
           "encounter": {
-            "reference": "Encounter/exp-20261013t141553z-default--cp-01--r1-enc"
+            "reference": "Encounter/exp-20261014t101952z-default--cp-01--r1-enc"
           },
-          "id": "495363",
+          "id": "501042",
           "identifier": {
             "system": "https://medical-consultation.local/fhir/consultations",
-            "value": "local-development:2026-10-13:10006:questionnaire-response"
+            "value": "local-development:2026-10-14:10007:questionnaire-response"
           },
           "item": [
             {
@@ -535,10 +535,41 @@
                 {
                   "url": "https://medical-consultation.local/fhir/StructureDefinition/preconsult-answer-source",
                   "valueCode": "ehr-prefill"
+                },
+                {
+                  "url": "https://medical-consultation.local/fhir/StructureDefinition/preconsult-prefill-normalized",
+                  "valueBoolean": true
+                },
+                {
+                  "url": "https://medical-consultation.local/fhir/StructureDefinition/preconsult-prefill-prompt-version",
+                  "valueString": "prefill_mapping_v1"
                 }
               ],
               "linkId": "chronic",
               "text": "過去是否有下列慢性疾病史？"
+            },
+            {
+              "answer": [
+                {
+                  "valueString": "hypertension"
+                }
+              ],
+              "extension": [
+                {
+                  "url": "https://medical-consultation.local/fhir/StructureDefinition/preconsult-answer-source",
+                  "valueCode": "ehr-prefill"
+                },
+                {
+                  "url": "https://medical-consultation.local/fhir/StructureDefinition/preconsult-prefill-normalized",
+                  "valueBoolean": true
+                },
+                {
+                  "url": "https://medical-consultation.local/fhir/StructureDefinition/preconsult-prefill-prompt-version",
+                  "valueString": "prefill_mapping_v1"
+                }
+              ],
+              "linkId": "chronic_detail",
+              "text": "請補充慢性疾病、自體免疫疾病或癌症的病名。"
             },
             {
               "answer": [
@@ -856,7 +887,7 @@
             }
           ],
           "meta": {
-            "lastUpdated": "2026-10-13T14:17:55.927+00:00",
+            "lastUpdated": "2026-10-14T10:21:49.873+00:00",
             "profile": [
               "https://twcore.mohw.gov.tw/ig/twcore/StructureDefinition/QuestionnaireResponse-twcore"
             ],
@@ -884,8 +915,8 @@
           }
         },
         "source": {
-          "path": "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-01__r1/fhir/written/QuestionnaireResponse-495363.json",
-          "sha256": "cb03bf5834bcf363b9fce1a7a51faa6a8cd166c7b883ba1253d85f9db15a7e41"
+          "path": "experiments/results/e2_end_to_end/20261014T101952Z/sessions/default__CP-01__r1/fhir/written/QuestionnaireResponse-501042.json",
+          "sha256": "3c1e5fb2dbdda62d9de4d868b10db2ddf478d51952288910db233d3cbc772ebb"
         }
       }
     },
@@ -893,12 +924,22 @@
     "selection_rule": "Lexicographically first chest session with all four written resource types in the selected E2 run.",
     "session_key": "default__CP-01__r1",
     "source": {
-      "path": "experiments/results/e2_end_to_end/20261013T141553Z/sessions/default__CP-01__r1/session.json",
-      "sha256": "5235049ce5c17d1ebd9cb33aee0d262b5721329078ac0d1d67665ccc39660152"
+      "path": "experiments/results/e2_end_to_end/20261014T101952Z/sessions/default__CP-01__r1/session.json",
+      "sha256": "34ad1e46aa43ed4a8cf18fbb88956eebc5b5c2ab0d0d4a4e9d1ae77a1f508553"
     },
     "status": "provisional: pending physician review; not clinically validated"
   },
   "extensions": [
+    {
+      "purpose": "The EHR-prefilled answer was normalized by an index-only LLM classification; it is not patient confirmation.",
+      "type": "boolean",
+      "url": "https://medical-consultation.local/fhir/StructureDefinition/preconsult-prefill-normalized"
+    },
+    {
+      "purpose": "Version of the prompt used to normalize this EHR-prefilled answer.",
+      "type": "string",
+      "url": "https://medical-consultation.local/fhir/StructureDefinition/preconsult-prefill-prompt-version"
+    },
     {
       "purpose": "Runtime input kind of the item: text, choice, date or duration.",
       "type": "code",
@@ -2110,7 +2151,7 @@
     "backend/amie/rules/safety_rules.json": "a12cf1ca52f961fd607e862a5f0068ec1c86027ac36507fb44961baefd4a6b10",
     "backend/app/prompts/common.py": "e8e5369d5dd671d61a5dfd1c16243fdf1d15bd12b2181a20747da493012962c2",
     "backend/app/prompts/questionnaire_summary.py": "e735bcc056b35ed9e2554eb530e034e326e3464a8659306f24434033c0772b7e",
-    "backend/domain/fhir_extensions.py": "030df852417ebcd3e82ad1f1afa193418c55c6150c525a3679e204060c304f90",
+    "backend/domain/fhir_extensions.py": "dbad4f21a1ec08fbccdafe07857f52bbfff784b06f3b8d18b15fb697bf88e335",
     "backend/domain/fhir_questionnaire.py": "169cb86df699847a10282e8a1dffc9e8f65f23e93bb1f7877c1f2550c7754f1b",
     "backend/domain/questionnaire_routes.json": "e893eccc1f0c201f1983981d07021524785c88ae0f66c5c965979bc7a47ef45d",
     "backend/domain/questionnaires.py": "bd33cb04ad19a6e6703ddb82dbdbe87bbc1668366740b9a4ea957fd659f82e98",
@@ -2172,11 +2213,11 @@
     "backend/questionnaire_data/trauma.json": "b7f0352ae59f023bda3a8de937dfae86cf0fadb2903cd2195e5497c09b7dc844",
     "backend/questionnaire_data/vaginal_bleeding.json": "17d0c766c8a21810a61aa713a00020f27d7f81f3e30ce952d51abaa6235680b0",
     "backend/questionnaire_data/weakness.json": "1cff9d48c513944f5062209d4298710851ab428bf4d47f0602a6cbfc5aa5a79a",
-    "experiments/config/paper_runs.json": "b1c5af617606f914d220ed8b762d62af98c5f5de7eb4f8e2b39bbd545c5442f3",
+    "experiments/config/paper_runs.json": "b204e6edc79f164366a3e9b7277375ecc67fbf8b3437e8d73a70c364f2801a10",
     "experiments/config/versions.lock.yaml": "e24a0584db9948c25bfc5e25dccfd21d4d57717592779a6fd28a71dc107031ea",
     "experiments/data/scenario_cohort_scenario_v2.json": "47eb594450f26f92cce29c3fcef07deccc538730bd60f26a352301a1e9a9078e",
     "experiments/prompts/patient_agent_v1.md": "703b59ffc7b46dfaf7b196c801b6ec69f66ba0a080a934caf44595ba6181edd7",
-    "experiments/results/e2_end_to_end/20261013T141553Z/manifest.json": "463398c34441476c16d0d8fbb2d24ba9714778cd8829ca587179869613f88da6",
+    "experiments/results/e2_end_to_end/20261014T101952Z/manifest.json": "5aa69ee4df47cacde802607a47c5a68a1cdd543598ab1ae9c32d69ad90e03204",
     "experiments/scripts/AP-01.yaml": "a81d20fb589880c8e1def3f93305af31b07b80771c97558ced069c0dee2f4f4c",
     "experiments/scripts/AP-02.yaml": "b99f9f46352ef2a539a15baa0524489b5efbf677f828043164949d67d932dd6b",
     "experiments/scripts/AP-03.yaml": "2bd0a861dee22563585e7cff23671577820157712734b0b1314087c630a4e509",

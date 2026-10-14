@@ -94,7 +94,7 @@
 \input{tables/numbers.tex}
 \begin{document}
 
-\title[FHIR-integrated pre-consultation]{A Modular, FHIR-Integrated Framework for LLM-Assisted Pre-Consultation}
+\title[FIRM]{FIRM: FHIR-Integrated Interviewing with Replaceable Modules for LLM-Assisted Pre-Consultation}
 
 %%=============================================================%%
 %% GivenName	-> \fnm{Joergen W.}
@@ -136,7 +136,13 @@
 %% Sample for unstructured abstract %%
 %%==================================%%
 
-\abstract{We describe a modular framework for LLM-assisted pre-consultation with questionnaire-based question selection and structured TW Core FHIR write-back. Synthetic verification maps requirements to explicit checks; clinician confirmation was simulated. Absolute requirements \PassingRequirements{} pass; \FailingRequirements{} fail. R0 supports deterministic question selection through saved-call auditing, static code evidence, and repeated-path stability. R3 fails because written FHIR paths differ from runtime paths for free-text EHR prefill, despite agreement for patient-entered branching answers. The discrepancy reflects fixed-rule encoding differences, not AI question selection. R5 retains known scripted rule gaps. Configuration-only replacement (R7) is \EThreeAlternateSwapVerdict{} for alternate Gemini, matching default outcomes including shared R3/R5 failures, and \EThreeLocalSwapVerdict{} for Gemma because of handoffs and missed stops. National capacity (R8) is \REightVerdict{} without demand data; exchange-hub verification (R9) is \RNineVerdict{} by unavailable access. Structural/profile checks use \texttt{-tx n/a}, without terminology resolution. Requirement-defined criteria were applied post~hoc, distinct from prespecified targets. Findings remain provisional pending physician review and independent audits; they establish bounded software verification, not clinical validation or deployment readiness.}
+\abstract{\textbf{Purpose:} Large language model (LLM) assistants for pre-consultation must behave predictably and exchange data with electronic health records (EHRs). We present ELVINA (EHR-Linked Virtual Interviewer with Natural-language Assistance), a pre-consultation system built on FIRM (FHIR-Integrated Interviewing with Replaceable Modules), in which physician-authored questionnaires, not the LLM, select questions and results are written back as Taiwan Core (TW Core) FHIR resources, and we verify it against explicit requirements.
+
+\textbf{Methods:} Questionnaires are encoded as FHIR Questionnaire. LLMs only extract evidence-grounded chief-complaint findings, classify EHR history into questionnaire options, and draft reports; one transaction writes QuestionnaireResponse, Observation, Composition, and Provenance. Ten requirements (R0--R9) were checked with synthetic Synthea patients and \ScenarioCount{} author-drafted scenarios answered by an LLM-simulated patient: interoperability, end-to-end runs, configuration-only model replacement, and local load. Clinician confirmation was simulated.
+
+\textbf{Results:} Requirements \PassingRequirements{} passed and \FailingRequirements{} failed. Question selection (R0) was \RZeroVerdict{}, and structural/profile checks of \EOneResources{} written resources (R1, without terminology resolution) were \ROneVerdict{}. After EHR-history classification was added, written-FHIR and runtime question paths agreed in \ETwoWrittenPathAgree{} of \ETwoWrittenPathCompared{} comparable sessions (R3, \RThreeVerdict{}). Replacing the commercial model by configuration alone was \EThreeAlternateSwapVerdict{}; a local open-weight model was \EThreeLocalSwapVerdict{}. Red-flag rule coverage (R5) was \RFiveVerdict{}; candidate rules await physician approval. National-scale capacity was \REightVerdict{} and exchange-hub integration \RNineVerdict{}.
+
+\textbf{Conclusions:} A rule-governed pre-consultation system with FHIR write-back can be verified requirement by requirement. These provisional, synthetic software-verification results do not establish clinical safety, diagnostic performance, or deployment readiness.}
 
 
 
@@ -166,7 +172,7 @@ Low-acuity visits place a growing burden on unscheduled care worldwide.\cite{pin
 
 Large language models (LLMs) now support numerous clinical tasks, including ambient scribing, EHR documentation, and clinical decision support.\cite{nairCurrentStateDigital2026} Agentic systems extend these capabilities through planning, tool use, and multi-step action, enabling closer integration with health-system workflows and conversational diagnosis.\cite{tuConversationalDiagnosticArtificial2025} However, although various benchmarks now evaluate LLMs on realistic tasks and interactive encounters, most agentic systems remain confined to simulated settings.\cite{liuBenchmarkingLargeLanguage2026}
 
-Here, we present XXX, an LLM-based agent for adults presenting in Taiwanese urgent care centers. XXX conducts structured history-taking by text or voice, drafts a clinician-ready note, and supports decision-making with a ranked differential and not-to-miss conditions, alongside suggested examinations and imaging. To limit hallucination, the LLM only extracts clinical facts linked to the patient's own words, while safety screening, question selection, and diagnostic ranking follow auditable rules. XXX connects to EHRs via SMART on FHIR and was evaluated on benchmark.
+Here, we present ELVINA, an LLM-based agent for adults presenting in Taiwanese urgent care centers. ELVINA conducts structured history-taking by text or voice, drafts a clinician-ready note, and supports decision-making with a ranked differential and not-to-miss conditions, alongside suggested examinations and imaging. To limit hallucination, the LLM only extracts clinical facts linked to the patient's own words, while safety screening, question selection, and diagnostic ranking follow auditable rules. ELVINA connects to EHRs via SMART on FHIR and was evaluated on benchmark.
 
 
 

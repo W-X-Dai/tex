@@ -61,7 +61,7 @@
   "e3": [
     {
       "config": "default",
-      "e2_run": "experiments/results/e3_swap_e2/20261013T143527Z",
+      "e2_run": "experiments/results/e3_swap_e2/20261014T103750Z",
       "code_lines_changed_outside_config": 0,
       "completion": {
         "k": 30,
@@ -82,32 +82,32 @@
         "first_divergences": {}
       },
       "fact_traceability": {
-        "k": 91,
-        "n": 91,
+        "k": 93,
+        "n": 93,
         "rate": 1.0,
         "wilson95": [
-          0.9594959954580202,
+          0.9603324967873037,
           1.0
         ],
         "among_evidenced": {
-          "k": 91,
-          "n": 91,
+          "k": 93,
+          "n": 93,
           "rate": 1.0,
           "wilson95": [
-            0.9594959954580202,
+            0.9603324967873037,
             1.0
           ]
         },
         "denominator": "all extracted facts; missing evidence is untraceable",
-        "facts_total": 91,
-        "exact": 91,
+        "facts_total": 93,
+        "exact": 93,
         "normalized_only": 0,
         "no_evidence": 0
       },
       "validation_errors_written": 0,
-      "median_turn_latency_ms": 8.848554993164726,
-      "median_wall_clock_ms": 39985.89302349865,
-      "cost_usd_per_session_median": 0.019188425000000002,
+      "median_turn_latency_ms": 9.174992999760434,
+      "median_wall_clock_ms": 32553.14750148682,
+      "cost_usd_per_session_median": 0.018547675,
       "unpriced_models": [],
       "validated_only": false,
       "config_lines_vs_first": {
@@ -201,7 +201,7 @@
           "differing_paths": {}
         }
       },
-      "cost_sessions": 22,
+      "cost_sessions": 28,
       "api_writeback_completion": {
         "k": 30,
         "n": 30,
@@ -217,7 +217,7 @@
     },
     {
       "config": "llm_swap_a_gemini_alt",
-      "e2_run": "experiments/results/e3_swap_e2/20261013T144002Z",
+      "e2_run": "experiments/results/e3_swap_e2/20261014T104203Z",
       "code_lines_changed_outside_config": 0,
       "completion": {
         "k": 30,
@@ -261,14 +261,14 @@
         "no_evidence": 0
       },
       "validation_errors_written": 0,
-      "median_turn_latency_ms": 9.353340996312909,
-      "median_wall_clock_ms": 34546.04852099874,
-      "cost_usd_per_session_median": 0.009626349999999999,
+      "median_turn_latency_ms": 9.47500902111642,
+      "median_wall_clock_ms": 30214.12796599907,
+      "cost_usd_per_session_median": 0.0095481,
       "unpriced_models": [],
       "validated_only": false,
       "config_lines_vs_first": {
-        "added": 19,
-        "removed": 15
+        "added": 20,
+        "removed": 16
       },
       "e1": {
         "threshold": {
@@ -357,7 +357,7 @@
           "differing_paths": {}
         }
       },
-      "cost_sessions": 22,
+      "cost_sessions": 28,
       "api_writeback_completion": {
         "k": 30,
         "n": 30,
@@ -373,25 +373,27 @@
     },
     {
       "config": "llm_swap_b_ollama",
-      "e2_run": "experiments/results/e3_swap_e2/20261013T144457Z",
+      "e2_run": "experiments/results/e3_swap_e2/20261014T104547Z",
       "code_lines_changed_outside_config": 0,
       "completion": {
-        "k": 28,
+        "k": 27,
         "n": 30,
-        "rate": 0.9333333333333333
+        "rate": 0.9
       },
       "protocol_adherence": {
-        "k": 20,
+        "k": 18,
         "n": 22,
-        "rate": 0.9090909090909091,
+        "rate": 0.8181818181818182,
         "wilson95": [
-          0.721850529721749,
-          0.9747045712376774
+          0.6148339238492879,
+          0.9269311546747105
         ],
         "not_compared_by_status": {
           "ended_at_chief_complaint": 8
         },
-        "first_divergences": {}
+        "first_divergences": {
+          "HA-02@2:past_meds->chronic": 1
+        }
       },
       "fact_traceability": {
         "k": 6,
@@ -417,14 +419,14 @@
         "no_evidence": 0
       },
       "validation_errors_written": 0,
-      "median_turn_latency_ms": 9.177779997116886,
-      "median_wall_clock_ms": 205656.89770949393,
+      "median_turn_latency_ms": 8.941564010456204,
+      "median_wall_clock_ms": 188835.3570564941,
       "cost_usd_per_session_median": 0.0,
       "unpriced_models": [],
       "validated_only": false,
       "config_lines_vs_first": {
-        "added": 25,
-        "removed": 20
+        "added": 26,
+        "removed": 21
       },
       "e1": {
         "threshold": {
@@ -453,17 +455,17 @@
             ]
           },
           "readback_success": {
-            "k": 110,
-            "n": 110,
+            "k": 109,
+            "n": 109,
             "rate": 1.0,
             "wilson95": [
-              0.9662560641874632,
-              1.0
+              0.9659570257299043,
+              0.9999999999999999
             ]
           },
           "written_by_type": {
             "QuestionnaireResponse": 30,
-            "Observation": 20,
+            "Observation": 19,
             "Composition": 30,
             "Provenance": 30
           },
@@ -471,25 +473,25 @@
         },
         "roundtrip": {
           "overall": {
-            "k": 110,
-            "n": 110,
+            "k": 109,
+            "n": 109,
             "rate": 1.0,
             "wilson95": [
-              0.9662560641874632,
-              1.0
+              0.9659570257299043,
+              0.9999999999999999
             ]
           },
           "compared_only": {
-            "k": 110,
-            "n": 110,
+            "k": 109,
+            "n": 109,
             "rate": 1.0,
             "wilson95": [
-              0.9662560641874632,
-              1.0
+              0.9659570257299043,
+              0.9999999999999999
             ]
           },
           "denominator": "all captured submissions; unverified submissions are not passes",
-          "submitted_total": 110,
+          "submitted_total": 109,
           "unverified_by_reason": {},
           "per_type": {
             "QuestionnaireResponse": {
@@ -497,8 +499,8 @@
               "identical": 30
             },
             "Observation": {
-              "compared": 20,
-              "identical": 20
+              "compared": 19,
+              "identical": 19
             },
             "Composition": {
               "compared": 30,
@@ -513,18 +515,18 @@
           "differing_paths": {}
         }
       },
-      "cost_sessions": 20,
+      "cost_sessions": 26,
       "api_writeback_completion": {
         "k": 30,
         "n": 30,
         "rate": 1.0
       },
       "completion_without_handoff": {
-        "k": 28,
+        "k": 27,
         "n": 30,
-        "rate": 0.9333333333333333
+        "rate": 0.9
       },
-      "manual_handoff_after_writeback": 2,
+      "manual_handoff_after_writeback": 3,
       "other_or_missing_workflow_status": 0
     }
   ]

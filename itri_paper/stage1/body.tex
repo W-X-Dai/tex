@@ -1,24 +1,21 @@
 \section{Methods}\label{sec:methods}
 
 \subsection{Scope and implemented architecture}
-We verified a reference implementation for structured pre-consultation using
-synthetic patients. The outcomes concern data interchange, interview-to-write-back
-completion, model replacement, and local concurrency. Diagnostic and triage
-accuracy, clinical note quality, and comparisons with clinicians were outside scope.
+We verified ELVINA, FIRM's reference implementation, using synthetic
+data. Outcomes concern interchange, interview-to-write-back completion, model
+replacement, and local concurrency; clinical accuracy and note quality were outside scope.
 
-The implementation combines Vue patient and clinician interfaces, a FastAPI
+ELVINA combines Vue patient and clinician interfaces, a FastAPI
 backend, local retrieval, and a HAPI FHIR R4 sandbox (Fig.~\ref{fig:system})
 \citep{vueJs,fastApi,hapiFHIR,fhirR4}.
-A patient invitation is exchanged for a scoped session cookie; the clinician
-launcher binds patient and encounter identifiers. The separate SMART integration
-surface follows a different authorization flow \citep{mandelSmartOnFhir2016,smartAppLaunch}.
-These verification activities exercise text-channel HTTP APIs, not browser/OAuth launch or
-voice input. Isolated verification databases and an explicit loopback development
-authorization bypass separate the runs from production services.
+Invitations yield scoped session cookies; the clinician launcher binds patient and
+encounter identifiers. The separate SMART surface uses another authorization flow
+\citep{mandelSmartOnFhir2016,smartAppLaunch}. Verification exercised text HTTP APIs,
+using isolated databases and an explicit loopback development authorization bypass.
 
 \begin{figure}[t]\centering
 \includegraphics[width=\textwidth]{figures/fig1_system.pdf}
-\caption{System architecture. Clinician traffic passes through the hospital IIS and
+\caption{ELVINA system architecture. Clinician traffic passes through the hospital IIS and
 the Nginx gateway; patient traffic reaches the gateway directly. The FastAPI
 backend and the local GPU avatar service share a private API network; only the
 backend has egress to model providers, and FHIR services are external to the
@@ -28,7 +25,7 @@ backend. Daggers mark deployed components not exercised in this verification.}
 
 \begin{figure}[p]\centering
 \includegraphics[width=\textwidth]{figures/fig2_workflow.pdf}
-\caption{Implemented modules, contracts and verification points. Workflow steps:
+\caption{FIRM workflow as implemented in ELVINA, with contracts and verification points. Workflow steps:
 (1) the clinician launcher reads EHR history and issues an invitation with prefill;
 (2) chief-complaint screening and questionnaire routing; (3) deterministic
 questionnaire turns; (4) report drafting; (5) clinician review and confirmation;
@@ -40,36 +37,40 @@ the replaceable LLM adapter. Tags mark where requirements R0--R9
 \label{fig:workflow}
 \end{figure}
 
-Fig.~\ref{fig:workflow} shows the evaluated workflow. In the default
-questionnaire engine evaluated here, questionnaire rules select
-the next enabled question and skip EHR-prefilled fields; the LLM does not choose
-the next question. An alternative engine in the code base that makes per-turn
-model calls was not evaluated. Chief-complaint keywords select
-the questionnaire first. Only no keyword match permits evidence-grounded model
-extraction as a routing fallback. Rules and model extraction also screen the chief complaint; failed semantic assessment triggers manual handoff. At
-routine completion, retrieval supplies evidence for model-generated report
-sections and decision-support suggestions \citep{lewisRag2020}. These suggestions are neither
-validated diagnoses nor published orders.
+In Fig.~\ref{fig:workflow}, fixed questionnaire rules select the next enabled
+question and skip prefilled fields. Models classify prefill and extract chief
+complaints, indirectly affecting rule inputs, but do not select the next question.
+Keywords choose the questionnaire first; only no match permits evidence-grounded
+model routing. Failed chief assessment triggers handoff. Retrieval supports report
+drafts \citep{lewisRag2020}, without establishing diagnoses or orders. The alternative
+engine making per-turn model calls was not evaluated.
+
+\subsection{Conservative EHR prefill normalization}
+UCC, launcher, and sandbox ingress deterministically number chronic-history items.
+The configured report-extraction adapter returns only indices and fixed categories:
+diabetes, chronic kidney disease, hyperlipidemia, cirrhosis, autoimmune disease, cancer,
+other chronic, exclude, or unclear. Listed categories become questionnaire options;
+other chronic retains original text. Any unclear item, provider failure, timeout,
+or invalid/incomplete indices leaves both history fields unfilled for patient
+answers. Otherwise, cancer/autoimmune/other chronic items also prefill
+\texttt{chronic\_detail}; enabled but prefilled questions are skipped. No recognized
+condition leaves \texttt{chronic} unfilled, without inferring ``none.'' Original
+history, excluded items, classifications, model/prompt provenance, and bounded
+usage remain available for physician review. Oversized inputs are explicitly
+rejected; failures never echo history. Normalization sends history to the report
+provider, defaults off, and was enabled for these runs.
 
 \subsection{Questionnaire and write-back contracts}
-The encoder maps source fields to stable \texttt{linkId} values, options to coded
-answers, and supported conditions to \texttt{enableWhen}. Questionnaire and
-QuestionnaireResponse separate form definitions from answers \citep{fhirQuestionnaireR4,sdcIG}.
-The canonical version includes a source digest and is pinned in the interview
-trace when a route is selected. Write-back rejects a changed canonical version;
-older records without a pin use current resolution with an explicit legacy tag.
-Application extensions carry source and presentation semantics, so generic FHIR
-consumers cannot assume complete runtime equivalence. The questionnaire is encoded
-and published as FHIR Questionnaire, while source JSON drives execution. Tested
-equivalence holds for patient-entered branching answers but diverges for
-free-text EHR prefill, as quantified by R3.
+The encoder maps fields to \texttt{linkId}s, options to codes, and conditions to
+\texttt{enableWhen}. Questionnaire defines the form; QuestionnaireResponse records
+answers \citep{fhirQuestionnaireR4,sdcIG}. Source JSON drives execution. Route
+selection pins the source-digest canonical version; write-back rejects drift and
+tags unpinned legacy resolution. R3 checks representation agreement.
 
-Structured write-back is opt-in; Composition-only write-back remains the default.
-After simulated clinician confirmation, an authorized request creates the
-transaction in Table~\ref{tab:fhir}. Stable references and conditional creation
-support retry idempotency. Patient, encounter, institution, and issuer checks
-precede persistence. No differential-diagnosis Conditions, ClinicalImpressions,
-ServiceRequests, or safety Flags are created.
+After simulated clinician confirmation, opt-in structured write-back creates
+Table~\ref{tab:fhir}'s transaction; Composition-only remains default. Conditional
+creation supports retries. Patient/encounter/institution/issuer checks precede
+persistence. Differential diagnoses, orders, and safety Flags are not created.
 
 \begin{table}[t]\centering\small
 \caption{Write-back resources and assertion boundaries.}\label{tab:fhir}
@@ -82,51 +83,36 @@ Provenance & Patient informant, AI assembly, and simulated clinician-review role
 \end{tabular}
 \end{table}
 
-An absent-EHR placeholder is omitted from the response. Free text outside the
-option grammar is represented by the existing coded ``other'' option plus its
-nested string, retaining both the original text and answer-source marker. This
-avoids the validator's incompatible open-choice string/coded-condition exception
-without inventing a clinical selection. The original minimal reproduction is
-retained. When an answered runtime branch would lose its answer in FHIR,
-write-back fails closed with a non-retryable unprocessable-content response;
-unanswered branches do not create answers or block writing.
+Absent-EHR placeholders are omitted. Out-of-grammar text uses coded ``other'' with
+nested original text, avoiding the validator's open-choice exception. Normalized
+answers retain \texttt{ehr-prefill} source and add normalization/prompt-version
+extensions. A runtime answer that FHIR would drop causes non-retryable rejection;
+unanswered branches do not block writing.
 
 \subsection{Synthetic inputs and model disclosure}
 Synthea generated the adult source cohort \citep{syntheaMethod,syntheaSoftware}.
-Conversion assigns fictional Taiwanese identifiers and addresses and applies
-TW Core profiles \citep{twcoreIG}. Seeds, mappings, dropped elements, and content
-hashes are recorded. Taiwan-styled presentation does not establish local disease
-representativeness. Input validation is separate from system-output validation.
-The \ScenarioCount{} author-drafted scenarios cover chest pain, headache, and
-abdominal pain, including expected safety stops and known rule gaps. The planned
-benchmark was unavailable. Separate source-level Synthea modules provide
-scenario-consistent backgrounds; generated patient records are not manually
-rewritten to force agreement.
+Conversion applies fictional Taiwanese identifiers/addresses and TW Core profiles
+\citep{twcoreIG}, retaining seeds, mappings, dropped elements, and hashes. The
+\ScenarioCount{} author-drafted chest-pain, headache, and abdominal-pain scenarios
+include expected stops and known gaps; the planned benchmark was unavailable.
+Separate Synthea modules supply consistent backgrounds without manually rewriting
+generated records. Input validation is separate from output validation.
 
-Mechanical audits check conditions, medications, allergies, and smoking history.
-Human approval requires two independent physician decisions against current
-script hashes, including patient bindings and expected paths. At generation,
-\ValidatedScriptCount{} scripts have those approvals. Model and sampling
-settings and pending human QA are disclosed by role in Online Resource 1,
-Section S5; full prompt texts are in Sections S1 and S5. Commercial models use the Gemini Developer API; local Gemma and
-Qwen use Ollama \citep{ollamaSoftware,gemmaThree,qwenTwoFive}.
-Gemini API access follows the provider interface \citep{googleGeminiAPI}.
-Requested temperature is distinguished from the transmitted value: the Gemini
-adapter omits temperature for the configured newer Gemini models. Provider-effective
-sampling and unrecorded historical thinking settings are not inferred from defaults.
-Implementation, scenario drafting, orchestration, reference checking, and manuscript
-revision used AI assistance; the declarations specify the remaining author review.
+Background audits are mechanical; approval requires two independent physicians
+reviewing current script hashes, bindings, and paths. \ValidatedScriptCount{}
+scripts qualify. Online Resource 1 provides prompts/settings. Commercial calls
+use Gemini's API \citep{googleGeminiAPI}; Gemma/Qwen use Ollama
+\citep{ollamaSoftware,gemmaThree,qwenTwoFive}. Requested/transmitted settings are
+distinguished: newer Gemini configurations omit temperature. Unrecorded settings
+are not inferred.
 
 \subsection{Requirements and acceptance criteria}
-Table~\ref{tab:requirements} maps framework requirements to checks and generated
-verdicts. E1--E5 denote verification activities. Only the E1 zero-error target,
-E3 zero code-change target, and E4 request-error stopping threshold were specified
-before execution. The all-match/all-pass criteria for R2--R6 and the behavioral
-agreement component of R7 are requirement-defined and were applied post~hoc on
-2026-10-14, after inspecting the results. They are not prospective clinical
-acceptance thresholds. R0 comes from the project principal investigator's requirement for
-fixed questionnaire selection; its criteria were likewise applied post~hoc on
-2026-10-14. Missing evidence yields an indeterminate verdict.
+Table~\ref{tab:requirements} maps requirements to generated verdicts. E1--E5 are
+verification activities. E1 zero errors, E3 zero code changes, and E4's request-error
+stopping threshold were prespecified. Requirement-defined all-match/all-pass
+criteria for R2--R6, R7 behavioral agreement, and the investigator's R0 fixed-selection
+requirement were applied post~hoc on 2026-10-14. These are software criteria,
+not prospective clinical thresholds; missing evidence is indeterminate.
 
 \begin{table}[t]\centering\footnotesize
 \caption{Requirements, criterion sources, and generated verdicts. R0 uses E2 with
@@ -138,89 +124,69 @@ for each replacement in Table~\ref{tab:e3}.}\label{tab:requirements}
 \end{table}
 
 \subsection{Verification activities}
-R0 requires all saved system-model call tasks to concern chief extraction (at most
-once per session), report generation, or RAG translation, and each script's
-repeated runtime paths to be identical. Static source inspection identifies the
-pure next-question selector; E3 cross-model paths are reported descriptively.
-Usage records are bounded and explicitly incomplete, so this audit does not
-claim a complete history of all model calls (Online Resource 1, Sections S1 and S6).
+R0 audits saved calls for prefill normalization, chief extraction (at most once per
+session), report generation, or RAG translation, and requires identical repeated
+paths per script. Static inspection identifies the pure next-question selector.
+Prefill classification can change skip decisions; cross-model paths are descriptive.
+Bounded, incomplete usage cannot establish a complete call history.
 
-E1 uses the pinned HL7 validator with TW Core and generated questionnaire and
-extension definitions \citep{hl7Validator,twcoreIG}. R1 requires zero errors and
-zero validator exceptions in written resources from the templated and E2
-cohorts. Structural/profile checks use \texttt{-tx n/a}; they do not establish
-terminology resolution. R2 requires substantive write/read-back identity after
-excluding specified server metadata and assigned identifiers. Missing outcomes
-cannot count as passes. Input validation is separate, and the supplemental E1
-cohort is counted only once. Online Resource 1, Sections S3 and S7, documents
-these procedures.
+E1 uses the pinned HL7/TW Core validator and generated definitions
+\citep{hl7Validator,twcoreIG}. R1 requires zero written-resource errors/exceptions
+across templated and E2 cohorts. Checks use \texttt{-tx n/a}, without terminology
+resolution. R2 requires substantive write/read-back identity after excluding
+specified server metadata/identifiers. Missing outcomes cannot pass; supplemental
+E1 is counted once (Online Resource 1, Sections S3 and S7).
 
-E2 exercises invitation, text dialogue, report generation, simulated clinician
-confirmation, write-back, and read-back. A distinct local Qwen model plays the
-patient from scenario facts, following prior use of LLM-simulated patients in
-conversational evaluation \citep{tuConversationalDiagnosticArtificial2025,johriCraftMd2025,schmidgallAgentClinic2024}. Invalid constrained answers receive an explicit
-unknown fallback, never an expected-answer substitution.
-R3 compares the presented top-level runtime path with the FHIR
-\texttt{enableWhen} path derived primarily from the written
-QuestionnaireResponse, including EHR-prefilled answers. The recorded prefilled
-field list retains the skip context, including no-data fields omitted from QR.
-Nested \texttt{<linkId>.other} answer details are not separate questions.
-Reconstruction from runtime answer strings and the original script-derived check
-are secondary evidence. Expected chief stops are excluded; unexpected stops fail.
-R4 requires all persisted chief-complaint facts, including those with missing
-evidence, to be traceable to patient utterances. R5 requires every scripted
-red-flag rule expectation and every non-red-flag expectation to hold. This tests
-rule execution, not clinical sensitivity or specificity. R6 requires write-back
-and an explicit \texttt{completed} or \texttt{summary\_ready} workflow; expected
-chief stops and successful retries qualify, while manual handoff does not.
+E2 spans invitation through read-back. A distinct Qwen model plays the patient
+from scenario facts, following simulated-patient evaluation
+\citep{tuConversationalDiagnosticArtificial2025,johriCraftMd2025,schmidgallAgentClinic2024}.
+Invalid constrained answers receive explicit unknowns, never expected answers.
+R3 compares presented top-level questions with \texttt{enableWhen} paths derived
+from written QuestionnaireResponse answers, including EHR prefill. Recorded
+prefilled fields retain skip context for no-data items omitted from QR; nested
+\texttt{<linkId>.other} details are not questions. Runtime-answer and script-derived
+checks remain secondary. Expected chief stops are excluded; unexpected stops fail.
+R4 requires every persisted chief fact to have traceable utterance evidence.
+R5 requires all scripted red-flag and non-red-flag expectations, measuring rule
+execution rather than clinical sensitivity/specificity. R6 requires write-back
+and \texttt{completed} or \texttt{summary\_ready}; expected stops and successful
+retries qualify, manual handoffs do not.
 
-E3 substitutes model configuration while retaining executable fingerprints.
-R7 requires zero code changes and equality with the default configuration in
-R1--R6 verdicts and per-script completion, path, and red-flag results. Shared R3 representation differences and R5
-rule gaps are therefore retained in the comparison baseline. This relative
-criterion does not require either configuration to pass every absolute
-requirement. One-time adapter implementation is documented separately against
-base commit \texttt{\AdapterBaseCommit} in Online Resource 1, Section S6.
+E3 retains executable fingerprints across model configurations. R7 requires zero
+code changes and default-equivalent R1--R6 verdicts and per-script completion,
+paths, and red flags; shared failures remain in the baseline. One-time adapter
+changes against \texttt{\AdapterBaseCommit} are documented separately.
 
-E4 replays recorded turns with fixed-latency mock responses or real models on
-backend v0.18.0 with one worker. Its prespecified stopping rule is request error
-rate above \ELoadStopThreshold{}; session failure is a distinct endpoint. This
-local stopping rule does not define national capacity. E5 requires access to the
-MOHW exchange hub. Source hashes and frozen run selection generate all result
-macros, tables, and figures; repetitions are not independent clinical observations.
+E4 replays turns using fixed-latency mocks or real models on backend v0.19.0,
+one worker, stopping above \ELoadStopThreshold{} request errors. Session failure
+is distinct; this local rule does not define national capacity. E5 needs MOHW
+exchange-hub access. Frozen runs and source hashes generate results; repetitions
+are not independent clinical observations.
 
 \section{Results}\label{sec:results}
 
 \subsection{R0: deterministic question selection}
-R0 is \textbf{\RZeroVerdict{}}. All \ETwoDetCalls{} saved calls satisfy the task
-restriction, with at most \ETwoDetChiefMax{} chief-extraction call per session;
-\ETwoDetUsageIncomplete{} usage records declare incomplete coverage.
-All \RZeroStableScripts{} scripts have identical paths across
-\RZeroRepeats{} E2 repetitions. E3 alternate Gemini matches default paths in
-\EThreeAlternateDetSamePaths{}/\EThreeAlternateDetComparedScripts{} scripts;
-Gemma matches in \EThreeLocalDetSamePaths{}/\EThreeLocalDetComparedScripts{},
-with chief-stage handoffs or missed stops accounting for
-\EThreeLocalDetDifferentScripts{} (Online Resource 1, Section S6).
-Routing sources are \ETwoDetKeywordSources{} keyword selections,
-\ETwoDetExtractorSources{} recorded extraction fallbacks, and
-\ETwoDetUnknownSources{} unrecorded sources after expected chief stops; missing
-sources are not counted as keywords.
+R0 is \textbf{\RZeroVerdict{}}. Among \ETwoDetCalls{} saved calls,
+\ETwoDetUnexpectedTasks{} tasks fall outside the allowed list; chief extraction
+peaks at \ETwoDetChiefMax{} per session. \ETwoDetUsageIncomplete{} usage records
+are incomplete. Paths are identical in \RZeroStableScripts{}/\RZeroScripts{}
+scripts across \RZeroRepeats{} repetitions. E3 alternate Gemini matches default
+paths in \EThreeAlternateDetSamePaths{}/\EThreeAlternateDetComparedScripts{};
+Gemma matches in \EThreeLocalDetSamePaths{}/\EThreeLocalDetComparedScripts{}.
+Routing records show \ETwoDetKeywordSources{} keyword selections,
+\ETwoDetExtractorSources{} extraction fallbacks, and \ETwoDetUnknownSources{}
+unknown sources; unknowns are not counted as keywords.
 
 \subsection{R1 and R2: written resources and read-back}
 R1 is \textbf{\ROneVerdict{}} and R2 is \textbf{\RTwoVerdict{}}.
 Across \EOneTemplatedSessions{} templated and \EOneScenarioSessions{} E2 sessions,
 \EOneResources{} written resources have \EOneErrors{} structural/profile errors
-and \EOneValidatorCrashes{} validator exceptions under \texttt{-tx n/a}; all
-captured submissions match their read-back counterparts
-(Tables~\ref{tab:e1} and~\ref{tab:e1workflow}). All
-\EOneQuestionnaireResponses{} QuestionnaireResponses have explicit outcomes,
-with \EOneQRErrors{} errors and \EOneQRUnverified{} unverified responses.
-The \EOneWarnings{} retained warnings comprise \EOneProvenanceWarnings{}
-Provenance terminology warnings and \EOneCompositionWarnings{} Composition
-narrative warnings. The unavailable pinned participant-type CodeSystem version
-remains a terminology limitation, not a resolved binding.
-Input-cohort checks and the templated manual-handoff case are documented
-separately in Online Resource 1, Sections S3, S6, and S8.
+and \EOneValidatorCrashes{} validator exceptions under \texttt{-tx n/a}
+(Tables~\ref{tab:e1} and~\ref{tab:e1workflow}). Of
+\EOneQuestionnaireResponses{} QuestionnaireResponses, \EOneQRErrors{} errors and
+\EOneQRUnverified{} unverified responses are recorded. Warnings comprise
+\EOneProvenanceWarnings{} Provenance terminology and \EOneCompositionWarnings{}
+Composition narrative warnings. The pinned participant-type CodeSystem remains unavailable.
 
 \begin{table}[t]\centering
 \caption{E1 written-resource verification. Input checks are excluded; exceptions
@@ -240,37 +206,39 @@ submissions, including those without read-back.}\label{tab:e1workflow}
 R3 is \textbf{\RThreeVerdict{}}: written-FHIR paths match in
 \ETwoWrittenPathAgree{}/\ETwoWrittenPathCompared{} comparable sessions, versus
 \ETwoFixtureActualPathAgree{}/\ETwoFixtureActualPathCompared{} using runtime
-answer strings. Failures occur in \RThreeFailingScripts{}; all first divergences
-expect \texttt{chronic\_detail} but observe \texttt{past\_meds}.
-Patient-entered branch controls agree in
+answer strings. \ETwoWrittenPathExcluded{} expected chief stops are excluded;
+\ETwoWrittenPathUnknown{} paths are unknown.
+Patient-entered controls agree in
 \ETwoWrittenPathPatientControllerAgree{}/\ETwoWrittenPathPatientControllerCompared{},
 whereas EHR-prefilled controls agree in
 \ETwoWrittenPathEhrControllerAgree{}/\ETwoWrittenPathEhrControllerCompared{}
-(Online Resource 1, Section S6.3). R4 is \textbf{\RFourVerdict{}}, with fact traceability of
-\ETwoTraceability{}. R5 is \textbf{\RFiveVerdict{}}: the failing scripts are
-\RFiveFailingScripts{}, exposing existing rule gaps rather than a transport
-failure. The full red-flag and non-red-flag denominators appear in Online
-Resource 1, Section S6.
+(Online Resource 1, Section S6.3). R4 is \textbf{\RFourVerdict{}}, with traceability
+of \ETwoTraceability{}. R5 is \textbf{\RFiveVerdict{}}; nonmatching scripts are
+\RFiveFailingScripts{} (full denominators in Online Resource 1).
 R6 is \textbf{\RSixVerdict{}}, with completion of \ETwoCompletion{}, including
-\ETwoChiefStopsCompleted{} expected chief stops and
-\ETwoTimeoutCompleted{} recovery after a timeout and retry.
-The simulated-patient fixture has answer biases, but verbatim chief complaints,
-separate runtime/FHIR path checks, and content-independent structure/read-back
-checks distinguish fixture bias from the representation discrepancy (Online Resource 1, Section S6.3).
+\ETwoChiefStopsCompleted{} expected chief stops. Simulator fidelity is reported separately.
+
+\subsection{Descriptive prefill evidence}
+Normalization supplies answers in \EOnePrefillStatusNormalized{}/\EOnePrefillSessions{}
+E1 and \ETwoPrefillStatusNormalized{}/\ETwoPrefillSessions{} E2 sessions.
+E2 has \ETwoPrefillUnclearEntries{} unclear items and \ETwoPrefillFailed{} failures;
+Gemma prefill has \EThreeLocalPrefillFailed{} timeout.
+Separate feasibility matching is \PrefillFeasibilityExactRate{} over
+\PrefillFeasibilityScored{} provisionally labeled entries; truncated inputs include
+\PrefillFeasibilityTruncatedGuessed{}/\PrefillFeasibilityTruncated{} guessed items
+(Online Resource 1).
 
 \subsection{R7: configuration-only replacement}
 R7 is \textbf{\EThreeAlternateSwapVerdict{}} for alternate Gemini and
 \textbf{\EThreeLocalSwapVerdict{}} for local Gemma
-(Table~\ref{tab:e3}). The configurations retained identical executable
-fingerprints with no code changes during replacement. Alternate Gemini retains
-the default requirement verdicts and per-script outcomes, including the shared
-R3 and R5 failures; this is behavioral agreement with the default, not absolute safety
-acceptance. The local replacement differs on
-\EThreeLocalSwapFailingScripts{}: \EThreeLocalRSixFailingScripts{} enter manual
-handoff after chief-assessment timeouts, while \EThreeLocalAdditionalSafetyFailingScripts{}
-miss expected red-flag stops.
-Late worker completion does not reverse a handoff. Full per-session evidence is
-in Online Resource 1, Sections S6 and S7.
+(Table~\ref{tab:e3}). The comparison checks executable fingerprints and default-relative
+requirement/per-script outcomes. Relative agreement does not establish safety.
+Gemma differs on \EThreeLocalSwapFailingScripts{}.
+R3 is \EThreeDefaultRThreeVerdict{}/\EThreeAlternateRThreeVerdict{} for
+default/alternate configurations. Gemma's R3 is \EThreeLocalRThreeVerdict{}
+(\EThreeGemmaWrittenPathAgree{}/\EThreeGemmaWrittenPathCompared{}), with
+\EThreeLocalHandoffs{} unexpected chief handoffs rather than coding divergences;
+completion is \EThreeLocalCompleted{}/\EThreeLocalSessions{}.
 
 \begin{table}[t]\centering\footnotesize
 \caption{E3 requirement verdicts by configuration. R7 compares each replacement
@@ -282,100 +250,120 @@ one-time adapter implementation.}\label{tab:e3}
 \end{table}
 
 \subsection{R8 and R9: unavailable acceptance evidence}
-R8 is \textbf{\REightVerdict{}} because national peak demand remains
-\texttt{TODO\_PEAK\_DEMAND}. The local request-error stop condition cannot
-substitute for a national-demand criterion. R9 is \textbf{\RNineVerdict{}}
-because exchange-hub access is unavailable; E5 has no measured result.
-Timing, turns, tokens, bounded cost estimates, fact counts, and local load
-observations are descriptive background in Online Resource 1, Section S6.
+R8 is \textbf{\REightVerdict{}} without national-demand evidence
+(\texttt{TODO\_PEAK\_DEMAND}); local stopping rules cannot substitute.
+R9 is \textbf{\RNineVerdict{}} without exchange-hub access. Local load,
+timing, and bounded usage/cost observations are descriptive (Online Resource 1).
 
 \section{Discussion}\label{sec:discussion}
-R0 and R3 distinguish stable selection from agreement between representations.
-Runtime JSON uses fixed substring conditions on free-text EHR values; FHIR
-write-back encodes unrecognized text as coded ``other'' with nested original
-text, enabling \texttt{chronic\_detail} in the published Questionnaire.
-These fixed rules disagree without any AI decision, even though repeated
-runtime paths are identical. Clinicians must decide whether out-of-option EHR
-text should trigger follow-up before the rules are unified; this work changes
-neither rule set. Passing structural and read-back checks does not establish
-branch equivalence or clinical meaning.
+\subsection{Principal findings}
+ELVINA keeps question selection under physician-authored rules and confines LLMs to
+bounded tasks: chief-complaint extraction with verbatim evidence, classification
+of EHR history into questionnaire options, and draft reports. The verification
+shows that this division, which FIRM prescribes, can be checked requirement by
+requirement. Question selection (R0) was \RZeroVerdict{}; written-resource
+conformance and read-back (R1, R2) were \ROneVerdict{} and \RTwoVerdict{}; written
+and runtime question paths (R3) were \RThreeVerdict{}; fact traceability (R4) and
+end-to-end completion (R6) were \RFourVerdict{} and \RSixVerdict{}. Replacing the
+commercial model through configuration alone was \EThreeAlternateSwapVerdict{},
+supporting the claim that model-dependent components sit behind a replaceable
+adapter.
 
-R5 failure identifies unmet rule expectations in \RFiveFailingScripts{},
-including suspected pulmonary embolism and abdominal aortic aneurysm without syncope.
-Only chief-complaint screening runs in the default engine; later questionnaire
-answers do not trigger renewed screening. Other known code-level limitations
-include sustained exertional pressure without diaphoresis or syncope,
-prefill-dependent structured ectopic-pregnancy matching, and overly broad raw
-negation windows. These require qualified clinical review; no rules were changed.
+LLM-led diagnostic dialogue systems select their own questions
+\citep{tuConversationalDiagnosticArtificial2025}, and evaluations that require
+models to elicit information through conversation report weaker performance than
+vignette-based testing \citep{johriCraftMd2025,schmidgallAgentClinic2024}. ELVINA
+trades conversational flexibility for predictable, auditable question selection;
+that predictability is what made path-level verification possible. EHR-history
+classification does influence which history questions are skipped, but the next
+question is still chosen by the questionnaire rules. Whether fixed questionnaires
+elicit as much relevant history as free dialogue is a separate empirical question
+not addressed here.
 
-R7 distinguishes configuration compatibility from preserved behavior. Agreement
-with a default that fails R3 and R5 cannot establish representation equivalence
-or clinical safety. Gemma's handoffs
-and missed scripted stops fail the relative replacement criterion. Traceability
-over surviving extracted facts also cannot establish extraction coverage; the
-retention and timeout diagnostics remain in Online Resource 1, Section S6.
-R8 requires externally supplied demand and a justified acceptance criterion;
-local load observations do not establish national readiness. R9 requires an
-authorized exchange-hub environment before verification can proceed.
+\subsection{Defects found by verification}
+The checks exposed defects that component tests had not revealed. First, the
+runtime evaluated free-text EHR history by substring while the written FHIR
+representation used coded answers, so an earlier verification round found written
+paths that disagreed with the questions actually asked. The remediation classifies
+EHR history entries into questionnaire options by index and leaves both history
+questions to the patient whenever any entry is unclear or classification fails;
+in the selected runs R3 is \RThreeVerdict{} against the unchanged written-resource
+criterion. Second, prefilled history was silently truncated at a fixed length;
+oversized input is now rejected explicitly. Third, chief-complaint findings for
+suspected pulmonary embolism and for abdominal pain radiating to the back with a
+known aneurysm were extracted correctly, but no rule combined them (R5,
+\RFiveVerdict{}: \RFiveFailingScripts{}). Candidate rules drafted from current
+guidance \citep{konstantinidesEscPe2020,wanhainenEsvsAaa2024} await physician
+approval and new physician-written scenarios, and were not enabled. Finally,
+screening runs only at the chief complaint, so later questionnaire selections such
+as fainting do not raise an alert; simulated-patient answers that contradicted
+their scripts illustrated this gap.
+
+Configuration-level replaceability did not guarantee behavioural equivalence. The
+local open-weight model was \EThreeLocalSwapVerdict{} for R7 (\RSevenFailingScripts{}),
+through chief-stage handoffs after timeouts and missed expected stops; its R3
+failures also reflect those handoffs rather than path disagreement. Each model
+replacement therefore needs re-verification against the same requirements.
+National capacity (R8) needs an authoritative demand target, and exchange-hub
+interoperability (R9) needs authorized test access.
 
 \subsection{Limitations and clinical review needs}
-All scenario-based verdicts are provisional pending physician review and
-independent transcript/fact audits. Requirements were organized after viewing
-the results, and requirement-defined criteria are explicitly labeled post hoc.
-Synthetic demographics are not representative, evidence spans do not validate
-clinical interpretation, and clinician confirmation was simulated.
-EHR prefill can retain social/contextual Condition text and English labels in
-Chinese forms; faithful encoding does not make that mapping clinically
-appropriate (Online Resource 1, Section S3).
-The sandbox does not establish production authorization, tenant isolation,
-browser SMART integration, diagnostic accuracy, clinical utility, or deployment
-readiness. Terminology review, institutional governance, and human approval
-remain separate prerequisites.
+Verdicts remain provisional pending physician review of the scenarios and
+independent audits. Requirement-defined criteria were applied post~hoc, and
+clinician confirmation was simulated. The LLM-simulated patient sometimes
+contradicted its script; these answers were recorded as patient-reported and limit
+scenario fidelity rather than the path and write-back checks. EHR-history
+classification is not clinical confirmation: the default model assigned some
+entries to listed options that a provisional reference does not support, such as
+prediabetes as diabetes and colon polyps as cancer
+(\EOnePrefillListedDisagree{} entries in the templated cohort), excluded some
+chronic conditions, and was not fully consistent across sessions (Online
+Resource~1, Section S6). These answers are written back as unconfirmed EHR prefill,
+and the original EHR text remains available to clinicians; the classifier was not
+modified for this study. Its reference labels lack physician review, and synthetic
+disease-name distributions do not establish accuracy on real EHR data.
+Structural/profile checks ran without terminology resolution. Synthetic
+demographics and sandbox interoperability do not establish clinical utility,
+production authorization, tenant isolation, browser SMART integration, or
+deployment readiness; terminology review, institutional governance, and human
+approval remain necessary.
 
 \section{Conclusion}\label{sec:conclusion}
-The absolute requirements \PassingRequirements{} pass; \FailingRequirements{}
-fail within the defined software-verification scope. Deterministic question
-selection does not guarantee agreement between runtime and written FHIR branching.
-R7 is \EThreeAlternateSwapVerdict{} for alternate Gemini, retaining default
-outcomes including shared R3/R5 failures, and \EThreeLocalSwapVerdict{} for Gemma.
-National peak capacity is \REightVerdict{} and exchange integration is
-\RNineVerdict{}. Checks retain \texttt{-tx n/a}, without terminology resolution;
-simulated clinician confirmation and provisional scenarios do not establish
-clinical validation or deployment readiness.
+ELVINA, built on the FIRM framework, keeps question selection under
+physician-authored rules and writes results back as TW Core FHIR resources, and it
+can be verified against explicit requirements. Requirements \PassingRequirements{}
+passed and \FailingRequirements{} failed in this software verification; the failures
+identify concrete defects with documented remediations or pending clinical
+decisions. Replacing the commercial model by configuration was
+\EThreeAlternateSwapVerdict{}, whereas a local open-weight model was
+\EThreeLocalSwapVerdict{}. Clinical validation, national-scale capacity
+(\REightVerdict{}), and exchange-hub integration (\RNineVerdict{}) remain future work.
 
 \backmatter
 \bmhead{Supplementary information}
-Online Resource 1 (\texttt{ESM\_1.pdf}) provides system and prompt details
-(Section S1), FHIR examples (S2), synthetic conversion (S3), provisional scenarios
-(S4), model disclosure (S5), complete results and a provisional walkthrough
-(S6), harness procedures (S7), validator limitations (S8), and version locks (S9).
-Online Resource 2 (\texttt{ESM\_2.zip}) contains the corresponding machine-readable
-scripts, review materials, FHIR examples, synthetic sample bundles, prompts,
-configurations, summaries, and a hash manifest. No scenario is physician-approved;
-the walkthrough remains provisional and the clinician screenshot is pending.
+Online Resource 1 documents methods, results, and limitations. Online Resource 2
+supplies machine-readable synthetic materials, configurations, and provenance.
+Scenario approvals and the clinician screenshot remain pending.
 
 \bmhead{Acknowledgements}
-Author confirmation of acknowledgements and institutional wording is pending.
+Author confirmation is pending.
 
 \section*{Declarations}
-\textbf{Funding, competing interests, and contributions.} Authors must supply and
-verify these statements and final approval.\par
+\textbf{Funding, competing interests, and contributions.} Author statements and
+final approval are pending.\par
 \textbf{Ethics and consent.} Only synthetic data were used. Authors must confirm
 the applicable institutional determination; no ethics approval is asserted.\par
-\textbf{Data availability.} Online Resource 2 contains provisional synthetic
-scripts, review materials, sample TW Core bundles, FHIR examples, selected result
-summaries and manifests, and configuration/prompt provenance. Full session records
-and RAG source text are excluded. Medscape \citep{medscapeReference} redistribution rights require author
-confirmation (\texttt{TODO\_AUTHOR}).\par
+\textbf{Data availability.} Online Resource 2 contains synthetic materials and
+selected results/provenance; full sessions and RAG source text are excluded.
+Medscape \citep{medscapeReference} redistribution rights require author confirmation
+(\texttt{TODO\_AUTHOR}).\par
 \textbf{Code availability.} Reproduction commands and source paths accompany
 Online Resource 2; the public repository location, archival identifier, and code/data
 licenses remain \texttt{TODO\_AUTHOR}.\par
-\textbf{AI assistance.} Claude Code and Codex assisted code and scenario drafting,
-verification orchestration, source checking, and manuscript drafting and revision.
-The authoring log records Claude Code with \texttt{claude-opus-5-5} and
-Codex in the GPT-6 family; exact tool releases and Codex runtime version remain
-unrecorded. Authors must confirm these details and the final disclosure
-wording (\texttt{TODO\_AUTHOR}; Online Resource 1, Section S5). Authors must verify citations, review technical and clinical content,
-and approve the final text; scenario approvals and independent audits remain pending.
+\textbf{AI assistance.} Claude Code and Codex assisted implementation, scenario
+drafting, orchestration, source checking, and manuscript revision. Model/tool
+disclosures and unrecorded versions appear in Online Resource 1, Section S5.
+Authors must confirm disclosure details, verify citations and content, and approve
+the text (\texttt{TODO\_AUTHOR}); independent audits remain pending.
 
 \bibliography{sn-bibliography}

@@ -2,7 +2,8 @@
 export PATH=/home/user/.nvm/versions/node/v22.23.2/bin:$PATH
 
 # Before each run: reject extra, missing, or truncated baseline resources.
-backend/venv/bin/python -m experiments.tools.check_scenario_baseline
+backend/venv/bin/python -m experiments.tools.check_scenario_baseline \
+  --output /tmp/baseline-before-REPLACE_WITH_UNIQUE_STAGE_AND_TIMESTAMP.json
 
 # E1: independent 200-patient input cohort, before E2.
 backend/venv/bin/python -m experiments.e1_interop.run \

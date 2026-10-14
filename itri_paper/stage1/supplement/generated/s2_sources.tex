@@ -5,6 +5,8 @@ URL & Purpose & Type \\ \hline
 \endfirsthead
 URL & Purpose & Type \\ \hline
 \endhead
+https://medi\allowbreak{}cal-consulta\allowbreak{}tion.local/f\allowbreak{}hir/Structur\allowbreak{}eDefinition/\allowbreak{}preconsult-p\allowbreak{}refill-norma\allowbreak{}lized & The EHR-prefilled answer was normalized by an index-only LLM classification; it is not patient confirmation. & boolean \\
+https://medi\allowbreak{}cal-consulta\allowbreak{}tion.local/f\allowbreak{}hir/Structur\allowbreak{}eDefinition/\allowbreak{}preconsult-p\allowbreak{}refill-promp\allowbreak{}t-version & Version of the prompt used to normalize this EHR-prefilled answer. & string \\
 https://medi\allowbreak{}cal-consulta\allowbreak{}tion.local/f\allowbreak{}hir/Structur\allowbreak{}eDefinition/\allowbreak{}preconsult-i\allowbreak{}tem-kind & Runtime input kind of the item: text, choice, date or duration. & code \\
 https://medi\allowbreak{}cal-consulta\allowbreak{}tion.local/f\allowbreak{}hir/Structur\allowbreak{}eDefinition/\allowbreak{}preconsult-i\allowbreak{}tem-section & Runtime questionnaire section: chief, basic, history or disease. & code \\
 https://medi\allowbreak{}cal-consulta\allowbreak{}tion.local/f\allowbreak{}hir/Structur\allowbreak{}eDefinition/\allowbreak{}preconsult-i\allowbreak{}tem-route & Disease route that contributed this item (disease items only). & string \\
@@ -104,9 +106,9 @@ All following excerpts use the same provisional synthetic session: default\_\_CP
 \begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\scriptsize]
 {
   "encounter": {
-    "reference": "Encounter/exp-20261013t141553z-default--cp-01--r1-enc"
+    "reference": "Encounter/exp-20261014t101952z-default--cp-01--r1-enc"
   },
-  "id": "495365",
+  "id": "501044",
   "resourceType": "Composition",
   "section": [
     {
@@ -118,7 +120,7 @@ All following excerpts use the same provisional synthetic session: default\_\_CP
     },
     {
       "text": {
-        "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>The patient is a male with a history of hypertension presenting with mild, sharp left-sided chest pain of gradually progressive onset lasting for three days. The pain is localized and fixed, with associated tenderness to palpation. Symptoms are aggravated by turning or raising the arm and are relieved by rest. There are no associated symptoms.</p></div>",
+        "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>The patient is a male with a history of hypertension presenting with mild, sharp left-sided chest pain of gradual onset lasting for three days. The pain is localized, fixed, reproducible with palpation, and aggravated by turning or raising the arm, while relieved by rest. There are no associated symptoms.</p></div>",
         "status": "additional"
       },
       "title": "Present Illness"
@@ -153,13 +155,13 @@ All following excerpts use the same provisional synthetic session: default\_\_CP
   },
   "derivedFrom": [
     {
-      "reference": "QuestionnaireResponse/495363"
+      "reference": "QuestionnaireResponse/501042"
     }
   ],
   "encounter": {
-    "reference": "Encounter/exp-20261013t141553z-default--cp-01--r1-enc"
+    "reference": "Encounter/exp-20261014t101952z-default--cp-01--r1-enc"
   },
-  "id": "495364",
+  "id": "501043",
   "resourceType": "Observation",
   "status": "final",
   "subject": {
@@ -244,18 +246,18 @@ All following excerpts use the same provisional synthetic session: default\_\_CP
     {
       "role": "source",
       "what": {
-        "reference": "QuestionnaireResponse/495363"
+        "reference": "QuestionnaireResponse/501042"
       }
     }
   ],
-  "id": "495366",
+  "id": "501045",
   "resourceType": "Provenance",
   "target": [
     {
-      "reference": "QuestionnaireResponse/495363"
+      "reference": "QuestionnaireResponse/501042"
     },
     {
-      "reference": "Observation/495364"
+      "reference": "Observation/501043"
     }
   ]
 }
@@ -263,9 +265,9 @@ All following excerpts use the same provisional synthetic session: default\_\_CP
 \begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\scriptsize]
 {
   "encounter": {
-    "reference": "Encounter/exp-20261013t141553z-default--cp-01--r1-enc"
+    "reference": "Encounter/exp-20261014t101952z-default--cp-01--r1-enc"
   },
-  "id": "495363",
+  "id": "501042",
   "item": [
     {
       "answer": [

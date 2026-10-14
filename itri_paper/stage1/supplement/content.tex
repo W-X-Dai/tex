@@ -11,6 +11,7 @@ messages do not become FHIR resources merely because the EHR boundary uses FHIR.
 \hline Module & Input & Output and contract \\\hline\endhead
 Invitation and session & Authorized institution, patient/encounter context, prefill & Scoped session and application JSON; no clinical assertion. \\
 Questionnaire controller & Source JSON, route, saved answers, prefill & Next enabled item and trace, using internal JSON. The FHIR Questionnaire is a separately exported contract. \\
+Prefill normalization & Authorized EHR chronic-history entries & Indexed category JSON through the configured summary-extraction adapter; original text and classification provenance remain available for physician review. \\
 Chief extraction & Patient's opening utterance and constrained vocabulary & Schema-checked internal JSON; only locally grounded findings feed deterministic rules. \\
 Retrieval & Clinical query, task purpose, route and local index & Ranked source metadata and passages in internal JSON; no change to question selection or safety rules. \\
 Report tasks & Questions, answers, permitted background and retrieved evidence & Task-specific schema-constrained JSON, assembled into an unsigned draft. \\
@@ -39,11 +40,55 @@ normal question selection proceeds.
 
 R0 combines an audit of recorded call tasks, repeated runtime paths for each
 E2 script, and a descriptive cross-configuration path check in E3. Chief
-extraction, report tasks and RAG query translation are separate from next-question
-selection. Bounded usage telemetry alone cannot prove the absence of unrecorded
+extraction, prefill normalization, report tasks and RAG query translation are
+allowed recorded tasks. Prefill classification indirectly affects whether
+\texttt{chronic\_detail} is already filled and skipped; the questionnaire rules
+still select the next enabled, unfilled item. Bounded usage telemetry alone cannot prove the absence of unrecorded
 calls; the static selection path above supplies the accompanying code evidence.
 The requirement was requested by the project principal investigator. Its
-acceptance rules were applied post hoc on 2026-10-14 after observing the runs.
+acceptance rules were developed post hoc on 2026-10-14 from the preceding
+verification evidence and retained for the current reruns.
+
+\subsection{Optional EHR prefill normalization}
+The normalization feature is disabled by default; the research configurations
+explicitly enable it for all compared settings. Authorized UCC and launcher
+invitations and sandbox prefill use the same service. It deterministically splits
+chronic-history text into numbered entries and asks the currently configured
+summary-extraction LLM to return only entry indices and category codes. The
+allowed categories are diabetes, chronic kidney disease, hyperlipidemia,
+cirrhosis, autoimmune disease, cancer, other chronic condition, exclude and
+unclear. Local validation requires every index exactly once, valid categories
+and no additional free text. No model-generated disease name replaces source text.
+
+Listed categories map to the questionnaire's existing option labels. Source
+text classified as another chronic condition is retained under the existing
+other-answer grammar. With no unclear item, cancer, autoimmune and other-history
+entries also prefill the corresponding chronic-detail field; the enabled detail
+question is then skipped because it has an answer. If any entry is unclear,
+both chronic and chronic-detail prefills are withheld so the patient answers
+these questions. Previously recognized categories remain in review provenance;
+unclear entries are never silently changed to other chronic conditions. If no
+chronic condition is identified, no negative chronic-history assertion is
+inferred. Timeout, provider failure, invalid schema or incomplete/duplicate
+indices likewise withhold both fields and record a sanitized failure reason.
+
+The complete raw prefill, applied prefill, indexed classifications, provider,
+model, prompt version and available call usage remain in the authorized record
+for physician inspection, including excluded entries. They are not echoed in
+patient replies or diagnostic logs. Raw EHR condition text is sent to the same
+configured provider used for summary extraction; the local setting uses Ollama.
+This is an explicit additional model input boundary, not evidence of approved
+clinical classification. The written QuestionnaireResponse retains the
+\texttt{ehr-prefill} source and additionally identifies normalized answers and
+the prompt version. Field limits reject oversized input rather than silently
+cutting a disease name in the middle.
+
+The complete backend static instruction template follows. It contains no patient
+history or retrieved corpus passage and is not a historical provider request.
+The response schema additionally constrains indices and category codes for the
+current entry count. Its source path and SHA-256 are recorded in the supplement
+provenance separately from the report-task prompt inventory.
+\VerbatimInput[breaklines=true,breakanywhere=true,fontsize=\small]{generated/prefill_mapping_v1.txt}
 
 \subsection{Chief extraction and report prompts}
 Raw phrase rules screen the opening utterance first. A raw rule hit ends that
@@ -92,6 +137,7 @@ encounter and issuer access. The separate SMART browser flow uses its FHIR acces
 credential only in the browser-facing FHIR client; it is not forwarded to the
 application backend or models. No live credential or launch code is included here.
 
+Prefill normalization receives the numbered synthetic EHR chronic-history entries.
 Chief extraction receives the synthetic chief complaint. Report generation receives
 the synthetic question/answer record and prefilled background, plus retrieved
 context where applicable. Query normalization receives the masked clinical query.
@@ -143,14 +189,14 @@ such as \texttt{blood\_type} and skipped fields outside the selected route do
 not leave a response answer from which all skip metadata can be recovered.
 The generated audit preserves both response-recorded
 and trace-only prefilled fields. Thus the test does not claim to reconstruct all
-interview metadata from the QuestionnaireResponse alone. An English EHR Condition display such as
-``hypertension'' can leave the runtime substring condition inactive while its
-FHIR encoding as \texttt{chronic = other} enables \texttt{chronic\_detail}.
-This is a disagreement between fixed runtime and FHIR rules, not an AI decision
-about which question to ask. It can recur identically across repeated sessions.
-Whether such prefilled free text should enable the follow-up question is a
-clinical questionnaire-content decision. Physicians must decide that behavior
-before the two rule representations are aligned; this work changes neither.
+interview metadata from the QuestionnaireResponse alone. The preceding software
+revision exposed disagreement when arbitrary English EHR text activated a coded
+FHIR other branch but not the runtime substring condition. The current revision
+normalizes recognized entries into the existing answer grammar and withholds
+uncertain prefills. It changes the prefill preparation, not either questionnaire
+rule representation or the strict written-resource definition. The regenerated
+R3 results in Section~\ref{sup:simfidelity} determine whether the written and
+runtime paths agree; the normalization mechanism alone is not counted as a pass.
 
 Smoking terminology mappings remain pending clinical and terminology review.
 An Observation is created only for an explicit mapped patient selection, not by
@@ -178,11 +224,13 @@ Taiwan-specific terminology crosswalks are not guessed: retained SNOMED CT
 content may lack the corresponding national code slices. The element
 counters distinguish removed values from resources never exported upstream.
 
-The existing EHR prefill mapping places Condition displays into
-\texttt{chronic.other}, including social and contextual findings such as
-``Received higher education (finding).'' English source displays can therefore
-appear inside a Chinese form. This pre-existing representation was not changed.
-It can expose non-disease content as chronic-history text and requires review.
+The unchanged frontend mapping initially collects Condition displays, including
+social and contextual findings, as chronic-history text. The opt-in backend
+normalization described in Section~\ref{sup:s1} classifies that text before
+applying the prefill. Excluded entries remain in the original review record;
+source displays classified as other chronic conditions retain their original
+language. Synthetic disease-name distributions do not represent real EHRs,
+and the feasibility reference labels have not been reviewed by physicians.
 
 The scenario cohort is generated separately from explicit source modules. A
 mechanical audit compares active conditions, medication text, allergies and smoking
@@ -217,8 +265,8 @@ CP-09 and AP-10 expose documented coverage gaps. The raw negation lookback can
 misinterpret negative substrings in a neurologic complaint; a semantic path may
 behave differently, but this is not a correction to the raw rule. The structured
 ectopic-pregnancy combination depends on prefilled pregnancy risk, whereas the
-separate raw pregnancy/bleeding rule can match independently. No new safety rule
-is proposed or approved by these observations.
+separate raw pregnancy/bleeding rule can match independently. Separate red-flag rule drafts await physician approval and are not enabled in
+this revision. These observations do not approve clinical rules.
 
 The validation log records script ID, current content hash, reviewer identity,
 review date, decision, plausibility, fact consistency, expected route, expected
@@ -234,9 +282,9 @@ human approvals, not perfect or failed clinical outcomes.
 The following tables distinguish requested settings from adapter-sent values,
 provider access, model identifiers, pinned version metadata and executed UTC dates
 \citep{googleGeminiAPI,ollamaSoftware,gemmaThree,qwenTwoFive}. Source-based reconstruction
-of sent parameters is not a captured network request. Current source hashes describe the publication-time files: canonical-pinning
-and truncation-usage corrections were made after the selected runs. They do not
-replace captured execution provenance. Provider-effective defaults
+of sent parameters is not a captured network request. Current source hashes describe
+the publication-time files and do not replace captured execution provenance.
+The selected reruns use the prefill-normalization backend revision. Provider-effective defaults
 and historical thinking values absent from manifests remain not recorded.
 Gemini temperature omission must not be interpreted as a measured zero temperature.
 Visible-answer budgets may differ from final provider limits where thinking
@@ -244,8 +292,8 @@ headroom applies. The local adapter sends its recorded budget unchanged.
 \input{generated/s5_disclosure.tex}
 \input{generated/s5_execution_coverage.tex}
 
-The execution-coverage table includes templated-cohort E1 chief/report
-calls and E4 real chief/report calls. These runs do not invoke a new simulated
+The execution-coverage table includes templated-cohort E1 and E4 real
+model roles, including prefill normalization where enabled and applicable. These runs do not invoke a new simulated
 patient: E1 uses templated answers and E4 replays a transcript. A configured role
 need not be called in every session, particularly when raw chief screening ends
 the workflow early. Full prompt file hashes and the patient simulator template
@@ -275,8 +323,9 @@ the resulting verdicts; these supplementary measurements document their evidence
 and operational context. The zero-error written-resource criterion, zero code
 changes for a configured replacement, and request-error stopping threshold were
 prespecified. The R0 determinism criteria, all-match criteria for R2--R6 and the behavioral-equivalence
-criterion for R7 were requirement-defined and applied post hoc on 2026-10-14,
-after the selected runs were available. They were not preregistered thresholds.
+criterion for R7 were requirement-defined and developed post hoc on 2026-10-14
+from the preceding verification evidence. They were retained for these reruns
+and were not preregistered thresholds.
 
 \subsection{E1: structure, profiles and round trip}
 \input{generated/s6_e1_resources.tex}
@@ -284,12 +333,11 @@ after the selected runs were available. They were not preregistered thresholds.
 \input{generated/s6_e1_inputs.tex}
 \input{generated/s6_e1_workflow.tex}
 \input{generated/s6_e1_timeout.tex}
-The templated-cohort session \texttt{tpl0189} had a bounded chief-assessment
-timeout and failed closed to manual handoff, with the stored route becoming
-\texttt{other}. Its write-back still succeeded, but it did not produce the smoking
-Observation expected from a routine chest route. Therefore successful writes must
-not be read as uninterrupted clinical workflows. Retained warnings and the validator
-exception boundary are discussed in Section~\ref{sup:s8}.
+The generated workflow and timeout tables distinguish successful write-back
+from completion without handoff and expose any recorded bounded-operation
+failures. A successful write does not imply an uninterrupted workflow or a
+complete report. Retained warnings and the validator exception boundary are
+discussed in Section~\ref{sup:s8}.
 
 \subsection{E2: provisional workflow, functional tests and observed usage}
 \input{generated/s6_e2_strata.tex}
@@ -298,15 +346,15 @@ exception boundary are discussed in Section~\ref{sup:s8}.
 \input{generated/s6_e2_invalid.tex}
 \SupplementTable{Current physician-reviewed subset. No script has current dual-review approval; absent results are not zero-valued successes.}{sup:reviewedempty}{generated/paper_tables/tab_e2_validated.tex}
 
-Eventual completion includes a chief-screening stop followed by successful
-persistence/write-back and a successful retry after a bounded timeout. Of the eventual completions,
-\ETwoTimeoutFreeCompleted{} had no observed timeout; \ETwoTimeoutSessions{}
-session recovered by retry after a bounded timeout and \ETwoChiefStopsCompleted{}
-completed write-back after a chief-screening stop. Path comparison excludes expected
+Completed outcomes include \ETwoTimeoutFreeCompleted{} sessions without an
+observed timeout and \ETwoChiefStopsCompleted{} with write-back after a
+chief-screening stop. \ETwoTimeoutSessions{} sessions have recorded bounded
+timeouts; the generated diagnostic tables identify their stages and outcomes. Path comparison excludes expected
 chief stops; unexpected stops remain failures. Invalid simulated-patient turns use
 the explicit unknown fallback and remain counted in the audit evidence.
 
-Usage is scoped to bounded interactive request calls and is marked incomplete.
+Usage retains saved normalization calls from invitation or initial chat together
+with the bounded interactive request calls, and is marked incomplete.
 All-session token medians include sessions with empty call records, including
 chief stops that do not invoke semantic extraction. The additional nonempty-call
 medians expose that denominator choice. Empty or missing usage does not prove no
@@ -318,33 +366,90 @@ The R0 verdict is \RZeroVerdict{}. The saved-task audit covers
 \ETwoDetCalls{} calls in \ETwoDetSessions{} E2 sessions, with
 \ETwoDetUnexpectedTasks{} unexpected task labels and at most
 \ETwoDetChiefMax{} recorded chief-extraction call per session. The allowed
-tasks are chief extraction, report generation and RAG translation, not
-questionnaire selection. However, \ETwoDetUsageIncomplete{} session usage
+tasks are prefill normalization, chief extraction, report generation and RAG
+translation. Prefill categories can indirectly change the skip set, while
+questionnaire rules determine the next question. However, \ETwoDetUsageIncomplete{} session usage
 records declare incomplete coverage and \ETwoDetEmptyUsage{} contain no saved
 calls; the result is therefore interpreted alongside the static source evidence.
-All \RZeroStableScripts{} of \RZeroScripts{} scripts have identical runtime
+\RZeroStableScripts{} of \RZeroScripts{} scripts have identical runtime
 top-level paths across their \RZeroRepeats{} E2 repetitions. In E3, the alternate
 Gemini setting matches the default path for \EThreeAlternateDetSamePaths{} of
 \EThreeAlternateDetComparedScripts{} scripts; local Gemma matches for
 \EThreeLocalDetSamePaths{} of \EThreeLocalDetComparedScripts{}. The local
-differences are \EThreeLocalDetDifferentScripts{}; the generated table records
-chief-stage handoffs and missed expected chief stops separately. These differences
-occur before normal deterministic question progression or change whether it
-starts; they are not evidence of LLM-selected next questions.
+differences are \EThreeLocalDetDifferentScripts{}; the generated table preserves recorded causes where available. Differences can
+reflect prefill classifications, chief-stage stops or handoffs; path counts alone
+do not identify their cause. None delegates next-question selection to an LLM.
 
 The E2 routing-source audit records \ETwoDetKeywordSources{} keyword selections,
 \ETwoDetExtractorSources{} extraction fallbacks, and \ETwoDetUnknownSources{}
 unknown sources. Unknown means that \texttt{route\_source} was not stored; it
 must not be silently counted as a keyword match or a fallback. Routing runs
 only after chief-complaint screening, so sessions that stop or are handed off at
-the chief-complaint stage never reach routing; the unknown sources are exactly
+the chief-complaint stage never reach routing; unknown sources can therefore include
 these chief-stage stops and handoffs. Corresponding E3
 counts appear below. Recorded absence of fallback is narrower than proof that
 every session used keyword routing.
 \SupplementTable{R0 saved-call and route-source audit. Empty call lists and incomplete usage are retained; unknown route sources are not imputed.}{sup:determinism}{generated/paper_tables/tab_determinism.tex}
 \SupplementTable{Runtime top-level path stability across E2 repetitions and E3 settings. Cross-model differences are descriptive and retain chief-stage stops and handoffs.}{sup:determinismstability}{generated/paper_tables/tab_determinism_stability.tex}
 \SupplementTable{Static evidence for deterministic question selection and the routing boundary. File locations are derived from current source and tracked by hash; they are not new execution traces.}{sup:determinismsources}{generated/paper_tables/tab_determinism_sources.tex}
-\SupplementTable{E3 runtime paths differing from the default setting, with recorded chief-stage causes. This descriptive check does not change the R0 acceptance rule.}{sup:determinismdifferences}{generated/paper_tables/tab_determinism_differences.tex}
+\SupplementTable{E3 runtime paths differing from the default setting, with recorded causes where available. This descriptive check does not change the R0 acceptance rule.}{sup:determinismdifferences}{generated/paper_tables/tab_determinism_differences.tex}
+
+\paragraph{Descriptive prefill normalization evidence.}
+The following tables count saved classifications for templated E1, E2 and all
+three E3 settings rather than define another requirement. E2 records normalization metadata for \ETwoPrefillKnown{} of
+\ETwoPrefillSessions{} sessions, with \ETwoPrefillUnknown{} unknown metadata
+records. There are \ETwoPrefillUnclearEntries{} unclear entries across
+\ETwoPrefillUnclearSessions{} sessions; the whole-cohort failure count is
+\ETwoPrefillFailed{}. Status counts apply only to known metadata. Unknown or
+missing records cannot establish zero failures. Entries may receive multiple
+categories, so category assignments need not sum to classified-entry totals.
+These counts do not assess whether the classifications are clinically correct.
+Templated E1 contains \EOnePrefillStatusNormalized{} normalized sessions and
+\EOnePrefillStatusNoChronicIdentified{} with no chronic condition identified.
+E2 contains \ETwoPrefillStatusNormalized{} normalized sessions and
+\ETwoPrefillStatusNoChronic{} with no chronic-history input. Default and alternate
+E3 distributions are reported separately below. Local E3 records
+\EThreeLocalPrefillStatusNormalized{} normalized sessions,
+\EThreeLocalPrefillStatusNoChronicIdentified{} with no chronic condition identified,
+\EThreeLocalPrefillStatusNoChronic{} with no chronic-history input and
+\EThreeLocalPrefillFailed{} normalization failure; its saved failure reason is
+timeout. A successful classification status does not establish correct clinical
+interpretation, and these classifications are separate from chief-stage handoff.
+\SupplementTable{Saved prefill-normalization coverage and failures. A whole-cohort failure count is unknown if metadata or planned-session coverage is incomplete.}{sup:prefillcoverage}{generated/paper_tables/tab_prefill_normalization.tex}
+\SupplementTable{Normalization status distribution among sessions with saved metadata. Unclear in any entry withholds both chronic-history prefills; no input and no chronic condition identified are distinct states.}{sup:prefillstatuses}{generated/paper_tables/tab_prefill_statuses.tex}
+{\small\setlength{\LTcapwidth}{\linewidth}\input{generated/paper_tables/tab_prefill_categories.tex}}
+\SupplementTable{Normalization providers and models observed in saved provenance, with session counts. Missing values remain unknown.}{sup:prefillmodels}{generated/paper_tables/tab_prefill_models.tex}
+
+The separate feasibility activity classified \PrefillFeasibilityStrings{}
+unique synthetic prefill strings with \PrefillFeasibilityFailed{} failed calls.
+Among \PrefillFeasibilityScored{} entries having nonambiguous author reference
+labels, \PrefillFeasibilityExact{} (\PrefillFeasibilityExactRate{}) matched
+exactly. Of \PrefillFeasibilityTruncated{} truncated entries, which were excluded
+from that exact-match denominator, \PrefillFeasibilityTruncatedGuessed{} were
+classified beyond unclear. Its reference labels are provisional and have not
+been reviewed by physicians. The synthetic disease-name distribution does not
+establish real-EHR classification accuracy. The first feasibility run used the
+chief-extraction model. Because the backend normalizer uses a different default
+model, the same raw prefill strings were classified again with that model:
+\PrefillDeployedFeasibilityExact{} of \PrefillDeployedFeasibilityScored{} scored
+entries (\PrefillDeployedFeasibilityExactRate{}) matched, with
+\PrefillDeployedFeasibilityFailed{} failed calls. Neither run is a clinical
+validation or an additional R3 acceptance criterion.
+\SupplementTable{Prefill-classification feasibility on the same raw synthetic prefill strings, with the chief-extraction model and with the deployed normalizer model.}{sup:prefillfeasibility}{generated/paper_tables/tab_prefill_feasibility.tex}
+
+Exact-match scoring excludes entries whose reference category needs clinical
+judgement, so it does not capture clinically material assignments of such
+entries to listed options. In the saved E1 classifications,
+\EOnePrefillListedDisagree{} entries received a listed option that the provisional
+reference does not give them, for example prediabetes or hyperglycemia classified
+as diabetes and colon polyps classified as cancer, and
+\EOnePrefillChronicExcluded{} entries that the reference treats as chronic were
+excluded, for example a history of coronary artery bypass grafting. The same entry
+text can also receive different categories in different sessions. These answers
+are written back as normalized EHR prefill and remain unconfirmed; the original
+EHR text stays available to clinicians. They do not affect path agreement, and
+the classifier was not modified for this study.
+\SupplementTable{Saved prefill classifications that disagree with the provisional reference: listed options assigned against the reference, and reference-chronic entries excluded. The reference is not clinician-reviewed.}{sup:prefilldisagree}{generated/paper_tables/tab_prefill_reference_disagreements.tex}
 
 \subsection{Test-fixture fidelity}\label{sup:simfidelity}
 The simulated patient is a test fixture, following prior use of LLM-simulated
@@ -358,12 +463,10 @@ with the author-drafted expected answer of its script. Of \ETwoSimChoiceTurns{}
 choice turns, \ETwoSimChoiceAgree{} (\ETwoSimChoiceAgreeRate{}) matched exactly and
 \ETwoSimChoiceDiffer{} differed, involving \ETwoSimUnexpectedOptions{} distinct
 unexpected script/field/option selections. A difference is not automatically a
-simulator error, because authored expected answers can be incomplete. Some
-differences, however, contradict explicit script facts: for example, fainting was
-selected in AP-03, AP-04 and AP-06, whose scripts state that the patient did not
-faint; unilateral weakness and neck stiffness with fever were selected in HA-03,
-whose script denies limb weakness, neck stiffness and fever; and a missed period
-was selected in AP-02, whose script states regular menstruation. The system recorded these answers as patient-reported, as designed;
+simulator error, because authored expected answers can be incomplete. The generated option-level table identifies the selected run's disagreements.
+Reviewers must compare those selections with the corresponding script facts
+before classifying a disagreement as a contradiction or reference omission.
+The system recorded these answers as patient-reported, as designed;
 they therefore limit scenario fidelity, not the recorded-path or write-back
 measurements. Because red-flag screening runs only at the chief complaint, such
 mid-questionnaire selections did not trigger alerts (main text, Limitations). The
@@ -410,15 +513,11 @@ The primary written-FHIR R3 verdict is \RThreeVerdict{}: there are
 \ETwoWrittenPathAgree{} matches in \ETwoWrittenPathCompared{} comparable E2
 sessions, with \ETwoWrittenPathExcluded{} expected chief stops excluded and
 \ETwoWrittenPathUnknown{} indeterminate outcomes. The failing scripts are
-\ETwoWrittenPathFailingScripts{}. The unchanged runtime-answer reconstruction
-above does not override this result. The difference arises when EHR prefill
-outside the option grammar is encoded as \texttt{other}: the fixed FHIR rule
-then expects \texttt{chronic\_detail}, while the fixed runtime substring rule
-continues to \texttt{past\_meds}. Neither rule asks an AI to choose the question.
-The fixture's agreement on submitted controlling answers cannot remove this
-separate representation mismatch. The following strict-check tables preserve
-the outcome for every configuration and each failing script's first divergence.
-The E2 stratum with patient-reported controlling answers has
+\ETwoWrittenPathFailingScripts{}. The secondary runtime-answer reconstruction
+above does not override this primary result. The following strict-check tables
+preserve each configuration's outcomes and any failing script's first divergence.
+Normalization does not relax the primary written-resource criterion; uncertainty
+returns the chronic-history questions to the patient. The E2 stratum with patient-reported controlling answers has
 \ETwoWrittenPathPatientControllerAgree{} matches in
 \ETwoWrittenPathPatientControllerCompared{} comparable sessions; the stratum
 with EHR-sourced controlling answers has \ETwoWrittenPathEhrControllerAgree{}
@@ -427,6 +526,21 @@ concerns the answers controlling top-level branching; it is not a claim that
 every simulated-patient answer matches the intended clinical scenario.
 \SupplementTable{Primary R3 check from written QuestionnaireResponse answers, including EHR prefill, with the runtime trace's skip-prefilled context retained. Expected chief stops are excluded; unknown outcomes do not count as matches.}{sup:writtenpaths}{generated/paper_tables/tab_written_paths.tex}
 {\small\input{generated/paper_tables/tab_written_path_failures.tex}}
+The E3 default and alternate strict R3 verdicts are
+\EThreeDefaultRThreeVerdict{} and \EThreeAlternateRThreeVerdict{}, respectively;
+default matches \EThreeDefaultWrittenPathAgree{} of
+\EThreeDefaultWrittenPathCompared{} comparable paths and alternate matches
+\EThreeAltWrittenPathAgree{} of \EThreeAltWrittenPathCompared{}. Local Gemma's
+verdict is \EThreeLocalRThreeVerdict{}. Local outcomes comprise
+\EThreeGemmaWrittenPathAgree{} matches in \EThreeGemmaWrittenPathCompared{}
+comparable sessions, \EThreeGemmaWrittenPathExcluded{} expected chief stops
+excluded and \EThreeGemmaWrittenPathUnknown{} unknown outcomes. Its failing
+scripts, \EThreeGemmaWrittenPathFailingScripts{}, stopped unexpectedly at chief
+screening with manual handoff; continuing local paths agree, with no recorded
+chronic-detail representation divergence. The table retains the unexpected stops
+as failures. The passing E2/default results therefore do not establish success across
+all model configurations.
+
 
 R1 checks structural/profile outcomes for the actual written resources, and R2
 compares those submitted resources with their read-back counterparts. Neither
@@ -438,12 +552,19 @@ this audit does not predict outcomes of rerunning a corrected simulator.
 
 \subsection{E3: model replacement and per-session diagnostics}
 R7 checks equivalence to the default configuration, including matching its
-existing R3 representation mismatch and R5 rule gaps; it does not require every underlying requirement to pass.
+R3 outcomes and R5 rule gaps; it does not require every underlying requirement to pass.
 It compares each configuration's R1--R6 verdicts and each script's completion,
 top-level path and exact-rule outcomes. The following numeric summaries are
 descriptive context, not separate acceptance criteria. Their retained ``Path
 exact'' columns and expected/observed path listings use the original script-based
 check. They must not be interpreted as the strict written-FHIR R3 verdict.
+The alternate R7 verdict is \EThreeAlternateSwapVerdict{} and the local verdict
+is \EThreeLocalSwapVerdict{}. Local completion without handoff is
+\EThreeLocalCompleted{} of \EThreeLocalSessions{} sessions, with
+\EThreeLocalHandoffs{} handoffs; its R6 verdict is \EThreeLocalRSixVerdict{}.
+The generated local replacement-failure inventory is
+\EThreeLocalSwapFailingScripts{}. The unchanged R5 rule gaps remain shared
+limitations; the proposed additional rules await physician approval.
 \SupplementTable{E3 descriptive measurements. Code changes exclude one-time adapter work. Completion excludes handoff; errors are written-resource structural/profile errors. *Costs are partial API-charge estimates and exclude local hardware and unrecorded calls. Traceability is measured over retained facts.}{sup:e3descriptive}{generated/paper_tables/tab_e3_swap.tex}
 \input{generated/s6_e3_configs.tex}
 \input{generated/s6_e3_sessions_default.tex}
@@ -454,22 +575,22 @@ check. They must not be interpreted as the strict written-FHIR R3 verdict.
 \input{generated/s6_e3_paths_local.tex}
 \input{generated/s6_e3_diagnostics.tex}
 Traceable-fact proportions are shown with raw fact yields. A high proportion over
-a small retained set does not establish comparable extraction coverage. Local
-Gemma missed the expected chief-screening stops for AP-07 and HA-08, both authored
-red-flag scenarios. Those misses affect the functional-test result but can still
-have an exact continued script-based questionnaire path; those path failures instead identify
-manual-handoff workflows. Thus the path measure does not detect every screening
-failure.
+a small retained set does not establish comparable extraction coverage. Any missed expected chief-screening stop affects the functional-test result,
+although the continued script-based questionnaire path may still match. Thus a
+script-based path measure alone does not detect every screening failure. The
+generated per-session tables identify the outcomes for the selected runs.
 
-Parsed symptom candidates in the local run frequently failed local post-validation,
-while schema/parser failure is a separate measurement. Only aggregate safe observer
+The observer separates parsed symptom candidates, local post-validation
+removals and schema/parser failures. Only aggregate safe observer
 counts were retained, so the data cannot attribute each removed candidate uniquely
 to code choice, evidence grounding or deduplication. Grounding predicates can also
 be evaluated during literal recovery and must not be counted as unique rejected
 facts. Workers returning after handoff do not reverse the handoff. Recorded
 successful model calls can coexist with bounded-operation timeouts outside their
 telemetry boundary. Local system and simulator models share inference resources.
-No model, prompt or sampling parameter was tuned to improve these results.
+The new prefill role uses its versioned classification prompt; existing chief,
+report, simulator and retrieval prompts and sampling settings were not tuned
+to improve the results.
 Retained questionnaire-answer counts can exceed parsed counts because literal
 recovery adds answers from verbatim option text after parsing; they are not
 additional model outputs.
@@ -483,26 +604,29 @@ additional model outputs.
 \caption{Descriptive local synthetic load on the fixed backend. The dotted line
 is the request-error stop threshold, not a session-failure threshold. Per-turn
 latency includes observed HTTP attempts; early failures truncate later measurements.
-At lower mock levels, a female-specific replay option was unavailable for its
-assigned male fixture, causing harness turn-limit failures that do not establish
-load-induced failure. Complete level-specific counts follow.}
+Recorded replay failures are retained and do not by themselves establish
+load-induced infrastructure failure. Complete level-specific counts follow.}
 \label{sup:load}
 \end{figure}
 \input{generated/s6_e4_load.tex}
 \input{generated/s6_e4_fhir.tex}
 \input{generated/s6_e4_turn_limits.tex}
 \Needspace{4\baselineskip}
-Request failures and unsuccessful sessions are separate endpoints. Turn-limit
-failures at lower mock levels are harness replay failures and do not by themselves
-show load-induced infrastructure failure. The replayed abdominal-pain transcript contains a female-only missed-period
-option, while the affected target patients are male. Context filtering removes
-that option; the backend returns a successful HTTP response requesting validation
-retry, and the original harness repeats the same incompatible answer without
-advancing. The diagnostic table preserves those sessions. A post-run harness
-correction now stops explicitly on no-progress replay; it neither substitutes an
-answer nor changes the selected run. The replayed missed-period selection was
-itself a simulated-patient answer that contradicts its script, which states that
-menstruation is regular (Section~\ref{sup:simfidelity}).
+Request failures and unsuccessful sessions are separate endpoints. Replay incompatibility is distinct from load-induced infrastructure failure.
+Recorded patient answers are replayed against a fixed pool; an answer can be
+unavailable under the reassigned patient's context. The harness stops explicitly
+on repeated no-progress replay rather than substituting another answer.
+Its generated diagnostic table identifies actual selected-run failures.
+
+The unchanged mock takes the first enum value and minimum integer from the
+schema: a single entry receives diabetes regardless of its text, while multiple
+entries repeat index zero and trigger the normal duplicate-index fallback that
+withholds chronic-history prefills. Its measured workload therefore covers these
+simulated responses and subsequent questionnaire/write-back processing, not
+valid disease-name classification throughput or a workload equivalent to the
+real-model mode. A rejected classification can still yield a successful invitation
+HTTP response and is not necessarily counted as a request error.
+
 Lower tail latency at the highest mock concurrency must not be interpreted as
 improved successful workflows: early failures stop contributing subsequent turns,
 and latency samples include HTTP attempts that may fail. Both modes use the
@@ -543,9 +667,10 @@ The interrupted pilot was incomplete, overlapped load execution initially, and u
 superseded background matching. Another excluded run demonstrated the unknown-marker
 substring defect. These artifacts remain preserved as defect evidence. Later
 pre-fix runs are excluded because their implementation revision was superseded,
-not because their scores were lower. The post-run supplement corrections to AMIE
-canonical pinning and truncated-response usage classification do not rewrite the
-selected questionnaire-engine runs or their manifests.
+not because their scores were lower. The previous supplement and prefill revisions are distinguished by their recorded
+implementation provenance. Interrupted prefill-revision attempts are retained as implementation bug
+evidence and superseded after the recorded persistence and compatibility
+corrections, rather than rewritten or pooled with complete replacement runs.
 
 The first generated command list records the selected manifest commands. The
 second is extracted from the maintained verification README. Replace explicitly labelled run-directory placeholders with the newly

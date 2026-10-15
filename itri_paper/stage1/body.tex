@@ -63,19 +63,35 @@ provider, defaults off, and was enabled for these runs.
 \subsection{Questionnaire and write-back contracts}
 The encoder maps fields to \texttt{linkId}s, options to codes, and conditions to
 \texttt{enableWhen}. Questionnaire defines the form; QuestionnaireResponse records
-answers \citep{fhirQuestionnaireR4,sdcIG}. Source JSON drives execution. Route
+answers \citep{fhirQuestionnaireR4,sdcIG}. Source JSON drives execution.
+Questionnaire content is a replaceable input to FIRM: the chest-pain, headache, and
+abdominal-pain questionnaires used here were derived from a physician-authored
+source document, structured with LLM assistance, and extended by the development
+team; their clinical content was not evaluated in this study. Route
 selection pins the source-digest canonical version; write-back rejects drift and
 tags unpinned legacy resolution. R3 checks representation agreement.
 
 After simulated clinician confirmation, opt-in structured write-back creates
-Table~\ref{tab:fhir}'s transaction; Composition-only remains default. Conditional
+one transaction of the written-back resources in Table~\ref{tab:fhir};
+Composition-only remains default. Conditional
 creation supports retries. Patient/encounter/institution/issuer checks precede
 persistence. Differential diagnoses, orders, and safety Flags are not created.
 
 \begin{table}[t]\centering\small
-\caption{Write-back resources and assertion boundaries.}\label{tab:fhir}
-\begin{tabular}{lp{8.1cm}}\hline
+\caption{FHIR resources read for prefill (one \texttt{Patient/\$everything} request)
+and written back, with assertion boundaries. $^\ast$Absent from all synthetic inputs,
+so that read path was not exercised.}\label{tab:fhir}
+\begin{tabular}{>{\raggedright\arraybackslash}p{3.4cm}p{8.1cm}}\hline
 Resource & Content and boundary \\\hline
+\multicolumn{2}{l}{\emph{Read for prefill}} \\
+Patient & Name, sex, and birth date. \\
+Condition & Chronic history and route-specific cardiopulmonary, neurological, or abdominal history; current-encounter symptoms excluded. \\
+MedicationRequest, MedicationStatement$^\ast$ & Current (active) and past (completed or stopped) medications. \\
+AllergyIntolerance & Allergies. \\
+Observation & Latest valid smoking status (LOINC 72166-2) mapped to the smoking options; unknown status is not prefilled. Blood group (LOINC 882-1/883-9)$^\ast$. \\
+Procedure$^\ast$ & Surgical history. \\
+Questionnaire\-Response$^\ast$ & Prior history answers. \\\hline
+\multicolumn{2}{l}{\emph{Written back}} \\
 QuestionnaireResponse & Ordered answers, source markers, and the pinned canonical reference. \\
 Observation & Smoking status only for an explicit mapped patient selection; EHR text is not promoted to a new patient assertion. \\
 Composition & Preliminary narrative, confirmed sections, and links to structured answers. \\
@@ -96,7 +112,9 @@ Conversion applies fictional Taiwanese identifiers/addresses and TW Core profile
 \ScenarioCount{} author-drafted chest-pain, headache, and abdominal-pain scenarios
 include expected stops and known gaps; the planned benchmark was unavailable.
 Separate Synthea modules supply consistent backgrounds without manually rewriting
-generated records. Input validation is separate from output validation.
+generated records. Converted bundles contain Patient, Encounter, Condition,
+MedicationRequest, AllergyIntolerance, and Observation resources
+(Table~\ref{tab:fhir}). Input validation is separate from output validation.
 
 Background audits are mechanical; approval requires two independent physicians
 reviewing current script hashes, bindings, and paths. \ValidatedScriptCount{}
@@ -164,6 +182,8 @@ exchange-hub access. Frozen runs and source hashes generate results; repetitions
 are not independent clinical observations.
 
 \section{Results}\label{sec:results}
+\textbf{[TODO\_RERUN: all generated numbers, tables and verdicts still come from the runs before the smoking-status prefill fix; regenerate after the E1--E4 reruns and recheck the prose.]}
+
 
 \subsection{R0: deterministic question selection}
 R0 is \textbf{\RZeroVerdict{}}. Among \ETwoDetCalls{} saved calls,
@@ -257,7 +277,7 @@ timing, and bounded usage/cost observations are descriptive (Online Resource 1).
 
 \section{Discussion}\label{sec:discussion}
 \subsection{Principal findings}
-ELVINA keeps question selection under physician-authored rules and confines LLMs to
+ELVINA keeps question selection under questionnaire rules and confines LLMs to
 bounded tasks: chief-complaint extraction with verbatim evidence, classification
 of EHR history into questionnaire options, and draft reports. The verification
 shows that this division, which FIRM prescribes, can be checked requirement by
@@ -289,7 +309,11 @@ EHR history entries into questionnaire options by index and leaves both history
 questions to the patient whenever any entry is unclear or classification fails;
 in the selected runs R3 is \RThreeVerdict{} against the unchanged written-resource
 criterion. Second, prefilled history was silently truncated at a fixed length;
-oversized input is now rejected explicitly. Third, chief-complaint findings for
+oversized input is now rejected explicitly. Third, comparing each scenario's FHIR
+record with its prefill showed that prefill ignored coded smoking-status
+Observations, so patients answered a question the EHR already held; prefill now
+maps the latest valid status and leaves unknown status to the patient. Fourth,
+chief-complaint findings for
 suspected pulmonary embolism and for abdominal pain radiating to the back with a
 known aneurysm were extracted correctly, but no rule combined them (R5,
 \RFiveVerdict{}: \RFiveFailingScripts{}). Candidate rules drafted from current
@@ -330,7 +354,7 @@ approval remain necessary.
 
 \section{Conclusion}\label{sec:conclusion}
 ELVINA, built on the FIRM framework, keeps question selection under
-physician-authored rules and writes results back as TW Core FHIR resources, and it
+questionnaire rules and writes results back as TW Core FHIR resources, and it
 can be verified against explicit requirements. Requirements \PassingRequirements{}
 passed and \FailingRequirements{} failed in this software verification; the failures
 identify concrete defects with documented remediations or pending clinical

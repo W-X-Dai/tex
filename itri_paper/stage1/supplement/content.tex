@@ -162,6 +162,15 @@ by the harness, not by a clinician; no clinician reviewed any written resource.
 The smoking-status Observation uses LOINC and SNOMED CT codes
 \citep{mcdonaldLoinc2003,snomedCt}; the mapping below awaits terminology review.
 \input{generated/s2_smoking.tex}
+Prefill reads the same LOINC question in the opposite direction. It uses only the
+most recent smoking-status Observation that is neither entered in error nor
+cancelled and has an effective or issued time. The three values above map to their
+options; the US Core current-smoker subtypes (daily, occasional, light and heavy
+tobacco smoker) also map to the current-smoker option. An unknown or unmapped
+latest status is not prefilled and no older status replaces it; without any coded
+status, the earlier history-text rule applies. Because an EHR-prefilled smoking
+answer is not rewritten as an Observation, sessions whose patients have a coded
+status exercise this read path rather than the Observation write path.
 
 \subsection{Equivalence and assertion limits}
 The independent FHIR evaluator reads the exported Questionnaire, not the runtime
@@ -238,7 +247,7 @@ against the authored source. Empty resource lists indicate absent source states,
 not verified clinical absence. Symptoms, temporal plausibility, terminology and
 clinical completeness remain pending review. AP-10's authored answer omits its
 separately declared aneurysm history; this discrepancy remains visible in the
-review packet rather than being silently repaired.
+review pages rather than being silently repaired.
 
 The main input structural/profile pass disables remote terminology access with
 \texttt{-tx n/a}; cached responses may still apply. Its corrected summary combines
@@ -253,7 +262,7 @@ planned benchmark was unavailable, so the scripts were authored for this study
 with their individual provenance retained. The following generated inventory
 reports the chief complaint, red-flag variant, expected rule or coverage gap,
 mechanically derived path length and current review status. Complete YAML,
-expected paths and the review packet are in Online Resource 2.
+expected paths and the per-script review pages are in Online Resource 2.
 \input{generated/s4_sources.tex}
 
 For the selected deterministic questionnaire engine, screening occurs at the chief

@@ -781,8 +781,11 @@ question and skip prefilled fields. Models classify prefill and extract chief
 complaints, indirectly affecting rule inputs, but do not select the next question.
 Keywords choose the questionnaire first; only no match permits evidence-grounded
 model routing. Failed chief assessment triggers handoff. Retrieval supports report
-drafts \citep{lewisRag2020}, without establishing diagnoses or orders. The alternative
-engine making per-turn model calls was not evaluated.
+drafts \citep{lewisRag2020}, without establishing diagnoses or orders. We also
+prototyped an interview engine modeled on conversational diagnostic agents such as
+AMIE \citep{tuConversationalDiagnosticArtificial2025}, in which a model selects each
+next question; it is selected through configuration behind the same interview
+interface, but it is still under development and was not evaluated.
 
 \subsection{Conservative EHR prefill normalization}
 UCC, launcher, and sandbox ingress deterministically number chronic-history items.
@@ -1123,6 +1126,9 @@ local open-weight model was \EThreeLocalSwapVerdict{} for R7 (\RSevenFailingScri
 through chief-stage handoffs after timeouts and missed expected stops; its R3
 failures also reflect those handoffs rather than path disagreement. Each model
 replacement therefore needs re-verification against the same requirements.
+The prototype model-led engine plugs into the same interview interface through
+configuration, which shows that the architecture also allows the interview engine
+to be replaced; because it was not evaluated, no behavioural claim is made for it.
 National capacity (R8) needs an authoritative demand target, and exchange-hub
 interoperability (R9) needs authorized test access.
 

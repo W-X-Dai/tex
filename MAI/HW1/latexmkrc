@@ -1,0 +1,2 @@
+# Build with pdflatex: the CVPR template loads `times`, which XeLaTeX cannot use (falls back to Latin Modern).
+$pdf_mode = 1;

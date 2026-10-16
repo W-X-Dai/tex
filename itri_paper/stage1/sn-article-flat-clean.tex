@@ -1,0 +1,1226 @@
+%Version 3.1 December 2024
+% See section 11 of the User Manual for version history
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                                 %%
+%% Please do not use \input{...} to include other tex files.       %%
+%% Submit your LaTeX manuscript as one .tex document.              %%
+%%                                                                 %%
+%% All additional figures and files should be attached             %%
+%% separately and not embedded in the \TeX\ document itself.       %%
+%%                                                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%\documentclass[referee,sn-basic]{sn-jnl}% referee option is meant for double line spacing
+
+%%=======================================================%%
+%% to print line numbers in the margin use lineno option %%
+%%=======================================================%%
+
+\documentclass[lineno,pdflatex,sn-basic]{sn-jnl}% Basic Springer Nature Reference Style/Chemistry Reference Style
+
+%%=========================================================================================%%
+%% the documentclass is set to pdflatex as default. You can delete it if not appropriate.  %%
+%%=========================================================================================%%
+
+%%\documentclass[sn-basic]{sn-jnl}% Basic Springer Nature Reference Style/Chemistry Reference Style
+
+%%Note: the following reference styles support Namedate and Numbered referencing. By default the style follows the most common style. To switch between the options you can add or remove �Numbered� in the optional parenthesis. 
+%%The option is available for: sn-basic.bst, sn-chicago.bst%  
+ 
+%%\documentclass[pdflatex,sn-nature]{sn-jnl}% Style for submissions to Nature Portfolio journals
+%%\documentclass[pdflatex,sn-basic]{sn-jnl}% Basic Springer Nature Reference Style/Chemistry Reference Style
+% \documentclass[pdflatex,sn-mathphys-num]{sn-jnl}% Math and Physical Sciences Numbered Reference Style
+%%\documentclass[pdflatex,sn-mathphys-ay]{sn-jnl}% Math and Physical Sciences Author Year Reference Style
+%%\documentclass[pdflatex,sn-aps]{sn-jnl}% American Physical Society (APS) Reference Style
+%%\documentclass[pdflatex,sn-vancouver-num]{sn-jnl}% Vancouver Numbered Reference Style
+%%\documentclass[pdflatex,sn-vancouver-ay]{sn-jnl}% Vancouver Author Year Reference Style
+%%\documentclass[pdflatex,sn-apa]{sn-jnl}% APA Reference Style
+%%\documentclass[pdflatex,sn-chicago]{sn-jnl}% Chicago-based Humanities Reference Style
+
+%%%% Standard Packages
+%%<additional latex packages if required can be included here>
+
+\usepackage{graphicx}%
+\usepackage{multirow}%
+\usepackage{amsmath,amssymb,amsfonts}%
+\usepackage{amsthm}%
+\usepackage{mathrsfs}%
+\usepackage[title]{appendix}%
+\usepackage{xcolor}%
+\usepackage{textcomp}%
+\usepackage{manyfoot}%
+\usepackage{array}
+\usepackage{booktabs}%
+\usepackage{algorithm}%
+\usepackage{algorithmicx}%
+\usepackage{algpseudocode}%
+\usepackage{listings}%
+%%%%
+
+%%%%%=============================================================================%%%%
+%%%%  Remarks: This template is provided to aid authors with the preparation
+%%%%  of original research articles intended for submission to journals published 
+%%%%  by Springer Nature. The guidance has been prepared in partnership with 
+%%%%  production teams to conform to Springer Nature technical requirements. 
+%%%%  Editorial and presentation requirements differ among journal portfolios and 
+%%%%  research disciplines. You may find sections in this template are irrelevant 
+%%%%  to your work and are empowered to omit any such section if allowed by the 
+%%%%  journal you intend to submit to. The submission guidelines and policies 
+%%%%  of the journal take precedence. A detailed User Manual is available in the 
+%%%%  template package for technical guidance.
+%%%%%=============================================================================%%%%
+
+%% as per the requirement new theorem styles can be included as shown below
+\theoremstyle{thmstyleone}%
+\newtheorem{theorem}{Theorem}%  meant for continuous numbers
+%%\newtheorem{theorem}{Theorem}[section]% meant for sectionwise numbers
+%% optional argument [theorem] produces theorem numbering sequence instead of independent numbers for Proposition
+\newtheorem{proposition}[theorem]{Proposition}% 
+%%\newtheorem{proposition}{Proposition}% to get separate numbers for theorem and proposition etc.
+
+\theoremstyle{thmstyletwo}%
+\newtheorem{example}{Example}%
+\newtheorem{remark}{Remark}%
+
+\theoremstyle{thmstylethree}%
+\newtheorem{definition}{Definition}%
+
+\raggedbottom
+%%\unnumbered% uncomment this for unnumbered level heads
+
+% Unique hyperlink targets avoid duplicate float anchors from the journal class.
+\hypersetup{hypertexnames=false}
+% Generated from selected result files.
+\newcommand{\ScenarioCount}{30}
+\newcommand{\ValidatedScriptCount}{0}
+\newcommand{\EOneResources}{1,090}
+\newcommand{\EOneErrors}{0}
+\newcommand{\EOneWarnings}{1,800}
+\newcommand{\EOneValidatorCrashes}{0}
+\newcommand{\EOneTemplatedSessions}{200}
+\newcommand{\EOneScenarioSessions}{150}
+\newcommand{\ETwoSessions}{150}
+\newcommand{\ETwoRepeats}{5}
+\newcommand{\EThreeConfigurations}{3}
+\newcommand{\EThreeHandoffs}{3}
+\newcommand{\EOneObservationSessions}{10}
+\newcommand{\EOneObservationResources}{10}
+\newcommand{\EOneObservationErrors}{0}
+\newcommand{\EOneObservationWarnings}{0}
+\newcommand{\InputBundles}{1,000}
+\newcommand{\InputResources}{430,017}
+\newcommand{\InputErrors}{0}
+\newcommand{\InputWarnings}{1,058,802}
+\newcommand{\ELoadLastConcurrency}{500}
+\newcommand{\ELoadLastCompleted}{131}
+\newcommand{\ELoadLastSessions}{500}
+\newcommand{\ERealSessions}{7}
+\newcommand{\ERealCompleted}{7}
+\newcommand{\ETwoSimChoiceTurns}{1225}
+\newcommand{\ETwoSimChoiceAgree}{1089}
+\newcommand{\ETwoSimChoiceDiffer}{136}
+\newcommand{\ETwoSimChoiceAgreeRate}{88.9\%}
+\newcommand{\ETwoSimUnexpectedOptions}{36}
+\newcommand{\RZeroVerdict}{Pass}
+\newcommand{\RZeroFailingScripts}{None}
+\newcommand{\ROneVerdict}{Pass}
+\newcommand{\ROneFailingScripts}{None}
+\newcommand{\RTwoVerdict}{Pass}
+\newcommand{\RTwoFailingScripts}{None}
+\newcommand{\RThreeVerdict}{Pass}
+\newcommand{\RThreeFailingScripts}{None}
+\newcommand{\RFourVerdict}{Pass}
+\newcommand{\RFourFailingScripts}{None}
+\newcommand{\RFiveVerdict}{Fail}
+\newcommand{\RFiveFailingScripts}{AP-10, CP-09}
+\newcommand{\RSixVerdict}{Pass}
+\newcommand{\RSixFailingScripts}{None}
+\newcommand{\RSevenVerdict}{Fail}
+\newcommand{\RSevenFailingScripts}{AP-03, AP-04, AP-07, CP-04, HA-02, HA-08}
+\newcommand{\REightVerdict}{Not verifiable}
+\newcommand{\REightFailingScripts}{None}
+\newcommand{\RNineVerdict}{Blocked}
+\newcommand{\RNineFailingScripts}{None}
+\newcommand{\EThreeDefaultSwapVerdict}{Pass}
+\newcommand{\EThreeDefaultSwapFailingScripts}{None}
+\newcommand{\EThreeDefaultROneVerdict}{Pass}
+\newcommand{\EThreeDefaultROneFailingScripts}{None}
+\newcommand{\EThreeDefaultRTwoVerdict}{Pass}
+\newcommand{\EThreeDefaultRTwoFailingScripts}{None}
+\newcommand{\EThreeDefaultRThreeVerdict}{Pass}
+\newcommand{\EThreeDefaultRThreeFailingScripts}{None}
+\newcommand{\EThreeDefaultRFourVerdict}{Pass}
+\newcommand{\EThreeDefaultRFourFailingScripts}{None}
+\newcommand{\EThreeDefaultRFiveVerdict}{Fail}
+\newcommand{\EThreeDefaultRFiveFailingScripts}{AP-10, CP-09}
+\newcommand{\EThreeDefaultRSixVerdict}{Pass}
+\newcommand{\EThreeDefaultRSixFailingScripts}{None}
+\newcommand{\EThreeAlternateSwapVerdict}{Pass}
+\newcommand{\EThreeAlternateSwapFailingScripts}{None}
+\newcommand{\EThreeAlternateROneVerdict}{Pass}
+\newcommand{\EThreeAlternateROneFailingScripts}{None}
+\newcommand{\EThreeAlternateRTwoVerdict}{Pass}
+\newcommand{\EThreeAlternateRTwoFailingScripts}{None}
+\newcommand{\EThreeAlternateRThreeVerdict}{Pass}
+\newcommand{\EThreeAlternateRThreeFailingScripts}{None}
+\newcommand{\EThreeAlternateRFourVerdict}{Pass}
+\newcommand{\EThreeAlternateRFourFailingScripts}{None}
+\newcommand{\EThreeAlternateRFiveVerdict}{Fail}
+\newcommand{\EThreeAlternateRFiveFailingScripts}{AP-10, CP-09}
+\newcommand{\EThreeAlternateRSixVerdict}{Pass}
+\newcommand{\EThreeAlternateRSixFailingScripts}{None}
+\newcommand{\EThreeLocalSwapVerdict}{Fail}
+\newcommand{\EThreeLocalSwapFailingScripts}{AP-03, AP-04, AP-07, CP-04, HA-02, HA-08}
+\newcommand{\EThreeLocalROneVerdict}{Pass}
+\newcommand{\EThreeLocalROneFailingScripts}{None}
+\newcommand{\EThreeLocalRTwoVerdict}{Pass}
+\newcommand{\EThreeLocalRTwoFailingScripts}{None}
+\newcommand{\EThreeLocalRThreeVerdict}{Fail}
+\newcommand{\EThreeLocalRThreeFailingScripts}{AP-03, AP-04, CP-04}
+\newcommand{\EThreeLocalRFourVerdict}{Pass}
+\newcommand{\EThreeLocalRFourFailingScripts}{None}
+\newcommand{\EThreeLocalRFiveVerdict}{Fail}
+\newcommand{\EThreeLocalRFiveFailingScripts}{AP-07, AP-10, CP-09, HA-08}
+\newcommand{\EThreeLocalRSixVerdict}{Fail}
+\newcommand{\EThreeLocalRSixFailingScripts}{AP-03, AP-04, CP-04}
+\newcommand{\PassingRequirements}{R0, R1, R2, R3, R4, R6}
+\newcommand{\FailingRequirements}{R5}
+\newcommand{\IndeterminateRequirements}{None}
+\newcommand{\NotVerifiableRequirements}{R8}
+\newcommand{\BlockedRequirements}{R9}
+\newcommand{\EThreeDefaultAdditionalSafetyFailingScripts}{None}
+\newcommand{\EThreeAlternateAdditionalSafetyFailingScripts}{None}
+\newcommand{\EThreeLocalAdditionalSafetyFailingScripts}{AP-07, HA-08}
+\newcommand{\ETwoDetSessions}{150}
+\newcommand{\ETwoDetCalls}{1,460}
+\newcommand{\ETwoDetAllowedSessions}{150}
+\newcommand{\ETwoDetChiefMax}{1}
+\newcommand{\ETwoDetUsageIncomplete}{150}
+\newcommand{\ETwoDetEmptyUsage}{10}
+\newcommand{\ETwoDetUnexpectedTasks}{0}
+\newcommand{\ETwoDetKeywordSources}{100}
+\newcommand{\ETwoDetExtractorSources}{0}
+\newcommand{\ETwoDetUnknownSources}{50}
+\newcommand{\ETwoDetNoRouteSources}{0}
+\newcommand{\EThreeDefaultDetSessions}{30}
+\newcommand{\EThreeDefaultDetCalls}{340}
+\newcommand{\EThreeDefaultDetAllowedSessions}{30}
+\newcommand{\EThreeDefaultDetChiefMax}{1}
+\newcommand{\EThreeDefaultDetUsageIncomplete}{30}
+\newcommand{\EThreeDefaultDetEmptyUsage}{2}
+\newcommand{\EThreeDefaultDetUnexpectedTasks}{0}
+\newcommand{\EThreeDefaultDetKeywordSources}{20}
+\newcommand{\EThreeDefaultDetExtractorSources}{0}
+\newcommand{\EThreeDefaultDetUnknownSources}{10}
+\newcommand{\EThreeDefaultDetNoRouteSources}{0}
+\newcommand{\EThreeAlternateDetSessions}{30}
+\newcommand{\EThreeAlternateDetCalls}{340}
+\newcommand{\EThreeAlternateDetAllowedSessions}{30}
+\newcommand{\EThreeAlternateDetChiefMax}{1}
+\newcommand{\EThreeAlternateDetUsageIncomplete}{30}
+\newcommand{\EThreeAlternateDetEmptyUsage}{2}
+\newcommand{\EThreeAlternateDetUnexpectedTasks}{0}
+\newcommand{\EThreeAlternateDetKeywordSources}{20}
+\newcommand{\EThreeAlternateDetExtractorSources}{0}
+\newcommand{\EThreeAlternateDetUnknownSources}{10}
+\newcommand{\EThreeAlternateDetNoRouteSources}{0}
+\newcommand{\EThreeLocalDetSessions}{30}
+\newcommand{\EThreeLocalDetCalls}{317}
+\newcommand{\EThreeLocalDetAllowedSessions}{30}
+\newcommand{\EThreeLocalDetChiefMax}{1}
+\newcommand{\EThreeLocalDetUsageIncomplete}{30}
+\newcommand{\EThreeLocalDetEmptyUsage}{4}
+\newcommand{\EThreeLocalDetUnexpectedTasks}{0}
+\newcommand{\EThreeLocalDetKeywordSources}{19}
+\newcommand{\EThreeLocalDetExtractorSources}{0}
+\newcommand{\EThreeLocalDetUnknownSources}{11}
+\newcommand{\EThreeLocalDetNoRouteSources}{0}
+\newcommand{\RZeroStableScripts}{30}
+\newcommand{\RZeroScripts}{30}
+\newcommand{\RZeroRepeats}{5}
+\newcommand{\RZeroCallVerdict}{Pass}
+\newcommand{\RZeroRepeatVerdict}{Pass}
+\newcommand{\EThreeAlternateDetSamePaths}{30}
+\newcommand{\EThreeAlternateDetComparedScripts}{30}
+\newcommand{\EThreeAlternateDetDifferentScripts}{None}
+\newcommand{\EThreeLocalDetSamePaths}{24}
+\newcommand{\EThreeLocalDetComparedScripts}{30}
+\newcommand{\EThreeLocalDetDifferentScripts}{AP-03, AP-04, AP-07, CP-04, HA-02, HA-08}
+\newcommand{\EOnePrefillListedDisagree}{67}
+\newcommand{\EOnePrefillChronicExcluded}{21}
+\newcommand{\EOnePrefillSessions}{200}
+\newcommand{\EOnePrefillKnown}{200}
+\newcommand{\EOnePrefillUnknown}{0}
+\newcommand{\EOnePrefillEntries}{3764}
+\newcommand{\EOnePrefillClassifiedEntries}{3764}
+\newcommand{\EOnePrefillUnclearEntries}{0}
+\newcommand{\EOnePrefillUnclearSessions}{0}
+\newcommand{\EOnePrefillFailedObserved}{0}
+\newcommand{\EOnePrefillPlanned}{200}
+\newcommand{\EOnePrefillMissing}{0}
+\newcommand{\EOnePrefillFailed}{0}
+\newcommand{\EOnePrefillStatusNormalized}{183}
+\newcommand{\EOnePrefillStatusUnclear}{0}
+\newcommand{\EOnePrefillStatusFailed}{0}
+\newcommand{\EOnePrefillStatusNoChronicIdentified}{17}
+\newcommand{\EOnePrefillStatusNoChronic}{0}
+\newcommand{\EOnePrefillStatusDisabled}{0}
+\newcommand{\ETwoPrefillListedDisagree}{1}
+\newcommand{\ETwoPrefillChronicExcluded}{0}
+\newcommand{\ETwoPrefillSessions}{150}
+\newcommand{\ETwoPrefillKnown}{150}
+\newcommand{\ETwoPrefillUnknown}{0}
+\newcommand{\ETwoPrefillEntries}{120}
+\newcommand{\ETwoPrefillClassifiedEntries}{120}
+\newcommand{\ETwoPrefillUnclearEntries}{0}
+\newcommand{\ETwoPrefillUnclearSessions}{0}
+\newcommand{\ETwoPrefillFailedObserved}{0}
+\newcommand{\ETwoPrefillPlanned}{150}
+\newcommand{\ETwoPrefillMissing}{0}
+\newcommand{\ETwoPrefillFailed}{0}
+\newcommand{\ETwoPrefillStatusNormalized}{90}
+\newcommand{\ETwoPrefillStatusUnclear}{0}
+\newcommand{\ETwoPrefillStatusFailed}{0}
+\newcommand{\ETwoPrefillStatusNoChronicIdentified}{0}
+\newcommand{\ETwoPrefillStatusNoChronic}{60}
+\newcommand{\ETwoPrefillStatusDisabled}{0}
+\newcommand{\EThreeDefaultPrefillListedDisagree}{0}
+\newcommand{\EThreeDefaultPrefillChronicExcluded}{0}
+\newcommand{\EThreeDefaultPrefillSessions}{30}
+\newcommand{\EThreeDefaultPrefillKnown}{30}
+\newcommand{\EThreeDefaultPrefillUnknown}{0}
+\newcommand{\EThreeDefaultPrefillEntries}{24}
+\newcommand{\EThreeDefaultPrefillClassifiedEntries}{24}
+\newcommand{\EThreeDefaultPrefillUnclearEntries}{0}
+\newcommand{\EThreeDefaultPrefillUnclearSessions}{0}
+\newcommand{\EThreeDefaultPrefillFailedObserved}{0}
+\newcommand{\EThreeDefaultPrefillPlanned}{30}
+\newcommand{\EThreeDefaultPrefillMissing}{0}
+\newcommand{\EThreeDefaultPrefillFailed}{0}
+\newcommand{\EThreeDefaultPrefillStatusNormalized}{18}
+\newcommand{\EThreeDefaultPrefillStatusUnclear}{0}
+\newcommand{\EThreeDefaultPrefillStatusFailed}{0}
+\newcommand{\EThreeDefaultPrefillStatusNoChronicIdentified}{0}
+\newcommand{\EThreeDefaultPrefillStatusNoChronic}{12}
+\newcommand{\EThreeDefaultPrefillStatusDisabled}{0}
+\newcommand{\EThreeAlternatePrefillListedDisagree}{0}
+\newcommand{\EThreeAlternatePrefillChronicExcluded}{0}
+\newcommand{\EThreeAlternatePrefillSessions}{30}
+\newcommand{\EThreeAlternatePrefillKnown}{30}
+\newcommand{\EThreeAlternatePrefillUnknown}{0}
+\newcommand{\EThreeAlternatePrefillEntries}{24}
+\newcommand{\EThreeAlternatePrefillClassifiedEntries}{24}
+\newcommand{\EThreeAlternatePrefillUnclearEntries}{0}
+\newcommand{\EThreeAlternatePrefillUnclearSessions}{0}
+\newcommand{\EThreeAlternatePrefillFailedObserved}{0}
+\newcommand{\EThreeAlternatePrefillPlanned}{30}
+\newcommand{\EThreeAlternatePrefillMissing}{0}
+\newcommand{\EThreeAlternatePrefillFailed}{0}
+\newcommand{\EThreeAlternatePrefillStatusNormalized}{18}
+\newcommand{\EThreeAlternatePrefillStatusUnclear}{0}
+\newcommand{\EThreeAlternatePrefillStatusFailed}{0}
+\newcommand{\EThreeAlternatePrefillStatusNoChronicIdentified}{0}
+\newcommand{\EThreeAlternatePrefillStatusNoChronic}{12}
+\newcommand{\EThreeAlternatePrefillStatusDisabled}{0}
+\newcommand{\EThreeLocalPrefillListedDisagree}{0}
+\newcommand{\EThreeLocalPrefillChronicExcluded}{4}
+\newcommand{\EThreeLocalPrefillSessions}{30}
+\newcommand{\EThreeLocalPrefillKnown}{30}
+\newcommand{\EThreeLocalPrefillUnknown}{0}
+\newcommand{\EThreeLocalPrefillEntries}{24}
+\newcommand{\EThreeLocalPrefillClassifiedEntries}{23}
+\newcommand{\EThreeLocalPrefillUnclearEntries}{0}
+\newcommand{\EThreeLocalPrefillUnclearSessions}{0}
+\newcommand{\EThreeLocalPrefillFailedObserved}{1}
+\newcommand{\EThreeLocalPrefillPlanned}{30}
+\newcommand{\EThreeLocalPrefillMissing}{0}
+\newcommand{\EThreeLocalPrefillFailed}{1}
+\newcommand{\EThreeLocalPrefillStatusNormalized}{15}
+\newcommand{\EThreeLocalPrefillStatusUnclear}{0}
+\newcommand{\EThreeLocalPrefillStatusFailed}{1}
+\newcommand{\EThreeLocalPrefillStatusNoChronicIdentified}{2}
+\newcommand{\EThreeLocalPrefillStatusNoChronic}{12}
+\newcommand{\EThreeLocalPrefillStatusDisabled}{0}
+\newcommand{\PrefillFeasibilityStrings}{213}
+\newcommand{\PrefillFeasibilityFailed}{0}
+\newcommand{\PrefillFeasibilityScored}{2308}
+\newcommand{\PrefillFeasibilityExact}{2225}
+\newcommand{\PrefillFeasibilityMismatch}{83}
+\newcommand{\PrefillFeasibilityAmbiguous}{397}
+\newcommand{\PrefillFeasibilityExactRate}{96.4\%}
+\newcommand{\PrefillFeasibilityTruncated}{105}
+\newcommand{\PrefillFeasibilityTruncatedUnclear}{90}
+\newcommand{\PrefillFeasibilityTruncatedGuessed}{15}
+\newcommand{\PrefillDeployedFeasibilityStrings}{213}
+\newcommand{\PrefillDeployedFeasibilityFailed}{0}
+\newcommand{\PrefillDeployedFeasibilityScored}{2308}
+\newcommand{\PrefillDeployedFeasibilityExact}{2283}
+\newcommand{\PrefillDeployedFeasibilityMismatch}{25}
+\newcommand{\PrefillDeployedFeasibilityAmbiguous}{397}
+\newcommand{\PrefillDeployedFeasibilityExactRate}{98.9\%}
+\newcommand{\PrefillDeployedFeasibilityTruncated}{105}
+\newcommand{\PrefillDeployedFeasibilityTruncatedUnclear}{86}
+\newcommand{\PrefillDeployedFeasibilityTruncatedGuessed}{19}
+\newcommand{\ETwoWrittenPathAgree}{100}
+\newcommand{\ETwoWrittenPathCompared}{100}
+\newcommand{\ETwoWrittenPathExcluded}{50}
+\newcommand{\ETwoWrittenPathUnknown}{0}
+\newcommand{\ETwoWrittenPathSessions}{150}
+\newcommand{\ETwoWrittenPathFailingScripts}{None}
+\newcommand{\ETwoWrittenPathFailingScriptCount}{0}
+\newcommand{\ETwoWrittenPathDiffer}{0}
+\newcommand{\ETwoWrittenPathPatientControllerAgree}{45}
+\newcommand{\ETwoWrittenPathPatientControllerCompared}{45}
+\newcommand{\ETwoWrittenPathEhrControllerAgree}{55}
+\newcommand{\ETwoWrittenPathEhrControllerCompared}{55}
+\newcommand{\EThreeDefaultWrittenPathAgree}{20}
+\newcommand{\EThreeDefaultWrittenPathCompared}{20}
+\newcommand{\EThreeDefaultWrittenPathExcluded}{10}
+\newcommand{\EThreeDefaultWrittenPathUnknown}{0}
+\newcommand{\EThreeDefaultWrittenPathSessions}{30}
+\newcommand{\EThreeDefaultWrittenPathFailingScripts}{None}
+\newcommand{\EThreeDefaultWrittenPathFailingScriptCount}{0}
+\newcommand{\EThreeDefaultWrittenPathDiffer}{0}
+\newcommand{\EThreeDefaultWrittenPathPatientControllerAgree}{9}
+\newcommand{\EThreeDefaultWrittenPathPatientControllerCompared}{9}
+\newcommand{\EThreeDefaultWrittenPathEhrControllerAgree}{11}
+\newcommand{\EThreeDefaultWrittenPathEhrControllerCompared}{11}
+\newcommand{\EThreeAltWrittenPathAgree}{20}
+\newcommand{\EThreeAltWrittenPathCompared}{20}
+\newcommand{\EThreeAltWrittenPathExcluded}{10}
+\newcommand{\EThreeAltWrittenPathUnknown}{0}
+\newcommand{\EThreeAltWrittenPathSessions}{30}
+\newcommand{\EThreeAltWrittenPathFailingScripts}{None}
+\newcommand{\EThreeAltWrittenPathFailingScriptCount}{0}
+\newcommand{\EThreeAltWrittenPathDiffer}{0}
+\newcommand{\EThreeAltWrittenPathPatientControllerAgree}{9}
+\newcommand{\EThreeAltWrittenPathPatientControllerCompared}{9}
+\newcommand{\EThreeAltWrittenPathEhrControllerAgree}{11}
+\newcommand{\EThreeAltWrittenPathEhrControllerCompared}{11}
+\newcommand{\EThreeGemmaWrittenPathAgree}{19}
+\newcommand{\EThreeGemmaWrittenPathCompared}{22}
+\newcommand{\EThreeGemmaWrittenPathExcluded}{8}
+\newcommand{\EThreeGemmaWrittenPathUnknown}{0}
+\newcommand{\EThreeGemmaWrittenPathSessions}{30}
+\newcommand{\EThreeGemmaWrittenPathFailingScripts}{AP-03, AP-04, CP-04}
+\newcommand{\EThreeGemmaWrittenPathFailingScriptCount}{3}
+\newcommand{\EThreeGemmaWrittenPathDiffer}{3}
+\newcommand{\EThreeGemmaWrittenPathPatientControllerAgree}{10}
+\newcommand{\EThreeGemmaWrittenPathPatientControllerCompared}{10}
+\newcommand{\EThreeGemmaWrittenPathEhrControllerAgree}{9}
+\newcommand{\EThreeGemmaWrittenPathEhrControllerCompared}{9}
+\newcommand{\ETwoFixtureSessions}{150}
+\newcommand{\ETwoFixtureOpeningAgree}{150}
+\newcommand{\ETwoFixtureOpeningMissing}{0}
+\newcommand{\ETwoFixtureControlTurns}{45}
+\newcommand{\ETwoFixtureControlDiffer}{0}
+\newcommand{\ETwoFixtureControlMissing}{0}
+\newcommand{\ETwoFixtureFacts}{454}
+\newcommand{\ETwoFixtureFactsFromChief}{454}
+\newcommand{\ETwoFixtureFactsTraceableToChief}{454}
+\newcommand{\ETwoFixtureActualPathAgree}{100}
+\newcommand{\ETwoFixtureActualPathCompared}{100}
+\newcommand{\ETwoFixtureActualPathExcluded}{50}
+\newcommand{\ETwoFixtureActualPathUnknown}{0}
+\newcommand{\ETwoFixtureOpeningVerdict}{Pass}
+\newcommand{\ETwoFixtureControlVerdict}{Pass}
+\newcommand{\ETwoFixtureFiredRuleSessions}{50}
+\newcommand{\ETwoFixtureFiredRuleChiefSessions}{50}
+\newcommand{\ETwoFixtureControlFields}{chronic}
+\newcommand{\EThreeDefaultFixtureSessions}{30}
+\newcommand{\EThreeDefaultFixtureOpeningAgree}{30}
+\newcommand{\EThreeDefaultFixtureOpeningMissing}{0}
+\newcommand{\EThreeDefaultFixtureControlTurns}{9}
+\newcommand{\EThreeDefaultFixtureControlDiffer}{0}
+\newcommand{\EThreeDefaultFixtureControlMissing}{0}
+\newcommand{\EThreeDefaultFixtureFacts}{91}
+\newcommand{\EThreeDefaultFixtureFactsFromChief}{91}
+\newcommand{\EThreeDefaultFixtureFactsTraceableToChief}{91}
+\newcommand{\EThreeDefaultFixtureActualPathAgree}{20}
+\newcommand{\EThreeDefaultFixtureActualPathCompared}{20}
+\newcommand{\EThreeDefaultFixtureActualPathExcluded}{10}
+\newcommand{\EThreeDefaultFixtureActualPathUnknown}{0}
+\newcommand{\EThreeDefaultFixtureOpeningVerdict}{Pass}
+\newcommand{\EThreeDefaultFixtureControlVerdict}{Pass}
+\newcommand{\EThreeDefaultFixtureFiredRuleSessions}{10}
+\newcommand{\EThreeDefaultFixtureFiredRuleChiefSessions}{10}
+\newcommand{\EThreeDefaultFixtureControlFields}{chronic}
+\newcommand{\EThreeAltFixtureSessions}{30}
+\newcommand{\EThreeAltFixtureOpeningAgree}{30}
+\newcommand{\EThreeAltFixtureOpeningMissing}{0}
+\newcommand{\EThreeAltFixtureControlTurns}{9}
+\newcommand{\EThreeAltFixtureControlDiffer}{0}
+\newcommand{\EThreeAltFixtureControlMissing}{0}
+\newcommand{\EThreeAltFixtureFacts}{117}
+\newcommand{\EThreeAltFixtureFactsFromChief}{117}
+\newcommand{\EThreeAltFixtureFactsTraceableToChief}{117}
+\newcommand{\EThreeAltFixtureActualPathAgree}{20}
+\newcommand{\EThreeAltFixtureActualPathCompared}{20}
+\newcommand{\EThreeAltFixtureActualPathExcluded}{10}
+\newcommand{\EThreeAltFixtureActualPathUnknown}{0}
+\newcommand{\EThreeAltFixtureOpeningVerdict}{Pass}
+\newcommand{\EThreeAltFixtureControlVerdict}{Pass}
+\newcommand{\EThreeAltFixtureFiredRuleSessions}{10}
+\newcommand{\EThreeAltFixtureFiredRuleChiefSessions}{10}
+\newcommand{\EThreeAltFixtureControlFields}{chronic}
+\newcommand{\EThreeGemmaFixtureSessions}{30}
+\newcommand{\EThreeGemmaFixtureOpeningAgree}{30}
+\newcommand{\EThreeGemmaFixtureOpeningMissing}{0}
+\newcommand{\EThreeGemmaFixtureControlTurns}{10}
+\newcommand{\EThreeGemmaFixtureControlDiffer}{1}
+\newcommand{\EThreeGemmaFixtureControlMissing}{0}
+\newcommand{\EThreeGemmaFixtureFacts}{6}
+\newcommand{\EThreeGemmaFixtureFactsFromChief}{6}
+\newcommand{\EThreeGemmaFixtureFactsTraceableToChief}{6}
+\newcommand{\EThreeGemmaFixtureActualPathAgree}{19}
+\newcommand{\EThreeGemmaFixtureActualPathCompared}{22}
+\newcommand{\EThreeGemmaFixtureActualPathExcluded}{8}
+\newcommand{\EThreeGemmaFixtureActualPathUnknown}{0}
+\newcommand{\EThreeGemmaFixtureOpeningVerdict}{Pass}
+\newcommand{\EThreeGemmaFixtureControlVerdict}{Fail}
+\newcommand{\EThreeGemmaFixtureFiredRuleSessions}{8}
+\newcommand{\EThreeGemmaFixtureFiredRuleChiefSessions}{8}
+\newcommand{\EThreeGemmaFixtureControlFields}{chronic}
+\newcommand{\EOneQuestionnaireResponses}{360}
+\newcommand{\EOneQRWithErrors}{0}
+\newcommand{\EOneQRErrors}{0}
+\newcommand{\EOneQRUnverified}{0}
+\newcommand{\EOneQRVerified}{360}
+\newcommand{\EOneProvenanceWarnings}{1,440}
+\newcommand{\EOneCompositionWarnings}{360}
+\newcommand{\ETwoFacts}{454}
+\newcommand{\ETwoCompleted}{150}
+\newcommand{\ETwoChiefStops}{50}
+\newcommand{\ETwoChiefStopsCompleted}{50}
+\newcommand{\ETwoUnexpectedStops}{0}
+\newcommand{\ETwoHandoffs}{0}
+\newcommand{\ETwoInvalidTurns}{44}
+\newcommand{\ETwoProtocolExcluded}{50}
+\newcommand{\ETwoUsageCalls}{1,460}
+\newcommand{\ETwoUsageEmptySessions}{10}
+\newcommand{\ETwoUsageIncompleteSessions}{150}
+\newcommand{\ETwoCostSessions}{140}
+\newcommand{\ETwoTimeoutSessions}{0}
+\newcommand{\ETwoTimeoutStored}{0}
+\newcommand{\ETwoTimeoutWriteback}{0}
+\newcommand{\ETwoTimeoutCompleted}{0}
+\newcommand{\ETwoTimeoutFreeCompleted}{150}
+\newcommand{\ETwoTimeoutEvents}{0}
+\newcommand{\ETwoTimeoutLogEvents}{0}
+\newcommand{\ETwoSchemaFailures}{0}
+\newcommand{\ETwoChiefCalls}{110}
+\newcommand{\ETwoParsedEmptyCalls}{0}
+\newcommand{\ETwoGroundingFailedChecks}{17,687}
+\newcommand{\ETwoParsedSymptoms}{110}
+\newcommand{\ETwoRetainedSymptoms}{110}
+\newcommand{\ETwoParsedFindings}{262}
+\newcommand{\ETwoRetainedFindings}{261}
+\newcommand{\ETwoParsedAssessments}{110}
+\newcommand{\ETwoRetainedAssessments}{110}
+\newcommand{\ETwoParsedAnswers}{216}
+\newcommand{\ETwoRetainedAnswers}{255}
+\newcommand{\ETwoCompletion}{100.0\% (150/150)}
+\newcommand{\ETwoProtocol}{100.0\% (100/100)}
+\newcommand{\ETwoFunctionalPass}{83.3\% (50/60)}
+\newcommand{\ETwoNonRedFunctionalPass}{100.0\% (90/90)}
+\newcommand{\ETwoMedianSeconds}{31.1}
+\newcommand{\ETwoMedianCost}{0.0176}
+\newcommand{\EThreeDefaultSessions}{30}
+\newcommand{\EThreeDefaultFacts}{91}
+\newcommand{\EThreeDefaultCompleted}{30}
+\newcommand{\EThreeDefaultChiefStops}{10}
+\newcommand{\EThreeDefaultChiefStopsCompleted}{10}
+\newcommand{\EThreeDefaultUnexpectedStops}{0}
+\newcommand{\EThreeDefaultHandoffs}{0}
+\newcommand{\EThreeDefaultInvalidTurns}{9}
+\newcommand{\EThreeDefaultProtocolExcluded}{10}
+\newcommand{\EThreeDefaultUsageCalls}{340}
+\newcommand{\EThreeDefaultUsageEmptySessions}{2}
+\newcommand{\EThreeDefaultUsageIncompleteSessions}{30}
+\newcommand{\EThreeDefaultCostSessions}{28}
+\newcommand{\EThreeDefaultTimeoutSessions}{0}
+\newcommand{\EThreeDefaultTimeoutStored}{0}
+\newcommand{\EThreeDefaultTimeoutWriteback}{0}
+\newcommand{\EThreeDefaultTimeoutCompleted}{0}
+\newcommand{\EThreeDefaultTimeoutFreeCompleted}{30}
+\newcommand{\EThreeDefaultTimeoutEvents}{0}
+\newcommand{\EThreeDefaultTimeoutLogEvents}{0}
+\newcommand{\EThreeDefaultSchemaFailures}{0}
+\newcommand{\EThreeDefaultChiefCalls}{22}
+\newcommand{\EThreeDefaultParsedEmptyCalls}{0}
+\newcommand{\EThreeDefaultGroundingFailedChecks}{3,539}
+\newcommand{\EThreeDefaultParsedSymptoms}{22}
+\newcommand{\EThreeDefaultRetainedSymptoms}{22}
+\newcommand{\EThreeDefaultParsedFindings}{53}
+\newcommand{\EThreeDefaultRetainedFindings}{53}
+\newcommand{\EThreeDefaultParsedAssessments}{22}
+\newcommand{\EThreeDefaultRetainedAssessments}{22}
+\newcommand{\EThreeDefaultParsedAnswers}{50}
+\newcommand{\EThreeDefaultRetainedAnswers}{57}
+\newcommand{\EThreeDefaultCompletion}{100.0\% (30/30)}
+\newcommand{\EThreeDefaultProtocol}{100.0\% (20/20)}
+\newcommand{\EThreeDefaultFunctionalPass}{83.3\% (10/12)}
+\newcommand{\EThreeDefaultNonRedFunctionalPass}{100.0\% (18/18)}
+\newcommand{\EThreeDefaultMedianSeconds}{35.2}
+\newcommand{\EThreeDefaultMedianCost}{0.0189}
+\newcommand{\EThreeAlternateSessions}{30}
+\newcommand{\EThreeAlternateFacts}{117}
+\newcommand{\EThreeAlternateCompleted}{30}
+\newcommand{\EThreeAlternateChiefStops}{10}
+\newcommand{\EThreeAlternateChiefStopsCompleted}{10}
+\newcommand{\EThreeAlternateUnexpectedStops}{0}
+\newcommand{\EThreeAlternateHandoffs}{0}
+\newcommand{\EThreeAlternateInvalidTurns}{9}
+\newcommand{\EThreeAlternateProtocolExcluded}{10}
+\newcommand{\EThreeAlternateUsageCalls}{340}
+\newcommand{\EThreeAlternateUsageEmptySessions}{2}
+\newcommand{\EThreeAlternateUsageIncompleteSessions}{30}
+\newcommand{\EThreeAlternateCostSessions}{28}
+\newcommand{\EThreeAlternateTimeoutSessions}{0}
+\newcommand{\EThreeAlternateTimeoutStored}{0}
+\newcommand{\EThreeAlternateTimeoutWriteback}{0}
+\newcommand{\EThreeAlternateTimeoutCompleted}{0}
+\newcommand{\EThreeAlternateTimeoutFreeCompleted}{30}
+\newcommand{\EThreeAlternateTimeoutEvents}{0}
+\newcommand{\EThreeAlternateTimeoutLogEvents}{0}
+\newcommand{\EThreeAlternateSchemaFailures}{0}
+\newcommand{\EThreeAlternateChiefCalls}{22}
+\newcommand{\EThreeAlternateParsedEmptyCalls}{0}
+\newcommand{\EThreeAlternateGroundingFailedChecks}{3,539}
+\newcommand{\EThreeAlternateParsedSymptoms}{28}
+\newcommand{\EThreeAlternateRetainedSymptoms}{22}
+\newcommand{\EThreeAlternateParsedFindings}{55}
+\newcommand{\EThreeAlternateRetainedFindings}{55}
+\newcommand{\EThreeAlternateParsedAssessments}{28}
+\newcommand{\EThreeAlternateRetainedAssessments}{22}
+\newcommand{\EThreeAlternateParsedAnswers}{67}
+\newcommand{\EThreeAlternateRetainedAnswers}{70}
+\newcommand{\EThreeAlternateCompletion}{100.0\% (30/30)}
+\newcommand{\EThreeAlternateProtocol}{100.0\% (20/20)}
+\newcommand{\EThreeAlternateFunctionalPass}{83.3\% (10/12)}
+\newcommand{\EThreeAlternateNonRedFunctionalPass}{100.0\% (18/18)}
+\newcommand{\EThreeAlternateMedianSeconds}{31.2}
+\newcommand{\EThreeAlternateMedianCost}{0.0097}
+\newcommand{\EThreeLocalSessions}{30}
+\newcommand{\EThreeLocalFacts}{6}
+\newcommand{\EThreeLocalCompleted}{27}
+\newcommand{\EThreeLocalChiefStops}{11}
+\newcommand{\EThreeLocalChiefStopsCompleted}{8}
+\newcommand{\EThreeLocalUnexpectedStops}{3}
+\newcommand{\EThreeLocalHandoffs}{3}
+\newcommand{\EThreeLocalInvalidTurns}{7}
+\newcommand{\EThreeLocalProtocolExcluded}{8}
+\newcommand{\EThreeLocalUsageCalls}{317}
+\newcommand{\EThreeLocalUsageEmptySessions}{4}
+\newcommand{\EThreeLocalUsageIncompleteSessions}{30}
+\newcommand{\EThreeLocalCostSessions}{26}
+\newcommand{\EThreeLocalTimeoutSessions}{11}
+\newcommand{\EThreeLocalTimeoutStored}{11}
+\newcommand{\EThreeLocalTimeoutWriteback}{11}
+\newcommand{\EThreeLocalTimeoutCompleted}{8}
+\newcommand{\EThreeLocalTimeoutFreeCompleted}{19}
+\newcommand{\EThreeLocalTimeoutEvents}{11}
+\newcommand{\EThreeLocalTimeoutLogEvents}{8}
+\newcommand{\EThreeLocalSchemaFailures}{0}
+\newcommand{\EThreeLocalChiefCalls}{22}
+\newcommand{\EThreeLocalParsedEmptyCalls}{0}
+\newcommand{\EThreeLocalGroundingFailedChecks}{3,634}
+\newcommand{\EThreeLocalParsedSymptoms}{108}
+\newcommand{\EThreeLocalRetainedSymptoms}{6}
+\newcommand{\EThreeLocalParsedFindings}{0}
+\newcommand{\EThreeLocalRetainedFindings}{0}
+\newcommand{\EThreeLocalParsedAssessments}{22}
+\newcommand{\EThreeLocalRetainedAssessments}{0}
+\newcommand{\EThreeLocalParsedAnswers}{0}
+\newcommand{\EThreeLocalRetainedAnswers}{20}
+\newcommand{\EThreeLocalCompletion}{90.0\% (27/30)}
+\newcommand{\EThreeLocalProtocol}{81.8\% (18/22)}
+\newcommand{\EThreeLocalFunctionalPass}{66.7\% (8/12)}
+\newcommand{\EThreeLocalNonRedFunctionalPass}{100.0\% (18/18)}
+\newcommand{\EThreeLocalMedianSeconds}{183.3}
+\newcommand{\EThreeLocalMedianCost}{0.0000}
+\newcommand{\AdapterBaseCommit}{1b0eb1c}
+\newcommand{\AdapterAdded}{683}
+\newcommand{\AdapterRemoved}{60}
+\newcommand{\ELoadHundredPninetyfiveSeconds}{118.7}
+\newcommand{\ELoadHundredConcurrency}{100}
+\newcommand{\ETwoTraceability}{100.0\% (454/454)}
+\newcommand{\ELoadStopThreshold}{5\%}
+\newcommand{\EThreeMissedStops}{2}
+\newcommand{\ELoadLastRequestError}{4.77\%}
+\newcommand{\ELoadLastSessionFailure}{73.8\%}
+\newcommand{\ERealConcurrency}{1, 2, 4}
+\newcommand{\ELoadMockConcurrency}{10, 50, 100, 500}
+\newcommand{\ResultsStatus}{Provisional; physician scenario review pending}
+
+% Revision marking for internal review: text added in the current revision is
+% green. Before submission, redefine as \newcommand{\revadd}[1]{#1} to remove colour.
+\newcommand{\revadd}[1]{#1}
+\begin{document}
+
+\title[FIRM]{FIRM: FHIR-Integrated Interviewing with Replaceable Modules for LLM-Assisted Pre-Consultation}
+
+%%=============================================================%%
+%% GivenName	-> \fnm{Joergen W.}
+%% Particle	-> \spfx{van der} -> surname prefix
+%% FamilyName	-> \sur{Ploeg}
+%% Suffix	-> \sfx{IV}
+%% \author*[1,2]{\fnm{Joergen W.} \spfx{van der} \sur{Ploeg} 
+%%  \sfx{IV}}\email{iauthor@gmail.com}
+%%=============================================================%%
+
+\author[1,2,3]{\fnm{Wei-Hsuan} \sur{Tai}}\email{b12508026@ntu.edu.tw}\equalcont{These authors contributed equally to this work.}
+
+
+\author[2,3]{\fnm{Chun-Yi} \sur{Chen}}\email{TODO}\equalcont{These authors contributed equally to this work.}
+
+
+\author[4]{\fnm{Guan-Ying} \sur{Huang}}\email{TODO}\equalcont{These authors contributed equally to this work.}
+
+
+\author*[4,5,6]{\fnm{Chien-Chang} \sur{Lee}}\email{cclee100@gmail.com}
+
+\affil[1]{\orgdiv{Department of Biomedical Engineering}, \orgname{National Taiwan University}, \orgaddress{\city{Taipei}, \country{Taiwan}}}
+
+% TODO: confirm ISTI's official English name and city (Hsinchu HQ or Taipei office)
+\affil[2]{\orgdiv{Industry, Science and Technology International Strategy Center}, \orgname{Industrial Technology Research Institute}, \orgaddress{\city{Hsinchu}, \country{Taiwan}}}
+
+% TODO: official English name of the office; or use Dept. of Information Management (same as affil 6)
+\affil[3]{\orgdiv{Next-Generation Digital Health Platform Office}, \orgname{Ministry of Health and Welfare}, \orgaddress{\city{Taipei}, \country{Taiwan}}}
+
+\affil*[4]{\orgdiv{Department of Emergency Medicine}, \orgname{National Taiwan University Hospital}, \orgaddress{\city{Taipei}, \country{Taiwan}}}
+
+\affil[5]{\orgdiv{Department of Emergency Medicine, College of Medicine}, \orgname{National Taiwan University}, \orgaddress{\city{Taipei}, \country{Taiwan}}}
+
+\affil[6]{\orgdiv{Department of Information Management}, \orgname{Ministry of Health and Welfare}, \orgaddress{\city{Taipei}, \country{Taiwan}}}
+
+
+%%==================================%%
+%% Sample for unstructured abstract %%
+%%==================================%%
+
+\abstract{\textbf{Purpose:} Large language model (LLM) assistants for pre-consultation must behave predictably and exchange data with electronic health records (EHRs). We present ELVINA (EHR-Linked Virtual Interviewer with Natural-language Assistance), a pre-consultation system built on FIRM (FHIR-Integrated Interviewing with Replaceable Modules), in which questionnaire rules, not the LLM, select questions and results are written back as Taiwan Core (TW Core) FHIR resources, and we verify it against explicit requirements.
+
+\textbf{Methods:} Questionnaires are encoded as FHIR Questionnaire. LLMs only extract evidence-grounded chief-complaint findings, classify EHR history into questionnaire options, and draft reports; one transaction writes QuestionnaireResponse, Observation, Composition, and Provenance. Ten requirements (R0--R9) were checked with synthetic Synthea patients and \ScenarioCount{} author-drafted scenarios answered by an LLM-simulated patient: interoperability, end-to-end runs, configuration-only model replacement, and local load. Clinician confirmation was simulated.
+
+\textbf{Results:} Requirements \PassingRequirements{} passed and \FailingRequirements{} failed. Question selection (R0) was \RZeroVerdict{}, and structural/profile checks of \EOneResources{} written resources (R1, without terminology resolution) were \ROneVerdict{}. After EHR-history classification was added, written-FHIR and runtime question paths agreed in \ETwoWrittenPathAgree{} of \ETwoWrittenPathCompared{} comparable sessions (R3, \RThreeVerdict{}). Replacing the commercial model by configuration alone was \EThreeAlternateSwapVerdict{}; a local open-weight model was \EThreeLocalSwapVerdict{}. Red-flag rule coverage (R5) was \RFiveVerdict{}; candidate rules await physician approval. National-scale capacity was \REightVerdict{} and exchange-hub integration \RNineVerdict{}.
+
+\textbf{Conclusions:} A rule-governed pre-consultation system with FHIR write-back can be verified requirement by requirement. These provisional, synthetic software-verification results do not establish clinical safety, diagnostic performance, or deployment readiness.}
+
+
+
+%%================================%%
+%% Sample for structured abstract %%
+%%================================%%
+
+% \abstract{\textbf{Purpose:} The abstract serves both as a general introduction to the topic and as a brief, non-technical summary of the main results and their implications. The abstract must not include subheadings (unless expressly permitted in the journal's Instructions to Authors), equations or citations. As a guide the abstract should not exceed 200 words. Most journals do not set a hard limit however authors are advised to check the author instructions for the journal they are submitting to.
+% 
+% \textbf{Methods:} The abstract serves both as a general introduction to the topic and as a brief, non-technical summary of the main results and their implications. The abstract must not include subheadings (unless expressly permitted in the journal's Instructions to Authors), equations or citations. As a guide the abstract should not exceed 200 words. Most journals do not set a hard limit however authors are advised to check the author instructions for the journal they are submitting to.
+% 
+% \textbf{Results:} The abstract serves both as a general introduction to the topic and as a brief, non-technical summary of the main results and their implications. The abstract must not include subheadings (unless expressly permitted in the journal's Instructions to Authors), equations or citations. As a guide the abstract should not exceed 200 words. Most journals do not set a hard limit however authors are advised to check the author instructions for the journal they are submitting to.
+% 
+% \textbf{Conclusion:} The abstract serves both as a general introduction to the topic and as a brief, non-technical summary of the main results and their implications. The abstract must not include subheadings (unless expressly permitted in the journal's Instructions to Authors), equations or citations. As a guide the abstract should not exceed 200 words. Most journals do not set a hard limit however authors are advised to check the author instructions for the journal they are submitting to.}
+
+\keywords{FHIR, Pre-consultation, Conversational AI, Clinical Documentation}
+
+%%\pacs[JEL Classification]{D8, H51}
+
+%%\pacs[MSC Classification]{35A01, 65L10, 65L12, 65L20, 65L70}
+
+\maketitle
+
+\section{Introduction}\label{sec1}
+
+Emergency department (ED) crowding is a persistent problem worldwide, prolonging waits, delaying treatment, and worsening patient outcomes \citep{morleyEmergencyDepartmentCrowding2018}. In Taiwan, about one-third of the six million annual ED visits are non-emergent \citep{TongJiChuJiZhenJiuZhenTongJi2023,huangCharacteristicsNonEmergentVisits2019} \textbf{[TODO\_AUTHOR: MOHW 2023 ED claims are 6.82 million (2022: 6.13 million); revise the figure or cite the 2022 data]}, yet each of these patients still requires a careful history, because a small proportion of apparently minor symptoms conceal live-threatening \textbf{[TODO\_AUTHOR: life-threatening?]} conditions. Taking and documenting this history consumes much of the physician's time. A study showed emergency physicians spent nearly half of their time on data and order entry, while less than one-third was spent on direct patient care \citep{hill4000ClicksProductivity2013}, which has also been associated with physician burnout \citep{ghaseminejadOrganisationalFactorsAssociated2025}. Preconsultation, in which a structured history is collected while patients wait, could therefore relieve this burden, shifting the clinician's role from manual data entry to the verification of pre-extracted information \citep{eryilmazExtractingMedicalInformation2026}.
+
+Much of the patient information is already recorded elsewhere. Allergies, current medications, chronic conditions, and surgical history inform both treatment and risk stratification \citep{sixChestPainEmergency2008}, yet asking every patient for them lengthens the interview, and repeated questionnaires can frustrate respondents and produce conflicting information across records \citep{thayerCombiningInternationalStandards2025} \textbf{[TODO\_AUTHOR: Thayer et al.\ describe parent smoking-cessation decision support, not questionnaire burden; replace the citation]}. Fast Healthcare Interoperability Resources (FHIR) offers a means to retrieve such data instead. Substitutable Medical Applications, Reusable Technologies (SMART) on FHIR allows applications to read patient context, including allergies, medications, and conditions, from an electronic health record (EHR) through a standard interface \citep{mandelSmartOnFhir2016}. In Taiwan, the Ministry of Health and Welfare (MOHW) has published the Taiwan Core Implementation Guide (TW Core IG), a national FHIR core implementation guide, and allows consented electronic medical records from other facilities to be retrieved with FHIR-based methods \citep{TaiWanHeXinShiZuoZhiYinZhuanQuTaiWanYiLiaoZiXunBiaoZhunDaPingTai} \textbf{[TODO\_AUTHOR: the TW Core portal does not describe consented cross-facility retrieval; cite the EMR exchange IG or MOHW policy]}, making prior records available when to any visiting facility \textbf{[TODO\_AUTHOR: grammar; e.g.\ ``available to any visiting facility'']}. Retrieving what is already known and asking only for what is missing could thus shorten the interview and reduce documentation, while keeping critical history from being omitted.
+
+Computerized history-taking has been increasingly explored to support this process. A previous study found self-reported tablet histories from 500 ED patients with acute chest pain yielded enough information to calculate a risk score in 70.4\% of patients, but only 29.6\% completed the full interview, with older adults showing lower completion rates \citep{brandbergUseSelfReportedComputerized2021}. A systematic review of 18 history-taking chatbots \textbf{[TODO\_AUTHOR: the review included 18 studies, not 18 chatbots]} similarly reported improved data collection and patient satisfaction, while many systems relied on rule-based scripts or decision trees, none used large language models (LLMs), and effects on clinical workflow remained unclear \citep{hindelangTransformingHealthCare2024}. Collectively, these studies show that structured history-taking is feasible, but fixed questionnaires are limited in completion by their length, highlighting the need for interviews that adapt to the patient and to what the record already contains.
+
+LLMs have since been applied to conduct diagnostic conversations directly with patients. In simulated consultations, the Articulate Medical Intelligence Explorer (AMIE) matched or exceeded primary care physicians in history-taking and diagnostic accuracy \citep{tuConversationalDiagnosticArtificial2025}, and in a prospective study of 98 primary care patients its pre-visit differential diagnosis included the final diagnosis in 90\% of cases, although the system had no access to the EHR \citep{brodeurConversationalDiagnosticArtificial2026} \textbf{[TODO\_AUTHOR: 98 patients is from the Lancet article, 90\% from the arXiv preprint (100 patients); confirm 90\% in the Lancet full text or cite the preprint]}. Conversely, MIRA, an autonomous agent, retrieved patient data and placed orders through FHIR, but it served the clinician rather than the patient and was evaluated with LLM-simulated patients \citep{ferberAutonomousMedicalArtificial2026}. All in all, patient-facing LLM interviews have so far operated apart from the EHR, while EHR-integrated agents serve clinicians, leaving the link between what the patient reports and what the record already holds largely unaddressed.
+
+Despite their promising diagnostic performance, these systems rely on free-text generation for decisions in which errors carry direct clinical consequences, including hallucinations, omissions, and negation errors \citep{asgariFrameworkAssessClinical2025} \textbf{[TODO\_AUTHOR: negation errors not in the Asgari abstract; check the full text]}. In a benchmark of 16 LLM configurations on real ED triage data, the models were generally overconfident, and gave inconsistent answers to repeated queries \citep{benningPerformanceEvaluationBenchmarking2026}. Moreover, LLMs used to convert clinical text into FHIR resources \citep{liyikuanFHIRGPTEnhancesHealth2024} remain uneven on real documents, with case-level correctness on physician-reviewed discharge letters ranging from 93.0\% for medications to 61.3\% for procedures \citep{eryilmazExtractingMedicalInformation2026}. This highlights the need for designs in which question selection and red-flag screening follow explicit, deterministic rules that behave identically for the same input, while model output is limited to content that can be traced to the patient's own words or confirmed by a clinician before it is written back to the record.
+
+Here we present ELVINA (EHR-Linked Virtual Interviewer with Natural-language Assistance), a modular, FHIR-integrated framework \textbf{[TODO\_AUTHOR: title, abstract and Methods call FIRM the framework and ELVINA its reference implementation; unify naming and the spelling preconsultation/pre-consultation]} for LLM-assisted preconsultation that links the patient interview to the clinical record. ELVINA retrieves known history from the EHR and asks only for what is missing through predefined complaint-specific questionnaires, follows explicit rules for question selection and red-flag screening, restricts the LLM to traceable extraction and clinician-reviewed charting, and writes the confirmed interview back to the record in standard FHIR resources. As a first step toward clinical use, we verified whether the framework meets these design requirements using synthetic patients and scripted scenarios, establishing its technical feasibility \textbf{[TODO\_AUTHOR: after the 2026-10-15 reruns R5 (CP-09, AP-10 rule gaps) and R7 for local Gemma still fail, and R8/R9 are not verifiable/blocked; soften this claim or resolve them]}.
+
+
+\section{Methods}\label{sec:methods}
+
+\subsection{Scope and implemented architecture}
+We verified ELVINA, FIRM's reference implementation, using synthetic
+data. Outcomes concern interchange, interview-to-write-back completion, model
+replacement, and local concurrency; clinical accuracy and note quality were outside scope.
+
+\revadd{We stated ten software requirements (R0--R9; Table~\ref{tab:requirements})
+and tested them in five verification activities (E1--E5): E1, conformance and
+write/read-back of generated FHIR resources (R1, R2); E2, end-to-end sessions in
+which an LLM-simulated patient answers \ScenarioCount{} scripted scenarios (R0,
+R3--R6); E3, E2 repeated after replacing the default model by configuration (R7);
+E4, local concurrent-load replay (R8); and E5, integration with the MOHW exchange
+hub, which could not be run (R9).}
+
+ELVINA combines Vue patient and clinician interfaces, a FastAPI
+backend, local retrieval, and a HAPI FHIR R4 sandbox (Fig.~\ref{fig:system})
+\citep{vueJs,fastApi,hapiFHIR,fhirR4}.
+Invitations yield scoped session cookies; the clinician launcher binds patient and
+encounter identifiers. The separate SMART surface uses another authorization flow
+\citep{mandelSmartOnFhir2016,smartAppLaunch}. Verification exercised text HTTP APIs,
+using isolated databases and an explicit loopback development authorization bypass.
+
+\begin{figure}[t]\centering
+\includegraphics[width=\textwidth]{figures/fig1_system.pdf}
+\caption{ELVINA system architecture. Clinician traffic passes through the hospital IIS and
+the Nginx gateway; patient traffic reaches the gateway directly. The FastAPI
+backend and the local GPU avatar service share a private API network; only the
+backend has egress to model providers, and FHIR services are external to the
+backend. Daggers mark deployed components not exercised in this verification.}
+\label{fig:system}
+\end{figure}
+
+\begin{figure}[p]\centering
+\includegraphics[width=\textwidth]{figures/fig2_workflow.pdf}
+\caption{FIRM workflow as implemented in ELVINA, with contracts and verification points. Workflow steps:
+(1) the clinician launcher reads EHR history and issues an invitation with prefill;
+(2) chief-complaint screening and questionnaire routing; (3) deterministic
+questionnaire turns; (4) report drafting; (5) clinician review and confirmation;
+(6) one FHIR write-back transaction. Source JSON drives the questionnaire engine and
+an equivalent FHIR Questionnaire is exported. Internal APIs use application JSON;
+FHIR defines the EHR boundary. Model-dependent components reach models only through
+the replaceable LLM adapter. Tags mark where requirements R0--R9
+(Table~\ref{tab:requirements}) are checked; grey components were not evaluated.}
+\label{fig:workflow}
+\end{figure}
+
+In Fig.~\ref{fig:workflow}, fixed questionnaire rules select the next enabled
+question and skip prefilled fields. Models classify prefill and extract chief
+complaints, indirectly affecting rule inputs, but do not select the next question.
+Keywords choose the questionnaire first; only no match permits evidence-grounded
+model routing. Failed chief assessment triggers handoff. Retrieval supports report
+drafts \citep{lewisRag2020}, without establishing diagnoses or orders. We also
+prototyped an interview engine modeled on conversational diagnostic agents such as
+AMIE \citep{tuConversationalDiagnosticArtificial2025}, in which a model selects each
+next question; it is selected through configuration behind the same interview
+interface, but it is still under development and was not evaluated.
+
+\subsection{Conservative EHR prefill normalization}
+UCC, launcher, and sandbox ingress deterministically number chronic-history items.
+The configured report-extraction adapter returns only indices and fixed categories:
+diabetes, chronic kidney disease, hyperlipidemia, cirrhosis, autoimmune disease, cancer,
+other chronic, exclude, or unclear. Listed categories become questionnaire options;
+other chronic retains original text. Any unclear item, provider failure, timeout,
+or invalid/incomplete indices leaves both history fields unfilled for patient
+answers. Otherwise, cancer/autoimmune/other chronic items also prefill
+\texttt{chronic\_detail}; enabled but prefilled questions are skipped. No recognized
+condition leaves \texttt{chronic} unfilled, without inferring ``none.'' Original
+history, excluded items, classifications, model/prompt provenance, and bounded
+usage remain available for physician review. Oversized inputs are explicitly
+rejected; failures never echo history. Normalization sends history to the report
+provider, defaults off, and was enabled for these runs.
+
+\subsection{Questionnaire and write-back contracts}
+The encoder maps fields to \texttt{linkId}s, options to codes, and conditions to
+\texttt{enableWhen}. Questionnaire defines the form; QuestionnaireResponse records
+answers \citep{fhirQuestionnaireR4,sdcIG}. Source JSON drives execution.
+Questionnaire content is a replaceable input to FIRM: the chest-pain, headache, and
+abdominal-pain questionnaires used here were derived from a physician-authored
+source document, structured with LLM assistance, and extended by the development
+team; their clinical content was not evaluated in this study. Route
+selection pins the source-digest canonical version; write-back rejects drift and
+tags unpinned legacy resolution. R3 checks representation agreement.
+
+After simulated clinician confirmation, opt-in structured write-back creates
+one transaction of the written-back resources in Table~\ref{tab:fhir};
+Composition-only remains default. Conditional
+creation supports retries. Patient/encounter/institution/issuer checks precede
+persistence. Differential diagnoses, orders, and safety Flags are not created.
+
+\begin{table}[t]\centering\small
+\caption{FHIR resources read for prefill (one \texttt{Patient/\$everything} request)
+and written back, with assertion boundaries. $^\ast$Absent from all synthetic inputs,
+so that read path was not exercised.}\label{tab:fhir}
+\begin{tabular}{>{\raggedright\arraybackslash}p{3.4cm}p{8.1cm}}\hline
+Resource & Content and boundary \\\hline
+\multicolumn{2}{l}{\emph{Read for prefill}} \\
+Patient & Name, sex, and birth date. \\
+Condition & Chronic history and route-specific cardiopulmonary, neurological, or abdominal history; current-encounter symptoms excluded. \\
+MedicationRequest, MedicationStatement$^\ast$ & Current (active) and past (completed or stopped) medications. \\
+AllergyIntolerance & Allergies. \\
+Observation & Latest valid smoking status (LOINC 72166-2) mapped to the smoking options; unknown status is not prefilled. Blood group (LOINC 882-1/883-9)$^\ast$. \\
+Procedure$^\ast$ & Surgical history. \\
+Questionnaire\-Response$^\ast$ & Prior history answers. \\\hline
+\multicolumn{2}{l}{\emph{Written back}} \\
+QuestionnaireResponse & Ordered answers, source markers, and the pinned canonical reference. \\
+Observation & Smoking status only for an explicit mapped patient selection; EHR text is not promoted to a new patient assertion. \\
+Composition & Preliminary narrative, confirmed sections, and links to structured answers. \\
+Provenance & Patient informant, AI assembly, and simulated clinician-review roles; no actual clinical approval. \\\hline
+\end{tabular}
+\end{table}
+
+Absent-EHR placeholders are omitted. Out-of-grammar text uses coded ``other'' with
+nested original text, avoiding the validator's open-choice exception. Normalized
+answers retain \texttt{ehr-prefill} source and add normalization/prompt-version
+extensions. A runtime answer that FHIR would drop causes non-retryable rejection;
+unanswered branches do not block writing.
+
+\subsection{Synthetic inputs and model disclosure}
+Synthea generated the adult source cohort \citep{syntheaMethod,syntheaSoftware}.
+Conversion applies fictional Taiwanese identifiers/addresses and TW Core profiles
+\citep{twcoreIG}, retaining seeds, mappings, dropped elements, and hashes. The
+\ScenarioCount{} author-drafted chest-pain, headache, and abdominal-pain scenarios
+include expected stops and known gaps; the planned benchmark was unavailable.
+Separate Synthea modules supply consistent backgrounds without manually rewriting
+generated records. Converted bundles contain Patient, Encounter, Condition,
+MedicationRequest, AllergyIntolerance, and Observation resources
+(Table~\ref{tab:fhir}). Input validation is separate from output validation.
+
+Background audits are mechanical; approval requires two independent physicians
+reviewing current script hashes, bindings, and paths. \ValidatedScriptCount{}
+scripts qualify. Online Resource 1 provides prompts/settings. Commercial calls
+use Gemini's API \citep{googleGeminiAPI}; Gemma/Qwen use Ollama
+\citep{ollamaSoftware,gemmaThree,qwenTwoFive}. Requested/transmitted settings are
+distinguished: newer Gemini configurations omit temperature. Unrecorded settings
+are not inferred.
+
+\subsection{Requirements and acceptance criteria}
+Table~\ref{tab:requirements} maps requirements to generated verdicts. E1--E5 are
+verification activities. E1 zero errors, E3 zero code changes, and E4's request-error
+stopping threshold were prespecified. Requirement-defined all-match/all-pass
+criteria for R2--R6, R7 behavioral agreement, and the investigator's R0 fixed-selection
+requirement were applied post~hoc on 2026-10-14. These are software criteria,
+not prospective clinical thresholds; missing evidence is indeterminate.
+
+\begin{table}[t]\centering\footnotesize
+\caption{Requirements, criterion sources, and generated verdicts\revadd{, grouped
+by the verification activity that supplies their evidence. R0 also uses E3
+descriptive checks}. R7 is reported separately
+for each replacement in Table~\ref{tab:e3}.}\label{tab:requirements}
+\setlength{\tabcolsep}{3pt}
+% Generated; edit source results or generator, never these values.
+\begin{tabular}{@{}l>{\raggedright\arraybackslash}p{4.1cm}>{\raggedright\arraybackslash}p{4.3cm}p{2.3cm}@{}}
+\hline
+ID & Requirement & Criterion source & Verdict \\[4pt]
+\hline\noalign{\vskip 3pt}
+\multicolumn{4}{@{}>{\raggedright\arraybackslash}p{10.7cm}@{}}{\revadd{\textbf{E1} --- FHIR conformance and read-back: \EOneTemplatedSessions{} templated sessions, \EOneScenarioSessions{} E2 sessions, and \EOneObservationSessions{} smoking write-back sessions}} \\[3pt]
+R1 & TW Core structural/profile checks & Prespecified zero errors; no validator exceptions & Pass \\[3pt]
+R2 & Write/read-back identity & Requirement-defined, applied post~hoc & Pass \\[3pt]
+\multicolumn{4}{@{}>{\raggedright\arraybackslash}p{10.7cm}@{}}{\revadd{\textbf{E2} --- End-to-end sessions: \ScenarioCount{} scripted scenarios $\times$ \ETwoRepeats{} repetitions with an LLM-simulated patient}} \\[3pt]
+R0 & Questionnaire rules select the next question & Principal investigator requirement; criteria applied post~hoc & Pass \\[3pt]
+R3 & Top-level path matches the FHIR Questionnaire & Requirement-defined, applied post~hoc & Pass \\[3pt]
+R4 & Extracted-fact traceability & Requirement-defined, applied post~hoc & Pass \\[3pt]
+R5 & Scripted safety-rule execution & Requirement-defined, applied post~hoc & Fail \\[3pt]
+R6 & End-to-end completion without handoff & Requirement-defined, applied post~hoc & Pass \\[3pt]
+\multicolumn{4}{@{}>{\raggedright\arraybackslash}p{10.7cm}@{}}{\revadd{\textbf{E3} --- Model replacement: E2 scripts rerun with the alternate commercial and local open-weight configurations}} \\[3pt]
+R7 & Configuration-only substitution retaining default behaviour & Prespecified zero code lines; default-equivalence applied post~hoc & Alternate: Pass\newline Local: Fail \\[3pt]
+\multicolumn{4}{@{}>{\raggedright\arraybackslash}p{10.7cm}@{}}{\revadd{\textbf{E4} --- Local load replay of E2 turns: mock model at \ELoadMockConcurrency{} and real model at \ERealConcurrency{} concurrent sessions}} \\[3pt]
+R8 & National peak-load capacity & No national-demand criterion available & Not verifiable \\[3pt]
+\multicolumn{4}{@{}>{\raggedright\arraybackslash}p{10.7cm}@{}}{\revadd{\textbf{E5} --- MOHW exchange-hub integration}} \\[3pt]
+R9 & MOHW hub interoperability & Access prerequisite unavailable & Blocked \\[3pt]
+\hline
+\end{tabular}
+
+\end{table}
+
+\subsection{Verification activities}
+R0 audits saved calls for prefill normalization, chief extraction (at most once per
+session), report generation, or RAG translation, and requires identical repeated
+paths per script. Static inspection identifies the pure next-question selector.
+Prefill classification can change skip decisions; cross-model paths are descriptive.
+Bounded, incomplete usage cannot establish a complete call history.
+
+E1 uses the pinned HL7/TW Core validator and generated definitions
+\citep{hl7Validator,twcoreIG}. R1 requires zero written-resource errors/exceptions
+across templated, smoking write-back, and E2 cohorts. Because every templated and
+scenario record holds a coded smoking status that is prefilled, the separate smoking
+write-back cohort of \EOneObservationSessions{} base-cohort patients outside the
+templated sample, with every smoking-status Observation removed, exercises the
+Observation write path. Checks use \texttt{-tx n/a}, without terminology
+resolution. R2 requires substantive write/read-back identity after excluding
+specified server metadata/identifiers. Missing outcomes cannot pass; supplemental
+E1 is counted once (Online Resource 1, Sections S3 and S7).
+
+E2 spans invitation through read-back. A distinct Qwen model plays the patient
+from scenario facts, following simulated-patient evaluation
+\citep{tuConversationalDiagnosticArtificial2025,johriCraftMd2025,schmidgallAgentClinic2024}.
+Invalid constrained answers receive explicit unknowns, never expected answers.
+R3 compares presented top-level questions with \texttt{enableWhen} paths derived
+from written QuestionnaireResponse answers, including EHR prefill. Recorded
+prefilled fields retain skip context for no-data items omitted from QR; nested
+\texttt{<linkId>.other} details are not questions. Runtime-answer and script-derived
+checks remain secondary. Expected chief stops are excluded; unexpected stops fail.
+R4 requires every persisted chief fact to have traceable utterance evidence.
+R5 requires all scripted red-flag and non-red-flag expectations, measuring rule
+execution rather than clinical sensitivity/specificity. R6 requires write-back
+and \texttt{completed} or \texttt{summary\_ready}; expected stops and successful
+retries qualify, manual handoffs do not.
+
+E3 retains executable fingerprints across model configurations. R7 requires zero
+code changes and default-equivalent R1--R6 verdicts and per-script completion,
+paths, and red flags; shared failures remain in the baseline. One-time adapter
+changes against \texttt{\AdapterBaseCommit} are documented separately.
+
+E4 replays turns using fixed-latency mocks or real models on backend v0.19.0,
+one worker, stopping above \ELoadStopThreshold{} request errors. Session failure
+is distinct; this local rule does not define national capacity. E5 needs MOHW
+exchange-hub access. Frozen runs and source hashes generate results; repetitions
+are not independent clinical observations.
+
+\section{Results}\label{sec:results}
+
+\subsection{R0: deterministic question selection}
+R0 is \textbf{\RZeroVerdict{}}. Among \ETwoDetCalls{} saved calls,
+\ETwoDetUnexpectedTasks{} tasks fall outside the allowed list; chief extraction
+peaks at \ETwoDetChiefMax{} per session. \ETwoDetUsageIncomplete{} usage records
+are incomplete. Paths are identical in \RZeroStableScripts{}/\RZeroScripts{}
+scripts across \RZeroRepeats{} repetitions. E3 alternate Gemini matches default
+paths in \EThreeAlternateDetSamePaths{}/\EThreeAlternateDetComparedScripts{};
+Gemma matches in \EThreeLocalDetSamePaths{}/\EThreeLocalDetComparedScripts{}.
+Routing records show \ETwoDetKeywordSources{} keyword selections,
+\ETwoDetExtractorSources{} extraction fallbacks, and \ETwoDetUnknownSources{}
+unknown sources; unknowns are not counted as keywords.
+
+\subsection{R1 and R2: written resources and read-back}
+R1 is \textbf{\ROneVerdict{}} and R2 is \textbf{\RTwoVerdict{}}.
+Across \EOneTemplatedSessions{} templated, \EOneObservationSessions{} smoking write-back,
+and \EOneScenarioSessions{} E2 sessions, \EOneResources{} written resources have
+\EOneErrors{} structural/profile errors
+and \EOneValidatorCrashes{} validator exceptions under \texttt{-tx n/a}
+(Tables~\ref{tab:e1} and~\ref{tab:e1workflow}). Of
+\EOneQuestionnaireResponses{} QuestionnaireResponses, \EOneQRErrors{} errors and
+\EOneQRUnverified{} unverified responses are recorded. Warnings comprise
+\EOneProvenanceWarnings{} Provenance terminology and \EOneCompositionWarnings{}
+Composition narrative warnings. The smoking write-back cohort wrote
+\EOneObservationResources{} smoking Observations with \EOneObservationErrors{} errors.
+The pinned participant-type CodeSystem remains unavailable.
+
+\begin{table}[t]\centering
+\caption{E1 written-resource verification. Input checks are excluded; exceptions
+would prevent acceptance.}\label{tab:e1}
+\footnotesize\setlength{\tabcolsep}{3pt}
+% Generated; edit source results or generator, never these values.
+\begin{tabular}{llllll}
+\hline
+Cohort & Resource & $n$ & With errors & Errors & Warnings \\[4pt]
+\hline\noalign{\vskip 3pt}
+Templated cohort & Composition & 200 & 0 & 0 & 200 \\[3pt]
+Templated cohort & Provenance & 200 & 0 & 0 & 800 \\[3pt]
+Templated cohort & QuestionnaireResponse & 200 & 0 & 0 & 0 \\[3pt]
+Scenario cohort & Composition & 150 & 0 & 0 & 150 \\[3pt]
+Scenario cohort & Provenance & 150 & 0 & 0 & 600 \\[3pt]
+Scenario cohort & QuestionnaireResponse & 150 & 0 & 0 & 0 \\[3pt]
+Smoking writeback & Composition & 10 & 0 & 0 & 10 \\[3pt]
+Smoking writeback & Observation & 10 & 0 & 0 & 0 \\[3pt]
+Smoking writeback & Provenance & 10 & 0 & 0 & 40 \\[3pt]
+Smoking writeback & QuestionnaireResponse & 10 & 0 & 0 & 0 \\[3pt]
+\hline
+\end{tabular}
+
+\end{table}
+\begin{table}[t]\centering
+\caption{E1 workflow and semantic round trip. Read uses all sessions; write uses
+attempted writes; read-back uses returned references; round trip uses all captured
+submissions, including those without read-back.}\label{tab:e1workflow}
+\scriptsize\setlength{\tabcolsep}{3pt}
+% Generated; edit source results or generator, never these values.
+\begin{tabular}{llllll}
+\hline
+Cohort & Sessions & Read & Write & Read-back & Round-trip \\[4pt]
+\hline\noalign{\vskip 3pt}
+Templated cohort & 200 & \begin{tabular}[t]{@{}l@{}}100.0\%\\(200/200)\end{tabular} & \begin{tabular}[t]{@{}l@{}}100.0\%\\(200/200)\end{tabular} & \begin{tabular}[t]{@{}l@{}}100.0\%\\(600/600)\end{tabular} & \begin{tabular}[t]{@{}l@{}}100.0\%\\(600/600)\end{tabular} \\[3pt]
+Scenario cohort & 150 & \begin{tabular}[t]{@{}l@{}}100.0\%\\(150/150)\end{tabular} & \begin{tabular}[t]{@{}l@{}}100.0\%\\(150/150)\end{tabular} & \begin{tabular}[t]{@{}l@{}}100.0\%\\(450/450)\end{tabular} & \begin{tabular}[t]{@{}l@{}}100.0\%\\(450/450)\end{tabular} \\[3pt]
+Smoking writeback & 10 & \begin{tabular}[t]{@{}l@{}}100.0\%\\(10/10)\end{tabular} & \begin{tabular}[t]{@{}l@{}}100.0\%\\(10/10)\end{tabular} & \begin{tabular}[t]{@{}l@{}}100.0\%\\(40/40)\end{tabular} & \begin{tabular}[t]{@{}l@{}}100.0\%\\(40/40)\end{tabular} \\[3pt]
+\hline
+\end{tabular}
+
+\end{table}
+
+\subsection{R3--R6: questionnaire, evidence, rules, and completion}
+R3 is \textbf{\RThreeVerdict{}}: written-FHIR paths match in
+\ETwoWrittenPathAgree{}/\ETwoWrittenPathCompared{} comparable sessions, versus
+\ETwoFixtureActualPathAgree{}/\ETwoFixtureActualPathCompared{} using runtime
+answer strings. \ETwoWrittenPathExcluded{} expected chief stops are excluded;
+\ETwoWrittenPathUnknown{} paths are unknown.
+Patient-entered controls agree in
+\ETwoWrittenPathPatientControllerAgree{}/\ETwoWrittenPathPatientControllerCompared{},
+whereas EHR-prefilled controls agree in
+\ETwoWrittenPathEhrControllerAgree{}/\ETwoWrittenPathEhrControllerCompared{}
+(Online Resource 1, Section S6.3). R4 is \textbf{\RFourVerdict{}}, with traceability
+of \ETwoTraceability{}. R5 is \textbf{\RFiveVerdict{}}; nonmatching scripts are
+\RFiveFailingScripts{} (full denominators in Online Resource 1).
+R6 is \textbf{\RSixVerdict{}}, with completion of \ETwoCompletion{}, including
+\ETwoChiefStopsCompleted{} expected chief stops. Simulator fidelity is reported separately.
+
+\subsection{Descriptive prefill evidence}
+Normalization supplies answers in \EOnePrefillStatusNormalized{}/\EOnePrefillSessions{}
+E1 and \ETwoPrefillStatusNormalized{}/\ETwoPrefillSessions{} E2 sessions.
+E2 has \ETwoPrefillUnclearEntries{} unclear items and \ETwoPrefillFailed{} failures;
+Gemma prefill has \EThreeLocalPrefillFailed{} timeout.
+Separate feasibility matching is \PrefillFeasibilityExactRate{} over
+\PrefillFeasibilityScored{} provisionally labeled entries; truncated inputs include
+\PrefillFeasibilityTruncatedGuessed{}/\PrefillFeasibilityTruncated{} guessed items
+(Online Resource 1).
+
+\subsection{R7: configuration-only replacement}
+R7 is \textbf{\EThreeAlternateSwapVerdict{}} for alternate Gemini and
+\textbf{\EThreeLocalSwapVerdict{}} for local Gemma
+(Table~\ref{tab:e3}). The comparison checks executable fingerprints and default-relative
+requirement/per-script outcomes. Relative agreement does not establish safety.
+Gemma differs on \EThreeLocalSwapFailingScripts{}.
+R3 is \EThreeDefaultRThreeVerdict{}/\EThreeAlternateRThreeVerdict{} for
+default/alternate configurations. Gemma's R3 is \EThreeLocalRThreeVerdict{}
+(\EThreeGemmaWrittenPathAgree{}/\EThreeGemmaWrittenPathCompared{}), with
+\EThreeLocalHandoffs{} unexpected chief handoffs rather than coding divergences;
+completion is \EThreeLocalCompleted{}/\EThreeLocalSessions{}.
+
+\begin{table}[t]\centering\footnotesize
+\caption{E3 requirement verdicts by configuration. R7 compares each replacement
+with the default, including per-script completion, path, and red-flag outcomes;
+shared rule gaps do not themselves fail this relative check. Code lines exclude
+one-time adapter implementation.}\label{tab:e3}
+\setlength{\tabcolsep}{3pt}
+% Generated; edit source results or generator, never these values.
+\begin{tabular}{@{}lp{3.2cm}p{3.2cm}p{3.2cm}@{}}
+\hline
+Check & Default Gemini & Alternate Gemini & Local Gemma 3 \\[4pt]
+\hline\noalign{\vskip 3pt}
+R1 & Pass & Pass & Pass \\[3pt]
+R2 & Pass & Pass & Pass \\[3pt]
+R3 & Pass & Pass & Fail \\[3pt]
+R4 & Pass & Pass & Pass \\[3pt]
+R5 & Fail & Fail & Fail \\[3pt]
+R6 & Pass & Pass & Fail \\[3pt]
+Code lines & 0 & 0 & 0 \\[3pt]
+R7 & Reference & Pass & Fail \\[3pt]
+\hline
+\end{tabular}
+
+\end{table}
+
+\subsection{R8 and R9: unavailable acceptance evidence}
+R8 is \textbf{\REightVerdict{}} without national-demand evidence
+(\texttt{TODO\_PEAK\_DEMAND}); local stopping rules cannot substitute.
+R9 is \textbf{\RNineVerdict{}} without exchange-hub access. Local load,
+timing, and bounded usage/cost observations are descriptive (Online Resource 1).
+
+\section{Discussion}\label{sec:discussion}
+\subsection{Principal findings}
+ELVINA keeps question selection under questionnaire rules and confines LLMs to
+bounded tasks: chief-complaint extraction with verbatim evidence, classification
+of EHR history into questionnaire options, and draft reports. The verification
+shows that this division, which FIRM prescribes, can be checked requirement by
+requirement. Question selection (R0) was \RZeroVerdict{}; written-resource
+conformance and read-back (R1, R2) were \ROneVerdict{} and \RTwoVerdict{}; written
+and runtime question paths (R3) were \RThreeVerdict{}; fact traceability (R4) and
+end-to-end completion (R6) were \RFourVerdict{} and \RSixVerdict{}. Replacing the
+commercial model through configuration alone was \EThreeAlternateSwapVerdict{},
+supporting the claim that model-dependent components sit behind a replaceable
+adapter.
+
+LLM-led diagnostic dialogue systems select their own questions
+\citep{tuConversationalDiagnosticArtificial2025}, and evaluations that require
+models to elicit information through conversation report weaker performance than
+vignette-based testing \citep{johriCraftMd2025,schmidgallAgentClinic2024}. ELVINA
+trades conversational flexibility for predictable, auditable question selection;
+that predictability is what made path-level verification possible. EHR-history
+classification does influence which history questions are skipped, but the next
+question is still chosen by the questionnaire rules. Whether fixed questionnaires
+elicit as much relevant history as free dialogue is a separate empirical question
+not addressed here.
+
+\subsection{Defects found by verification}
+The checks exposed defects that component tests had not revealed. First, the
+runtime evaluated free-text EHR history by substring while the written FHIR
+representation used coded answers, so an earlier verification round found written
+paths that disagreed with the questions actually asked. The remediation classifies
+EHR history entries into questionnaire options by index and leaves both history
+questions to the patient whenever any entry is unclear or classification fails;
+in the selected runs R3 is \RThreeVerdict{} against the unchanged written-resource
+criterion. Second, prefilled history was silently truncated at a fixed length;
+oversized input is now rejected explicitly. Third, comparing each scenario's FHIR
+record with its prefill showed that prefill ignored coded smoking-status
+Observations, so patients answered a question the EHR already held; prefill now
+maps the latest valid status and leaves unknown status to the patient. Fourth,
+chief-complaint findings for
+suspected pulmonary embolism and for abdominal pain radiating to the back with a
+known aneurysm were extracted correctly, but no rule combined them (R5,
+\RFiveVerdict{}: \RFiveFailingScripts{}). Candidate rules drafted from current
+guidance \citep{konstantinidesEscPe2020,wanhainenEsvsAaa2024} await physician
+approval and new physician-written scenarios, and were not enabled. Finally,
+screening runs only at the chief complaint, so later questionnaire selections such
+as fainting do not raise an alert; simulated-patient answers that contradicted
+their scripts illustrated this gap.
+
+Configuration-level replaceability did not guarantee behavioural equivalence. The
+local open-weight model was \EThreeLocalSwapVerdict{} for R7 (\RSevenFailingScripts{}),
+through chief-stage handoffs after timeouts, missed expected stops, and a
+conservative prefill fallback that returned chronic history to the patient; its R3
+failures reflect those handoffs rather than path disagreement. Each model
+replacement therefore needs re-verification against the same requirements.
+The prototype model-led engine plugs into the same interview interface through
+configuration, which shows that the architecture also allows the interview engine
+to be replaced; because it was not evaluated, no behavioural claim is made for it.
+National capacity (R8) needs an authoritative demand target, and exchange-hub
+interoperability (R9) needs authorized test access.
+
+\subsection{Limitations and clinical review needs}
+Verdicts remain provisional pending physician review of the scenarios and
+independent audits. Requirement-defined criteria were applied post~hoc, and
+clinician confirmation was simulated. The LLM-simulated patient sometimes
+contradicted its script; these answers were recorded as patient-reported and limit
+scenario fidelity rather than the path and write-back checks. EHR-history
+classification is not clinical confirmation: the default model assigned some
+entries to listed options that a provisional reference does not support, such as
+prediabetes as diabetes and colon polyps as cancer
+(\EOnePrefillListedDisagree{} entries in the templated cohort), excluded some
+chronic conditions, and was not fully consistent across sessions (Online
+Resource~1, Section S6). These answers are written back as unconfirmed EHR prefill,
+and the original EHR text remains available to clinicians; the classifier was not
+modified for this study. Its reference labels lack physician review, and synthetic
+disease-name distributions do not establish accuracy on real EHR data.
+Structural/profile checks ran without terminology resolution. Synthetic
+demographics and sandbox interoperability do not establish clinical utility,
+production authorization, tenant isolation, browser SMART integration, or
+deployment readiness; terminology review, institutional governance, and human
+approval remain necessary.
+
+\section{Conclusion}\label{sec:conclusion}
+ELVINA, built on the FIRM framework, keeps question selection under
+questionnaire rules and writes results back as TW Core FHIR resources, and it
+can be verified against explicit requirements. Requirements \PassingRequirements{}
+passed and \FailingRequirements{} failed in this software verification; the failures
+identify concrete defects with documented remediations or pending clinical
+decisions. Replacing the commercial model by configuration was
+\EThreeAlternateSwapVerdict{}, whereas a local open-weight model was
+\EThreeLocalSwapVerdict{}. Clinical validation, national-scale capacity
+(\REightVerdict{}), and exchange-hub integration (\RNineVerdict{}) remain future work.
+
+\backmatter
+\bmhead{Supplementary information}
+Online Resource 1 documents methods, results, and limitations. Online Resource 2
+supplies machine-readable synthetic materials, configurations, and provenance.
+Scenario approvals and the clinician screenshot remain pending.
+
+\bmhead{Acknowledgements}
+Author confirmation is pending.
+
+\section*{Declarations}
+\textbf{Funding, competing interests, and contributions.} Author statements and
+final approval are pending.\par
+\textbf{Ethics and consent.} Only synthetic data were used. Authors must confirm
+the applicable institutional determination; no ethics approval is asserted.\par
+\textbf{Data availability.} Online Resource 2 contains synthetic materials and
+selected results/provenance; full sessions and RAG source text are excluded.
+Medscape \citep{medscapeReference} redistribution rights require author confirmation
+(\texttt{TODO\_AUTHOR}).\par
+\textbf{Code availability.} Reproduction commands and source paths accompany
+Online Resource 2; the public repository location, archival identifier, and code/data
+licenses remain \texttt{TODO\_AUTHOR}.\par
+\textbf{AI assistance.} Claude Code and Codex assisted implementation, scenario
+drafting, orchestration, source checking, and manuscript revision. Model/tool
+disclosures and unrecorded versions appear in Online Resource 1, Section S5.
+Authors must confirm disclosure details, verify citations and content, and approve
+the text (\texttt{TODO\_AUTHOR}); independent audits remain pending.
+
+\bibliography{sn-bibliography}
+
+\end{document}

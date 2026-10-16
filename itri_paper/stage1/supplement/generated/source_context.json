@@ -19,7 +19,7 @@
       },
       {
         "code": "symptom_chest_pain",
-        "evidence": "左邊胸痛",
+        "evidence": "胸痛",
         "route": "",
         "source": "chief_semantic_extraction",
         "status": "present",
@@ -41,12 +41,7 @@
         "question": "請自由描述今天最不舒服的症狀、部位，以及發生的情況。"
       },
       {
-        "answer": "沒有，從未抽菸",
-        "field": "smoke",
-        "question": "平時是否有抽菸習慣？"
-      },
-      {
-        "answer": "其他：不知道",
+        "answer": "以上皆無",
         "field": "past_meds",
         "question": "之前是否曾接受過以下藥物治療？"
       },
@@ -54,6 +49,11 @@
         "answer": "沒有",
         "field": "allergy",
         "question": "是否有特殊藥物或食物過敏？"
+      },
+      {
+        "answer": "1天前",
+        "field": "onset",
+        "question": "胸痛從什麼時候開始？"
       }
     ],
     "dialogue_omission": "Only the first four questionnaire turns are shown; remaining turns and raw model outputs are omitted.",
@@ -69,17 +69,17 @@
               }
             }
           ],
-          "date": "2026-10-14T10:21:49.861642Z",
+          "date": "2026-10-15T17:43:13.092472Z",
           "encounter": {
-            "reference": "Encounter/exp-20261014t101952z-default--cp-01--r1-enc"
+            "reference": "Encounter/exp-20261015t174113z-default--cp-01--r1-enc"
           },
-          "id": "501044",
+          "id": "508208",
           "identifier": {
             "system": "https://medical-consultation.local/fhir/consultations",
-            "value": "local-development:2026-10-14:10007"
+            "value": "local-development:2026-10-16:10007"
           },
           "meta": {
-            "lastUpdated": "2026-10-14T10:21:49.873+00:00",
+            "lastUpdated": "2026-10-15T17:43:13.107+00:00",
             "profile": [
               "https://twcore.mohw.gov.tw/ig/twcore/StructureDefinition/Composition-twcore"
             ],
@@ -96,28 +96,28 @@
           "section": [
             {
               "text": {
-                "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>A 61-year-old male patient presents with Left-sided chest pain for three days.</p></div>",
+                "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>A 62-year-old male patient presents with Left-sided chest pain for three days, aggravated by twisting or arm elevation, with localized tenderness.</p></div>",
                 "status": "additional"
               },
               "title": "Chief Complaint"
             },
             {
               "text": {
-                "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>The patient is a male with a history of hypertension presenting with mild, sharp left-sided chest pain of gradual onset lasting for three days. The pain is localized, fixed, reproducible with palpation, and aggravated by turning or raising the arm, while relieved by rest. There are no associated symptoms.</p></div>",
+                "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>The patient is a male with a history of hypertension presenting with mild, sharp left-sided chest pain of gradual onset lasting for 3 days. The pain is localized, reproducible by palpation, and aggravated by turning or raising the arm, while relieved by rest. There are no associated symptoms reported.</p></div>",
                 "status": "additional"
               },
               "title": "Present Illness"
             },
             {
               "text": {
-                "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>Hypertension. No history of prior surgery.</p></div>",
+                "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>Hypertension, managed with amlodipine 5 mg once daily. No history of prior surgeries.</p></div>",
                 "status": "additional"
               },
               "title": "Past History"
             },
             {
               "text": {
-                "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>Past medications: Not provided. Current medications: Amlodipine 5 mg once daily.</p></div>",
+                "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>Amlodipine 5 mg once daily. Past medications: None reported.</p></div>",
                 "status": "additional"
               },
               "title": "Drug History"
@@ -131,7 +131,7 @@
             },
             {
               "text": {
-                "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>The patient has a history of hypertension and is currently taking Amlodipine 5 mg once daily. He is a lifelong non-smoker. Alcohol, betel nut, recent travel, occupation, contact, and cluster histories were not provided.</p></div>",
+                "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>The patient is a nonsmoker with a history of hypertension. Alcohol, betel nut, recent travel, occupational, contact, and cluster history are not provided.</p></div>",
                 "status": "additional"
               },
               "title": "Personal History"
@@ -151,10 +151,7 @@
               ],
               "entry": [
                 {
-                  "reference": "QuestionnaireResponse/501042"
-                },
-                {
-                  "reference": "Observation/501043"
+                  "reference": "QuestionnaireResponse/508207"
                 }
               ],
               "text": {
@@ -180,90 +177,8 @@
           }
         },
         "source": {
-          "path": "experiments/results/e2_end_to_end/20261014T101952Z/sessions/default__CP-01__r1/fhir/written/Composition-501044.json",
-          "sha256": "e17840e25ee4eda8cac245b174350d5263403454827caa47c202c4bef54da509"
-        }
-      },
-      "Observation": {
-        "resource": {
-          "category": [
-            {
-              "coding": [
-                {
-                  "code": "social-history",
-                  "display": "Social History",
-                  "system": "http://terminology.hl7.org/CodeSystem/observation-category"
-                }
-              ]
-            }
-          ],
-          "code": {
-            "coding": [
-              {
-                "code": "72166-2",
-                "display": "Tobacco smoking status",
-                "system": "http://loinc.org"
-              }
-            ]
-          },
-          "derivedFrom": [
-            {
-              "reference": "QuestionnaireResponse/501042"
-            }
-          ],
-          "effectiveDateTime": "2026-10-14T10:21:49.826000Z",
-          "encounter": {
-            "reference": "Encounter/exp-20261014t101952z-default--cp-01--r1-enc"
-          },
-          "id": "501043",
-          "identifier": [
-            {
-              "system": "https://medical-consultation.local/fhir/consultations",
-              "value": "local-development:2026-10-14:10007:smoking-status"
-            }
-          ],
-          "meta": {
-            "lastUpdated": "2026-10-14T10:21:49.873+00:00",
-            "profile": [
-              "https://twcore.mohw.gov.tw/ig/twcore/StructureDefinition/Observation-smoking-status-twcore"
-            ],
-            "security": [
-              {
-                "code": "PATAST",
-                "display": "patient asserted",
-                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationValue"
-              }
-            ],
-            "versionId": "1"
-          },
-          "performer": [
-            {
-              "reference": "Patient/syn-6d30c8d2-ee90-9108-f102-e635914928cf"
-            }
-          ],
-          "resourceType": "Observation",
-          "status": "final",
-          "subject": {
-            "reference": "Patient/syn-6d30c8d2-ee90-9108-f102-e635914928cf"
-          },
-          "text": {
-            "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>Patient-reported tobacco smoking status.</p></div>",
-            "status": "additional"
-          },
-          "valueCodeableConcept": {
-            "coding": [
-              {
-                "code": "266919005",
-                "display": "Never smoked tobacco",
-                "system": "http://snomed.info/sct"
-              }
-            ],
-            "text": "沒有，從未抽菸"
-          }
-        },
-        "source": {
-          "path": "experiments/results/e2_end_to_end/20261014T101952Z/sessions/default__CP-01__r1/fhir/written/Observation-501043.json",
-          "sha256": "21fc0ddf1f1efde790cda575e10db214d2937c844eb3e077148cf62ee26384e4"
+          "path": "experiments/results/e2_end_to_end/20261015T174113Z/sessions/default__CP-01__r1/fhir/written/Composition-508208.json",
+          "sha256": "30b8032e71f99574e362fe53c870e2febcbe9ace7812ccae1d932fbaf0afc75d"
         }
       },
       "Provenance": {
@@ -371,35 +286,32 @@
             {
               "role": "source",
               "what": {
-                "reference": "QuestionnaireResponse/501042"
+                "reference": "QuestionnaireResponse/508207"
               }
             }
           ],
-          "id": "501045",
+          "id": "508209",
           "meta": {
-            "lastUpdated": "2026-10-14T10:21:49.873+00:00",
+            "lastUpdated": "2026-10-15T17:43:13.107+00:00",
             "profile": [
               "https://twcore.mohw.gov.tw/ig/twcore/StructureDefinition/Provenance-twcore"
             ],
             "tag": [
               {
-                "code": "local-development:2026-10-14:10007:provenance",
+                "code": "local-development:2026-10-16:10007:provenance",
                 "system": "https://medical-consultation.local/fhir/CodeSystem/writeback-key"
               }
             ],
             "versionId": "1"
           },
-          "recorded": "2026-10-14T10:21:49.870258Z",
+          "recorded": "2026-10-15T17:43:13.104018Z",
           "resourceType": "Provenance",
           "target": [
             {
-              "reference": "QuestionnaireResponse/501042"
+              "reference": "QuestionnaireResponse/508207"
             },
             {
-              "reference": "Observation/501043"
-            },
-            {
-              "reference": "Composition/501044"
+              "reference": "Composition/508208"
             }
           ],
           "text": {
@@ -408,8 +320,8 @@
           }
         },
         "source": {
-          "path": "experiments/results/e2_end_to_end/20261014T101952Z/sessions/default__CP-01__r1/fhir/written/Provenance-501045.json",
-          "sha256": "e40214a2cba9ac7cbf810e6d2364e8d7c440d3adb839840110b0f3d4ec5a8f92"
+          "path": "experiments/results/e2_end_to_end/20261015T174113Z/sessions/default__CP-01__r1/fhir/written/Provenance-508209.json",
+          "sha256": "680b72544af5932d3984d90a99842e31b85dc4bcec45028b8ca5bddffa847924"
         }
       },
       "QuestionnaireResponse": {
@@ -417,14 +329,14 @@
           "author": {
             "reference": "Patient/syn-6d30c8d2-ee90-9108-f102-e635914928cf"
           },
-          "authored": "2026-10-14T10:21:49.826000Z",
+          "authored": "2026-10-15T17:43:13.046000Z",
           "encounter": {
-            "reference": "Encounter/exp-20261014t101952z-default--cp-01--r1-enc"
+            "reference": "Encounter/exp-20261015t174113z-default--cp-01--r1-enc"
           },
-          "id": "501042",
+          "id": "508207",
           "identifier": {
             "system": "https://medical-consultation.local/fhir/consultations",
-            "value": "local-development:2026-10-14:10007:questionnaire-response"
+            "value": "local-development:2026-10-16:10007:questionnaire-response"
           },
           "item": [
             {
@@ -504,7 +416,7 @@
               "extension": [
                 {
                   "url": "https://medical-consultation.local/fhir/StructureDefinition/preconsult-answer-source",
-                  "valueCode": "patient-reported"
+                  "valueCode": "ehr-prefill"
                 }
               ],
               "linkId": "smoke",
@@ -574,20 +486,9 @@
             {
               "answer": [
                 {
-                  "item": [
-                    {
-                      "answer": [
-                        {
-                          "valueString": "不知道"
-                        }
-                      ],
-                      "linkId": "past_meds.other",
-                      "text": "其他／補充說明"
-                    }
-                  ],
                   "valueCoding": {
-                    "code": "other",
-                    "display": "其他／補充說明",
+                    "code": "opt-2dc658ca75",
+                    "display": "以上皆無",
                     "system": "https://medical-consultation.local/fhir/CodeSystem/preconsult-history-past_meds"
                   }
                 }
@@ -653,7 +554,7 @@
             {
               "answer": [
                 {
-                  "valueString": "不知道"
+                  "valueString": "1天前"
                 }
               ],
               "extension": [
@@ -887,7 +788,7 @@
             }
           ],
           "meta": {
-            "lastUpdated": "2026-10-14T10:21:49.873+00:00",
+            "lastUpdated": "2026-10-15T17:43:13.107+00:00",
             "profile": [
               "https://twcore.mohw.gov.tw/ig/twcore/StructureDefinition/QuestionnaireResponse-twcore"
             ],
@@ -915,17 +816,17 @@
           }
         },
         "source": {
-          "path": "experiments/results/e2_end_to_end/20261014T101952Z/sessions/default__CP-01__r1/fhir/written/QuestionnaireResponse-501042.json",
-          "sha256": "3c1e5fb2dbdda62d9de4d868b10db2ddf478d51952288910db233d3cbc772ebb"
+          "path": "experiments/results/e2_end_to_end/20261015T174113Z/sessions/default__CP-01__r1/fhir/written/QuestionnaireResponse-508207.json",
+          "sha256": "f936674c465527db8fac26b89ffc34c553f117f253c13f666b26a84d2555c892"
         }
       }
     },
     "script_id": "CP-01",
-    "selection_rule": "Lexicographically first chest session with all four written resource types in the selected E2 run.",
+    "selection_rule": "Lexicographically first chest session with QuestionnaireResponse, Composition and Provenance in the selected E2 run; no selected chest session wrote a smoking Observation because every scenario patient's coded smoking status was prefilled from the EHR.",
     "session_key": "default__CP-01__r1",
     "source": {
-      "path": "experiments/results/e2_end_to_end/20261014T101952Z/sessions/default__CP-01__r1/session.json",
-      "sha256": "34ad1e46aa43ed4a8cf18fbb88956eebc5b5c2ab0d0d4a4e9d1ae77a1f508553"
+      "path": "experiments/results/e2_end_to_end/20261015T174113Z/sessions/default__CP-01__r1/session.json",
+      "sha256": "12ac2247445502df56776640948ef40ea1426a7a6d91d8c2fc28b8c7ee093d3c"
     },
     "status": "provisional: pending physician review; not clinically validated"
   },
@@ -1149,6 +1050,95 @@
     "visual_change_unspecified",
     "vomiting"
   ],
+  "observation_example": {
+    "resource": {
+      "category": [
+        {
+          "coding": [
+            {
+              "code": "social-history",
+              "display": "Social History",
+              "system": "http://terminology.hl7.org/CodeSystem/observation-category"
+            }
+          ]
+        }
+      ],
+      "code": {
+        "coding": [
+          {
+            "code": "72166-2",
+            "display": "Tobacco smoking status",
+            "system": "http://loinc.org"
+          }
+        ]
+      },
+      "derivedFrom": [
+        {
+          "reference": "QuestionnaireResponse/512425"
+        }
+      ],
+      "effectiveDateTime": "2026-10-16T02:12:19.430000Z",
+      "encounter": {
+        "reference": "Encounter/exp-20261016t021130z-default--tpl0000--chest-enc"
+      },
+      "id": "512426",
+      "identifier": [
+        {
+          "system": "https://medical-consultation.local/fhir/consultations",
+          "value": "local-development:2026-10-16:10002:smoking-status"
+        }
+      ],
+      "meta": {
+        "lastUpdated": "2026-10-16T02:12:19.490+00:00",
+        "profile": [
+          "https://twcore.mohw.gov.tw/ig/twcore/StructureDefinition/Observation-smoking-status-twcore"
+        ],
+        "security": [
+          {
+            "code": "PATAST",
+            "display": "patient asserted",
+            "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationValue"
+          }
+        ],
+        "versionId": "1"
+      },
+      "performer": [
+        {
+          "reference": "Patient/nosmk-syn-b5f5e380-36c9-7c49-0042-0485a1f11e32"
+        }
+      ],
+      "resourceType": "Observation",
+      "status": "final",
+      "subject": {
+        "reference": "Patient/nosmk-syn-b5f5e380-36c9-7c49-0042-0485a1f11e32"
+      },
+      "text": {
+        "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>Patient-reported tobacco smoking status.</p></div>",
+        "status": "additional"
+      },
+      "valueCodeableConcept": {
+        "coding": [
+          {
+            "code": "266919005",
+            "display": "Never smoked tobacco",
+            "system": "http://snomed.info/sct"
+          }
+        ],
+        "text": "沒有，從未抽菸"
+      }
+    },
+    "run": "experiments/results/e1_interop/20261016T021130Z",
+    "selection_rule": "Lexicographically first session and written smoking Observation in the explicitly selected supplemental run.",
+    "session_key": "default__tpl0000__chest",
+    "session_source": {
+      "path": "experiments/results/e1_interop/20261016T021130Z/sessions/default__tpl0000__chest/session.json",
+      "sha256": "eaf9bcc90ed267ff7f4b54ffe1aec5653cd95b7cc6b00fbf16913dbb91dfb1f5"
+    },
+    "source": {
+      "path": "experiments/results/e1_interop/20261016T021130Z/sessions/default__tpl0000__chest/fhir/written/Observation-512426.json",
+      "sha256": "5a7d3a65c27e7f1d3639aae7078109ef8b997e60182d910efd68fdfeccbf2639"
+    }
+  },
   "prompt_source_catalog": [
     {
       "path": "backend/amie/chief_complaint.py",
@@ -2213,11 +2203,13 @@
     "backend/questionnaire_data/trauma.json": "b7f0352ae59f023bda3a8de937dfae86cf0fadb2903cd2195e5497c09b7dc844",
     "backend/questionnaire_data/vaginal_bleeding.json": "17d0c766c8a21810a61aa713a00020f27d7f81f3e30ce952d51abaa6235680b0",
     "backend/questionnaire_data/weakness.json": "1cff9d48c513944f5062209d4298710851ab428bf4d47f0602a6cbfc5aa5a79a",
-    "experiments/config/paper_runs.json": "b204e6edc79f164366a3e9b7277375ecc67fbf8b3437e8d73a70c364f2801a10",
+    "experiments/config/paper_runs.json": "cd54f6b626d03b8ce2eeb7a8559320123ffb0cf6ddc9d584737503134e323a65",
     "experiments/config/versions.lock.yaml": "e24a0584db9948c25bfc5e25dccfd21d4d57717592779a6fd28a71dc107031ea",
     "experiments/data/scenario_cohort_scenario_v2.json": "47eb594450f26f92cce29c3fcef07deccc538730bd60f26a352301a1e9a9078e",
     "experiments/prompts/patient_agent_v1.md": "703b59ffc7b46dfaf7b196c801b6ec69f66ba0a080a934caf44595ba6181edd7",
-    "experiments/results/e2_end_to_end/20261014T101952Z/manifest.json": "5aa69ee4df47cacde802607a47c5a68a1cdd543598ab1ae9c32d69ad90e03204",
+    "experiments/results/e1_interop/20261016T021130Z/sessions/default__tpl0000__chest/fhir/written/Observation-512426.json": "5a7d3a65c27e7f1d3639aae7078109ef8b997e60182d910efd68fdfeccbf2639",
+    "experiments/results/e1_interop/20261016T021130Z/sessions/default__tpl0000__chest/session.json": "eaf9bcc90ed267ff7f4b54ffe1aec5653cd95b7cc6b00fbf16913dbb91dfb1f5",
+    "experiments/results/e2_end_to_end/20261015T174113Z/manifest.json": "3919d36f8e59d17493ff6118816f1d7c18a633d48bc8d67c6bd218615f365461",
     "experiments/scripts/AP-01.yaml": "44cf1c33ecc52322148795d64c0cb6c98ca40af09c5a4b429870418880decd95",
     "experiments/scripts/AP-02.yaml": "e11d85cdbf6722daba1b39487db5cc24587912c7961a4a86a9ff0af9238b1823",
     "experiments/scripts/AP-03.yaml": "c7d0f628001c271f5f915e1e61e0fa46ee15dd541016596fded5af12a894caf3",

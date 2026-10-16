@@ -3,15 +3,20 @@
 \hline
 ID & Requirement & Criterion source & Verdict \\[4pt]
 \hline\noalign{\vskip 3pt}
-R0 & Questionnaire rules select the next question & Principal investigator requirement; criteria applied post~hoc & Pass \\[3pt]
+\multicolumn{4}{@{}>{\raggedright\arraybackslash}p{10.7cm}@{}}{\revadd{\textbf{E1} --- FHIR conformance and read-back: \EOneTemplatedSessions{} templated sessions, \EOneScenarioSessions{} E2 sessions, and \EOneObservationSessions{} smoking write-back sessions}} \\[3pt]
 R1 & TW Core structural/profile checks & Prespecified zero errors; no validator exceptions & Pass \\[3pt]
 R2 & Write/read-back identity & Requirement-defined, applied post~hoc & Pass \\[3pt]
+\multicolumn{4}{@{}>{\raggedright\arraybackslash}p{10.7cm}@{}}{\revadd{\textbf{E2} --- End-to-end sessions: \ScenarioCount{} scripted scenarios $\times$ \ETwoRepeats{} repetitions with an LLM-simulated patient}} \\[3pt]
+R0 & Questionnaire rules select the next question & Principal investigator requirement; criteria applied post~hoc & Pass \\[3pt]
 R3 & Top-level path matches the FHIR Questionnaire & Requirement-defined, applied post~hoc & Pass \\[3pt]
 R4 & Extracted-fact traceability & Requirement-defined, applied post~hoc & Pass \\[3pt]
 R5 & Scripted safety-rule execution & Requirement-defined, applied post~hoc & Fail \\[3pt]
 R6 & End-to-end completion without handoff & Requirement-defined, applied post~hoc & Pass \\[3pt]
+\multicolumn{4}{@{}>{\raggedright\arraybackslash}p{10.7cm}@{}}{\revadd{\textbf{E3} --- Model replacement: E2 scripts rerun with the alternate commercial and local open-weight configurations}} \\[3pt]
 R7 & Configuration-only substitution retaining default behaviour & Prespecified zero code lines; default-equivalence applied post~hoc & Alternate: Pass\newline Local: Fail \\[3pt]
+\multicolumn{4}{@{}>{\raggedright\arraybackslash}p{10.7cm}@{}}{\revadd{\textbf{E4} --- Local load replay of E2 turns: mock model at \ELoadMockConcurrency{} and real model at \ERealConcurrency{} concurrent sessions}} \\[3pt]
 R8 & National peak-load capacity & No national-demand criterion available & Not verifiable \\[3pt]
+\multicolumn{4}{@{}>{\raggedright\arraybackslash}p{10.7cm}@{}}{\revadd{\textbf{E5} --- MOHW exchange-hub integration}} \\[3pt]
 R9 & MOHW hub interoperability & Access prerequisite unavailable & Blocked \\[3pt]
 \hline
 \end{tabular}

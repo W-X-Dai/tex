@@ -154,7 +154,11 @@ Questionnaire definitions separate the form from its completed response
 branch and application extensions. Every write-back excerpt comes from the same
 selected synthetic E2 session; omitted fields and the source session are identified
 by the generator. Online Resource 2 supplies the complete written resources
-verbatim.
+verbatim. Because every patient's coded smoking status was prefilled from the
+EHR, no selected E2 session wrote a smoking Observation, and the example therefore
+has no Observation. The Observation write path is exercised by the separate smoking write-back E1
+cohort, whose records contain no smoking status, so the patient answers the question
+(Section~\ref{sup:s6}).
 \input{generated/s2_sources.tex}
 The Composition title ``clinician-reviewed summary'' is the system's fixed title
 for a confirmed record. In these checks the confirmation step was performed
@@ -306,6 +310,10 @@ patient: E1 uses templated answers and E4 replays a transcript. A configured rol
 need not be called in every session, particularly when raw chief screening ends
 the workflow early. Full prompt file hashes and the patient simulator template
 follow; dynamic request context and corpus passages are not reproduced.
+The smoking write-back E1 cohort uses the same templated answers and model roles.
+It exists only to exercise the smoking Observation write path; its templated
+answers select the never-smoked option, so the current-smoker and ex-smoker
+Observation codings are covered by unit tests but not by an end-to-end run.
 \input{generated/s5_patient_prompt.tex}
 
 \texttt{TODO\_AUTHOR}: confirm the final AI-assistance disclosure. Existing

@@ -2,7 +2,7 @@
   "schema": "prefill_normalization_descriptive_v1",
   "cohorts": {
     "E1 templated": {
-      "run": "experiments/results/e1_interop/20261014T094026Z",
+      "run": "experiments/results/e1_interop/20261015T163842Z",
       "sessions": 200,
       "planned_sessions": 200,
       "missing_sessions": 0,
@@ -12,22 +12,22 @@
       "failed_sessions": 0,
       "failed_sessions_observed": 0,
       "status_counts": {
-        "normalized": 184,
+        "normalized": 183,
         "unclear": 0,
         "failed": 0,
-        "no_chronic_identified": 16,
+        "no_chronic_identified": 17,
         "no_chronic": 0,
         "disabled": 0
       },
       "category_counts": {
-        "diabetes": 133,
-        "ckd": 117,
+        "diabetes": 134,
+        "ckd": 116,
         "hyperlipidemia": 56,
         "cirrhosis": 0,
         "autoimmune": 3,
-        "cancer": 19,
-        "other_chronic": 890,
-        "exclude": 2608,
+        "cancer": 16,
+        "other_chronic": 888,
+        "exclude": 2612,
         "unclear": 0
       },
       "entries": 3764,
@@ -45,19 +45,13 @@
         "gemini-3.5-flash-lite": 200
       },
       "failure_reasons": {},
-      "listed_option_disagreements": 70,
-      "reference_chronic_excluded": 22,
+      "listed_option_disagreements": 67,
+      "reference_chronic_excluded": 21,
       "listed_option_disagreement_detail": [
         {
           "entry": "carcinoma in situ of prostate",
           "assigned": "cancer",
           "reference": "ambiguous",
-          "count": 1
-        },
-        {
-          "entry": "fibromyalgia",
-          "assigned": "autoimmune",
-          "reference": "other_chronic",
           "count": 1
         },
         {
@@ -70,7 +64,7 @@
           "entry": "idiopathic atrophic hypothyroidism",
           "assigned": "autoimmune",
           "reference": "ambiguous",
-          "count": 1
+          "count": 2
         },
         {
           "entry": "microalbuminuria due to type 2 diabetes mellitus",
@@ -85,35 +79,23 @@
           "count": 1
         },
         {
-          "entry": "neuropathy due to type 2 diabetes mellitus",
-          "assigned": "ckd",
-          "reference": "diabetes",
-          "count": 1
-        },
-        {
           "entry": "polyp of colon",
           "assigned": "cancer",
           "reference": "other_chronic",
-          "count": 4
+          "count": 2
         },
         {
           "entry": "prediabetes",
           "assigned": "diabetes",
           "reference": "ambiguous",
-          "count": 38
-        },
-        {
-          "entry": "recurrent rectal polyp",
-          "assigned": "cancer",
-          "reference": "other_chronic",
-          "count": 1
+          "count": 39
         }
       ],
       "reference_chronic_excluded_detail": [
         {
           "entry": "history of coronary artery bypass grafting",
           "reference": "other_chronic",
-          "count": 22
+          "count": 21
         }
       ],
       "per_session": [
@@ -1121,7 +1103,7 @@
         {
           "session_key": "default__tpl0143__abdomen",
           "script_id": "TPL-abdomen",
-          "status": "normalized",
+          "status": "no_chronic_identified",
           "classified_entries": 9,
           "unclear_entries": 0
         },
@@ -1520,7 +1502,7 @@
       ]
     },
     "E2 default": {
-      "run": "experiments/results/e2_end_to_end/20261014T101952Z",
+      "run": "experiments/results/e2_end_to_end/20261015T174113Z",
       "sessions": 150,
       "planned_sessions": 150,
       "missing_sessions": 0,
@@ -2628,7 +2610,7 @@
       ]
     },
     "E3 default": {
-      "run": "experiments/results/e3_swap_e2/20261014T103750Z",
+      "run": "experiments/results/e3_swap_e2/20261015T175937Z",
       "sessions": 30,
       "planned_sessions": 30,
       "missing_sessions": 0,
@@ -2889,7 +2871,7 @@
       ]
     },
     "E3 alternate": {
-      "run": "experiments/results/e3_swap_e2/20261014T104203Z",
+      "run": "experiments/results/e3_swap_e2/20261015T180403Z",
       "sessions": 30,
       "planned_sessions": 30,
       "missing_sessions": 0,
@@ -3150,7 +3132,7 @@
       ]
     },
     "E3 local": {
-      "run": "experiments/results/e3_swap_e2/20261014T104547Z",
+      "run": "experiments/results/e3_swap_e2/20261015T180753Z",
       "sessions": 30,
       "planned_sessions": 30,
       "missing_sessions": 0,

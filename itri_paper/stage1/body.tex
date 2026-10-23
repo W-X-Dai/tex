@@ -5,6 +5,14 @@ We verified ELVINA, FIRM's reference implementation, using synthetic
 data. Outcomes concern interchange, interview-to-write-back completion, model
 replacement, and local concurrency; clinical accuracy and note quality were outside scope.
 
+\revadd{We stated ten software requirements (R0--R9; Table~\ref{tab:requirements})
+and tested them in five verification activities (E1--E5): E1, conformance and
+write/read-back of generated FHIR resources (R1, R2); E2, end-to-end sessions in
+which an LLM-simulated patient answers \ScenarioCount{} scripted scenarios (R0,
+R3--R6); E3, E2 repeated after replacing the default model by configuration (R7);
+E4, local concurrent-load replay (R8); and E5, integration with the MOHW exchange
+hub, which could not be run (R9).}
+
 ELVINA combines Vue patient and clinician interfaces, a FastAPI
 backend, local retrieval, and a HAPI FHIR R4 sandbox (Fig.~\ref{fig:system})
 \citep{vueJs,fastApi,hapiFHIR,fhirR4}.
@@ -136,9 +144,9 @@ requirement were applied post~hoc on 2026-10-14. These are software criteria,
 not prospective clinical thresholds; missing evidence is indeterminate.
 
 \begin{table}[t]\centering\footnotesize
-\caption{Requirements, criterion sources, and generated verdicts. R0 uses E2 with
-E3 descriptive checks; R1/R2 use E1;
-R3--R6 use E2; R7 uses E3; R8 uses E4; R9 concerns E5. R7 is reported separately
+\caption{Requirements, criterion sources, and generated verdicts\revadd{, grouped
+by the verification activity that supplies their evidence. R0 also uses E3
+descriptive checks}. R7 is reported separately
 for each replacement in Table~\ref{tab:e3}.}\label{tab:requirements}
 \setlength{\tabcolsep}{3pt}
 \input{tables/tab_requirements.tex}
@@ -153,7 +161,11 @@ Bounded, incomplete usage cannot establish a complete call history.
 
 E1 uses the pinned HL7/TW Core validator and generated definitions
 \citep{hl7Validator,twcoreIG}. R1 requires zero written-resource errors/exceptions
-across templated and E2 cohorts. Checks use \texttt{-tx n/a}, without terminology
+across templated, smoking write-back, and E2 cohorts. Because every templated and
+scenario record holds a coded smoking status that is prefilled, the separate smoking
+write-back cohort of \EOneObservationSessions{} base-cohort patients outside the
+templated sample, with every smoking-status Observation removed, exercises the
+Observation write path. Checks use \texttt{-tx n/a}, without terminology
 resolution. R2 requires substantive write/read-back identity after excluding
 specified server metadata/identifiers. Missing outcomes cannot pass; supplemental
 E1 is counted once (Online Resource 1, Sections S3 and S7).
@@ -185,8 +197,6 @@ exchange-hub access. Frozen runs and source hashes generate results; repetitions
 are not independent clinical observations.
 
 \section{Results}\label{sec:results}
-\textbf{[TODO\_RERUN: all generated numbers, tables and verdicts still come from the runs before the smoking-status prefill fix; regenerate after the E1--E4 reruns and recheck the prose.]}
-
 
 \subsection{R0: deterministic question selection}
 R0 is \textbf{\RZeroVerdict{}}. Among \ETwoDetCalls{} saved calls,
@@ -202,14 +212,17 @@ unknown sources; unknowns are not counted as keywords.
 
 \subsection{R1 and R2: written resources and read-back}
 R1 is \textbf{\ROneVerdict{}} and R2 is \textbf{\RTwoVerdict{}}.
-Across \EOneTemplatedSessions{} templated and \EOneScenarioSessions{} E2 sessions,
-\EOneResources{} written resources have \EOneErrors{} structural/profile errors
+Across \EOneTemplatedSessions{} templated, \EOneObservationSessions{} smoking write-back,
+and \EOneScenarioSessions{} E2 sessions, \EOneResources{} written resources have
+\EOneErrors{} structural/profile errors
 and \EOneValidatorCrashes{} validator exceptions under \texttt{-tx n/a}
 (Tables~\ref{tab:e1} and~\ref{tab:e1workflow}). Of
 \EOneQuestionnaireResponses{} QuestionnaireResponses, \EOneQRErrors{} errors and
 \EOneQRUnverified{} unverified responses are recorded. Warnings comprise
 \EOneProvenanceWarnings{} Provenance terminology and \EOneCompositionWarnings{}
-Composition narrative warnings. The pinned participant-type CodeSystem remains unavailable.
+Composition narrative warnings. The smoking write-back cohort wrote
+\EOneObservationResources{} smoking Observations with \EOneObservationErrors{} errors.
+The pinned participant-type CodeSystem remains unavailable.
 
 \begin{table}[t]\centering
 \caption{E1 written-resource verification. Input checks are excluded; exceptions
@@ -328,8 +341,9 @@ their scripts illustrated this gap.
 
 Configuration-level replaceability did not guarantee behavioural equivalence. The
 local open-weight model was \EThreeLocalSwapVerdict{} for R7 (\RSevenFailingScripts{}),
-through chief-stage handoffs after timeouts and missed expected stops; its R3
-failures also reflect those handoffs rather than path disagreement. Each model
+through chief-stage handoffs after timeouts, missed expected stops, and a
+conservative prefill fallback that returned chronic history to the patient; its R3
+failures reflect those handoffs rather than path disagreement. Each model
 replacement therefore needs re-verification against the same requirements.
 The prototype model-led engine plugs into the same interview interface through
 configuration, which shows that the architecture also allows the interview engine

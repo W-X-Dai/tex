@@ -61,7 +61,7 @@
   "e3": [
     {
       "config": "default",
-      "e2_run": "experiments/results/e3_swap_e2/20261014T103750Z",
+      "e2_run": "experiments/results/e3_swap_e2/20261015T175937Z",
       "code_lines_changed_outside_config": 0,
       "completion": {
         "k": 30,
@@ -82,32 +82,32 @@
         "first_divergences": {}
       },
       "fact_traceability": {
-        "k": 93,
-        "n": 93,
+        "k": 91,
+        "n": 91,
         "rate": 1.0,
         "wilson95": [
-          0.9603324967873037,
+          0.9594959954580202,
           1.0
         ],
         "among_evidenced": {
-          "k": 93,
-          "n": 93,
+          "k": 91,
+          "n": 91,
           "rate": 1.0,
           "wilson95": [
-            0.9603324967873037,
+            0.9594959954580202,
             1.0
           ]
         },
         "denominator": "all extracted facts; missing evidence is untraceable",
-        "facts_total": 93,
-        "exact": 93,
+        "facts_total": 91,
+        "exact": 91,
         "normalized_only": 0,
         "no_evidence": 0
       },
       "validation_errors_written": 0,
-      "median_turn_latency_ms": 9.174992999760434,
-      "median_wall_clock_ms": 32553.14750148682,
-      "cost_usd_per_session_median": 0.018547675,
+      "median_turn_latency_ms": 9.233188000507653,
+      "median_wall_clock_ms": 35222.945177491056,
+      "cost_usd_per_session_median": 0.018870875000000002,
       "unpriced_models": [],
       "validated_only": false,
       "config_lines_vs_first": {
@@ -141,17 +141,16 @@
             ]
           },
           "readback_success": {
-            "k": 110,
-            "n": 110,
+            "k": 90,
+            "n": 90,
             "rate": 1.0,
             "wilson95": [
-              0.9662560641874632,
-              1.0
+              0.9590643738163189,
+              0.9999999999999998
             ]
           },
           "written_by_type": {
             "QuestionnaireResponse": 30,
-            "Observation": 20,
             "Composition": 30,
             "Provenance": 30
           },
@@ -159,34 +158,30 @@
         },
         "roundtrip": {
           "overall": {
-            "k": 110,
-            "n": 110,
+            "k": 90,
+            "n": 90,
             "rate": 1.0,
             "wilson95": [
-              0.9662560641874632,
-              1.0
+              0.9590643738163189,
+              0.9999999999999998
             ]
           },
           "compared_only": {
-            "k": 110,
-            "n": 110,
+            "k": 90,
+            "n": 90,
             "rate": 1.0,
             "wilson95": [
-              0.9662560641874632,
-              1.0
+              0.9590643738163189,
+              0.9999999999999998
             ]
           },
           "denominator": "all captured submissions; unverified submissions are not passes",
-          "submitted_total": 110,
+          "submitted_total": 90,
           "unverified_by_reason": {},
           "per_type": {
             "QuestionnaireResponse": {
               "compared": 30,
               "identical": 30
-            },
-            "Observation": {
-              "compared": 20,
-              "identical": 20
             },
             "Composition": {
               "compared": 30,
@@ -217,7 +212,7 @@
     },
     {
       "config": "llm_swap_a_gemini_alt",
-      "e2_run": "experiments/results/e3_swap_e2/20261014T104203Z",
+      "e2_run": "experiments/results/e3_swap_e2/20261015T180403Z",
       "code_lines_changed_outside_config": 0,
       "completion": {
         "k": 30,
@@ -238,32 +233,32 @@
         "first_divergences": {}
       },
       "fact_traceability": {
-        "k": 114,
-        "n": 114,
+        "k": 117,
+        "n": 117,
         "rate": 1.0,
         "wilson95": [
-          0.9674014653436566,
+          0.96821075385171,
           1.0
         ],
         "among_evidenced": {
-          "k": 114,
-          "n": 114,
+          "k": 117,
+          "n": 117,
           "rate": 1.0,
           "wilson95": [
-            0.9674014653436566,
+            0.96821075385171,
             1.0
           ]
         },
         "denominator": "all extracted facts; missing evidence is untraceable",
-        "facts_total": 114,
-        "exact": 114,
+        "facts_total": 117,
+        "exact": 117,
         "normalized_only": 0,
         "no_evidence": 0
       },
       "validation_errors_written": 0,
-      "median_turn_latency_ms": 9.47500902111642,
-      "median_wall_clock_ms": 30214.12796599907,
-      "cost_usd_per_session_median": 0.0095481,
+      "median_turn_latency_ms": 9.728801029268652,
+      "median_wall_clock_ms": 31195.8269639872,
+      "cost_usd_per_session_median": 0.0096793,
       "unpriced_models": [],
       "validated_only": false,
       "config_lines_vs_first": {
@@ -297,17 +292,16 @@
             ]
           },
           "readback_success": {
-            "k": 110,
-            "n": 110,
+            "k": 90,
+            "n": 90,
             "rate": 1.0,
             "wilson95": [
-              0.9662560641874632,
-              1.0
+              0.9590643738163189,
+              0.9999999999999998
             ]
           },
           "written_by_type": {
             "QuestionnaireResponse": 30,
-            "Observation": 20,
             "Composition": 30,
             "Provenance": 30
           },
@@ -315,34 +309,30 @@
         },
         "roundtrip": {
           "overall": {
-            "k": 110,
-            "n": 110,
+            "k": 90,
+            "n": 90,
             "rate": 1.0,
             "wilson95": [
-              0.9662560641874632,
-              1.0
+              0.9590643738163189,
+              0.9999999999999998
             ]
           },
           "compared_only": {
-            "k": 110,
-            "n": 110,
+            "k": 90,
+            "n": 90,
             "rate": 1.0,
             "wilson95": [
-              0.9662560641874632,
-              1.0
+              0.9590643738163189,
+              0.9999999999999998
             ]
           },
           "denominator": "all captured submissions; unverified submissions are not passes",
-          "submitted_total": 110,
+          "submitted_total": 90,
           "unverified_by_reason": {},
           "per_type": {
             "QuestionnaireResponse": {
               "compared": 30,
               "identical": 30
-            },
-            "Observation": {
-              "compared": 20,
-              "identical": 20
             },
             "Composition": {
               "compared": 30,
@@ -373,7 +363,7 @@
     },
     {
       "config": "llm_swap_b_ollama",
-      "e2_run": "experiments/results/e3_swap_e2/20261014T104547Z",
+      "e2_run": "experiments/results/e3_swap_e2/20261015T180753Z",
       "code_lines_changed_outside_config": 0,
       "completion": {
         "k": 27,
@@ -392,7 +382,7 @@
           "ended_at_chief_complaint": 8
         },
         "first_divergences": {
-          "HA-02@2:past_meds->chronic": 1
+          "HA-02@1:past_meds->chronic": 1
         }
       },
       "fact_traceability": {
@@ -419,8 +409,8 @@
         "no_evidence": 0
       },
       "validation_errors_written": 0,
-      "median_turn_latency_ms": 8.941564010456204,
-      "median_wall_clock_ms": 188835.3570564941,
+      "median_turn_latency_ms": 9.232158015947789,
+      "median_wall_clock_ms": 183259.75662501878,
       "cost_usd_per_session_median": 0.0,
       "unpriced_models": [],
       "validated_only": false,
@@ -455,17 +445,16 @@
             ]
           },
           "readback_success": {
-            "k": 109,
-            "n": 109,
+            "k": 90,
+            "n": 90,
             "rate": 1.0,
             "wilson95": [
-              0.9659570257299043,
-              0.9999999999999999
+              0.9590643738163189,
+              0.9999999999999998
             ]
           },
           "written_by_type": {
             "QuestionnaireResponse": 30,
-            "Observation": 19,
             "Composition": 30,
             "Provenance": 30
           },
@@ -473,34 +462,30 @@
         },
         "roundtrip": {
           "overall": {
-            "k": 109,
-            "n": 109,
+            "k": 90,
+            "n": 90,
             "rate": 1.0,
             "wilson95": [
-              0.9659570257299043,
-              0.9999999999999999
+              0.9590643738163189,
+              0.9999999999999998
             ]
           },
           "compared_only": {
-            "k": 109,
-            "n": 109,
+            "k": 90,
+            "n": 90,
             "rate": 1.0,
             "wilson95": [
-              0.9659570257299043,
-              0.9999999999999999
+              0.9590643738163189,
+              0.9999999999999998
             ]
           },
           "denominator": "all captured submissions; unverified submissions are not passes",
-          "submitted_total": 109,
+          "submitted_total": 90,
           "unverified_by_reason": {},
           "per_type": {
             "QuestionnaireResponse": {
               "compared": 30,
               "identical": 30
-            },
-            "Observation": {
-              "compared": 19,
-              "identical": 19
             },
             "Composition": {
               "compared": 30,

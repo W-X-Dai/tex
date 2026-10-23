@@ -106,21 +106,21 @@ All following excerpts use the same provisional synthetic session: default\_\_CP
 \begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\scriptsize]
 {
   "encounter": {
-    "reference": "Encounter/exp-20261014t101952z-default--cp-01--r1-enc"
+    "reference": "Encounter/exp-20261015t174113z-default--cp-01--r1-enc"
   },
-  "id": "501044",
+  "id": "508208",
   "resourceType": "Composition",
   "section": [
     {
       "text": {
-        "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>A 61-year-old male patient presents with Left-sided chest pain for three days.</p></div>",
+        "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>A 62-year-old male patient presents with Left-sided chest pain for three days, aggravated by twisting or arm elevation, with localized tenderness.</p></div>",
         "status": "additional"
       },
       "title": "Chief Complaint"
     },
     {
       "text": {
-        "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>The patient is a male with a history of hypertension presenting with mild, sharp left-sided chest pain of gradual onset lasting for three days. The pain is localized, fixed, reproducible with palpation, and aggravated by turning or raising the arm, while relieved by rest. There are no associated symptoms.</p></div>",
+        "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>The patient is a male with a history of hypertension presenting with mild, sharp left-sided chest pain of gradual onset lasting for 3 days. The pain is localized, reproducible by palpation, and aggravated by turning or raising the arm, while relieved by rest. There are no associated symptoms reported.</p></div>",
         "status": "additional"
       },
       "title": "Present Illness"
@@ -139,43 +139,6 @@ All following excerpts use the same provisional synthetic session: default\_\_CP
         "system": "http://loinc.org"
       }
     ]
-  }
-}
-\end{Verbatim}
-\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\scriptsize]
-{
-  "code": {
-    "coding": [
-      {
-        "code": "72166-2",
-        "display": "Tobacco smoking status",
-        "system": "http://loinc.org"
-      }
-    ]
-  },
-  "derivedFrom": [
-    {
-      "reference": "QuestionnaireResponse/501042"
-    }
-  ],
-  "encounter": {
-    "reference": "Encounter/exp-20261014t101952z-default--cp-01--r1-enc"
-  },
-  "id": "501043",
-  "resourceType": "Observation",
-  "status": "final",
-  "subject": {
-    "reference": "Patient/syn-6d30c8d2-ee90-9108-f102-e635914928cf"
-  },
-  "valueCodeableConcept": {
-    "coding": [
-      {
-        "code": "266919005",
-        "display": "Never smoked tobacco",
-        "system": "http://snomed.info/sct"
-      }
-    ],
-    "text": "沒有，從未抽菸"
   }
 }
 \end{Verbatim}
@@ -246,18 +209,18 @@ All following excerpts use the same provisional synthetic session: default\_\_CP
     {
       "role": "source",
       "what": {
-        "reference": "QuestionnaireResponse/501042"
+        "reference": "QuestionnaireResponse/508207"
       }
     }
   ],
-  "id": "501045",
+  "id": "508209",
   "resourceType": "Provenance",
   "target": [
     {
-      "reference": "QuestionnaireResponse/501042"
+      "reference": "QuestionnaireResponse/508207"
     },
     {
-      "reference": "Observation/501043"
+      "reference": "Composition/508208"
     }
   ]
 }
@@ -265,9 +228,9 @@ All following excerpts use the same provisional synthetic session: default\_\_CP
 \begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\scriptsize]
 {
   "encounter": {
-    "reference": "Encounter/exp-20261014t101952z-default--cp-01--r1-enc"
+    "reference": "Encounter/exp-20261015t174113z-default--cp-01--r1-enc"
   },
-  "id": "501042",
+  "id": "508207",
   "item": [
     {
       "answer": [
@@ -308,3 +271,4 @@ All following excerpts use the same provisional synthetic session: default\_\_CP
   }
 }
 \end{Verbatim}
+A separate supplemental-cohort smoking Observation is provided in Online Resource 2, fhir/examples/Observation-smoking-supplement.json. It does not belong to the E2 session above. Source session: default\_\_tpl0000\_\_chest. Resource source: experiments/\allowbreak{}results/e1\_i\allowbreak{}nterop/20261\allowbreak{}016T021130Z/\allowbreak{}sessions/def\allowbreak{}ault\_\_tpl000\allowbreak{}0\_\_chest/fhi\allowbreak{}r/written/Ob\allowbreak{}servation-51\allowbreak{}2426.json; SHA-256: 5a7d3a65c27e\allowbreak{}7f1d3639aae7\allowbreak{}078109ef8b99\allowbreak{}7e60182d910e\allowbreak{}fd68fdfeccbf\allowbreak{}2639.

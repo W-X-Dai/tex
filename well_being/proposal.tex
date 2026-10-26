@@ -44,7 +44,12 @@
     rulecolor=\color{black},% 框線顏色
     xleftmargin=1.5em       % 左側縮排
 }
-
+\usepackage[
+  backend=biber,
+  style=numeric,
+  sorting=none
+]{biblatex}
+\addbibresource{ref.bib}
 
 \title{Is Eastern Happiness All the Same? Comparing Conceptions of Happiness in Taiwan, Japan, and Canada}
 \subtitle{Well-Being And Life Final Report Proposal}
@@ -67,12 +72,159 @@ It is commonly believed that students in East Asia are less happy than their Wes
 \end{abstract}
 
 \section{Introduction}
-\emph{
-A means average, B means below average, C means can't eat dinner, D means don't go home, F means find a new family.
-}
 
-Above is a common joke on the Internet to ridicule the rigid standard for Asian students.Though it is only a joke, but it also implies the Asian students' stress may be harder than students in other areas. High stress may decrease the happiness. In this research, I want to 
+\begin{quote}
+\emph{A means average, B means below average, C means can't eat dinner,
+D means don't go home, F means find a new family.}
+\end{quote}
+
+Above is a common joke on the Internet that ridicules the rigid standards for Asian students. 
+Though it is only a joke, it reflects a common stereotype: Asian students experience greater academic stress than
+students in other regions. 
+Since academic stress has been linked to anxiety, depression, and poor sleep among students \cite{pascoe2020impact}, I expected that Asian students would also be less happy.
+
+To check this idea, I looked at the World Happiness Report (WHR) 2026 \cite{helliwell2026world}. 
+At first, the ranking seems to support my expectation. 
+The United States ranked 23rd and Canada ranked 25th, while Japan ranked 61st, China ranked 65th, and South Korea ranked 67th.
+However, Taiwan is an exception. 
+It ranked 26th, almost the same as Canada, and far ahead of the other Northeast Asian countries. 
+This suggests that Northeast Asia should not be treated as one group.
+
+It is also interesting that the WHR 2026 found that young people in North America and Western Europe are much less happy than they were 15 years ago \cite{whr2026ch1}.
+The report suggests that heavy social media use may be one of the reasons, but it also points out that social media alone cannot fully explain this trend.
+
+However, the WHR ranking is based on the life evaluations of the general population, not specifically students. Moreover, the two findings above point in opposite directions. 
+The overall ranking places Northeast Asia below North America, while young people in North America are becoming
+less happy. 
+Therefore, it is unclear which pattern students would follow.
+If academic stress plays a major role, the gap between Northeast Asian and North American students may be even larger. If the decline among Western youth plays a major role, the gap may become smaller or even reverse.
+
+Based on the above, in this report I want to discover whether students in Taiwan and Japan are less happy than students in Canada. 
+Through a literature review and a small number of interviews, I also want to explore whether this gap reflects a real difference in well-being, or different cultural ideas of what happiness means.
+
+
 
 \section{Methods}
+
+\subsection{Research Design}
+This research combines a literature review with a small number of questionnaire-based interviews. 
+The literature review is the main source of evidence.
+The interviews are not meant to represent all students in each country. 
+Instead, I use them as examples to see whether the patterns in the literature also appear in the lives of real students.
+
+\subsection{Literature Review}
+I first collected literature with the help of a large language model, and then checked every reference against its original source. 
+I plan to organize the literature into three parts.
+
+First, I review large-scale data on happiness across countries, including the World Happiness Report \cite{helliwell2026world, whr2026ch1} and the PISA reports on students' well-being \cite{oecd2019pisa}. 
+These sources show the overall pattern, but most of them are not about university students.
+
+Second, I review studies on the factors that may affect students' happiness. 
+Following the mind--body--environment framework of this course, I focus on academic pressure (mind), sleep and study hours (body), and interpersonal relationships, social media, and culture (environment).
+
+Third, I connect these studies with the lectures of this course. The lecture by Prof. Pin-Hao Chen in Week 2 and the study of \cite{morelli2017empathy} help me analyze students' interpersonal
+relationships. The lecture by Prof. Kai-Ping Yao in Week 6 guides how I
+measure happiness and design my questionnaire. Finally, the lecture by
+Prof. Po-Jang Hsieh in Week 7 provides an overall framework that I use to
+integrate all the factors above.
+
+\subsection{Participants}
+I plan to invite about 10 participants through my personal network:
+students living in different cities and counties in Taiwan, a Japanese friend, and a friend studying in Canada. 
+The friend in Canada grew up in Taiwan, so her answers reflect the experience of moving between two cultures rather than that of a typical Canadian student. 
+She will also help me invite local Canadian students so that I can do a more complete comparison.
+
+\subsection{Questionnaire}
+I plan to design the questionnaire into five parts. 
+Most scales are introduced in the Week 6 lecture, and Taiwanese university student data are available for comparison.
+\begin{enumerate}[label=(\roman*)]
+  \item \textbf{Overall happiness:} one 0--10 question, using the same format as the World Happiness Report \cite{helliwell2026world}, and the Satisfaction With Life Scale \cite{diener1985satisfaction, wu2006analysis}.
+  \item \textbf{Peace of mind:} the Peace of Mind scale developed by Taiwanese researchers \cite{lee2013construct}. 
+  Western scales focus on personal satisfaction, so I add this scale to capture a calmer, more balanced kind of happiness valued in East Asian cultures.
+  \item \textbf{Academic pressure:} the short version of the Fear of Failure scale \cite{conroy2002multidimensional}. 
+  Fear of failure is also measured in PISA 2018 \cite{oecd2019pisa}, so I can compare my results with that report.
+  \item \textbf{Daily life:} weekly class hours, study hours outside class, average sleep hours, sleep quality, and daily social media use. 
+  I ask about sleep quality separately because it is more strongly related to life satisfaction than sleep hours among university students \cite{pilcher1997sleep}.
+  \item \textbf{Interpersonal relationships:} two questions adapted from
+        \cite{morelli2017empathy}: ``Who do you turn to when something bad
+        happens?'' and ``Who do you usually have fun with?''
+\end{enumerate}
+
+After the questionnaire, I will hold a short follow-up interview with
+open-ended questions, such as ``What does happiness mean to you?'' and
+``What aspects of your life do you find meaningful?'' The second question
+follows the survey of the Pew Research Center \cite{pew2021meaningful}. I
+will also ask about the answers that are especially high or low in the
+questionnaire.
+
+Taiwanese participants will receive the Chinese version, and Canadian
+participants will receive the original English version. For the Japanese
+participant, I will use published Japanese versions if they are
+available; otherwise, I will note that the translation has not been
+validated.
+
+\subsection{Procedure}
+Each participant will first fill out the questionnaire online and then
+join a 20--30 minute interview, either in person or online. Before the
+interview, I will explain the purpose of this report and ask for their
+consent. All answers will be anonymous and used only for this report.
+
+\subsection{Analysis}
+Because the sample is small, I will not perform statistical tests.
+Instead, I will compare each participant's scores with the reference data
+of Taiwanese university students presented in the Week 6 lecture. Then I will group the interview answers into
+mind, body, and environment, place them into the Week 7 framework, and
+compare them with the findings in the literature.
+
+\subsection{Limitations}
+This research has several limitations. First, the number of participants
+is small, and they are all from my personal network, so the results cannot
+represent all students in these countries. Second, my participant in
+Canada grew up in Taiwan, which makes the comparison between Taiwan and
+Canada less clear. Third, the data I review come from different surveys
+with different methods and age groups, so their numbers cannot be compared
+directly. Fourth, all measures are self-reported and collected at one time
+point, so I cannot test whether study hours, sleep, and stress cause
+changes in happiness. Finally, a large language model assisted my initial
+literature search. I checked all references manually, but some relevant
+studies may still be missing.
+
+\section{Expected Results}
+Based on the literature, I have two competing expectations. If academic
+pressure plays a major role, Taiwanese and Japanese students may report
+higher fear of failure, shorter sleep, and lower life satisfaction than
+Canadian students. If the decline of youth well-being in North America
+plays a major role, the gap may be small or even reversed.
+
+I also expect that the answer may depend on how happiness is measured.
+Taiwanese and Japanese students may score lower on life satisfaction but
+not on peace of mind, and they may find meaning in different parts of life
+than Canadian students do. If this happens, it would suggest that part of
+the gap reflects different cultural ideas of happiness rather than a real
+difference in well-being.
+
+
+\section{AI Disclosure }
+
+Fro this part of homework(i.e. proposal), I use Large Language Model(LLM) to assist me on the following parts:
+
+\begin{itemize}
+  \item Literature collection and integration.
+  \item Difficult content explanation.
+  \item Refining Writing
+\end{itemize}
+
+For the fromal research, I may use LLMs to assist me on the following parts: ()
+
+\begin{itemize}
+  \item Literature collection and integration.
+  \item Difficult content explanation.
+  \item Refining Writing.
+  \item Questionnaire design.
+  \item Translate questionnaires into different languages.
+\end{itemize}
+
+\printbibliography
+
 
 \end{document}

@@ -1,0 +1,26 @@
+\backcite {liu2023improvedllava}{{1}{(document)}{Doc-Start}}
+\backcite {llavahf2023llava15_7b}{{1}{(document)}{Doc-Start}}
+\backcite {bai2025qwen25vl}{{1}{(document)}{Doc-Start}}
+\backcite {qwen25vl7b_hf}{{1}{(document)}{Doc-Start}}
+\backcite {openai2026gpt61sol_card}{{1}{(document)}{Doc-Start}}
+\backcite {openai2026gpt61terra_card}{{1}{(document)}{Doc-Start}}
+\backcite {hsiao2024screenqa}{{1}{(document)}{Doc-Start}}
+\backcite {radford2021clip}{{1}{(document)}{Doc-Start}}
+\backcite {qwen2025qwen25}{{1}{(document)}{Doc-Start}}
+\backcite {hu2022lora}{{2}{\caption@xref {??}{ on input line 104}}{table.caption.2}}
+\backcite {llavahf2023llava15_7b}{{2}{1.5}{section*.4}}
+\backcite {radford2021clip}{{2}{1.5}{section*.4}}
+\backcite {vicuna2023}{{2}{1.5}{section*.4}}
+\backcite {bai2025qwen25vl}{{2}{1.5}{section*.4}}
+\backcite {qwen2025qwen25}{{2}{1.5}{section*.4}}
+\backcite {screenqa_dataset}{{2}{1.5}{section*.5}}
+\backcite {hsiao2024screenqa}{{2}{1.5}{section*.5}}
+\backcite {10.1145/3126594.3126651}{{2}{1.5}{section*.5}}
+\backcite {sharma2018cc3m}{{2}{1.5}{section*.5}}
+\backcite {lin2014coco}{{2}{1.5}{section*.5}}
+\backcite {NEURIPS2023_6dcf277e}{{2}{1.5}{section*.5}}
+\backcite {bai2025qwen25vl}{{3}{2.2}{section*.10}}
+\backcite {qwen25vl7b_hf}{{3}{2.2}{section*.10}}
+\backcite {zheng2023judging}{{3}{2.2}{section*.10}}
+\backcite {mcnemar1947}{{4}{3}{section*.20}}
+\backcite {liu2023improvedllava}{{6}{5.1}{section*.31}}

@@ -1,0 +1,97 @@
+\documentclass[10pt,twocolumn,letterpaper]{article}
+\usepackage[rebuttal]{cvpr}
+
+% Include other packages here, before hyperref.
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{url}
+\usepackage{microtype}
+
+\usepackage[pagebackref,breaklinks,colorlinks,bookmarks=false]{hyperref}
+
+% Support for easy cross-referencing
+\usepackage[capitalize]{cleveref}
+\crefname{section}{Sec.}{Secs.}
+\Crefname{section}{Section}{Sections}
+\Crefname{table}{Table}{Tables}
+\crefname{table}{Tab.}{Tabs.}
+
+%%%%%%%%% PAPER ID  - PLEASE UPDATE
+\def\cvprPaperID{2504.07954} 
+\def\confName{MAI}
+\def\confYear{Fall 2026}
+
+\begin{document}
+
+%%%%%%%%% TITLE - PLEASE UPDATE
+\title{Perception-R1: Pioneering Perception Policy with Reinforcement Learning\\ B12508026 Tai, Wei-Hsuan}  % **** Enter the paper title here
+
+\maketitle
+\thispagestyle{empty}
+\appendix
+
+%%%%%%%%% BODY TEXT - ENTER YOUR RESPONSE BELOW
+
+\section{Summary}
+This paper studies rule-based reinforcement learning (RL) for visual perception in multimodal LLMs.
+It applies GRPO~\cite{shao2024deepseekmath} without modification and focuses on reward design: continuous discriminative rewards (IoU, point distance, edit distance), and, for multi-object outputs, reward matching that pairs predictions with ground truths via the Hungarian algorithm before scoring.
+With Qwen2-VL-2B, Perception-R1 improves PixMo-Count by 17.9\% and RefCOCO+ by 4.2\% (val average), and with Qwen2.5-VL-3B it reaches 31.9 AP on COCO2017 val, the first pure MLLM above 30 AP.
+
+\section{Strengths}
+\begin{enumerate}
+    \item \textbf{Simple and reproducible.} No reward model or critic is needed, every reward is computed directly from the evaluation metric, and code is released.
+    \item \textbf{Effective reward matching.} Instead of requiring the model to learn the ground-truth order of objects, the paper transforms reward assignment into a bipartite matching problem and solves it with an efficient algorithm (i.e., the Hungarian algorithm), making the reward invariant to output order. Replacing it with sequential matching drops COCO AP from 31.9 to 23.5 (Table~5), the largest effect among all ablations.
+    \item \textbf{Informative comparison of SFT, RL, and SFT+RL.} On the same data, RL clearly wins on counting (78.1 vs.\ 58.0) and detection (31.9 vs.\ 25.9), but is only on par on grounding and OCR, a useful negative result for the community (Table~5).
+    \item \textbf{Careful evaluation and honest limitations.} The paper reports Acc@0.95, where LLaVA-1.5 and LLaVA-OV fall below 1\%, shows that RL does not hurt general benchmarks (Table~4), and openly admits that no perceptual ``Aha moment'' is observed (Sec.~6).
+\end{enumerate}
+
+\section{Major Weaknesses}
+\begin{enumerate}
+    \item \textbf{``Perceptual perplexity'' is defined but not disentangled.} App.~A.2 defines it as the number of possible matchings ($n!$), which is essentially the freedom of output order. RL may beat SFT simply because teacher-forced SFT must imitate one fixed ground-truth order, while RL with Hungarian matching is order-invariant, not because of RL exploration itself. A set-based SFT baseline (e.g., Hungarian-matched or randomly permuted targets) is needed to separate the two. Moreover, the reported $3.47\times10^{83}$ is a mean of $n!$, dominated by the few most crowded images, so its magnitude carries little meaning.
+
+    \item \textbf{The claim that explicit thinking is unnecessary is weakly supported.} Only a with/without ``<think>'' comparison is given, with no analysis of what the model writes inside ``<think>'' and no variation in thinking length or prompt. All results use 2B/3B models, so the drop may reflect limited model capacity rather than the nature of perception. The explanation of ``visual logic rather than semantic logic'' (Sec.~5.2) remains an untested hypothesis.
+
+    \item \textbf{Detection is evaluated under different conditions and overclaimed.} Detection switches to the stronger Qwen2.5-VL-3B and uses all 110k COCO images (Table~7), whereas Sec.~4.3 states that 5k--10k samples are used per task. The claim of ``matching or even exceeding'' expert models holds only against YOLOv3 (27.9 AP) and not against Faster R-CNN (35.6) or DETR (42.0)~\cite{carion2020detr} (Table~3b). To be fair, those experts are trained for 12--500 epochs while Perception-R1 uses one RL epoch, so ``approaching classic detectors'' would be accurate.
+    
+    \item (2026) \textbf{Limited novelty and task-specific models.} The algorithm is unchanged GRPO, and Hungarian matching is borrowed from DETR. Concurrent works such as Visual-RFT~\cite{liu2025visualrft} and VLM-R1~\cite{shen2025vlmr1} also apply GRPO with IoU-based rewards. Each task is trained as a separate model (Table~7), so the ``perception policy'' is in fact four specialists, and no multi-task model is reported. The ``meta task'' that the authors propose as the key to a perceptual ``Aha moment'' is not explored.
+    
+    \item \textbf{Baselines are narrow and detection is overclaimed.} Grounding results are compared mainly with LLaVA-series models, which are weak at localization, while grounding-oriented MLLMs such as Shikra~\cite{chen2023shikra} and Ferret~\cite{you2024ferret} are omitted, and all experiments use a single model family (Qwen). Detection further switches to the stronger Qwen2.5-VL-3B and uses all 110k COCO images (Table~7), whereas Sec.~4.3 states that 5k--10k samples are used per task. The claim of ``matching or even exceeding'' expert models holds only against YOLOv3 (27.9 AP), not Faster R-CNN (35.6) or DETR (42.0)~\cite{carion2020detr}; given one RL epoch versus 12--500 epochs, ``approaching classic detectors'' would be accurate.
+\end{enumerate}
+
+\section{Minor Weaknesses}
+\begin{enumerate}
+    \item \textbf{Inconsistent numbers.} In Table~5, \textit{w/o RL} reports 98.2 F1 on PageOCR, whereas the baseline in Table~2 is 94.4. \textit{w/o thinking} reports 28.1 AP on COCO, whereas \textit{RL only} reports 31.9 under the same setting. The \textit{SFT+RL} counting results are identical to the \textit{w/o reward matching} row. The abstract claims +4.2\% on PageOCR, but the F1 gain in Table~2 is 3.8\%.
+
+    \item \textbf{Missing settings.} How Euclidean distance is converted into a reward is not given. Eq.~(5) averages over the $N$ predictions, which would reward predicting fewer objects; detection counters this with F1 and missing rewards (Table~6), but no such fix is stated for counting. The weights for combining the detection rewards are not reported. Sec.~4.3 describes point-based counting, while the prompt in Table~8 and Fig.~3 use bounding boxes. The curriculum split and the rollout schedule are not specified, and the advantage in Eq.~(1) is not written out.
+
+    \item \textbf{No variance over seeds.} The checklist answers ``No'' for error bars. With a batch size of 1 and gaps of about 2\% on RefCOCO, mean and standard deviation over a few seeds are needed.
+
+    \item \textbf{Typos and clarity.} ``Tingshua'' (affiliations), ``experssion'' (Table~1), ``Accmulation'' (Sec.~4.3), ``Viusal'' (Table~3), ``benchamrks'' (Table~4), ``bipartitle'' (Sec.~5.2), and ``Percpetion'' (Figs.~3--6). Table~8 prompts ``90 categories of COCO'', although COCO defines 80 object classes; which classes are listed should be clarified.
+\end{enumerate}
+
+\section{Justification}
+Perception-R1 is a simple and effective framework. Reward matching gives large gains on counting and detection, and the SFT-versus-RL comparison is valuable to the community. Major~1 and~2 concern the explanation of the results rather than the results themselves, so I suggest Weak Accept. A set-based SFT baseline and an analysis of the thinking content in the rebuttal could raise my rating.
+
+(2026) Its core components (GRPO, IoU-based rewards, and Hungarian matching) are now common practice, each task still requires a separate model, and the paper finds no perceptual reasoning behavior. These limits lie in the framework and cannot be addressed by additional experiments. However, its empirical findings remain useful: when RL outperforms SFT, why explicit thinking fails on simple perception tasks, and how reward design shapes detection performance still inform how RL is applied to perception today. Weighing the outdated method against the lasting analysis, I suggest Borderline from today's point of view.
+
+\section{Final Rating}
+4: Weak Accept
+
+(2026) 3: Borderline
+
+\section{Reflections}
+At first I thought this paper was simply an application of GRPO with a few ablation studies, but after understanding it more deeply, I realized how cleverly its rewards are designed. Most papers I have read recently propose new frameworks or new AI methods, so seeing a classic bipartite matching algorithm gave me an unexpected sense of familiarity.
+
+I studied competitive programming in high school, and after encountering AI in university, I came to think that classic algorithms were outdated and that AI could solve most problems. However, I overlooked that every classic algorithm is the result of refinement by countless researchers, an efficient algorithm squeezed out when hardware was scarce.
+
+%%%%%%%%% REFERENCES
+{\small
+\bibliographystyle{ieee_fullname}
+\bibliography{egbib}
+
+
+}
+
+\end{document}
